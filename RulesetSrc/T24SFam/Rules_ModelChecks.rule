@@ -123,23 +123,21 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
 										else	PostError( "DwellUnit '%s' conditioned floor area (%g) must be equal to that of its referenced DwellUnitType '%s' (%g).", Name, CondFlrArea, DwellUnitTypeRef:Name, DwellUnitTypeRef:CondFlrArea )
 										endif endif endif endif  }
 
-  "Ensure user has confirmed home in service territory of selected Community Solar project"    Proj:Action =        ; SAC 7/3/20 (CommunitySolar)   ; SAC 01/25/25 (com tic #3651)  ; SAC 10/22/25 (dev #492)
-    { if (CommunitySolarProjID > 0 .AND. IfValidAnd( AnalysisVersion >= 250200 ) .AND. IfValidAnd( CUACReportID > 0 )==0)
-      then  PostError( "Community Solar is not available for code compliance (only for CUAC analysis)" )
-      else if (CommunitySolarProjID > 0 .AND. IfValidAnd( CmntySlrProjCZCompat > 0 )==0)
-      then  PostError( "Selected Community Solar project '%s' is not avaialble in %s", EnumString( CommunitySolarProject ), EnumString( ClimateZone ) )
-      else if (CommunitySolarProjID > 0 .AND. InCmntySlrProjTerritory < 1)
-      then  if (EnableResearchMode > 0 .OR. BypassRuleLimits > 0)
-            then  PostWarning( "Before valid analysis, user must acknowledge that this home/building is located within the service territory of the selected community solar project:   %s", EnumString( CommunitySolarProject ) )
-            else  PostError(   "User must acknowledge that this home/building is located within the service territory of the selected community solar project:   %s", EnumString( CommunitySolarProject ) )
-            endif
-      else if (CommunitySolarProjID > 0 .AND. CommunitySolarProject == 1 .AND.
-               IfValidAnd( SMUDSlrSharesReserved > 0 )==0)
-      then  if (EnableResearchMode > 0 .OR. BypassRuleLimits > 0)
-            then  PostWarning( "Before SMUD SolarShares analysis, user must acknowledge that this home/building is located within SMUD's territory and Neighborhood SolarShares have been reserved" )
-            else  PostError(   "User must acknowledge that this home/building is located within SMUD's territory and that Neighborhood SolarShares have been reserved" )
-            endif
-      else  UNCHANGED  endif endif endif endif  }
+   "Ensure user has confirmed home in service territory of selected Community Solar project"    Proj:Action =        ; SAC 7/3/20 (CommunitySolar)   ; SAC 01/25/25 (com tic #3651)
+      {  if (CommunitySolarProjID > 0 .AND. IfValidAnd( CmntySlrProjCZCompat > 0 )==0)
+         then  PostError( "Selected Community Solar project '%s' if not avaialble in %s", EnumString( CommunitySolarProject ), EnumString( ClimateZone ) )
+         else if (CommunitySolarProjID > 0 .AND. InCmntySlrProjTerritory < 1)
+         then  if (EnableResearchMode > 0 .OR. BypassRuleLimits > 0)
+               then  PostWarning( "Before valid analysis, user must acknowledge that this home/building is located within the service territory of the selected community solar project:   %s", EnumString( CommunitySolarProject ) )
+               else  PostError(   "User must acknowledge that this home/building is located within the service territory of the selected community solar project:   %s", EnumString( CommunitySolarProject ) )
+               endif
+         else if (CommunitySolarProjID > 0 .AND. CommunitySolarProject == 1 .AND.
+                  IfValidAnd( SMUDSlrSharesReserved > 0 )==0)
+         then  if (EnableResearchMode > 0 .OR. BypassRuleLimits > 0)
+               then  PostWarning( "Before SMUD SolarShares analysis, user must acknowledge that this home/building is located within SMUD's territory and Neighborhood SolarShares have been reserved" )
+               else  PostError(   "User must acknowledge that this home/building is located within SMUD's territory and that Neighborhood SolarShares have been reserved" )
+               endif
+         else  UNCHANGED  endif endif endif  }
 
    "Check for BattJA12Compliant confirmation when Battery present"  Proj:Action =         ; SAC 05/27/25 (tic #1395)
     { if( IfValidAnd( AnalysisVersion >= 250100 ) .AND. SimulateBattery > 0 .AND.
