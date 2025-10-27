@@ -8631,7 +8631,13 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
    "Set cf1rLscStandardDesign:Lsc02_LSC_StandardEfficiency"    cf1rLscStandardDesign:Lsc02_LSC_StandardEfficiency   = {  atof( Proj:ResultSummary[1]:Enduse11[7] )  }
    "Set cf1rLscStandardDesign:Lsc03_LSC_StandardTotal"         cf1rLscStandardDesign:Lsc03_LSC_StandardTotal        = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else atof( Proj:ResultSummary[1]:Enduse10[7] ) endif  }
    "Set cf1rLscStandardDesign:Lsc04_LSC_StandardSourceEnergy"  cf1rLscStandardDesign:Lsc04_LSC_StandardSourceEnergy = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else atof( Proj:ResultSummary[1]:Enduse10[32] ) endif  }
-   "Set cf1rLscStandardDesign:Lsc05_LSC_StandardPeakCooling"   cf1rLscStandardDesign:Lsc05_LSC_StandardPeakCooling  = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else Proj:ResultSummary[1]:StdPeakCoolElec endif  }
+   "Set cf1rLscStandardDesign:Lsc05_LSC_StandardPeakCooling"   cf1rLscStandardDesign:Lsc05_LSC_StandardPeakCooling  = { if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) 
+                                                                                                                        then UNDEFINED 
+                                                                                                                        else  if(Proj:AnalysisVersion < 250000) 
+                                                                                                                              then Proj:ResultSummary[1]:StdPeakCoolElec 
+                                                                                                                              else Proj:ResultSummary[1]:StdPeakCoolElecLimit 
+                                                                                                                              endif 
+                                                                                                                        endif  }   ; RJH 10/26/25 2025-CBECC-Res-Schema Issue 65
 
   ; Create cf1rLscProposedDesign object
    "Create & initialize new cf1rLscProposedDesign object"
@@ -8677,7 +8683,16 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[1], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[2], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[3]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[3]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[3], "" )  }
-   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[4]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[4]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[4], "" )  }
+   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[4]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[4]   = {   if (GlobalStatus( Proj:ResultSummary[1]:ResultsNotes[4] ) > 0) 
+                                                                                                                                                                              then  if (GlobalStatus( Proj:ResultSummary[1]:ResultsNotes[1] ) > 0) 
+                                                                                                                                                                                    then  if (Proj:ResultSummary[1]:ResultsNotes[4] == Proj:ResultSummary[1]:ResultsNotes[1])
+                                                                                                                                                                                          then UNDEFINED
+                                                                                                                                                                                          else ValidOr( Proj:ResultSummary[1]:ResultsNotes[4], "" )
+                                                                                                                                                                                          endif
+                                                                                                                                                                                    else ValidOr( Proj:ResultSummary[1]:ResultsNotes[4], "" )
+                                                                                                                                                                                    endif
+                                                                                                                                                                              else UNDEFINED
+                                                                                                                                                                              endif  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[6]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[6]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[6], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[7]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[7]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[7], "" )  }
