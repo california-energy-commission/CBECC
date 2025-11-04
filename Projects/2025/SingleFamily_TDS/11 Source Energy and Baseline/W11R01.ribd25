@@ -17,7 +17,7 @@ Proj   "2025 Prototype"
    ;DRtgDesignFuel = "Force Mixed Fuel"
    StandardsVersion = "Compliance 2026"
    ; ReportIncludeFile = "Export_File.txt"
-   ClimateZone = "CZ12  (Sacramento)"
+   ClimateZone = "CZ3  (Oakland)"
    Address = "1516 Ninth St"
    City = "Sacramento, CA"
    Zipcode = 95814
@@ -28,7 +28,7 @@ Proj   "2025 Prototype"
      InsulConsQuality = "Yes"
    ; InsulConsQuality = "Improved"
    NumBedrooms = 3
-   ; AllOrientations = 0
+     AllOrientations = 0
    FrontOrientation = 0
    GasType = "Natural Gas"
    UsePreCooling = 0
@@ -43,7 +43,7 @@ Proj   "2025 Prototype"
      ApplDryerFuel[1] = "Gas"
    PVSizeOption = "Standard Design PV"
    PVSizeMultiplier = 1
-     PVWDCSysSize = ( 2.42,
+     PVWDCSysSize = ( 2.17,
    ; PVWDCSysSize = ( 20,
     0, 0, 0, 0 )
 	DefaultReducedPVReq = 1
@@ -82,8 +82,8 @@ Zone   "Zone1"
 
 ExtWall   "Zone1WallFront"
    Orientation = "Front"
-   ;Area = *@F1* 364.5 - 180 - 0
-     Area = 364.5
+   ;Area = *@F1* 270.0 - 180 - 0
+     Area = 270.0
    ;    Area = 548
    Construction = "Exterior Wall Cons"
    Absorptivity = 0.5
@@ -96,8 +96,8 @@ Win   "Zone1WinFront"
      Multiplier = 7
    ;    Multiplier = 6.75
    NFRCUfactor = 0.27
-   NFRCSHGC = 0.23
-   OverhangDepth = 0
+   NFRCSHGC = 0.35
+   OverhangDepth = 1
    OverhangDistUp = 1.33
    OverhangExL = 3
    OverhangExR = 3
@@ -105,14 +105,14 @@ Win   "Zone1WinFront"
    ..
 
   Door   "Zone1DoorFront"  
-    Area = 5
+    Area = 20
     Ufactor = 0.2
     ..
 
 ExtWall   "Zone1WallLeft"  
    Orientation = "Left"
-   ;Area = *@F1* 364.5 - 90 - 0A
-     Area = 364.5
+   ;Area = *@F1* 324.0 - 90 - 0A
+     Area = 324.0
    ;    Area = 551
    Construction = "Exterior Wall Cons"
    Absorptivity = 0.5
@@ -121,26 +121,26 @@ ExtWall   "Zone1WallLeft"
 Win   "Zone1WinLeft"  
    Height = 5
    Width = 3
-     Multiplier = 7.0
+     Multiplier = 3.5
    ;    Multiplier = 3.375
    NFRCUfactor = 0.27
-   NFRCSHGC = 0.23
-   OverhangDepth = 0
+   NFRCSHGC = 0.35
+   OverhangDepth = 1
    OverhangDistUp = 1.33
    OverhangExL = 3
    OverhangExR = 3
    OverhangFlap = 0.4
    ..
 
-  Door   "Zone1DoorLeft"  
-    Area = 5
-    Ufactor = 0.2
-    ..
+; Door   "Zone1DoorLeft"  
+;   Area = 0
+;   Ufactor = 0.2
+;   ..
 
 ExtWall   "Zone1WallBack"  
    Orientation = "Back"
-   ;Area = *@F1* 364.5 - 0 - 0
-     Area = 364.5
+   ;Area = *@F1* 450.0 - 0 - 0
+     Area = 450.0
    ;    Area = 548
    Construction = "Exterior Wall Cons"
    Absorptivity = 0.5
@@ -149,26 +149,26 @@ ExtWall   "Zone1WallBack"
 Win   "Zone1WinBack" 
    Height = 5
    Width = 3
-     Multiplier = 7
+     Multiplier = 14
    ;    Multiplier = 13.5
    NFRCUfactor = 0.27
-   NFRCSHGC = 0.23
-   OverhangDepth = 0
+   NFRCSHGC = 0.35
+   OverhangDepth = 1
    OverhangDistUp = 1.33
    OverhangExL = 3
    OverhangExR = 3
    OverhangFlap = 0.4
    ..
 
-  Door   "Zone1DoorBack"  
-    Area = 5
-    Ufactor = 0.2
-    ..
+; Door   "Zone1DoorBack"  
+;   Area = 0
+;   Ufactor = 0.2
+;   ..
 
 ExtWall   "Zone1WallRight"  
    Orientation = "Right"
-   ;Area = *@F1* 364.5 - 0 - 0
-     Area = 364.5
+   ;Area = *@F1* 414.0 - 0 - 0
+     Area = 414.0
    ;    Area = 371
    Construction = "Exterior Wall Cons"
    Absorptivity = 0.5
@@ -177,21 +177,21 @@ ExtWall   "Zone1WallRight"
 Win   "Zone1WinRight"  
    Height = 5
    Width = 3
-     Multiplier = 7.0
+     Multiplier = 3.5
    ;    Multiplier = 3.375
    NFRCUfactor = 0.27
-   NFRCSHGC = 0.23
-   OverhangDepth = 0
+   NFRCSHGC = 0.35
+   OverhangDepth = 1
    OverhangDistUp = 1.33
    OverhangExL = 3
    OverhangExR = 3
    OverhangFlap = 0.4
    ..
 
-  Door   "Zone1DoorRight"  
-    Area = 5
-    Ufactor = 0.2
-    ..
+; Door   "Zone1DoorRight"  
+;   Area = 0
+;   Ufactor = 0.2
+;   ..
 
   CeilingBelowAttic   "Zone1ToAtticCeiling"  
      Area = 2100
@@ -287,8 +287,8 @@ Win   "Zone1WinRight"
 ;    Width = 3
 ;    Multiplier = 6.75
 ;   NFRCUfactor = 0.27
-;    NFRCSHGC = 0.23
-;    OverhangDepth = 0
+;    NFRCSHGC = 0.35
+;    OverhangDepth = 1
 ;    OverhangDistUp = 1.33
 ;    OverhangExL = 3
 ;    OverhangExR = 3
@@ -296,7 +296,7 @@ Win   "Zone1WinRight"
 ;    ..
 
 ;   Door   "Zone2DoorFront"  
-;     Area = 5
+;     Area = 20
 ;     Ufactor = 0.2
 ;     ..
 
@@ -312,18 +312,18 @@ Win   "Zone1WinRight"
 ;    Width = 3
 ;    Multiplier = 3.375
 ;   NFRCUfactor = 0.27
-;    NFRCSHGC = 0.23
-;    OverhangDepth = 0
+;    NFRCSHGC = 0.35
+;    OverhangDepth = 1
 ;    OverhangDistUp = 1.33
 ;    OverhangExL = 3
 ;    OverhangExR = 3
 ;    OverhangFlap = 0.4
 ;    ..
 
-;   Door   "Zone2DoorLeft"  
-;     Area = 5
-;     Ufactor = 0.2
-;     ..
+; ; Door   "Zone2DoorLeft"  
+; ;   Area = 0
+; ;   Ufactor = 0.2
+; ;   ..
 
 ; ExtWall   "Zone2WallBack"
 ;    Orientation = "Back"
@@ -337,8 +337,8 @@ Win   "Zone1WinRight"
 ;    Width = 3
 ;    Multiplier = 13.5
 ;   NFRCUfactor = 0.27
-;    NFRCSHGC = 0.23
-;    OverhangDepth = 0
+;    NFRCSHGC = 0.35
+;    OverhangDepth = 1
 ;    OverhangDistUp = 1.33
 ;    OverhangExL = 3
 ;    OverhangExR = 3
@@ -348,10 +348,10 @@ Win   "Zone1WinRight"
 ;    LeftFinDistL = 1
 ;    ..
 
-;   Door   "Zone2DoorBack"  
-;     Area = 5
-;     Ufactor = 0.2
-;     ..
+; ; Door   "Zone2DoorBack"  
+; ;   Area = 0
+; ;   Ufactor = 0.2
+; ;   ..
 
 ; ExtWall   "Zone2WallRight"
 ;    Orientation = "Right"
@@ -365,8 +365,8 @@ Win   "Zone1WinRight"
 ;    Width = 3
 ;    Multiplier = 3.375
 ;   NFRCUfactor = 0.27
-;    NFRCSHGC = 0.23
-;    OverhangDepth = 0
+;    NFRCSHGC = 0.35
+;    OverhangDepth = 1
 ;    OverhangDistUp = 1.33
 ;    OverhangExL = 3
 ;    OverhangExR = 3
@@ -376,10 +376,10 @@ Win   "Zone1WinRight"
 ;    LeftFinDistL = 1
 ;    ..
 
-;   Door   "Zone2DoorRight"  
-;     Area = 5
-;     Ufactor = 0.2
-;     ..
+; ; Door   "Zone2DoorRight"  
+; ;   Area = 0
+; ;   Ufactor = 0.2
+; ;   ..
 
 ; CeilingBelowAttic   "Zone2ToAtticCeiling"
 ;    Area = 2100
@@ -409,7 +409,7 @@ Win   "Zone1WinRight"
 Attic   "Attic"
    Type = "Ventilated"  
    Construction = "Attic Roof Cons"
-   RoofSolReflect = 0.2
+   RoofSolReflect = 0.1
    RoofEmiss = 0.85
    ;FractionHigh = 0
    ..
@@ -438,51 +438,51 @@ EnergyUse   "EU-Total"
 
     ExtWall   "GarageWallFront"  
        Orientation = "Front"
-       Area = 121.5
+       Area = 180.0
        Construction = "Garage Ext Wall Cons"
        Absorptivity = 0.5
        ..
 
       Door   "GarageCarDoorFront"  
-         Area = 32
+         Area = 128
          Ufactor = 1
          ..
 
     ExtWall   "GarageWallLeft"  
       Orientation = "Left"
-       Area = 121.5
+       Area = 198.0
        Construction = "Garage Ext Wall Cons"
        Absorptivity = 0.5
        ..
 
-      Door   "GarageCarDoorLeft"  
-         Area = 32
-         Ufactor = 1
-         ..
+    ; Door   "GarageCarDoorLeft"  
+    ;    Area = 0
+    ;    Ufactor = 1
+    ;    ..
 
-    ExtWall   "GarageWallBack"  
-       Orientation = "Back"
-       Area = 121.5
-       Construction = "Garage Ext Wall Cons"
-       Absorptivity = 0.5
-       ..
+  ; ExtWall   "GarageWallBack"  
+  ;    Orientation = "Back"
+  ;    Area = 0.0
+  ;    Construction = "Garage Ext Wall Cons"
+  ;    Absorptivity = 0.5
+  ;    ..
 
-      Door   "GarageCarDoorBack"  
-         Area = 32
-         Ufactor = 1
-         ..
+  ; ; Door   "GarageCarDoorBack"  
+  ; ;    Area = 0
+  ; ;    Ufactor = 1
+  ; ;    ..
 
     ExtWall   "GarageWallRight"  
        Orientation = "Right"
-       Area = 121.5
+       Area = 108.0
        Construction = "Garage Ext Wall Cons"
        Absorptivity = 0.5
        ..
 
-      Door   "GarageCarDoorRight"  
-         Area = 32
-         Ufactor = 1
-         ..
+    ; Door   "GarageCarDoorRight"  
+    ;    Area = 0
+    ;    Ufactor = 1
+    ;    ..
 
   SlabFloor   "GarageSlab"  
      Area = 440
@@ -498,7 +498,7 @@ EnergyUse   "EU-Total"
 
   Attic   "GarageAttic"  
      Construction = "Garage Attic Roof Cons"
-     RoofSolReflect = 0.2
+     RoofSolReflect = 0.1
      RoofEmiss = 0.85
      ..
 
@@ -581,7 +581,7 @@ Cons   "Exterior Wall Cons"
 Cons   "Ceiling Below Attic Cons"  
    CanAssignTo = "Ceilings (below attic)"
    InsideFinishLayer = "Gypsum Board"
-   CavityLayer = "R 38"
+   CavityLayer = "R 30"
    RaisedHeelTruss = 0
    ..
 
@@ -595,12 +595,12 @@ Cons   "Attic Roof Cons"
    CanAssignTo = "Attic Roofs"
    RoofingLayer = "10 PSF (RoofTile)"
    AbvDeckInsulLayer = "- no insulation -"
-     CavityLayer = "R 19"
-   ; CavityLayer = "R 19"
+     CavityLayer = "- no insulation -"
+   ; CavityLayer = "- no insulation -"
    FrameLayer = "2x4 @ 24 in. O.C."
    RoofingType = "Steep Slope Roof tile, metal tile, or wood shakes"
-     RadiantBarrier = 0
-   ; RadiantBarrier = 0
+     RadiantBarrier = 1
+   ; RadiantBarrier = 1
    CavInsulOverFrame = 0
    ..
 
@@ -968,26 +968,25 @@ HVACCool   "CoolingComponent"
    SEER2 = 14.3
    EER2 = 11.7
    CFMperTon = 350
-   ACCharge = "Verified"
+   ACCharge = "Not Verified"
    AutoSize = 1
    UseEERinAnalysis = 1
    ..
 
-HVACHtPump   "HeatpumpSystem"
-BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split heat pump"
+HVACHtPump   "HeatpumpSystem"  
+    Type = "SplitHeatPump - Central split heat pump"
 ;   Type = "VCHP - Meets requirements of the VCHP compliance option"
    EffMetric = "HSPF2/SEER2/EER2"
    HSPF2 = 7.5
    Autosize = 1
-   Cap47 = 36000
-   Cap17 = 22536 
-   Cap95 = 36551
+  ; Cap47 = 36000
+  ; Cap17 = 24000
 ;   Cap47 = 18000
 ;   Cap17 = 12000
    SEER2 = 14.3
    EER2 = 11.7
    CFMperTon = 350
-   ACCharge = "Verified"
+   ACCharge = "Not Verified"
    RefrigerantType = "R410A"
    HtgSizingFactor = 1.2
    ClSizingFactor =  1.2
@@ -1002,7 +1001,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
      DefaultSystem = 1
      DuctLeakage = "Sealed and tested"
      DuctLeakageVal = 5
-     ;DuctInsRvalOpt = "6"
+     ;DuctInsRvalOpt = "8"
      SupplyDuctArea = 0
      ReturnDuctArea = 0
      DuctDesign = 0
@@ -1037,7 +1036,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "9 in"
 ;        Length = 14.3
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1049,7 +1048,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "8 in"
 ;        Length = 13.9
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1061,7 +1060,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "8 in"
 ;        Length = 2.9
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1073,7 +1072,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "9 in"
 ;        Length = 12.3
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1085,7 +1084,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "8 in"
 ;        Length = 10.2
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1097,7 +1096,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "9 in"
 ;        Length = 18
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1109,7 +1108,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "9 in"
 ;        Length = 13.6
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1121,7 +1120,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "18 in"
 ;        Length = 8.1
 ;        InsulRValue = "R-6"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "n/a"
 ;        Status = "New"
@@ -1133,7 +1132,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ;        Diameter = "8 in"
 ;        Length = 5.8
 ;        InsulRValue = "R-8"
-;        AtticInsulRValue = "R-38"
+;        AtticInsulRValue = "R-30"
 ;        AtticInsulType = "Fiberglass"
 ;        ContainmentSystem = "not required"
 ;        Status = "New"
@@ -1145,7 +1144,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "5 in"
 ; ;      Length = 7.9
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1157,7 +1156,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "5 in"
 ; ;      Length = 6.5
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1169,7 +1168,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "6 in"
 ; ;      Length = 20.7
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1181,7 +1180,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "10 in"
 ; ;      Length = 25.5
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1193,7 +1192,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "9 in"
 ; ;      Length = 17.1
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1205,7 +1204,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "5 in"
 ; ;      Length = 7
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1217,7 +1216,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "8 in"
 ; ;      Length = 11.5
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1229,7 +1228,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "8 in"
 ; ;      Length = 12.7
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1241,7 +1240,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "7 in"
 ; ;      Length = 12.5
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1253,7 +1252,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "12 in"
 ; ;      Length = 20.3
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "not required"
 ; ;      Status = "New"
@@ -1265,7 +1264,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "20 in"
 ; ;      Length = 5.5
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "n/a"
 ; ;      Status = "New"
@@ -1277,7 +1276,7 @@ BackupOption = "Electric Resistance"    Type = "SplitHeatPump - Central split he
 ; ;      Diameter = "14 in"
 ; ;      Length = 4.3
 ; ;      InsulRValue = "R-8"
-; ;      AtticInsulRValue = "R-38"
+; ;      AtticInsulRValue = "R-30"
 ; ;      AtticInsulType = "Fiberglass"
 ; ;      ContainmentSystem = "n/a"
 ; ;      Status = "New"
