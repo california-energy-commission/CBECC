@@ -711,10 +711,12 @@ RULE CoilHtg:RtdInletAirTemp
           then  ParentSysRef:HtgDsgnSupAirTemp
           else  if( ParentSysRef:SysVentFlow > 0 )
                 then  if( LocalCompAssigned( ParentSysRef:MaxAreaThrmlZnRef ) )
-                      then  Proj:DsgnHtgDBT * ParentSysRef:SysOARat + 
-                            ParentSysRef:MaxAreaThrmlZnRef:HtgTstatSchMaxVal * ( 1 - ParentSysRef:SysOARat )
-                      else  Proj:DsgnHtgDBT * ParentSysRef:SysOARat + 
-                            70 * ( 1 - ParentSysRef:SysOARat )
+                      then  min( Proj:DsgnHtgDBT * ParentSysRef:SysOARat + 
+                                 ParentSysRef:MaxAreaThrmlZnRef:HtgTstatSchMaxVal * ( 1 - ParentSysRef:SysOARat ),
+                                 RtdOutletAirTemp - 15 ) ; ensure a minimum 15°F delta T across the heating coil
+                      else  min ( Proj:DsgnHtgDBT * ParentSysRef:SysOARat + 
+                                  70 * ( 1 - ParentSysRef:SysOARat ),
+                                  RtdOutletAirTemp - 15 )
                       endif
                 else  if( LocalCompAssigned( ParentSysRef:MaxAreaThrmlZnRef ) )
                       then  ParentSysRef:HtgDsgnSupAirTemp - ParentSysRef:MaxAreaThrmlZnRef:HtgDsgnSupAirTempDiff
