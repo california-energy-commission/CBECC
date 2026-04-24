@@ -434,7 +434,6 @@ RULELIST "ProposedInput_DHWEquipment" 0 0 0 0
                case 129 :  1      ; "NyleC250A_CWP_MP"
                case 401 :  1      ; "IceAir_ccHPWH275D_MP"      ; SAC 03/05/26 (dev #736)
                case 402 :  1      ; "IceAir_ccHPWH550D_MP"
-               ; no need to add additional Central HPWHs here, as this is no longer used to impact UI or analysis - SAC 08/03/26 (dev #965)
                default :  0
             endswitch  endif endif  }
    ; added default (Std design) logic to locate in garage if present - SAC 03/31/22 (Res tic #1327)
@@ -2179,96 +2178,6 @@ RULELIST "ProposedInput_DHWEquipment" 0 0 0 0
       {  if (CentralDHWTypeVal == 2 .AND. IfValidAnd( CHPWHNumCompFlt > 0 ) .AND.
              IfValidAnd( FloorAreaServed[1] > 0 ) .AND. LocalStatus( CHPWHErrMsg ) < 1)
          then  1  else  UNDEFINED  endif  }
-
-
-    ; logic in setting CHPWH_MMVLookup below based on table included in gh issue #942 - SAC 08/01/26  ; fixed typo - SAC 08/03/26 (dev #942)
-    ;   Primary Type            Secondary Config      Sec Tank Type         Tbl Lookup string   ACM Table Row
-    ;   CHPWHSysDescrip         CHPWHLoopTankConfig   CHPWHLoopTankType     CHPWH_MMVLookup
-    ;   ------------------------------------------------------------------------------------------------------
-    ;   Single Pass Prim        none                  n/a                   SPassPrim-PrimTank  Single-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Single Pass Prim        Series (swing)        Elec Resist           SPassPrim-SResist   Single-Pass Prim w/ Recirc Return to Series Elec Resist
-    ;   Single Pass Prim        Series (swing)        Integrated/Pckgd Sys  SPassPrim-SResist   Single-Pass Prim w/ Recirc Return to Series Elec Resist
-    ;   Single Pass Prim        Series (swing)        Single Pass Prim      SPassPrim-SResist   Single-Pass Prim w/ Recirc Return to Series Elec Resist
-    ;   Single Pass Prim        Series (swing)        Multi-Pass Prim       SPassPrim-SResist   Single-Pass Prim w/ Recirc Return to Series Elec Resist
-    ;   Single Pass Prim        Parallel              Elec Resist           SPassPrim-Parallel  Single-Pass Prim w/ Recirc Return to Parallel HPWH
-    ;   Single Pass Prim        Parallel              Integrated/Pckgd Sys  SPassPrim-Parallel  Single-Pass Prim w/ Recirc Return to Parallel HPWH
-    ;   Single Pass Prim        Parallel              Single Pass Prim      SPassPrim-Parallel  Single-Pass Prim w/ Recirc Return to Parallel HPWH
-    ;   Single Pass Prim        Parallel              Multi-Pass Prim       SPassPrim-Parallel  Single-Pass Prim w/ Recirc Return to Parallel HPWH
-    ;   -------------------------------------------------------------------------------------------------------------------------------------------
-    ;   Multi-Pass Prim         none                  n/a                   MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Series (swing)        Elec Resist           MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Series (swing)        Integrated/Pckgd Sys  MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Series (swing)        Single Pass Prim      MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Series (swing)        Multi-Pass Prim       MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Parallel              Elec Resist           MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Parallel              Integrated/Pckgd Sys  MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Parallel              Single Pass Prim      MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   Multi-Pass Prim         Parallel              Multi-Pass Prim       MPassPrim-PrimTank  Multi-Pass Prim w/ Recirc Return to Primary Tank
-    ;   -----------------------------------------------------------------------------------------------------------------------------------------
-    ;   Integrated/Pckgd Sys    none                  n/a                   MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Series (swing)        Elec Resist           MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Series (swing)        Integrated/Pckgd Sys  MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Series (swing)        Single Pass Prim      MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Series (swing)        Multi-Pass Prim       MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Parallel              Elec Resist           MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Parallel              Integrated/Pckgd Sys  MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Parallel              Single Pass Prim      MPassInteg          Multi-Pass Integrated HPWH
-    ;   Integrated/Pckgd Sys    Parallel              Multi-Pass Prim       MPassInteg          Multi-Pass Integrated HPWH
-    ;   -------------------------------------------------------------------------------------------------------------------
-  "set ResDHWSys:CHPWH_MMVLookup"     ResDHWSys:CHPWH_MMVLookup =
-    { if( CentralDHWTypeVal == 2 .AND. CHPWHSysDescrip > 0 )
-      then  switch( CHPWHSysDescrip )
-            case  2 :                                     ; Single Pass Primary
-                      if( CHPWHLoopTankConfig == 0 )          ; Config = None
-                      then  "SPassPrim-PrimTank"
-                      else if( CHPWHLoopTankConfig == 1 )     ; Config = Series (Swing)
-                      then  "SPassPrim-SResist"
-                      else  "SPassPrim-Parallel"              ; Config = Parallel
-                      endif endif
-            case  3 :                                     ; Multi-Pass Primary
-                      "MPassPrim-PrimTank"
-            case  1 :                                     ; Integrated/Pckgd Sys
-                      "MPassInteg"
-            default :  UNDEFINED
-            endswitch
-      else  UNDEFINED  endif  }
-  ; replaced ResProj:RunScope checks w/ Proj:CompOptNew > 0 & ResProj:IsMultiFamily w/ NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
-  ; revised logic to set adjustment based on no MMV for cases where this input is not avaialble to the user - SAC 08/20/26 (dev #942)
-  "set ResDHWSys:CntrlDWHFAdjElec[1] (DT < 7)"      ResDHWSys:CntrlDWHFAdjElec[1] =   ; SAC 08/01/26 (dev #942)   ; fixed rule eval err - SAC 08/03/26
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
-          IfValidAnd( CentralRecircType > 0.5 )==0 )
-      then  if( LocalStatus( CHPWH_MMVLookup ) > 0 )
-            then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 6, "MMVType", "NoMasterMixValve" )
-            else  UNDEFINED  endif
-      else if( LocalStatus( CHPWH_MMVLookup ) > 0 )
-      then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 6, "MMVType", EnumString( MasterMixingValve ) )
-      else  1  endif endif  }
-  "set ResDHWSys:CntrlDWHFAdjElec[2] (DT >= 7)"     ResDHWSys:CntrlDWHFAdjElec[2] =
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
-          IfValidAnd( CentralRecircType > 0.5 )==0 )
-      then  if( LocalStatus( CHPWH_MMVLookup ) > 0 )
-            then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 8, "MMVType", "NoMasterMixValve" )
-            else  UNDEFINED  endif
-      else if( LocalStatus( CHPWH_MMVLookup ) > 0 )
-      then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 8, "MMVType", EnumString( MasterMixingValve ) )
-      else  1  endif endif  }
-
-  ; replaced ResProj:RunScope checks w/ Proj:CompOptNew > 0 & ResProj:IsMultiFamily w/ NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
-  ; revised logic to set adjustment to 1.03 (no MMV) for cases where this input is not avaialble to the user - SAC 08/20/26 (dev #942)
-  "set ResDHWSys:CntrlDWHFAdjFuel[1] (DT < 7)"      ResDHWSys:CntrlDWHFAdjFuel[1] =   ; SAC 08/01/26 (dev #942)
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
-          IfValidAnd( CentralRecircType > 0.5 )==0 .OR. IfValidAnd( NumFuelHeaters > 0 )==0 )
-      then  1.03
-      else if( MasterMixingValve < 1 )
-      then  1.03      ; no MMV
-      else  1  endif endif  }
-  "set ResDHWSys:CntrlDWHFAdjFuel[2] (DT >= 7)"     ResDHWSys:CntrlDWHFAdjFuel[2] = 
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
-          IfValidAnd( CentralRecircType > 0.5 )==0 .OR. IfValidAnd( NumFuelHeaters > 0 )==0 )
-      then  1.03
-      else if( MasterMixingValve < 1 )
-      then  1.03      ; no MMV
-      else  1  endif endif  }
 
 
    ; ----- DEMAND RESPONSE HPWHs -----

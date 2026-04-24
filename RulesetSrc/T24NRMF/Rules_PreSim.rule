@@ -207,36 +207,12 @@ RULELIST "EPlus_PreSim_HtRcvryRetAirResetTempCtrl" 1 0 0 0
       
   "Add EnergyManagementSystem:Actuator to HtRcvry outlet node" HtRcvry:Action = {
       if( IfValidAnd( TempCtrl = "ReturnAirReset" ) .AND. IfValidAnd( ServesResZn > 0 ) = 0 )
-      then if( Proj:AnalysisVersion >= 250000 ) 
-           then WriteToSimInput( Format( "EnergyManagementSystem:Actuator, \n\n" ) +
-                                 Format( "  %s_Setpoint,\t!- Name \n\n", EPlusEMSName ) +
-                                 Format( "  %s Setpoint,\t!- Actuated Component Unique Name \n\n", Name ) +
-                                 Format( "  Schedule:Constant,\t!- Actuated Component Type \n\n" ) +
-                                 Format( "  Schedule Value%c\t!- Actuated Component Control Type \n\n\n", 59 ) )
-           else WriteToSimInput( Format( "EnergyManagementSystem:Actuator, \n\n" ) +
-                                 Format( "  %s_Setpoint,\t!- Name \n\n", EPlusEMSName ) +
-                                 Format( "  %s Setpoint,\t!- Actuated Component Unique Name \n\n", Name ) +
-                                 Format( "  Schedule:Year,\t!- Actuated Component Type \n\n" ) +
-                                 Format( "  Schedule Value%c\t!- Actuated Component Control Type \n\n\n", 59 ) )
-           endif
+      then WriteToSimInput( Format( "EnergyManagementSystem:Actuator, \n\n" ) +
+                            Format( "  %s_Setpoint,\t!- Name \n\n", EPlusEMSName ) +
+                            Format( "  %s Setpoint,\t!- Actuated Component Unique Name \n\n", Name ) +
+                            Format( "  Schedule:Year,\t!- Actuated Component Type \n\n" ) +
+                            Format( "  Schedule Value%c\t!- Actuated Component Control Type \n\n\n", 59 ) )
       else UNCHANGED endif }
-
-  "Add SetpointManager:Scheduled to HtRcvry outlet node" HtRcvry:Action = {
-      if( IfValidAnd( TempCtrl = "ReturnAirReset" ) .AND. IfValidAnd( ServesResZn > 0 ) = 0 .AND. Proj:AnalysisVersion >= 250000 )
-      then WriteToSimInput( Format( "SetpointManager:Scheduled, \n\n" ) +
-                            Format( "  %s Setpoint,\t!- Name \n\n", Name ) +
-                            Format( "  Temperature,\t!- Control Variable \n\n" ) +
-                            Format( "  %s Setpoint,\t!- Schedule Name \n\n", Name ) +
-                            Format( "  %s OA Stream Outlet Node%c\t!- Setpoint Node \n\n\n", Name, 59 ) )
-      else UNCHANGED endif } 
-
-  "Add Schedule:Constant for HtRcvry" HtRcvry:Action = {
-      if( IfValidAnd( TempCtrl = "ReturnAirReset" ) .AND. IfValidAnd( ServesResZn > 0 ) = 0 .AND. Proj:AnalysisVersion >= 250000 )
-      then WriteToSimInput( Format( "Schedule:Constant, \n\n" ) +
-                            Format( "  %s Setpoint,\t!- Name \n\n", Name ) +
-                            Format( "  Temperature,\t!- Schedule Type Limits Name \n\n" ) +
-                            Format( "  70.0%c\t!- Hourly Value \n\n\n", 59 ) )
-        else UNCHANGED endif } 
     
   "Add EnergyManagementSystem:Program to HtRcvry outlet node" HtRcvry:Action = {
       if( IfValidAnd( TempCtrl = "ReturnAirReset" ) .AND. IfValidAnd( TempSetptRstRetLowSim != TempSetptRstRetHiSim ) .AND. IfValidAnd( ServesResZn > 0 ) = 0 )

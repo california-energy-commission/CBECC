@@ -893,25 +893,6 @@ RULELIST "CSE_SimulationPrep_DHW_part2" 1 0 0 1
 ;																									then	1 + ((wsSDLM - 1) * SourceDHWSys:DistribSysMult)
 ;																									else	1.0  endif  }
 
-  "set cseDHWSYS:wsFAdjElec_x - adjustment to Elec use related to MMV type"   cseDHWSYS:wsFAdjElec_x =        ; SAC 08/01/26 (dev #942)
-    { if( LocalCompAssigned( wsCentralDHWSYS ) < 1 .AND.
-          IfValidAnd( SourceDHWSys:CntrlDWHFAdjElec[1] > 0 ) .AND.
-          IfValidAnd( SourceDHWSys:CntrlDWHFAdjElec[2] > 0 ) )
-      then  if( SourceDHWSys:CntrlDWHFAdjElec[1] == SourceDHWSys:CntrlDWHFAdjElec[2] )
-            then  Format( "%g" , SourceDHWSys:CntrlDWHFAdjElec[1] )
-            else  Format( "@DHWSYS[ %c%s%c].loopDeltaTlh < 7 ? %g : %g", 34, Name, 34, SourceDHWSys:CntrlDWHFAdjElec[1], SourceDHWSys:CntrlDWHFAdjElec[2] )
-            endif
-      else  UNDEFINED  endif  }
-  "set cseDHWSYS:wsFAdjFuel_x - adjustment to Fuel use related to MMV type"   cseDHWSYS:wsFAdjFuel_x = 
-    { if( LocalCompAssigned( wsCentralDHWSYS ) < 1 .AND.
-          IfValidAnd( SourceDHWSys:CntrlDWHFAdjFuel[1] > 0 ) .AND.
-          IfValidAnd( SourceDHWSys:CntrlDWHFAdjFuel[2] > 0 ) )
-      then  if( SourceDHWSys:CntrlDWHFAdjFuel[1] == SourceDHWSys:CntrlDWHFAdjFuel[2] )
-            then  Format( "%g" , SourceDHWSys:CntrlDWHFAdjFuel[1] )
-            else  Format( "@DHWSYS[ %c%s%c].loopDeltaTlh < 7 ? %g : %g", 34, Name, 34, SourceDHWSys:CntrlDWHFAdjFuel[1], SourceDHWSys:CntrlDWHFAdjFuel[2] )
-            endif
-      else  UNDEFINED  endif  }
-
 // TO DO - account for Monthly solar fractions ??
 // TO DO - add in HRDLk (hourly recirculation distribution loss (btu))
 ;	"Set cseDHWSYS:HrlyAdjRecovLoad"		cseDHWSYS:HrlyAdjRecovLoad		= {	if (LocalCompAssigned( SourceDHWSys ) > 0.5)
@@ -1023,7 +1004,6 @@ RULELIST "CSE_SimulationPrep_DHW_part2" 1 0 0 1
 
    ; SAC 1/7/19 - separate SFam vs. MFam cseDHWHEATREC creation & setup
    ; added logic to handle creation of cseDHWHEATREC for Hotel/Motel guestroom systems - SAC 03/11/22
-   ; revise logic to allow creation of DWHR systems for Hotel/Motel guestrooms served by central DHW systems serving > 8 rooms - SAC 05/01/26 (dev #127)
    "Setup cseDHWHEATRECs for cseDHWSYS"   cseDHWSYS:Action  = {
          if (Proj:IsSFamResRuleset)
          then  if (IfValidAnd( SourceDHWSys:SimDHWSys > 0.5 )==0 .OR.
@@ -1032,7 +1012,8 @@ RULELIST "CSE_SimulationPrep_DHW_part2" 1 0 0 1
                endif
          else  if (IfValidAnd( DUTypeDHWSysIndex > 0 )) 
                then  EvalRulelist( "Setup_cseDHWHEATREC_MFam", 1 )
-               else if (IfValidAnd( SourceDwellUnitDHW:ResSpcDHWFeaturesRef:NumResDWHRSysRefs > 0 ))
+               else if (IfValidAnd( SourceDwellUnitDHW:ResSpcDHWFeaturesRef:AllowShowerDWHR > 0 ) .AND.
+                        IfValidAnd( SourceDwellUnitDHW:ResSpcDHWFeaturesRef:NumResDWHRSysRefs > 0 ))
                then  EvalRulelist( "Setup_cseDHWHEATREC_NRes", 1 )
                else  UNCHANGED
                endif endif
@@ -2955,24 +2936,7 @@ RULELIST "CSE_SimulationPrep_DHWLoop" 1 0 0 1
          then  0.17 * (ValidOr( SourceDHWSys:NumAssignedDUFracs, 0 ) +
                        ValidOr( SourceDHWSys:NumAssignedCommonDUEquiv, 0 ))
          else  6  endif endif  }
-   ; DVK 7/31/26 - CBECC-Dev Issue #944 - wlFUA now varies by Std/Proposed + VerifiedPipeInsulation per 2025 ACM
-   ; DVK 8/19/26 - CEC scope: central DHW serving dwelling units and/or hotel/motel guestrooms (NumAssignedDUFracs);
-   ;               not systems serving only multifamily common areas.
-   ; added check for Proj:CompOptNew > 0 - SAC 08/19/26 (dev #944)
-   ; In-scope Std (DUs/guestrooms, not existing): Verified 2.0. In-scope Proposed New: 2.0 if
-   ; VerifiedPipeInsulation checked, else 2.4. Out of scope / input hidden: 2.4 (not verified) per
-   ; DTamHPWH 8/21/26 on PR 1017. - DVK 8/21/26
-   "Set cseDHWLOOP:wlFUA"      cseDHWLOOP:wlFUA     = {
-         if( IfValidAnd( Proj:SimulateStdDHW > 0.5 ) .AND. IfValidAnd( SourceDHWSys:IsExisting > 0.5 )==0 .AND.
-             IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ) .AND. IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND.
-             (ResProj:RunAbbrev == "s" .OR. ResProj:RunAbbrev == "zb" .OR. ResProj:RunAbbrev == "smf" .OR. ResProj:RunAbbrev == "dr") )
-         then  2.0   ; verified pipe insulation (in-scope Std)
-         else if (IfValidAnd( SourceDHWSys:CentralRecircType > 0.5 ) .AND. IfValidAnd( SourceDHWSys:NumAssignedDUFracs > 0.5 ) .AND.
-                  IfValidAnd( Proj:CompOptNew > 0 ))
-              then  if (IfValidAnd( SourceDHWSys:VerifiedPipeInsulation > 0.5 )) then  2.0
-                    else  2.4  endif
-         else  2.4   ; out of scope / input hidden: not verified
-         endif endif  }
+   "Set cseDHWLOOP:wlFUA"      cseDHWLOOP:wlFUA     = {  2.0  }
 
    ; based on Res ACM table B-3
    "Set cseDHWLOOP:wlTIn1"     cseDHWLOOP:wlTIn1    = {
@@ -3070,7 +3034,6 @@ RULELIST "CSE_SimulationPrep_DHWLoopSeg" 1 0 0 1
          else   1      ; supply
          endif  }
    ; based on Res ACM method WH-LOOPSZ   ; mods to take into account NumResOtherZnsServed - SAC 03/17/23 (tic #3418)
-   ; revised logic to ensure all dwellings included for all segments in ver 2025.3.0+ - SAC 08/14/26 (dev #943)
    "Set cseDHWLOOPSEG:NUnitThisSeg"
       cseDHWLOOPSEG:NUnitThisSeg = {
          if ( ( IfValidAnd( SourceDHWSys:NumDUsServed > 0 )==0 .AND.
@@ -3079,27 +3042,26 @@ RULELIST "CSE_SimulationPrep_DHWLoopSeg" 1 0 0 1
          then  -1  ; ERROR
          else if (IfValidAnd( SegmentIndex < 4 )==0)
          then  0      ; no NUnit... for segments 4-6
-         else if (IfValidAnd( SegmentIndex < 3 ) .OR.
-                  IfValidAnd( Proj:AnalysisVersion >= 250300 ))
+         else if (IfValidAnd( SegmentIndex < 3 ))
          then   (SourceDHWSys:NumDUsServed + SourceDHWSys:NumResOtherZnsServed) / wlMult
          else   (SourceDHWSys:NumDUsServed + SourceDHWSys:NumResOtherZnsServed) / wlMult / 2
          endif endif endif  }
-  ; removed logic setting Return seg diam to 1.0 when ResProj:NumStories > 4 for consistency w/ current RACM Appendix B - SAC 08/21/26 (dev #943)
-  ;             if (IfValidAnd( ResProj:NumStories > 4 ))
-  ;             then   1.0
-  "Set cseDHWLOOPSEG:wgSize"
+   "Set cseDHWLOOPSEG:wgSize"
       cseDHWLOOPSEG:wgSize = {
          if (IfValidAnd( SourceDHWSys:MFamDistType < 1 )) then  2.0
          else if (IfValidAnd( SegmentIndex > 3 ))
          then   ; RETURN pipe segments
-               0.75
+               if (IfValidAnd( ResProj:NumStories > 4 ))
+               then   1.0
+               else   0.75
+               endif
          else   ; SUPPLY pipe segments
                if (IfValidAnd( NUnitThisSeg > 0 ))
-               then   T24RDHW_LoopPipeSize:PipeDiam( "CodeBase", Proj:StdDesignBase, "CPC_AppM", ValidOr( SourceDHWSys:PipeSizingPerCPCAppM, 0 ),
-                                                      "NUnit", NUnitThisSeg, "SegIdx", ValidOr( SegmentIndex, 1 ) )
+               then   T24RDHW_LoopPipeSize:PipeDiam( "CodeBase", Proj:StdDesignBase,
+                                                      "NUnit", NUnitThisSeg, "IsBranch", "No" )
                else   UNDEFINED      ; error
                endif
-         endif endif  }   ; revised T24RDHW_LoopPipeSize table - SAC 08/13/26 (dev #943)
+         endif endif  }
 
    ; based on Res ACM method WH-LOOPLEN
    ; SAC 8/1/16 - fixed formula for AvgFloorHeight - replaced NumStories in denominator w/ (NumStories-1)
@@ -3331,10 +3293,10 @@ RULELIST "CSE_SimulationPrep_DHWLoopBranch" 1 0 0 1
    "Set cseDHWLOOPBRANCH:wbSize"
       cseDHWLOOPBRANCH:wbSize = {
          if (IfValidAnd( NUnitThisBranch > 0 ))
-         then   T24RDHW_LoopPipeSize:PipeDiam( "CodeBase", Proj:StdDesignBase, "CPC_AppM", ValidOr( SourceDHWSys:PipeSizingPerCPCAppM, 0 ),
-                                                "NUnit", NUnitThisBranch, "SegIdx", 0 )
+         then   T24RDHW_LoopPipeSize:PipeDiam( "CodeBase", Proj:StdDesignBase,
+                                                "NUnit", NUnitThisBranch, "IsBranch", "Yes" )
          else   UNDEFINED      ; error
-         endif  }   ; revised T24RDHW_LoopPipeSize table - SAC 08/13/26 (dev #943)
+         endif  }
    ; based on Res ACM method WH-BRLEN
    "Set cseDHWLOOPBRANCH:wbLength"
       cseDHWLOOPBRANCH:wbLength = {

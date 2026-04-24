@@ -168,7 +168,6 @@
 1,           "RulesetVersion",    BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           1080, "Compliance ruleset version/ID (for reporting)",  "" 
 1,           "CSEName",           BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           1080, "Name of CSE executable used to simulate models",  "" 
 1,           "CSEinclDHWMFL_EU",  BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1080, "Flag indicating whether or not CSE results will include the DhwMFL enduse",  "" 
-1,           "ReleaseNotesURL",   BEMP_Str,  1,  0,  0,  NInp,  "",                 0,  0,                           1080, "ReleaseNotesURL",  ""             ; SAC 05/01/26 (dev #847)
 		; Analysis Data
 1,           "ExEDR_Defaults",    BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1040, "Whether or not Existing EDR defaulting is active for this model",  ""    
 1,           "RunNumber",         BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1001, "1-based index of this individual run",  "" 
@@ -179,10 +178,6 @@
 1,           "IsStdRun",          BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1001, "flag indicating this is a Standard (s/s2/s3) model run",  ""     ; SAC 07/18/23 (2025)
 1,           "IsStdOrSMFRun",     BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1001, "flag indicating this is a Standard (s/s2/s3) or StdMixedFuel model run",  "" 
 1,           "IsPropOrUserRun",   BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1001, "flag indicating this is a Proposed or User model run",  ""    ; SAC 11/08/24
-1,           "StdFenInclSkyltsAndWInp", BEMP_Int,  1,  0,  0,  Pres,  "",           0,  0,                           1001, "flag controlling Standarad design model fenestration scaling 0=>unchanged from prev, 1=>fixes to (a) incl skylt area in std and (b) scale West glazing first, before remaining",  ""    ; SAC 07/10/26 (dev #1004)
-1,           "StdFenInclSkyltsAndWest", BEMP_Int,  1,  0,  0,  NInp,  "",           0,  0,                           1001, "method of equal-orientation Standard design model fenestration scaling 0=>unchanged from prev (ignores skylts & orientation), 1=>fixes to (a) incl skylt area in std and (b) scale West glazing first, before remaining",  ""    ; SAC 07/10/26 (dev #1004)
-1,           "StdPropOrient",     BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1001, "flag indicating the Standarad design model is to retain Proposed model wall/window orientations and distributions",  ""    ; SAC 07/01/26 (dev #983)
-1,           "PropOrientStdPeakCooling", BEMP_Int,  1,  0,  0,  Pres,  "",          0,  0,                           1001, "flag indicating the Standarad design peak cooling result is to be based on Std design w/ Proposed model wall/window orientations and distributions",  ""    ; SAC 07/07/26 (dev #983)
 1,           "EnableResearchMode",BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1003, "Boolean (0/1) determining access to 'Research' mode analysis",  ""   
 1,           "AllowNegativeDesignRatings",BEMP_Int,  1,  0,  0,  Pres,  "",         0,  0,                           1003, "Boolean (0/1) determining whether or not to allow negative design ratings (target & calcs)",  ""  ; SAC 1/11/18
 1,           "CalcCO2DesignRatings",BEMP_Int,  1,  0,  0,  Pres,  "",               0,  0,                           1003, "Boolean (0/1) determining whether or not to calculate & display CO2 design ratings",  ""  ; SAC 1/27/18
@@ -286,7 +281,6 @@
 1,           "CommunitySolarProject", BEMP_Sym,  1,  0,  0,  Pres,  "",             0,  0,                           1046, "The Community Solar project this home subscribes to",  "" 
 1,           "InCmntySlrProjTerritory",BEMP_Int, 1,  0,  0,  Pres,  "",             0,  0,                           1046, "Whether this home is within the Community Solar project service territory",  ""  ;  SAC 7/3/20 (CommunitySolar)
 1,           "SMUDSlrSharesReserved", BEMP_Int,  1,  0,  0,   Opt,  "",             0,  0,                           1046, "Whether this home is within SMUD's territory and Neighborhood SolarShares have been reserved",  ""   ; SAC 01/25/25 (com tic #3651)
-1,           "CmntySlrProjReserved",  BEMP_Int,  1,  0,  0,   Opt,  "",             0,  0,                           1046, "Whether this home has been reserved with the selected community solar program",  ""   ; SAC 07/24/26 (com tic #859)
 1,           "CommunitySolarWarnMsg", BEMP_Str,  2,  1,  0,  NInp,  "",             0,  0,                           1046, "Warning re: community solar project availability",  ""  ;  SAC 01/25/25 (tic #3651)  ; SAC 10/22/25 (dev #492)
 1,           "CommunitySolarProjID",  BEMP_Int,  1,  0,  0,  Pres,  "",             0,  0,                           1046, "The ID of the Community Solar project (or 0 if not allowed or specified)",  "" 
 1,           "CommunitySolarSim",     BEMP_Int,  1,  0,  0,  Pres,  "",             0,  0,                           1046, "Flag indicating whether Community Solar is to be simulated (1) or not (0-default)",  ""   ; SAC 7/16/20
@@ -437,8 +431,6 @@
 1,           "BattJA12EquipInfoMsg",  BEMP_Str,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - message",  "" 
 1,           "BattJA12EquipInfoDtl",  BEMP_Str,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - details",  "" 
 1,           "BattJA12EquipInfoIcn",  BEMP_Int,  1,  0,  0,  NInp,  "",             0,  0,                           1046, "JA12 certified battery equipment listing info dialog - icon",  "" 
-1,           "BattCreditOptAvail", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          1003, "integer flag indicating which battery credit options are avaialble for selection (peak clg and/or self util)",  ""     ; SAC 08/05/26 (dev #989)
-1,           "BattCreditOption",   BEMP_Sym,  1,  0,  0,   Opt,  "",                 0,  0,                          1003, "Which battery credit option is desired (peak clg and/or self util)",  ""  
 1,           "BattGridHarmCredit", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                          1003, "Whether or not to take the grid harmonization battery credit",  ""   
 1,           "ApplyBattGridHarmCredit", BEMP_Int, 1, 0, 0,  NInp,  "",               0,  0,                          1003, "flag indicating whether or not to apply the grid harmonization battery credit",  ""      ; SAC 10/10/23
 1,           "AllowDischgStartHr", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          3208, "Whether or not to allow user to set hour to start discharging with Time of Use control (PV-tied or standalone battery) or Advanced DR control (standalone battery only).",  "" ; APB 03/30/22 - Enable hour to start charging for TOU or Advanced DR control for standalone battery without PV (tic #1319)
@@ -528,7 +520,6 @@
 1,           "HardwireInclPeakCooling", BEMP_Int,  1,  0,  0,  NInp,  "",           0,  0,                           1003, "whether ruleset hardwires IncludePeakCooling",  ""                              ; SAC 03/18/24 (2025)
 1,           "DfltInclPeakCooling",     BEMP_Int,  1,  0,  0,  NInp,  "",           0,  0,                           1003, "ruleset default for IncludePeakCooling (if not hard-wired)",  ""  
 1,           "StdPeakCoolElecLimitMult", BEMP_Flt,  1,  0,  0,  Pres,  "",          0,  0,                           1003, "multiplier on StdPeakCoolElec to determine compliance margin limit",  ""    ; SAC 08/08/23 (2025)
-1,           "PropPeakCoolBattCreditLimit", BEMP_Flt,  1,  0,  0,  Pres,  "frac",   0,  0,                           1003, "Fraction of proposed peak cooling electric energy that can be offset by battery energy (during peak cooling hours)",  ""   ; SAC 07/08/26 (dev #989)
 1,           "StdMixedFuelRunReqd", BEMP_Int,  1,  0,  0,  Pres,  "",               0,  0,                           1003, "flag indicating whether a standard mixed fuel run is needed",  ""   
 1,           "NumPrelimStdRuns",  BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1003, "number of standard model runs (to be performed prior to Proposed runs) required in analysis",  ""   ; SAC 07/17/23 (2025)
 1,           "NumStdRuns",        BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1003, "number of standard model runs required in analysis",  ""   ; SAC 07/20/23 (2025)
@@ -627,8 +618,8 @@
 1,           "BuildingTypeRpt",   BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Building type (for reporting purposes)",  ""    
 1,           "IsMultiFamily",     BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Is multi-family building toggle (0 => single family)",  ""    
 1,           "MultiFamilyType",   BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Multi-family building type",  ""    
-; 1,           "IsMFamDuplex",      BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Whether or not this model is a multi-family duplex",  ""    
-; 1,           "IsMFamTownhm",      BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Whether or not this model is a multi-family townhome",  ""    
+1,           "IsMFamDuplex",      BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Whether or not this model is a multi-family duplex",  ""    
+1,           "IsMFamTownhm",      BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Whether or not this model is a multi-family townhome",  ""    
 1,           "IsMFamDupOrTownhm", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Whether or not this model is a multi-family duplex or townhome",  ""    
 1,           "SFamDwellingType",  BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Single family dwelling type (initially IAQ-related) - deprecated",  ""    ; SAC 4/14/19 (tic #1071) / SAC 4/18/19 - being replaced by SFamDwellingAttached checkbox (tic #1071)
 1,           "SFamADUType",       BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Whether SFam model includes an ADU and whether it is Attached/Detached",  ""    ; SAC 4/19/19 (tic #1010)
@@ -719,25 +710,17 @@
 
 1,           "DfltExWinPanes",     BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Window panes & coatings (existing home default)",  ""  ; SAC 5/24/17
 1,           "DfltExWinFrameType", BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1042, "Window frame type (existing home default)",  ""    
-1,           "MaxFenAreaCFAFrac",      BEMP_Flt,  1,  0,  0,  NInp,  "",             0,  0,                           3008, "max frac fenestration area (of conditioned zones (incl. multipliers)) / tot conditioned floor area",  ""        ; SAC 07/09/26 (dev #983)
-1,           "MaxFenAreaCFAFrac_West", BEMP_Flt,  1,  0,  0,  NInp,  "",             0,  0,                           3008, "max frac West-facing fenestration area (of conditioned zones (incl. multipliers)) / tot conditioned floor area",  ""
-1,           "FenAreaByOrient",        BEMP_Flt,  7,  1,  0,  NInp,  "",             0,  0,                           3008, "fenestration area by orientation (1-WestWins, 2-NotWestWins, 3-WestSkylts, 4-NotWestSkylts, 5-WestWins+Skylts, 6-NotWestWins+Skylts, 7-AllGlazing)",  ""    ; SAC 07/10/26 (dev #1004)
-1,           "FenAreaCFAFracs",        BEMP_Flt,  3,  1,  0,  NInp,  "",             0,  0,                           3008, "frac of fenestration area (of conditioned zones (incl. multipliers)) / tot conditioned floor area (1-Total, 2-West, 3-NotWest)",  ""    ; SAC 07/09/26 (dev #983)
-1,           "FenAreaOrientMults",     BEMP_Flt,  2,  1,  0,  NInp,  "",             0,  0,                           3008, "scaling factor for fenestration area by orientation (1-West, 3-NotWest)",  ""    ; SAC 07/09/26 (dev #983)
-1,           "PropOStdNetWallAreaByO",   BEMP_Flt,  4,  1,  0,  NInp,  "ft2",        0,  0,                           3008, "net wall areas by orientaiton for Proposed-Oreintation Std design (after deleting prop wins, before creating replacements) (1-N, 2-E, 3-S, 4-W)",  ""    ; SAC 07/20/26 (dev #983)
-1,           "PropOStdNetWinWallRatByO", BEMP_Flt,  4,  1,  0,  NInp,  "ft2",        0,  0,                           3008, "window / (net) wall area ratios by orientaiton for Proposed-Oreintation Std design (after deleting prop wins, before creating replacements) (1-N, 2-E, 3-S, 4-W)",  ""  
 				; SAC 12/26/12 - added to sum window area across all conditioned Zones
 1,           "TotCondZoneWinArea",BEMP_Flt,  4,  1,  0,  Pres,  "ft2",              0,  0,                           3008, "total conditioned zone child New window area (incl. window multipliers) (1-Total, 2-New/Alt (not addition), 3-Existing, 4-Additions)",  ""
 ; mjb-10/22/13	new parameter for sum of Altered Windows
 1,           "TotCondZoneAltWinArea",BEMP_Flt,  1,  0,  0,  Pres,  "ft2",           0,  0,                           3008, "total conditioned zone child Altered window area (incl. window multipliers)",  ""
 1,           "CondWinAreaCFARat", BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           3008, "ratio of total conditioned zone child window area (incl. window multipliers) / conditioned floor area",  ""
-1,           "CondAddWinAreaCFARat", BEMP_Flt,  1,  0,  0,  Pres,  "",              0,  0,                           3008, "ratio of addition conditioned zone child window area (incl. window multipliers) / conditioned addition floor area",  ""
-1,           "MaxAddWinAreaCFARat",  BEMP_Flt,  1,  0,  0,  Pres,  "",              0,  0,                           3008, "Max std design ratio of addition conditioned zone child window area (incl. window multipliers) / conditioned addition floor area",  ""
-1,           "CondNewWinAreaMult",   BEMP_Flt,  1,  0,  0,  Pres,  "",              0,  0,                           3008, "multiplier applied to all conditioned zone child New/Altered (OR addition) window areas",  ""
-1,           "CondNewWinAreaMultByO",BEMP_Flt,  2,  1,  0,  Pres,  "",              0,  0,                           3008, "multiplier applied to all conditioned zone child New window areas BY Orientation (1-West, 2-NotWest)",  ""    ; SAC 07/10/26 (dev #1004)
-1,           "CondExWinAreaMult",    BEMP_Flt,  1,  0,  0,  Pres,  "",              0,  0,                           3008, "multiplier applied to all conditioned zone child Existing window areas",  ""
-1,           "DHWCalcMethod",        BEMP_Sym,  1,  0,  0,  Pres,  "",              0,  0,                           1030, "Selection of DHW simulation mechanism to be used in analysis",  "" 
-1,           "CSEDHWUseMethod",      BEMP_Sym,  1,  0,  0,  Pres,  "",              0,  0,                           1030, "Selection of DHW use/profile mechanism used to simulate DHW in CSE",  "" 
+1,           "CondAddWinAreaCFARat", BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           3008, "ratio of addition conditioned zone child window area (incl. window multipliers) / conditioned addition floor area",  ""
+1,           "MaxAddWinAreaCFARat",  BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           3008, "Max std design ratio of addition conditioned zone child window area (incl. window multipliers) / conditioned addition floor area",  ""
+1,           "CondNewWinAreaMult", BEMP_Flt, 1,  0,  0,  Pres,  "",                 0,  0,                           3008, "multiplier applied to all conditioned zone child New/Altered (OR addition) window areas",  ""
+1,           "CondExWinAreaMult",  BEMP_Flt, 1,  0,  0,  Pres,  "",                 0,  0,                           3008, "multiplier applied to all conditioned zone child Existing window areas",  ""
+1,           "DHWCalcMethod",     BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1030, "Selection of DHW simulation mechanism to be used in analysis",  "" 
+1,           "CSEDHWUseMethod",   BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           1030, "Selection of DHW use/profile mechanism used to simulate DHW in CSE",  "" 
 1,           "CSE_DHWSizingRunReqd",   BEMP_Int,  1,  0,  0,  NInp,  "",            0,  0,                           3008, "whether or not a CSE 'sizing' is required to simulate DHW systems in this model",  ""    ; SAC 07/01/21 (tic #1275)
 ;1,           "CSE_DHWSizingRunReqdSv", BEMP_Int,  1,  0,  0,  NInp,  "",            0,  0,                           3008, "saved version of CSE_DHWSizingRunReqd - to preserve during DHWSolarSys sizing runs",  ""
 1,           "CSE_DHWPreRunReqd",      BEMP_Int,  1,  0,  0,  NInp,  "",            0,  0,                           3008, "whether or not a CSE 'pre-run' is required to simulate DHW systems in this model",  ""
@@ -809,13 +792,13 @@
 1,           "UnitLtgGain",       BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Lighting energy use per day per dwelling unit",  "" 
 1,           "PeoplePerUnit",     BEMP_Flt, 16,  1,  0,  Pres,  "people/DwlgUnt",   0,  0,                           3008, "Number of occupants per dwelling unit",  "" 
 1,           "UnitPeopleGain",    BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Internal gain due to occupants per day per dwelling unit",  "" 
-; 1,           "UnitMscElecGain",   BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Miscellaneous electric energy use per day per dwelling unit",  "" 
-; 1,           "UnitDishElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/yr",           0,  0,                           3008, "Dish washing electric energy use per year per dwelling unit",  "" 
-; 1,           "UnitCookElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking electric energy use per day per dwelling unit",  "" 
-; 1,           "UnitCookGasGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking gas energy use per day per dwelling unit",  "" 
-; 1,           "UnitClthWashGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Clothes washer electric energy use per day per dwelling unit",  "" 
-; 1,           "UnitClthDryGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Clothes dryer energy use per day per dwelling unit",  "" 
-; 1,           "OtherZnOccFrac",    BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                           3008, "The expected fraction of the exiting people in OtherZones, based on SpaceFunction, which will determine the design occupancy.",  ""  ; SAC 10/7/19 - MFamProto
+1,           "UnitMscElecGain",   BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Miscellaneous electric energy use per day per dwelling unit",  "" 
+1,           "UnitDishElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/yr",           0,  0,                           3008, "Dish washing electric energy use per year per dwelling unit",  "" 
+1,           "UnitCookElecGain",  BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking electric energy use per day per dwelling unit",  "" 
+1,           "UnitCookGasGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Cooking gas energy use per day per dwelling unit",  "" 
+1,           "UnitClthWashGain",  BEMP_Flt, 16,  1,  0,  Pres,  "kWh/day-DwlgUnt",  0,  0,                           3008, "Clothes washer electric energy use per day per dwelling unit",  "" 
+1,           "UnitClthDryGain",   BEMP_Flt, 16,  1,  0,  Pres,  "Btu/day-DwlgUnt",  0,  0,                           3008, "Clothes dryer energy use per day per dwelling unit",  "" 
+1,           "OtherZnOccFrac",    BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                           3008, "The expected fraction of the exiting people in OtherZones, based on SpaceFunction, which will determine the design occupancy.",  ""  ; SAC 10/7/19 - MFamProto
 
 1,           "DefaultIAQFanPwr",  BEMP_Flt,  1,  0,  0,  Pres,  "W/CFM",            0,  0,                           8005, "default IAQ fan power",  ""  ; SAC 2/25/20 - revised default IAQ fan power from 0.25 to 0.3 for SFam and 0.6 for MFam in 2019.2.0+ (tic #1174)
 1,           "UseMaxIAQFanPwr",   BEMP_Flt,  1,  0,  0,  Pres,  "W/CFM",            0,  0,                           8005, "max IAQ fan power active at a certain point in rule processing",  ""  ; SAC 08/28/20
@@ -938,9 +921,7 @@
 1,           "ClVentFanUI",       BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1080, "flag indicating when to display cooling vent Fan assignment UI",  ""  ; SAC 1/19/19 (tic #1040)
 1,           "MaxClVentFlow",     BEMP_Flt,  1,  0,  0,  Pres,  "CFM/ft2",          0,  0,                           8005, "Maximum cooling vent flow (CFM/ft2)",  ""    ; SAC 6/29/20 (tic #1236)
 1,           "ClVentErrMsg",      BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Cooling vent error message",  ""             ; SAC 6/29/20 (tic #1236)
-1,           "StdWHFan",          BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           1080, "flag indicating whether NewCons Std design includes a WHF",  ""  ; SAC 06/23/26 (dev #926)
 1,           "UnitClVentOption",  BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "",  "" 
-1,           "PropClVentOption",  BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                           8005, "",  ""     ; SAC 06/08/26 (dev #956)
 1,           "UnitClVentLowArea", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Whether or not there is reduced attic relief vent free area",  "" 
 1,           "UnitClVentAreaMult",BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Multiplier on attic relief vent free area",  "" 
 1,           "ClVentCFMDivisor",  BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                           8005, "Divisor on cooling vent CFM (T24RClimateZoneCodeBase:WHFcfmdivisor)",  ""   ; SAC 07/16/25
@@ -1661,13 +1642,7 @@
 1,           "StdPeakCoolElec",      BEMP_Flt,  1,  0,  0,  Pres,  "kWh",           0,  0,             39110, "Standard run Peak Cooling Electric Energy",  "" 
 1,           "StdPeakCoolElecLimit", BEMP_Flt,  1,  0,  0,  Pres,  "kWh",           0,  0,             39110, "Standard run Peak Cooling Electric Energy Limit (for compliance)",  "" 
 1,           "PeakCoolElecMargin",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh",           0,  0,             39110, "Peak Cooling Electric Energy Compliance Margin",  "" 
-1,           "PropPeakCoolBattElec",           BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Proposed run Peak Cooling Battery Electric Energy",  ""     ; SAC 07/08/26 (dev #989)
-1,           "PropPeakCoolBattElecCredit",     BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Proposed run Peak Cooling Battery Electric Credit",  "" 
-1,           "StdPropOrientPeakCoolElec",      BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Standard run Proposed-Orientation Peak Cooling Electric Energy",  ""    ; SAC 07/07/26 (dev #983)
-1,           "StdPropOrientPeakCoolElecLimit", BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Standard run Proposed-Orientation Peak Cooling Electric Energy Limit (for compliance)",  "" 
-1,           "PropOrientPeakCoolElecMargin",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh", 0,  0,             39110, "Proposed-Orientation Peak Cooling Electric Energy Compliance Margin",  "" 
-1,           "PeakCoolElecLabels",   BEMP_Str,  4,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (Prop, Std, Marg, Pass/Fail)",  "" 
-1,           "PeakCoolElecFtnote",   BEMP_Str,  2,  1,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (footnote)",  ""      ; SAC 05/13/26 (dev #757)
+1,           "PeakCoolElecLabels",   BEMP_Str,  4,  0,  0,  Pres,  "",              0,  0,             39110, "Peak Cooling Electric Energy Compliance Labels (Prop, Std, Marg, Pass/Fail)",  "" 
 
 1,           "PropMixedFuelkWh",  BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - Electric kWh use of proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
 1,           "PropMixedFuelPV",   BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      7010, "retained for backward compatibility - PV electric generation (kWh) from the proposed mixed fuel simulation (2019 and later codes)",  ""  ; SAC 4/6/17
@@ -1705,10 +1680,6 @@
 1,           "PFlxTDV",           BEMP_Flt,  2,  1,  0,  Pres,  "kTDV/ft2-yr",      0,  0,                      39110, "Delta Proposed/Proposed Flexibility run TDV (reduced by PropFlexFrac) [1-rounded for reporting, 2-raw result]",  "" 
 1,           "PFlxSrc",           BEMP_Flt,  2,  1,  0,  Pres,  "kBtu/ft2-yr",      0,  0,                      39110, "Delta Proposed/Proposed Flexibility run source energy (reduced by PropFlexFrac) [1-rounded for reporting, 2-raw result]",  ""   ; SAC 11/27/23
 1,           "PFlxElecDemand",    BEMP_Flt,  2,  1,  0,  Pres,  "kW",               0,  0,                      39110, "Delta Proposed/Proposed Flexibility run Electric demand (reduced by PropFlexFrac) [1-rounded for reporting, 2-raw result]",  ""     ; SAC 2/5/19 (tic #1053) 
-
-         ; community solar results - SAC 07/27/26 (dev #859)
-1,           "CmntySlrStdEnergy", BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                       1046, "Standard design electric energy generation requiring community solar offset",  "" 
-1,           "CmntySlrProjVal",   BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                       1046, "Community Solar project allocation value (unknown/varying units)",  "" 
 
          ; SAC 12/01/20 - add in PV export results (primarily for 2022 research)
 1,           "PropPV_Total",      BEMP_Flt,  1,  0,  0,  Pres,  "kWh",              0,  0,                      39110, "Proposed design total PV generated",  "" 
@@ -1979,7 +1950,6 @@
 1,           "runSerial",         BEMP_Int,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "serial # for the simulation. Increments on each run in a session; appears in report footers",  ""     
 1,           "wfName",            BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "wfName",  ""     
 1,           "tdvfName",          BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "tdvfName",  ""     ; SAC 3/10/17
-1,           "ucFileName",        BEMP_Sym,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "ucFileName",  ""        ; SAC 08/03/26 (dev #607)       
 1,           "begDay",            BEMP_Int,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "begDay",  ""     
 1,           "endDay",            BEMP_Int,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "endDay",  ""     
 1,           "ebTolHour",         BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,              1801, "ebTolHour",  ""  
@@ -3296,10 +3266,7 @@
 1,           "TotCondZoneAltWinArea",BEMP_Flt,  1,  0,  0,  Pres,  "ft2",           0,   0,                       3008, "total conditioned zone child Altered window area (incl. window multipliers)",  ""
 1,           "ExtWallAreaByWallType",    BEMP_Flt,  5,  1,  0,  Pres,  "ft2",       0,   0,                       3008, "total exterior wall area by construction type (1-wood frm / 2-steel frm / 3-conc/CMU / TOTAL of 1-3)",  ""
 1,           "ExtWallWinAreaByWallType", BEMP_Flt,  5,  1,  0,  Pres,  "ft2",       0,   0,                       3008, "child window area by wall construction type (1-wood frm / 2-steel frm / 3-conc/CMU / TOTAL of 1-3)",  ""
-1,           "ExtWallWinAreaByWallType_W",  BEMP_Flt,  5,  1,  0,  NInp,  "ft2",    0,   0,                       3008, "West-facing child window area by wall construction type (1-wood frm / 2-steel frm / 3-conc/CMU / TOTAL of 1-3)",  ""      ; SAC 07/15/26 (dev #1004)
-1,           "ExtWallWinAreaByWallType_NW", BEMP_Flt,  5,  1,  0,  NInp,  "ft2",    0,   0,                       3008, "Non-West-facing child window area by wall construction type (1-wood frm / 2-steel frm / 3-conc/CMU / TOTAL of 1-3)",  ""
 1,           "ExtWallDoorAreaByWallType",BEMP_Flt,  5,  1,  0,  Pres,  "ft2",       0,   0,                       3008, "child door area by wall construction type (1-wood frm / 2-steel frm / 3-conc/CMU / TOTAL of 1-3)",  ""
-1,           "SkyltAreaDelByO",   BEMP_Flt,  2,  1,  0,  NInp,  "ft2",              0,   0,                       3008, "skylight areas (incl. multipliers) for cathedral ceilings replaced during BudgetConversion (1-West, 2-NotWest)",  ""    ; SAC 07/12/26 (dev #1004)
 1,           "SglDirStdWallArea", BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,   0,                       3008, "sum of std wall areas for single orientation across ALL (std) wall types",  ""
 1,           "StdExtWallsFront",  BEMP_Obj,  5,  1,  0,  Pres,  "",                 0,  1, "ExtWall",  0, "",     3008, "standard design exterior walls by wall type (front)",  "" 
 1,           "StdExtWallsLeft",   BEMP_Obj,  5,  1,  0,  Pres,  "",                 0,  1, "ExtWall",  0, "",     3008, "standard design exterior walls by wall type (left)",  "" 
@@ -3938,7 +3905,6 @@
 1,           "RoofUvalXOverCondArea", BEMP_Flt,  1,  0,  0,  Pres,  "",             0,  0,                        3212, "roof deck FloorAreaOverCond * Construction:WinterDesUValue",  "" ; RJH 7/31/25 - SF tic #1311
 1,           "CBAUvalXOverCondArea",  BEMP_Flt,  1,  0,  0,  Pres,  "",             0,  0,                        3212, "CeilingBelowAttic FloorAreaOverCond * Construction:WinterDesUValue",  "" ; RJH 9/18/25 - Issue #381
 1,           "AvgCBAUval",        BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                        3212, "NEW Attic Average CeilingBelowAttic Uval",  "" ; RJH 9/19/25 - Issue #381
-1,           "PropTypeVentilated", BEMP_Int, 1,  0,  0,  NInp,  "",                 0,  0,                        8005, "Proposed model Attic of Type Ventilated",  ""     ; SAC 06/09/26 (dev #956)
 
 			; SAC 10/14/14 - added properties needed to enable multiple Attic objects per model
 1,           "StdCathClgAtticArea_Steep", BEMP_Flt, 1, 0,  0,  NInp,  "ft2",        0,  0,                            3208, "Floor area of steep-sloped attic that can be used to assign ceilings created for std design from proposed CathedralCeilings",  ""    ; split into 2 separate properties by steep vs. low-sloped - SAC 02/19/24 (tic #1346)
@@ -4287,7 +4253,6 @@
 1,           "CavitySURFACE",     BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,  1, "cseSURFACE",  0, "",  7010, "CSE SURFACE component to model Cavity portion of wall",  "" 
 1,           "ChildAreaSum",      BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,  0,                        6010, "Sum of child window & door areas",  "" 
 1,           "NetWallArea",       BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,  0,                        6010, "Wall area minus sum of child window & door area",  "" 
-1,           "NetCondZoneWallArea", BEMP_Flt,  1,  0,  0,  NInp,  "ft2",            0,  0,                        6010, "Conditioned Zone Wall area minus sum of child window & door area",  ""    ; SAC 07/20/26 (dev #983)
 1,           "FramingFactor",     BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                        6010, "Fraction of gross wall area that includes frame",  "" 
 
 			; AirNet calced (ExtWall)
@@ -4304,7 +4269,6 @@
 1,           "DoorAreaByWallType",BEMP_Flt,  5,  1,  0,  Pres,  "ft2",              0,   0,                       3008, "child door area by wall construction type (1-wood frm / 2-steel frm / 3-conc/CMU)",  ""
 1,           "TotDoorArea",       BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,   0,                       3008, "total child door area",  ""
 1,           "IsStdCondZoneWall", BEMP_Int,  1,  0,  0,  Pres,  "",                 0,   0,                       3008, "",  ""
-1,           "PropOStdWinArea",   BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,  0,                        7010, "Proposed-orientation standard design new (non-EAA GChild) window area (incl. multiplier)",  ""	; SAC 07/20/26 (dev #983)
 1,           "StdWindow",         BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,   1, "Win",  0, "",        3208, "",  ""    
 1,           "StdDoor",           BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,   1, "Door", 0, "",        3208, "",  ""    
 			; SAC 6/10/13 - added to support summary reports of user/prop/std models
@@ -4462,7 +4426,6 @@
 1,           "Orientation",       BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,								6010, "Wall orientation",  ""    
 1,           "OrientationValue",  BEMP_Flt,  1,  0,  0,  Pres,  "deg",              0,  0,								6010, "Wall orientation value (in relation to parent Zone azimuth)",  ""    
 1,           "Azimuth",           BEMP_Flt,  1,  0,  0,  Pres,  "deg",              0,  0,                        6005, "Actual (true) wall azimuth",  ""    
-1,           "WinOrientationIdx", BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                        6005, "Index of cathedral ceiling's window orientation (1-N, 2-E, 3-S, 4-W / any ceiling w/ pitch below 1:12 classified as 4-W)",  ""     ; SAC 07/09/26 (dev #983)
 1,           "Construction",      BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,  1, "Cons",   2, "CanAssignTo",  6012, "Construction assembly",  "" 
 ;	mjb-10/31/13	mods for E+A+A	
 1,           "exConstruction",    BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,  1, "Cons",   2, "CanAssignTo",  3208, "existing construction for this (altered) ceiling object",  "" 
@@ -4470,8 +4433,7 @@
 1,           "RoofEmiss",         BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                            6130, "Roof surface exterior long wave (thermal) emittance",  "" 
 1,           "exSolReflect",      BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,   0,                       6005, "Existing roof Reflectance",  ""    
 1,           "exSolEmiss",        BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,   0,                       6005, "Existing roof Emissivity",  ""    
-1,           "ChildAreaSum",      BEMP_Flt,  4,  1,  0,  Pres,  "ft2",              0,  0,								6010, "Sum of child skylight areas (incl. multipliers) (1-Total, 2-New/Alt (not addition), 3-Existing, 4-Additions)",  "" 
-1,           "ChildAreaSumDelByO",BEMP_Flt,  2,  1,  0,  Pres,  "ft2",              0,  0,								6010, "Sum of child skylight areas (incl. multipliers) for ceilings replaced during BudgetConversion (1-West, 2-NotWest)",  ""    ; SAC 07/12/26 (dev #1004)  ; SAC 07/15/26 (dev #1004)
+1,           "ChildAreaSum",      BEMP_Flt,  4,  1,  0,  Pres,  "ft2",              0,  0,								6010, "Sum of child skylight areas (incl. window multipliers) (1-Total, 2-New/Alt (not addition), 3-Existing, 4-Additions)",  "" 
 1,           "NetWallArea",       BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,  0,								6010, "Ceiling area minus sum of child skylight area",  "" 
 1,           "FramingFactor",     BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,								6010, "Fraction of gross ceiling area that includes frame",  "" 
 1,           "StdDesignCeiling",  BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,  1, "CeilingBelowAttic", 0, "",  7010, "CeilingBelowAttic object that will replace this CathedralCeiling in the standard model",  "" 
@@ -5004,10 +4966,7 @@
 1,           "FenestrationProductException1", BEMP_Int,  1,  0,  0,  Pres,  "",     0,  0,                        7010, "Used in setting Proj:SpeclFeatrs:FenestrationProductException1",  ""   ; RJH 3/20/26 2025-CBECC-Res-Schema Issue 78 
 1,           "FenestrationProductException2", BEMP_Int,  1,  0,  0,  Pres,  "",     0,  0,                        7010, "Used in setting Proj:SpeclFeatrs:FenestrationProductException2",  ""   ; RJH 3/20/26 2025-CBECC-Res-Schema Issue 78 
 1,           "TotAreaInclMult",   BEMP_Flt,  9,  1,  0,  Pres,  "ft2",              0,  0,                        7010, "Total window area (multiplied) (1-Total, 2-New/Altered (not addition), 3-Existing, 4-Additions, 5-Except1 New, 6-Except1 Add, 7-Except2 New, 8-Except2 Add, 9-Except1+Except2)",  ""	; RJH 2/12/26 - CBECC-Dev Issue 666
-1,           "TotAreaInclMultByO", BEMP_Flt, 2,  1,  0,  NInp,  "ft2",              0,  0,                        7010, "Total window area (multiplied) of Cond zone by Orientation (1-West, 2-NotWest)",  ""	; SAC 07/09/26 (dev #983)
 1,           "WinAreaMult",       BEMP_Flt,  1,  0,  0,  Pres,  "frac",             0,  0,                        7010, "Window area multiplier, to be applied to achieve standard design window areas",  ""	; SAC 12/3/13
-1,           "WinAreaSkyltAdder", BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,  0,                        7010, "Window area adder to account for removed Skylts to achieve standard design window areas",  ""	; SAC 07/16/26 (dev #983)
-1,           "PropOAreaInclMult", BEMP_Flt,  1,  0,  0,  Pres,  "ft2",              0,  0,                        7010, "Proposed-orientation standard design new (non-EAA GChild) window area (incl. multiplier)",  ""	; SAC 07/20/26 (dev #983)
 ; mjb	2/19/14	added prelim calc for area-weighted Ufactor	
 1,           "AreaUfactorMult",   BEMP_Flt,  1,  0,  0,  Pres,  "Btuh/°F",          0,  0,                        7010, "Window area * Ufactor, used for Project level Fenestration area-weighted Ufactor calc",  ""
 ; RJH 2/12/26 - CBECC-Dev Issue 666
@@ -5104,7 +5063,6 @@
 1,           "FenestrationProductException1", BEMP_Int,  1,  0,  0,  Pres,  "",     0,  0,                        7010, "Used in setting Proj:SpeclFeatrs:FenestrationProductException1",  ""   ; RJH 3/20/26 2025-CBECC-Res-Schema Issue 78 
 1,           "FenestrationProductException2", BEMP_Int,  1,  0,  0,  Pres,  "",     0,  0,                        7010, "Used in setting Proj:SpeclFeatrs:FenestrationProductException2",  ""   ; RJH 3/20/26 2025-CBECC-Res-Schema Issue 78 
 1,           "TotAreaInclMult",   BEMP_Flt,  9,  1,  0,  Pres,  "ft2",              0,  0,                        7010, "Total skylight area (multiplied) (1-Total, 2-New/Altered (not addition), 3-Existing, 4-Additions, 5-Except1 New, 6-Except1 Add, 7-Except2 New, 8-Except2 Add, 9-Except1+Except2)",  ""	; RJH 2/12/26 - CBECC-Dev Issue 666
-1,           "TotAreaInclMultByO", BEMP_Flt, 2,  1,  0,  NInp,  "ft2",              0,  0,                        7010, "Total skylight area (multiplied) of Cond zone by Orientation (1-West, 2-NotWest)",  ""	; SAC 07/09/26 (dev #983)
 ; mjb	2/19/14	added prelim calc for area-weighted Ufactor	
 1,           "AreaUfactorMult",   BEMP_Flt,  1,  0,  0,  Pres,  "Btuh/°F",          0,  0,                        7010, "Skylight area * Ufactor, used for Project level Window area-weighted Ufactor calc",  ""
 ; RJH 2/12/26 - CBECC-Dev Issue 666
@@ -8861,8 +8819,6 @@
 1,           "afterchildren_LscFootnote3b",                                BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 10/27/25 - 2025-CBECC-Res-Schema Issue 56
 1,           "afterchildren_LscEndNote1",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 1,           "afterchildren_LscEndNote2",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
-1,           "LscEndNote2_PeakCoolingTargetString",                        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
-1,           "afterchildren_LscEndNote3",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
 1,           "afterchildren_LscResultNotes_LSC_ComplianceNotes",           BEMP_Str, 10,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 ;------------------------------------------------------------------------------------------------
 
@@ -8884,8 +8840,6 @@
 1,           "afterchildren_LscFootnote3b",                                BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 10/30/25 - 2025-CBECC-Res-Schema Issue 13
 1,           "afterchildren_LscEndNote1",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 1,           "afterchildren_LscEndNote2",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
-1,           "LscEndNote2_PeakCoolingTargetString",                        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
-1,           "afterchildren_LscEndNote3",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
 1,           "afterchildren_LscResultNotes_LSC_ComplianceNotes",           BEMP_Str, 10,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 ;------------------------------------------------------------------------------------------------
 
@@ -9438,7 +9392,6 @@
 ;                                                 VType     NV  WA  SP   US    UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                               -------------------------------------------------------------------------------------------
 1,           "Da01_PV_SystemTotalRatedPowerDC",  BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""
-1,           "Da01_PV_100kWhmBlockCount",  		 BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""		; RJH 8/24/26 2025-CBECC-Res-Schema Issue 83
 1,           "Da01b_PV_StandardDesignPowerDC",   BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""   ; SAC 01/19/23
 1,           "Da02_PhotoVoltaicExceptionRes",    BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: EnumerationConstant ->  BatteryStorage  CZ15ReducedSize  HabitableStories2  HabitableStories3  NoExceptionsNA  LimitedSolarAccess  PlansBefore2020  CommunitySolar",  ""
 1,           "Da02_PVExceptionString",           BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: string ",  ""     ; SAC 6/12/20 (CommunitySolar)

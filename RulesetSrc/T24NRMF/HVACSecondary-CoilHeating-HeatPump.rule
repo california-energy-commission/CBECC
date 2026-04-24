@@ -1602,13 +1602,10 @@ RULE AirSys:HtgCap
   REPORTPRECISION
     -3
   DEFAULT
-    if( SumChildren( CoilHtg:CapTotNetRtd ) > 0 )
-    then  if( LocalStatus( SuppHtgCap ) > 0 )
-          then  SumChildren( CoilHtg:CapTotNetRtd ) - SuppHtgCap  
-          else  SumChildren( CoilHtg:CapTotNetRtd )
-          endif
-    else  SumChildren( CoilHtg:CapTotgrossRtd )
-    endif
+    if( LocalStatus( SuppHtgCap ) > 0 )
+    then  SumChildren( CoilHtg:CapTotNetRtd ) - SuppHtgCap  
+    else  SumChildren( CoilHtg:CapTotNetRtd )
+    endif  
   CHECKSIM
     if( IfValidAnd( AirSys:BypassCheckSim > 0 ) )
     then UNCHANGED
@@ -1646,13 +1643,10 @@ RULE ZnSys:HtgCap
   REPORTPRECISION
     -3
   DEFAULT
-    if( SumChildren( CoilHtg:CapTotNetRtd ) > 0 )
-    then  if( LocalStatus( SuppHtgCap ) > 0 )
-          then  SumChildren( CoilHtg:CapTotNetRtd ) - SuppHtgCap  
-          else  SumChildren( CoilHtg:CapTotNetRtd )
-          endif
-    else  SumChildren( CoilHtg:CapTotgrossRtd )
-    endif
+    if( LocalStatus( SuppHtgCap ) > 0 )
+    then  SumChildren( CoilHtg:CapTotNetRtd ) - SuppHtgCap  
+    else  SumChildren( CoilHtg:CapTotNetRtd )
+    endif 
   CHECKSIM
     if( IsCondgSys = 1 .AND. HtgCap = 0 .AND. 
         ( Type != "PassiveBeam" .AND. Type != "MiniSplitAC" .AND.

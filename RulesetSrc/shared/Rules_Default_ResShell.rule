@@ -746,10 +746,6 @@ RULELIST "ProposedInput_Shell" 0 0 0 0
       {  if (Proj:ResCompOpt < 2 .OR. TotalCondFlrAreaWithMult < 0.5) then  TotalCondFlrAreaWithMult
          else if (ResZn:HVACSysStatus < 2) then  0
          else  TotalCondFlrAreaWithMult  endif endif  }
-   "Set DwellUnit:NewHVACFlrAreaWithMult"  DwellUnit:NewHVACFlrAreaWithMult =      ; JP 07/14/26 (issue #955)
-      {  if (Proj:ResCompOpt < 2 .OR. TotalCondFlrAreaWithMult < 0.5) then  TotalCondFlrAreaWithMult
-         else if (ResZn:HVACSysStatus < 3) then  0
-         else  TotalCondFlrAreaWithMult  endif endif  }
 
 	"Set DwellUnit:NumBedroomsPerUnit"		DwellUnit:NumBedroomsPerUnit = {	if (ParentComponentType() == "ResZn") then  ValidOr( DwellUnitTypeRef:NumBedrooms, 0 )  else  0  endif  }      ; SAC 08/05/22 (CUAC)
 	"Set DwellUnit:TotalNumBedrooms"			DwellUnit:TotalNumBedrooms	= {	NumBedroomsPerUnit * Count  }
@@ -834,22 +830,14 @@ RULELIST "ProposedInput_Shell" 0 0 0 0
    "Set DwellUnit:IAQCFM_Balanced"     DwellUnit:IAQCFM_Balanced  =                 ; SAC 2/25/20
       {  if (IAQCFMIsBalanced) then  IAQHRVCFM + IAQCFM_Exhaust + IAQCFM_Supply + ValidOr( CentralSupplyCFMWithMult, 0 ) + ValidOr( CentralExhaustCFMWithMult, 0 )
          else  0  endif  }
-
-   ; JP 07/14/26 (issue #955) - Determine the most common IAQ type for the dwelling unit (Balanced, Exhaust, or Supply) use only CFM from NEW IAQ systems
-   "Set DwellUnit:NewIAQCFM_Balanced"  DwellUnit:NewIAQCFM_Balanced  =  { if( ResZn:HVACSysStatus < 3 ) then  0  else  IAQCFM_Balanced endif  }
-   "Set DwellUnit:NewIAQCFM_Exhaust"   DwellUnit:NewIAQCFM_Exhaust   =  { if( ResZn:HVACSysStatus < 3 ) then  0  else  IAQCFM_Exhaust endif  }
-   "Set DwellUnit:NewIAQCFM_Supply"    DwellUnit:NewIAQCFM_Supply    =  { if( ResZn:HVACSysStatus < 3 ) then  0  else  IAQCFM_Supply endif  }
-   "Set DwellUnit:NewCentralExhaustCFMWithMult"  DwellUnit:NewCentralExhaustCFMWithMult  =  { if( ResZn:HVACSysStatus < 3 ) then  0  else  CentralExhaustCFMWithMult endif  }
-   "Set DwellUnit:NewCentralSupplyCFMWithMult"   DwellUnit:NewCentralSupplyCFMWithMult   =  { if( ResZn:HVACSysStatus < 3 ) then  0  else  CentralSupplyCFMWithMult endif  }
-
    "Set ResProj:MostDUIAQ_Balanced"    ResProj:MostDUIAQ_Balanced  =    ; SAC 2/24/20   ; leave UNCHANGED for SFam models - SAC 03/18/21 (tic #1243)
       {  if (ResProj:IsMultiFamily < 0.5) then  UNCHANGED
-         else if (SumAll( DwellUnit:NewIAQCFM_Balanced ) > (SumAll( DwellUnit:NewIAQCFM_Exhaust ) + SumAll( DwellUnit:NewCentralExhaustCFMWithMult)) .AND. 
-                  SumAll( DwellUnit:NewIAQCFM_Balanced ) > (SumAll( DwellUnit:NewIAQCFM_Supply  ) + SumAll( DwellUnit:NewCentralSupplyCFMWithMult))) then  1  else  0  endif endif  } 
+         else if (SumAll( DwellUnit:IAQCFM_Balanced ) > (SumAll( DwellUnit:IAQCFM_Exhaust ) + SumAll( DwellUnit:CentralExhaustCFMWithMult)) .AND. 
+                  SumAll( DwellUnit:IAQCFM_Balanced ) > (SumAll( DwellUnit:IAQCFM_Supply  ) + SumAll( DwellUnit:CentralSupplyCFMWithMult))) then  1  else  0  endif endif  } 
    "Set ResProj:MostDUIAQ_Exhaust"     ResProj:MostDUIAQ_Exhaust   =
       {  if (ResProj:IsMultiFamily < 0.5) then  UNCHANGED
          else if (MostDUIAQ_Balanced > 0) then  0
-         else if ((SumAll( DwellUnit:NewIAQCFM_Exhaust ) + SumAll( DwellUnit:NewCentralExhaustCFMWithMult)) > (SumAll( DwellUnit:NewIAQCFM_Supply  ) + SumAll( DwellUnit:NewCentralSupplyCFMWithMult))) then  1  else  0  endif endif endif  } 
+         else if ((SumAll( DwellUnit:IAQCFM_Exhaust ) + SumAll( DwellUnit:CentralExhaustCFMWithMult)) > (SumAll( DwellUnit:IAQCFM_Supply  ) + SumAll( DwellUnit:CentralSupplyCFMWithMult))) then  1  else  0  endif endif endif  } 
    "Set ResProj:MostDUIAQ_Supply"      ResProj:MostDUIAQ_Supply    =
       {  if (ResProj:IsMultiFamily < 0.5) then  UNCHANGED
          else if (MostDUIAQ_Balanced > 0 .OR. MostDUIAQ_Exhaust > 0) then  0  else  1  endif endif  } 

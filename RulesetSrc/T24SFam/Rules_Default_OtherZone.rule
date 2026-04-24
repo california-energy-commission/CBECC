@@ -91,8 +91,8 @@ RULELIST "ProposedInput_OtherZone" 0 0 0 0
          else  MinOccNum / Area * 1000
          endif  }
 
-   ;"Default Proj:OtherZnOccFrac"    Proj:OtherZnOccFrac  = {  0.5  }
-   ;"Default OtherZone:OccFrac"      OtherZone:OccFrac    = {  Proj:OtherZnOccFrac  }
+   "Default Proj:OtherZnOccFrac"    Proj:OtherZnOccFrac  = {  0.5  }
+   "Default OtherZone:OccFrac"      OtherZone:OccFrac    = {  Proj:OtherZnOccFrac  }
 
    "Set OtherZone:MinOccNumSim"     OtherZone:MinOccNumSim   =
       {  MinOccNum * OccFrac  }

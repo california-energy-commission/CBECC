@@ -248,7 +248,6 @@ RULELIST "CSE_Defaulting_Project_Com" 1 0 0 1
 																			;then	"FRI"
 																			"THU"  }
 
-  "set cseTOP:ucFileName"       cseTOP:ucFileName	= {  "YES"  }  ; to have CSE continue to write output files w/ all-caps filenames - SAC 08/03/26 (dev #607)
 
 	; SAC 1/15/15 - call subordinate rulelists to setup simulation speed inputs based on Proj:SimSpeedOption
 	"Setup simulation speed settings"	Proj:Action	= {	EvalRulelist( "CSE_SimSpeedOption_Compliance" )  }

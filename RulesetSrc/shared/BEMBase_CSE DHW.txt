@@ -251,8 +251,6 @@
 1,           "wsDWashrDrawWaste", BEMP_Flt,  1,  0,  1,  Pres,  "gal",              0,  0,                          3208, "Dish washer water usage waste per draw (applies to both old and new style use/profiles)",  ""    
 1,           "wsSDLM",            BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "Standard distribution loss multiplier",  ""    ; refer to Res ACM App E Eqn RE-4 & RE-5
 1,           "wsDSM",             BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "Distribution system multiplier",  "" 
-1,           "wsFAdjElec_x",      BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "",  ""  ; SAC 07/31/26 (dev #942)
-1,           "wsFAdjFuel_x",      BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "",  "" 
 1,           "wsFaucetCount",     BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "Total number of faucets served by this DHWSYS",  ""  ; SAC 4/1/19
 1,           "wsShowerCount",     BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "Total number of showers served by this DHWSYS",  ""  ; SAC 12/24/18
 1,           "wsBathCount",       BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                          3208, "Total number of bathtubs served by this DHWSYS",  ""  ; SAC 4/1/19

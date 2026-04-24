@@ -317,20 +317,10 @@ MAINSCREEN,  15
                                                                                                                                                                                                                                 
    CTRL, "RunTitle",        1002, TDCT_Edit,   150,  55,  25, 300, 99, FNT_STD, "Run Title:",                   TA_LEFT,  -130, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""	
 
-   CTRL, "AnalysisType",    1004, TDCT_Combo,  150,  85, 300, 145, 25, FNT_STD, "Analysis Type:",               TA_LEFT,  -130, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
-   CTRL, "FacilityType",    1012, TDCT_Combo,  395,  85, 300, 295, 25, FNT_STD, "Project Type:",                TA_LEFT,   -85, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""    ; SAC 06/15/26 (dev #903)
-   ; moved QuickAnalysis to Analysis Options tab to free up space for FacilityType - SAC 06/15/26 (dev #903)
-   ; CTRL, "QuickAnalysis",     1012, TDCT_Check, 365,  85,  22, 300,  0, FNT_STD, "Quick Analysis (Report WATERMARKED)",  TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
-   ; removed ResDwellUnits & HlthCareFacility (and moved/resized LAFirePVBattExcpt), as now incorporated into FacilityType (above) - SAC 06/16/26 (dev #903)
-   ; CTRL, "ResDwellUnits",     3074, TDCT_Check, 670,  85,  22, 320,  0, FNT_STD, "Includes Residential Dwellings &&/or Common Areas",  TA_LEFT,   0, 4,   0, TA_LEFT, 0, 0,  None,     None,       0,  0,  ""   ; SAC 10/19/21 (MFam)  ; SAC 10/17/24 (tic #3630)
-   ; CTRL, "HlthCareFacility",  3075, TDCT_Check, 670, 115,  22, 130,  0, FNT_STD, "Healthcare Facility",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ResDwellUnits < 0.5,    0,  0,  "" 
-   CTRL, "MultiOrientation",  3074, TDCT_Check, 705,  87,  22, 285,  0, FNT_STD, "Multi-orientation Analysis",                  TA_LEFT,    0, 4,   0, TA_LEFT, 0, 0,  None,     FacilityType >= 10,          0,  0,  ""  ; SAC 06/17/26 (dev #903)  ; SAC 07/31/26 (dev #903)
-   CTRL, "LAFirePVBattExcpt", 3077, TDCT_Check, 705,  87,  22, 285,  0, FNT_STD, "Project subject to Executive Order N-29-25",  TA_LEFT,    0, 4,   0, TA_LEFT, 0, 0,  None,     ResDwellUnits > 0.5,         0,  0,  ""  ; SAC 10/20/25 (dev #240)
-   CTRL, "CliZnGrouping",     3075, TDCT_Combo, 740, 115, 200, 250, 25, FNT_STD, "Climate Zn Grouping:",                        TA_LEFT, -130, 4,   0, TA_LEFT, 0, 0,  None,     CliZnGroupingActive > 0,  -132,  0,  ""  ; SAC 06/17/26 (dev #903)
-
-   ; CTRL, "StdsVersion",     1003, TDCT_Combo,  200, 115, 200, 150, 25, FNT_STD, "Appliance Standards Version:", TA_LEFT,  -180, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
-   CTRL, "StdsVersion",     1003, TDCT_Combo,  150, 115, 200, 145, 25, FNT_STD, "Appliance Stds Ver:",          TA_LEFT,  -130, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
-   CTRL, "EffMetric",       3200, TDCT_Combo,  420, 115, 300, 160, 25, FNT_STD, "Efficiency Metric:",           TA_LEFT,  -110, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "StdsVersion",     1003, TDCT_Combo,  200, 115, 200, 150, 25, FNT_STD, "Appliance Standards Version:", TA_LEFT,  -180, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
+   CTRL, "EffMetric",       3200, TDCT_Combo,  475, 115, 300, 160, 25, FNT_STD, "Efficiency Metric:",           TA_LEFT,  -110, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "AnalysisType",    1004, TDCT_Combo,  200,  85, 300, 150, 25, FNT_STD, "Analysis Type:",              TA_LEFT,  -180, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "GeometryInpType", 1005, TDCT_Combo,  865,  55, 300, 100, 25, FNT_STD, "Geometry Input:",               TA_LEFT,  -100, 4,     0, TA_LEFT, 0, 0,  AnalysisType < 0, None,         0,  0,  "Whether building geometry inputs are in full 3D (detailed) vs. just areas/azimuths (simplified)"
 
 ; TEMPORARY - SAC 3/21/20
 ;   CTRL, "PrimResultSet",   1077, TDCT_Combo,  585,   1, 200, 200, 25, FNT_STD, "Primary TDV Set:",             TA_LEFT,  -115, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
@@ -342,7 +332,11 @@ MAINSCREEN,  15
    CTRL, "CompReportPDF",   1009, TDCT_Check,  600,  55,  22,  50,  0, FNT_STD, "PDF",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None, AnalysisType = 1,      -135,  0,  "Whether or not to generate a PDF compliance report following analysis"
    CTRL, "CompReportXML",   1010, TDCT_Check,  670,  55,  22,  85,  0, FNT_STD, "Full (XML)",                   TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None, AnalysisType = 1,         0,  0,  "Whether or not to generate a full (XML) compliance report following analysis"
 ;   CTRL, "CompReportStd",   1011, TDCT_Check,  770,  55,  22,  75,  0, FNT_STD, "Std PDF",                      TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None, AnalysisType = 1,         0,  0,  "Whether or not to generate a PDF report populated with Standard Design model data (following analysis)"
-   CTRL, "GeometryInpType", 1005, TDCT_Combo,  865,  55, 300, 100, 25, FNT_STD, "Geometry Input:",               TA_LEFT,  -100, 4,     0, TA_LEFT, 0, 0,  AnalysisType < 0, None,         0,  0,  "Whether building geometry inputs are in full 3D (detailed) vs. just areas/azimuths (simplified)"
+
+   CTRL, "QuickAnalysis",     1012, TDCT_Check, 365,  85,  22, 300,  0, FNT_STD, "Quick Analysis (Report WATERMARKED)",  TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
+   CTRL, "ResDwellUnits",     3074, TDCT_Check, 670,  85,  22, 320,  0, FNT_STD, "Includes Residential Dwellings &&/or Common Areas",  TA_LEFT,   0, 4,   0, TA_LEFT, 0, 0,  None,     None,       0,  0,  ""   ; SAC 10/19/21 (MFam)  ; SAC 10/17/24 (tic #3630)
+   CTRL, "HlthCareFacility",  3075, TDCT_Check, 670, 115,  22, 130,  0, FNT_STD, "Healthcare Facility",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ResDwellUnits < 0.5,    0,  0,  "" 
+   CTRL, "LAFirePVBattExcpt", 3077, TDCT_Check, 670, 115,  22, 320,  0, FNT_STD, "Project subject to Executive Order N-29-25",   TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ResDwellUnits > 0.5,    0,  0,  ""  ; SAC 10/20/25 (dev #240)
 
    CTRL, "",                1090, TDCT_Label,   20, 162,  20, 300, -1, FNT_STD, "Nonresidential Analysis Scope Options:",      TA_LEFT,     0, 0,     0, TA_LEFT, 0, 0,  None, None,         0,  0,  ""
    CTRL, "CompOptNew",      1080, TDCT_Check,   40, 182,  22,  80,  0, FNT_STD, "New    OR  ",                  TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                None,      -135,  0,  "Select this option if project includes New design only"
@@ -395,9 +389,9 @@ MAINSCREEN,  15
    CTRL, "ZipCode",         1065, TDCT_Edit,   850, 430,  25,  70, -9, FNT_STD, "Zip Code:",                    TA_LEFT,   -60, 4,     1, TA_LEFT, 4, 4,  None,       None,               0,  0,  ""
    CTRL, "ZipCodeMsg",      1066, TDCT_Label,  660, 465,  20, 290,  0, FNT_STD, "",                             TA_LEFT,     0, 0,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
 
-   CTRL, "CliZn",           1067, TDCT_Combo,  140, 460, 300, 120, 25, FNT_STD, "Climate Zone:",                 TA_LEFT,  -100, 4,     0, TA_LEFT, 0, 0,  CliZnEditable > 0,   None,    0,  0,  ""
-   CTRL, "WeatherStation",  1068, TDCT_Combo,  400, 460, 450, 240, 25, FNT_STD, "Weather Station:",              TA_LEFT,  -110, 4,     0, TA_LEFT, 0, 0,  CliZnEditable > 0,   None,    0,  0,  ""
-   CTRL, "BldgTerrain",     1069, TDCT_Combo,  140, 488, 150, 120, 25, FNT_STD, "Terrain:",                      TA_LEFT,  -100, 4,     0, TA_LEFT, 0, 0,  AnalysisType < 0,    None,    0,  0,  ""
+   CTRL, "CliZn",           1067, TDCT_Combo,  140, 460, 300, 120, 25, FNT_STD, "Climate Zone:",                 TA_LEFT,  -100, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
+   CTRL, "WeatherStation",  1068, TDCT_Combo,  400, 460, 450, 240, 25, FNT_STD, "Weather Station:",              TA_LEFT,  -110, 4,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
+   CTRL, "BldgTerrain",     1069, TDCT_Combo,  140, 488, 150, 120, 25, FNT_STD, "Terrain:",                      TA_LEFT,  -100, 4,     0, TA_LEFT, 0, 0,  AnalysisType < 0,      None,    0,  0,  ""
 
    CTRL, "",                1070, TDCT_Label,   20, 525,  20,   0,  0, FNT_STD, "File Management",               TA_LEFT,     0, 0,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
 ;   CTRL, "",                1071, TDCT_Line,   140, 498, 970, 498, -1, FNT_STD, "",                              TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       None,               0,  0,  ""
@@ -521,11 +515,10 @@ MAINSCREEN,  15
    CTRL, "",                         102, TDCT_Line,   850, 78, 690, 78, -1, FNT_STD, "",                                                         TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       None,   0,  0,  ""
 
 
-   CTRL, "OccFrac",                 1005, TDCT_Edit,   340,  90,  22,  40,  2, FNT_STD, "Default multiplier on exiting occupant density:",            TA_LEFT, -280, 4,     1, TA_LEFT, 4, 4,  None,       None,   0,  0,  ""    
-   CTRL, "DebugScreen",             1004, TDCT_Check,   60, 115,  22, 270,  0, FNT_STD, "Show debug properties on screen dialogs",                    TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,   0,  0,  ""
-   CTRL, "IsStdModel",              1006, TDCT_Check,   60, 140,  22, 180,  0, FNT_STD, "Is a Standard Model",                                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,   0,  0,  ""
-   ; activated QuickAnalysis here - removed from Analysis Options tab to free up space for FacilityType - SAC 06/15/26 (dev #903)
-   CTRL, "QuickAnalysis",           1008, TDCT_Check,   60, 165,  22, 150,  0, FNT_STD, "Quick Analysis",                                             TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,   0,  0,  ""
+   CTRL, "OccFrac",                 1005, TDCT_Edit,   340,  90,  22,  40,  2, FNT_STD, "Default multiplier on exiting occupant density:",           TA_LEFT, -280, 4, 1, TA_LEFT, 4, 4,  None,       None,   0,  0,  ""    
+   CTRL, "DebugScreen",             1004, TDCT_Check,   60, 115,  22, 270,  0, FNT_STD, "Show debug properties on screen dialogs",   TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       None,   0,  0,  ""
+   CTRL, "IsStdModel",              1006, TDCT_Check,   60, 140,  22, 180,  0, FNT_STD, "Is a Standard Model",                                        TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None ,       None,   0,  0,  ""
+   CTRL, "QuickAnalysis",           1008, TDCT_Check,   60, 165,  22, 150,  0, FNT_STD, "Quick Analysis",                                             TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  AnalysisType < 0,       None,   0,  0,  ""
 
 ; HVAC Eplus auto-sizing and auto-hardsize/efficiency
    CTRL, "AutoHardSize",            1010, TDCT_Check,   60, 190,  22, 400,  0, FNT_STD, "Auto-Populate Proposed HVAC Capacities",                   TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       None,   0,  0,  ""
@@ -2166,12 +2159,12 @@ MAINSCREEN,  15
 	 CTRL, "Status",            2030, TDCT_Combo,  160,  85, 300,  80, 12, FNT_STD, "Air Leakage Status:",                        TA_LEFT,  -140, 4,     0, TA_LEFT, 0, 0,  None,  RunScope = 2,       0,  0,  ""
 ;	 CTRL, "IsVerified",        2031, TDCT_Check,  270,  52,  22, 195,  0, FNT_STD, "Verify Existing Air Leakage",                TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,  RunScope = 2 And Status = 2 And IsMultiFamily < 1,         0,  0,  "Whether or not altered wall has a verifiable existing wall"  
 ;     	 CTRL, "exACH50",           2007, TDCT_Edit,   470,  50,  25,  50, 11, FNT_STD, "",                                           TA_LEFT,     0, 4,     1, TA_LEFT, 4, 4,  None,  IsMultiFamily < 1 And RunScope = 2 And IsVerified > 0.5,   0, 95,  "Existing Air infiltration"                  
-   ; SAC 7/13/20 - expose ACH50 for MFam models and also access to AirNet Details dialog (w/o activating BypassRuleLimits)
-   ; CTRL, "ACH50",             2006, TDCT_Edit,   180,  80,  25,  50, 11, FNT_STD, "Air Leakage:",                               TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  None,       IsMultiFamily < 1,  -162, 95,  "Air infiltration"                  
-   ; hide ACH50 input for AnalysisVersion >= 250300 since it no longer impacts infiltration settings - SAC 07/30/26 (dev #679)
-	 CTRL, "ACH50",             2006, TDCT_Edit,   180, 115,  25,  50, 11, FNT_STD, "Residential Air Leakage:",                   TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  UseDefaultACH50 = 0,   Proj:AnalysisVersion < 250300,  -142, 95,  "Air infiltration"                  
-	 CTRL, "UseDefaultACH50",   2032, TDCT_Check,  340, 117,  22, 150,  0, FNT_STD, "Use Default ACH50",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                  Proj:AnalysisVersion < 250300,     0,  0,  "Whether or not to use the default air changes per hour setting in analysis"     ; SAC 06/27/21 (tic #1274)
-    CTRL, "",                  2033, TDCT_Button, 500, 115,  22, 100,129, FNT_STD, "Infiltration...",                            TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       Proj:EnableResearchMode > 0.5,    0,  0,  "access information related to AirNet leakage areas"
+; SAC 7/13/20 - expose ACH50 for MFam models and also access to AirNet Details dialog (w/o activating BypassRuleLimits)
+;	 CTRL, "ACH50",             2006, TDCT_Edit,   180,  80,  25,  50, 11, FNT_STD, "Air Leakage:",                               TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  None,       IsMultiFamily < 1,  -162, 95,  "Air infiltration"                  
+	 CTRL, "ACH50",             2006, TDCT_Edit,   180, 115,  25,  50, 11, FNT_STD, "Residential Air Leakage:",                   TA_LEFT,  -160, 4,     1, TA_LEFT, 4, 4,  UseDefaultACH50 = 0,   None,  -142, 95,  "Air infiltration"                  
+	 CTRL, "UseDefaultACH50",   2032, TDCT_Check,  340, 117,  22, 150,  0, FNT_STD, "Use Default ACH50",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                  None,     0,  0,  "Whether or not to use the default air changes per hour setting in analysis"     ; SAC 06/27/21 (tic #1274)
+    CTRL, "",                  2033, TDCT_Button, 500, 115,  22,  30, 129, FNT_STD, "...",                                       TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       Proj:EnableResearchMode > 0.5,    0,  0,  "access information related to AirNet effective leakage areas"
+;    CTRL, "",                  2033, TDCT_Button, 500, 115,  22,  30, 129, FNT_STD, "...",                                       TA_CENTER,   0, 0,     0, TA_LEFT, 0, 0,  None,       None,    0,  0,  "access information related to AirNet leakage areas"
 
 	 CTRL, "InsulConsQuality",  2008, TDCT_Combo,  180, 145, 300,  80, 25, FNT_STD, "Quality Insul. Installation:",               TA_LEFT,  -160, 4,     0, TA_LEFT, 0, 0,  None,        Bldg:TotStoryCnt <= 3,     0,  0,  "Quality Insulation Installation (QII)"   
 
@@ -2493,27 +2486,23 @@ MAINSCREEN,  15
 ;      BDBase      Page                                               
 ;      Component    ID   Module(s)   Caption                          
 ;----------------------------------------------------------------
- TAB, "ResProj",   129,      15,    "  AirNet Leakage Area Data  "
+ TAB, "ResProj",   129,      15,    "  AirNet Leakage Area Multipliers  "
 
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    ;       BDBase                    Ctrl                                                 | Control Label                                       | Units Label         | Editable        | Display      Erase X | 
    ;       Parameter                  ID   Ctrl Type     X    Y    Ht   Wd   Val  Font    | Label                            Justif.     DX  DY | Disp  Just    DX DY | Condition       | Condition    Lft Rgt | Status Bar Msg
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   ; move ACH50 inputs here from ResProj dialog - which impact reference values but no longer impacts infiltration settings in simulation - SAC 07/30/26 (dev #679)
-	 CTRL, "ACH50",                  18701, TDCT_Edit,   140,  28,   25,  50,  11, FNT_STD, "Res Air Leakage:",              TA_LEFT,   -105, 4,     1, TA_LEFT,  4, 4,  UseDefaultACH50 = 0,   Proj:AnalysisVersion >= 250300,  -107, 95,  "Air infiltration (for reference - NOT directly used in model simulation)"                  
-	 CTRL, "UseDefaultACH50",        18702, TDCT_Check,  300,  30,   22, 150,   0, FNT_STD, "Use Default ACH50",             TA_LEFT,      0, 4,     0, TA_LEFT,  0, 0,  None,                  Proj:AnalysisVersion >= 250300,     0,  0,  "Whether or not to use the default air changes per hour setting" 
+    CTRL, "BldgELA_CeilSF",         18801, TDCT_Edit,   140,  40,   25, 100,   8, FNT_STD, "Ceiling:",                      TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_RaisedFlrSF",    18802, TDCT_Edit,   140,  70,   25, 100,   8, FNT_STD, "Raised Floor:",                 TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_GarageSF",       18803, TDCT_Edit,   140, 100,   25, 100,   8, FNT_STD, "Uncond Zone:",                  TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+    CTRL, "BldgELA_WallSF",         18804, TDCT_Edit,   140, 130,   25, 100,   8, FNT_STD, "Exterior Wall:",                TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
+	 CTRL, "",                       18815, TDCT_Label,  255,  22,   18,   0,   0, FNT_STD, "Surface Areas:",                TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[1]",         18811, TDCT_Label,  255,  44,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[2]",         18812, TDCT_Label,  255,  74,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[3]",         18813, TDCT_Label,  255, 104,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[4]",         18814, TDCT_Label,  255, 134,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
 
-    CTRL, "BldgELA_CeilSF",         18801, TDCT_Edit,   140,  70,   25, 100,   8, FNT_STD, "Ceiling:",                      TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-    CTRL, "BldgELA_RaisedFlrSF",    18802, TDCT_Edit,   140, 100,   25, 100,   8, FNT_STD, "Raised Floor:",                 TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-    CTRL, "BldgELA_GarageSF",       18803, TDCT_Edit,   140, 130,   25, 100,   8, FNT_STD, "Uncond Zone:",                  TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-    CTRL, "BldgELA_WallSF",         18804, TDCT_Edit,   140, 160,   25, 100,   8, FNT_STD, "Exterior Wall:",                TA_LEFT,   -100, 4,     0, TA_LEFT,  4, 4,  None,             None,          0,  0,  ""
-	 CTRL, "",                       18815, TDCT_Label,  255,  52,   18,   0,   0, FNT_STD, "Surface Areas:",                TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[1]",         18811, TDCT_Label,  255,  74,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[2]",         18812, TDCT_Label,  255, 104,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[3]",         18813, TDCT_Label,  255, 134,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-	 CTRL, "BldgELA_Msg[4]",         18814, TDCT_Label,  255, 164,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
-
-	 CTRL, "BldgELA_Msg[5]",         18805, TDCT_Label,   60, 195,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
+	 CTRL, "BldgELA_Msg[5]",         18805, TDCT_Label,   60, 165,   18,   0,   0, FNT_STD, "",                              TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,             None,          0,  0,  ""
 
 ;   Proj:BldgELA_CeilSF			
 ;   Proj:BldgELA_RaisedFlrSF	
@@ -2532,7 +2521,7 @@ MAINSCREEN,  15
 ;	 CTRL, "",                           18821, TDCT_Label,   40, 200,   18,   0,   0, FNT_BOLD, "Zonal Vent Control Inputs",       TA_LEFT,      0, 0,     0, TA_LEFT, -1, 0,  None,       CSEVentAvailZonal > 0,          0,  0,  ""
 ;	 CTRL, "",                           18822, TDCT_Line,   215, 208,  450, 208,  -1, FNT_STD, "",                                 TA_CENTER,    0, 0,     0, TA_LEFT,  0, 0,  None,       CSEVentAvailZonal > 0,          0,  0,  ""
 ;    CTRL, "NResLeakageRatio",           18823, TDCT_Edit,   275, 225,   25, 100,  11, FNT_STD, "Nonres/Res Exterior Hole Ratio:",  TA_LEFT,   -220, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of Nonres surface leakage (per ft2) / Residential surface leakage"
-    CTRL, "NResLeakageRatio",           18823, TDCT_Edit,   240, 225,   25,  50,  11, FNT_STD, "Nonres/Res Exterior Hole Ratio:",  TA_LEFT,   -200, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of Nonres (OtherZone) surface leakage (per ft2) / Residential (Zone) surface leakage"
+    CTRL, "NResLeakageRatio",           18823, TDCT_Edit,   240, 195,   25,  50,  11, FNT_STD, "Nonres/Res Exterior Hole Ratio:",  TA_LEFT,   -200, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of Nonres (OtherZone) surface leakage (per ft2) / Residential (Zone) surface leakage"
 	 CTRL, "",                           18824, TDCT_Label,   55, 259,   18,   0,   0, FNT_STD, "Ratio of Hole Size / Surface Size for Interior Surfaces:", TA_LEFT,  0, 0,  0, TA_LEFT, -1, 0,  None,  CSEVentAvailZonal > 0,          0,  0,  ""
     CTRL, "IntSurfHoleSzRatio[1]",      18825, TDCT_Edit,   275, 280,   25, 100,   8, FNT_STD, "Between Residential Units:",       TA_RIGHT,    -5, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of hole size / surface size for interior surfaces between residential units"
     CTRL, "IntSurfHoleSzRatio[2]",      18826, TDCT_Edit,   275, 310,   25, 100,   8, FNT_STD, "Other Interior Surfaces:",         TA_RIGHT,    -5, 4,     0, TA_LEFT,  4, 4,  None,       CSEVentAvailZonal > 0,          0,  0,  "ratio of hole size / surface size for interior surfaces NOT between residential units"
@@ -2674,7 +2663,7 @@ MAINSCREEN,  15
 	 CTRL, "",                   2012, TDCT_Line,   230, 133, 645, 133, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSmrySrc != 1,       0,  0,  ""
 
    CTRL, "ZoneUMLHsMsg",    3623, TDCT_Edit,    40, 400,  80, 840, 10001, FNT_STD, "",                                TA_LEFT,   -2,   0,     0, TA_LEFT,  0, 0,  ZoneUMLHsLoaded[1] < 0,   HaveZoneUMLHsMsg   > 0.5,   0,  0,  ""
-   CTRL, "",                3624, TDCT_Button,  40, 490,  22, 340,  3029, FNT_STD, "Information on Resolving Unmet Load Hours",  TA_CENTER, 0,  0,   0, TA_LEFT,  0, 0,  None,               HaveZoneUMLHsMsg   > 0.5,   0,  0,  "navigate to a website containing information on resolving unmet load hours issues"
+   CTRL, "",                3624, TDCT_Button,  40, 490,  22, 340,  3030, FNT_STD, "Information on Resolving Unmet Load Hours",  TA_CENTER, 0,  0,   0, TA_LEFT,  0, 0,  None,               HaveZoneUMLHsMsg   > 0.5,   0,  0,  "navigate to a website containing information on resolving unmet load hours issues"
 
    ; moved View Compliance Report button from Energy Use Summary tab to here - SAC 06/07/22
    CTRL, "",                3825, TDCT_Button, 645, 490,  22, 240, 3066, FNT_STD, "View Compliance Report",           TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  "view compliance report"
@@ -2826,7 +2815,7 @@ MAINSCREEN,  15
    ;       BDBase            Ctrl                                               | Control Label                                           | Units Label          | Editable  | Display     Erase X |
    ;       Parameter          ID   Ctrl Type     X    Y    Ht   Wd Val   Font   | Label                                Justif.     DX  DY | Disp   Just    DX DY | Condition | Condition   Lft Rgt | Status Bar Msg
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   CTRL, "Active",          2001, TDCT_Combo,   15,   2, 300, 135, 225, FNT_STD, " ",                                 TA_RIGHT,   -2,  4,     0, TA_LEFT,  0, 0,  None,       Proj:NumResultsSets > 1,    0,  0,  "compliance results set"
+   CTRL, "Active",          2001, TDCT_Combo,   15,   2, 300, 210, 25, FNT_STD, " ",                                  TA_RIGHT,   -2,  4,     0, TA_LEFT,  0, 0,  None,       Proj:NumResultsSets > 1,    0,  0,  "compliance results set"
 
 ;   CTRL, "",                2001, TDCT_Label,  250,  15,  20,   0,  0, FNT_BOLD, "Energy Use Summary",                TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
                                                                                                                                                                                                                                                 
@@ -3361,7 +3350,7 @@ MAINSCREEN,  15
    ;       BDBase            Ctrl                                               | Control Label                                           | Units Label          | Editable  | Display     Erase X |
    ;       Parameter          ID   Ctrl Type     X    Y    Ht   Wd Val   Font   | Label                                Justif.     DX  DY | Disp   Just    DX DY | Condition | Condition   Lft Rgt | Status Bar Msg
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   CTRL, "Active",          2001, TDCT_Combo,   15,   2, 300, 135, 225, FNT_STD, " ",                                 TA_RIGHT,   -2,  4,     0, TA_LEFT,  0, 0,  None,       Proj:NumResultsSets > 1,    0,  0,  "compliance results set"
+   CTRL, "Active",          2001, TDCT_Combo,   15,   2, 300, 210, 25, FNT_STD, " ",                                  TA_RIGHT,   -2,  4,     0, TA_LEFT,  0, 0,  None,       Proj:NumResultsSets > 1,    0,  0,  "compliance results set"
 
 ;   CTRL, "",                2001, TDCT_Label,  250,  15,  20,   0,  0, FNT_BOLD, "Energy Use Summary",                TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
                                                                                                                                                                                                                                                 
@@ -3565,13 +3554,11 @@ MAINSCREEN,  15
    ;       BDBase            Ctrl                                               | Control Label                                           | Units Label          | Editable  | Display     Erase X |
    ;       Parameter          ID   Ctrl Type     X    Y    Ht   Wd Val   Font   | Label                                Justif.     DX  DY | Disp   Just    DX DY | Condition | Condition   Lft Rgt | Status Bar Msg
    ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   CTRL, "Active",          2001, TDCT_Combo,   15,   2, 300, 135, 225, FNT_STD, " ",                                 TA_RIGHT,   -2,  4,     0, TA_LEFT,  0, 0,  None,       Proj:NumResultsSets > 1,    0,  0,  "compliance results set"
-
-;   CTRL, "",                3604, TDCT_Label,   25,  15,  18,   0,  0, FNT_BOLD, "Unmet Load Hours by Thermal Zone:", TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,                     ZoneUMLHsLoaded[2] > 0.5,   0,  0,  ""
-   CTRL, "ZoneUMLHs[1]",    3613, TDCT_Edit,    40,  60, 280, 810,  0, FNT_STD, "Proposed Design Unmet Load Hours by Thermal Zone:",  TA_LEFT,  -15, -21,     0, TA_LEFT,  0, 0,  ZoneUMLHsLoaded[1] < 0,   ZoneUMLHsLoaded[1] > 0.5 Or ZoneUMLHsLoaded[2] > 0.5,   0,  0,  ""  
+   CTRL, "",                3604, TDCT_Label,   25,  15,  18,   0,  0, FNT_BOLD, "Unmet Load Hours by Thermal Zone:", TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,                     ZoneUMLHsLoaded[2] > 0.5,   0,  0,  ""
+   CTRL, "ZoneUMLHs[1]",    3613, TDCT_Edit,   40,  60, 280, 810,  0, FNT_STD, "Proposed Design",                    TA_LEFT,    2, -20,     0, TA_LEFT,  0, 0,  ZoneUMLHsLoaded[1] < 0,   ZoneUMLHsLoaded[1] > 0.5 Or ZoneUMLHsLoaded[2] > 0.5,   0,  0,  ""  
 
    CTRL, "ZoneUMLHsMsg",    3623, TDCT_Edit,    40, 380,  90, 810, 10001, FNT_STD, "",                                TA_LEFT,   -2,   0,     0, TA_LEFT,  0, 0,  ZoneUMLHsLoaded[1] < 0,   HaveZoneUMLHsMsg   > 0.5,   0,  0,  ""
-   CTRL, "",                3624, TDCT_Button, 250, 480,  22, 340,  3029, FNT_STD, "Information on Resolving Unmet Load Hours",  TA_CENTER, 0,  0,   0, TA_LEFT,  0, 0,  None,               HaveZoneUMLHsMsg   > 0.5,   0,  0,  "navigate to a website containing information on resolving unmet load hours issues"
+   CTRL, "",                3624, TDCT_Button, 250, 480,  22, 340,  3030, FNT_STD, "Information on Resolving Unmet Load Hours",  TA_CENTER, 0,  0,   0, TA_LEFT,  0, 0,  None,               HaveZoneUMLHsMsg   > 0.5,   0,  0,  "navigate to a website containing information on resolving unmet load hours issues"
 
    CTRL, "Proj:ResultsCurrentMessage", 3808, TDCT_Label, 855,  10, 18,   0,  0, FNT_STD, "",                          TA_RIGHT,    0,  0,     0, TA_LEFT, -1, 0,  None,       None,       0,  0,  ""
    ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3640,139 +3627,6 @@ MAINSCREEN,  15
    ; CALGreen Results
    CTRL, "CALGreenResultMessage",    1042, TDCT_Label,    30, 400,  16, 0,  0, FNT_STD, "",                                     TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,   None,      Proj:EngyCodeYearNum >= 2019 And Proj:QuickAnalysis = 0,       0,  0,  ""
 
-   ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-;----------------------------------------------------------------
-;      BDBase         Page                                               
-;      Component       ID   Module(s)   Caption                          
-;----------------------------------------------------------------
-; version of Compliance Summary tab that displays 4-orientation analysis results - SAC 06/11/26 (dev #903)
- TAB, "EUseSummary",   159,       1,    "  Compliance Summary  "
-
-   ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   ;       BDBase               Ctrl                                               | Control Label                                           | Units Label          | Editable  | Display     Erase X | 
-   ;       Parameter             ID   Ctrl Type     X    Y    Ht   Wd Val   Font   | Label                                Justif.     DX  DY | Disp   Just    DX DY | Condition | Condition   Lft Rgt | Status Bar Msg
-   ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	 CTRL, "",                        20241, TDCT_Label,   45,  29,  17,   0,  0, FNT_BOLD, "Azimuth",                     TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20242, TDCT_Label,  290,  10,  17,   0,  0, FNT_BOLD, "Standard",                    TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20243, TDCT_Label,  290,  29,  17,   0,  0, FNT_BOLD, "Design",                      TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20244, TDCT_Label,  400,  10,  17,   0,  0, FNT_BOLD, "Proposed",                    TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20245, TDCT_Label,  400,  29,  17,   0,  0, FNT_BOLD, "Design",                      TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20246, TDCT_Label,  510,  10,  17,   0,  0, FNT_BOLD, "Compliance",                  TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20247, TDCT_Label,  510,  29,  17,   0,  0, FNT_BOLD, "Margin",                      TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20251, TDCT_Label,  120,  56,  17,   0,  0, FNT_BOLD, "LSC-Efficiency",              TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20252, TDCT_Label,  120,  76,  17,   0,  0, FNT_BOLD, "LSC-Total",                   TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20253, TDCT_Label,  120,  96,  17,   0,  0, FNT_BOLD, "Source",                      TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20254, TDCT_Label,  120, 121,  17,   0,  0, FNT_BOLD, "LSC-Efficiency",              TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20255, TDCT_Label,  120, 141,  17,   0,  0, FNT_BOLD, "LSC-Total",                   TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20256, TDCT_Label,  120, 161,  17,   0,  0, FNT_BOLD, "Source",                      TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20257, TDCT_Label,  120, 186,  17,   0,  0, FNT_BOLD, "LSC-Efficiency",              TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20258, TDCT_Label,  120, 206,  17,   0,  0, FNT_BOLD, "LSC-Total",                   TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20259, TDCT_Label,  120, 226,  17,   0,  0, FNT_BOLD, "Source",                      TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                        20261, TDCT_Label,  120, 251,  17,   0,  0, FNT_BOLD, "LSC-Efficiency",              TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20262, TDCT_Label,  120, 271,  17,   0,  0, FNT_BOLD, "LSC-Total",                   TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "",                        20263, TDCT_Label,  120, 291,  17,   0,  0, FNT_BOLD, "Source",                      TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientLabel[1]",          20266, TDCT_Label,   90,  76,  17,   0,  0, FNT_BOLD, "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  "°"  
-	 CTRL, "OrientLabel[2]",          20267, TDCT_Label,   90, 141,  17,   0,  0, FNT_BOLD, "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  "°"  
-	 CTRL, "OrientLabel[3]",          20268, TDCT_Label,   90, 206,  17,   0,  0, FNT_BOLD, "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  "°"  
-	 CTRL, "OrientLabel[4]",          20269, TDCT_Label,   90, 271,  17,   0,  0, FNT_BOLD, "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  "°"  
-
-	 CTRL, "OrientMetric1Std[1]",     20271, TDCT_Label,  305,  56,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Std[1]",     20272, TDCT_Label,  305,  76,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Std[1]",     20273, TDCT_Label,  305,  96,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Std[2]",     20274, TDCT_Label,  305, 121,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Std[2]",     20275, TDCT_Label,  305, 141,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Std[2]",     20276, TDCT_Label,  305, 161,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Std[3]",     20277, TDCT_Label,  305, 186,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Std[3]",     20278, TDCT_Label,  305, 206,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Std[3]",     20279, TDCT_Label,  305, 226,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Std[4]",     20280, TDCT_Label,  305, 251,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Std[4]",     20281, TDCT_Label,  305, 271,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Std[4]",     20282, TDCT_Label,  305, 291,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Prop[1]",    20283, TDCT_Label,  415,  56,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Prop[1]",    20284, TDCT_Label,  415,  76,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Prop[1]",    20285, TDCT_Label,  415,  96,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Prop[2]",    20286, TDCT_Label,  415, 121,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Prop[2]",    20287, TDCT_Label,  415, 141,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Prop[2]",    20288, TDCT_Label,  415, 161,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Prop[3]",    20289, TDCT_Label,  415, 186,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Prop[3]",    20290, TDCT_Label,  415, 206,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Prop[3]",    20291, TDCT_Label,  415, 226,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Prop[4]",    20292, TDCT_Label,  415, 251,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Prop[4]",    20293, TDCT_Label,  415, 271,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Prop[4]",    20294, TDCT_Label,  415, 291,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Marg[1]",    20295, TDCT_Label,  525,  56,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Marg[1]",    20296, TDCT_Label,  525,  76,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Marg[1]",    20297, TDCT_Label,  525,  96,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Marg[2]",    20298, TDCT_Label,  525, 121,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Marg[2]",    20299, TDCT_Label,  525, 141,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Marg[2]",    20300, TDCT_Label,  525, 161,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Marg[3]",    20301, TDCT_Label,  525, 186,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Marg[3]",    20302, TDCT_Label,  525, 206,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Marg[3]",    20303, TDCT_Label,  525, 226,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1Marg[4]",    20304, TDCT_Label,  525, 251,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2Marg[4]",    20305, TDCT_Label,  525, 271,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3Marg[4]",    20306, TDCT_Label,  525, 291,  17,   0,  0, FNT_STD,  "",                            TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1PsFl[1]",    20307, TDCT_Label,  595,  56,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2PsFl[1]",    20308, TDCT_Label,  595,  76,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3PsFl[1]",    20309, TDCT_Label,  595,  96,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1PsFl[2]",    20310, TDCT_Label,  595, 121,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2PsFl[2]",    20311, TDCT_Label,  595, 141,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3PsFl[2]",    20312, TDCT_Label,  595, 161,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1PsFl[3]",    20313, TDCT_Label,  595, 186,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2PsFl[3]",    20314, TDCT_Label,  595, 206,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3PsFl[3]",    20315, TDCT_Label,  595, 226,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "OrientMetric1PsFl[4]",    20316, TDCT_Label,  595, 251,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric2PsFl[4]",    20317, TDCT_Label,  595, 271,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-	 CTRL, "OrientMetric3PsFl[4]",    20318, TDCT_Label,  595, 291,  17,   0,  0, FNT_STD,  "",                            TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""  
-
-	 CTRL, "",                           20297, TDCT_Label,  428, 334,  17,   0,  0, FNT_BOLD, "Result*:",                 TA_RIGHT,    0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-	 CTRL, "ComplyMessage",              20298, TDCT_Edit,   435, 330,  25, 210, 99, FNT_BOLD, "",                         TA_RIGHT,   -1,  4,     0, TA_LEFT,  0, 0,  Proj:AnalysisType = -1,  None,  -70,  0,  ""
-	 CTRL, "Proj:ResultsCurrentMessage", 20299, TDCT_Label,  670, 334,  18,   0,  0, FNT_STD,  "",                         TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       None,       0,  0,  ""
-
-	 CTRL, "",    20301, TDCT_Label,   55, 370,  17,   0,  0, FNT_STD, "¹ Long-term system Cost (LSC) is a predicted long-term dollar cost to California’s energy system. LSC is not a predicted utility bill.",         TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-	 CTRL, "",    20303, TDCT_Label,   55, 390,  17,   0,  0, FNT_STD, "² Efficiency measures include energy efficiency improvements such as better building envelope and more efficient mechanical equipment.",         TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-	 CTRL, "",    20305, TDCT_Label,   55, 410,  17,   0,  0, FNT_STD, "³ Total includes the sum of efficiency measures, solar photovoltaic (PV) measures and battery storage measures.",                                TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-	 CTRL, "",    20307, TDCT_Label,   55, 430,  17,   0,  0, FNT_STD, "* Building complies when the Proposed Design is equal to or less than the Standard Design in all the compliance categories",                     TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-	 CTRL, "",    20308, TDCT_Label,   55, 448,  17,   0,  0, FNT_STD, "  and unmet load hours are not exceeded",                                                                                                        TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-
-	 CTRL, "StdPVBatteryMsg",   20305, TDCT_Label,   70, 475,  17, 900,  0, FNT_STD, "",                                   TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       None,        0,  0,  ""
-	; CTRL, "StdPVBatteryMsg2", 203051, TDCT_Label,  235, 368,  17, 635,  0, FNT_STD, "",                                   TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       None,        0,  0,  ""
-
-	 CTRL, "",                   2011, TDCT_Line,    30,  51, 645,  51, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
-	 CTRL, "",                   2012, TDCT_Line,    30, 117, 645, 117, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSmrySrc != 1,       0,  0,  ""
-	 CTRL, "",                   2013, TDCT_Line,    30, 182, 645, 182, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSmrySrc != 1,       0,  0,  ""
-	 CTRL, "",                   2014, TDCT_Line,    30, 247, 645, 247, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSmrySrc != 1,       0,  0,  ""
-
-;   CTRL, "ZoneUMLHsMsg",    3623, TDCT_Edit,    40, 400,  80, 840, 10001, FNT_STD, "",                                TA_LEFT,   -2,   0,     0, TA_LEFT,  0, 0,  ZoneUMLHsLoaded[1] < 0,   HaveZoneUMLHsMsg   > 0.5,   0,  0,  ""
-;   CTRL, "",                3624, TDCT_Button,  40, 490,  22, 340,  3029, FNT_STD, "Information on Resolving Unmet Load Hours",  TA_CENTER, 0,  0,   0, TA_LEFT,  0, 0,  None,               HaveZoneUMLHsMsg   > 0.5,   0,  0,  "navigate to a website containing information on resolving unmet load hours issues"
-
-   ; moved View Compliance Report button from Energy Use Summary tab to here - SAC 06/07/22
-   CTRL, "",                3825, TDCT_Button, 645, 490,  22, 240, 3066, FNT_STD, "View Compliance Report",           TA_CENTER,   0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  "view compliance report"
    ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -3873,8 +3727,7 @@ MAINSCREEN,  15
 
     CTRL, "BldgType",                   3070, TDCT_Edit,   520, 25,  25, 180, 25, FNT_STD, "Building Type:",                       TA_LEFT,   -120, 4,     0, TA_LEFT, 0, 0,    Name = -999,           None,                0,  0,  ""
 
-    ; removed Bldg:RelocPubSchoolBldg from UI - replaced by Proj:FacilityType - SAC 08/04/26 (dev #903)
-    ; CTRL, "RelocPubSchoolBldg",         1003, TDCT_Check,  20,   95,  22, 225,  0, FNT_STD, "Relocatable Public School Building",  TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                  None,                0,  0,  "" 
+    CTRL, "RelocPubSchoolBldg",         1003, TDCT_Check,  20,   95,  22, 225,  0, FNT_STD, "Relocatable Public School Building",  TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,                  None,                0,  0,  "" 
     CTRL, "BldgAz",                     1004, TDCT_Edit,   140,  58,  25,  40,  0, FNT_STD, "Building Azimuth:",                   TA_LEFT,  -120, 4,     1, TA_LEFT, 4, 4,  None,                  None,                0,  0,  "Identifies the angle between True North and the the model Y-Axis, measured clockwise from True North in Degrees"                                           
                                                                                                                                                                                                     
 ;These Options have been disabled for the September 2013 release - they are not working correctly.  All occupancy and functions are defined at the individual space level - 360LDH 130829           

@@ -38,51 +38,11 @@
 RULELIST "LoadModelAdjustments" 1 0 0 0
 ;*************************************************************************
 
-  "Address replacement of Proj:ResDwellUnits & HlthCareFacility with new Proj:FacilityType"   Proj:Action =   ; SAC 06/15/26 (dev #903)   ; add logic for reloc class - SAC 08/04/26 (dev #903)
-    { if( LocalStatus( FacilityType ) > 4 .AND.
-          ( LocalStatus( ResDwellUnits    ) > 4 .OR.
-            LocalStatus( HlthCareFacility ) > 4 .OR.
-            GlobalStatus( Bldg:RelocPubSchoolBldg ) > 4 ) )
-      then  ; if FacilityType user-defined, then that overrides ResDwellUnits, HlthCareFacility & Bldg:RelocPubSchoolBldg
-            EvalRulelist( "FacilityType_TakesPrecedence" )
-      else if( ( LocalStatus( ResDwellUnits ) > 4 .AND. IfValidAnd( ResDwellUnits > 0 ) ) .OR.
-               ( LocalStatus( ResDwellUnits ) < 4 .AND. ComponentCount( ResProj ) > 0   ) )
-      then  EvalRulelist( "FacilityType_SetTo_ResDwellUnits" )
-      else if( LocalStatus( HlthCareFacility ) > 4 .AND. IfValidAnd( HlthCareFacility > 0 ) )
-      then  EvalRulelist( "FacilityType_SetTo_HlthCareFacility" )
-      else if( GlobalStatus( Bldg:RelocPubSchoolBldg ) > 4 .AND. IfValidAnd( Bldg:RelocPubSchoolBldg > 0 ) )
-      then  EvalRulelist( "FacilityType_SetTo_RelocClassrm" )
-      else  UNCHANGED  endif endif endif endif  }
-  "remove user-defined Proj:ResDwellUnits"    Proj:Action =
-    { if( LocalStatus( ResDwellUnits ) > 4 )
-      then  EvalRulelist( "Blast_Proj_ResDwellUnits" )
-      else  UNCHANGED  endif  }
-  "remove user-defined Proj:HlthCareFacility"    Proj:Action =
-    { if( LocalStatus( HlthCareFacility ) > 4 )
-      then  EvalRulelist( "Blast_Proj_HlthCareFacility" )
-      else  UNCHANGED  endif  }
-  "remove user-defined Bldg:RelocPubSchoolBldg"  Bldg:Action =
-    { if( LocalStatus( RelocPubSchoolBldg ) > 4 )
-      then  EvalRulelist( "Blast_Bldg_RelocPubSchoolBldg" )
-      else  UNCHANGED  endif  }
-
   "toggle OFF IntSurfModelMthd to prevent any analysis impacts"   ResProj:Action =      ; SAC 09/24/25
     { if( LocalStatus( IntSurfModelMthd ) < 1 ) then  UNCHANGED
       else if( EnumValue( IntSurfModelMthd ) > 0 )
       then  EvalRulelist( "Blast_ResProj_IntSurfModelMthd" )
       else  UNCHANGED  endif endif  }
-
-  ; 08-05-2026 (GH #991) - retire FID (fault indicator) ACCharge selection
-  "Check for FID no longer a valid ResClgSys:ACCharge selection"   ResClgSys:Action =
-     { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
-       else if( EnumValue( ACCharge ) == 3 )
-       then  EvalRulelist( "ForceUpdate_ResClgSys_ACCharge_NotVerified", 1 )
-       else  UNCHANGED  endif endif  }
-  "Check for FID no longer a valid ResHtPumpSys:ACCharge selection"   ResHtPumpSys:Action =
-     { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
-       else if( EnumValue( ACCharge ) == 3 )
-       then  EvalRulelist( "ForceUpdate_ResHtPumpSys_ACCharge_NotVerified", 1 )
-       else  UNCHANGED  endif endif  }
 
 ; RES DHW REMOVAL
 ;   ; SAC 8/15/17 - rule to transfer user-defined AirSrcHtPumpType -> new HPWHBrand & HPWHModel properties (tic #829)
@@ -315,7 +275,7 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
         then EvalRulelist( "Set_IAQFIDandAccessible_forDwellUnitType", 1 )
         else UNCHANGED
         endif }
-   "Undefine ResProj IAQ FID & Accessibility for MFam." ResProj:Action = 
+   "Hard coded ResProj IAQ FID & Accessibility to 1 for MFam." ResProj:Action = 
       { if( IfValidAnd( Proj:ResDwellUnits > 0 ) .AND.
             ( GlobalStatus( ResProj:IAQSupInletsAccessible ) > 4 .OR. GlobalStatus( ResProj:IAQHasFID ) > 4 ))
         then EvalRulelist( "Set_MFamIAQFIDandAccessible", 1 )
@@ -412,50 +372,6 @@ END
 
 ;*************************************************************************
 ;   Start of dependent rulelists for 'LoadModelAdjustments' rulelist. 
-;*************************************************************************
-
-;************************************************************************* SAC 06/15/26 (dev #903)
-RULELIST "FacilityType_TakesPrecedence" 1 0 0 0
-  "Set Proj:ResDwellUnits based on FacilityType"      Proj:ResDwellUnits =
-    { if( FacilityType == "Includes Residential Dwellings &/or Common Areas" )
-      then  1  else  0  endif  }
-  "Set Proj:HlthCareFacility based on FacilityType"   Proj:HlthCareFacility =
-    { if( FacilityType == "Healthcare Facility" )
-      then  1  else  0  endif  }
-  "Set Bldg:RelocPubSchoolBldg based on FacilityType" Bldg:RelocPubSchoolBldg =   ; add another LoadModel check/reset for reloc class - SAC 08/04/26 (dev #903)
-    { if( FacilityType == "Relocatable Pre-checked Public School Building" )
-      then  1  else  0  endif  }
-END
-
-RULELIST "FacilityType_SetTo_ResDwellUnits" 1 0 1 0
-  "Set Proj:FacilityType to 'Includes Residential Dwellings &/or Common Areas'"   Proj:FacilityType =
-    { "Includes Residential Dwellings &/or Common Areas" }
-  "Reclassify user-defined ResDwellUnits as rule-defined"   Proj:Action =
-    { EvalRulelist( "FacilityType_TakesPrecedence" ) }
-END
-RULELIST "FacilityType_SetTo_HlthCareFacility" 1 0 1 0
-  "Set Proj:FacilityType to 'Healthcare Facility'"      Proj:FacilityType =
-    { "Healthcare Facility" }
-  "Reclassify user-defined HlthCareFacility as rule-defined"   Proj:Action =
-    { EvalRulelist( "FacilityType_TakesPrecedence" ) }
-END
-; add another LoadModel check/reset for reloc class - SAC 08/04/26 (dev #903)
-RULELIST "FacilityType_SetTo_RelocClassrm" 1 0 1 0
-  "Set Proj:FacilityType to 'Relocatable Pre-checked Public School Building'"      Proj:FacilityType =
-    { "Relocatable Pre-checked Public School Building" }
-  "Reclassify user-defined Bldg:RelocPubSchoolBldg as rule-defined"   Proj:Action =
-    { EvalRulelist( "FacilityType_TakesPrecedence" ) }
-END
-
-RULELIST "Blast_Proj_ResDwellUnits" 1 0 0 0
-  "blast Proj:ResDwellUnits"      Proj:ResDwellUnits = {  0  }
-END
-RULELIST "Blast_Proj_HlthCareFacility" 1 0 0 0
-  "blast Proj:HlthCareFacility"   Proj:HlthCareFacility = {  0  }
-END
-RULELIST "Blast_Bldg_RelocPubSchoolBldg" 1 0 0 0
-  "blast Bldg:RelocPubSchoolBldg" Bldg:RelocPubSchoolBldg = {  0  }
-END
 ;*************************************************************************
 
 ;*************************************************************************
@@ -793,24 +709,6 @@ RULELIST "Blast_ResProj_IntSurfModelMthd"  1 0 0 1
 END
 ;*************************************************************************
 
-;************************************************************************* 08-05-2026 (GH #991)
-RULELIST "ForceUpdate_ResClgSys_ACCharge_NotVerified" 1 0 1 1
-   "post warning that FID is no longer valid"   ResClgSys:Action =
-      {  PostWarning( "Cooling system '%s': the 'FID (fault indicator)' AC Charge selection is no
-                       longer allowed and has been reset to 'Not Verified'.", Name )  }
-   "force ACCharge to Not Verified"   ResClgSys:ACCharge = {  "Not Verified"  }
-END
-;*************************************************************************
-
-;************************************************************************* 08-05-2026 (GH #991)
-RULELIST "ForceUpdate_ResHtPumpSys_ACCharge_NotVerified" 1 0 1 1
-   "post warning that FID is no longer valid"   ResHtPumpSys:Action =
-      {  PostWarning( "Heat pump system '%s': the 'FID (fault indicator)' AC Charge selection is no
-                       longer allowed and has been reset to 'Not Verified'.", Name )  }
-   "force ACCharge to Not Verified"   ResHtPumpSys:ACCharge = {  "Not Verified"  }
-END
-;*************************************************************************
-
 ;************************************************************************* SAC 06/19/25 (tic #3663)
 RULELIST "BackwardCompat_Blast_AddAloneExistArea"  1 0 0 1
   "blast ResProj:AddAloneExistArea"   ResProj:AddAloneExistArea = {  UNDEFINED  }  ; only applicable to SFam analysis
@@ -934,8 +832,8 @@ END
 
 ;*************************************************************************
 RULELIST "Set_MFamIAQFIDandAccessible" 1 0 1 1
-  "Set ResProj:IAQHasFID"              ResProj:IAQHasFID              = { UNDEFINED }
-  "Set ResProj:IAQSupInletsAccessible" ResProj:IAQSupInletsAccessible = { UNDEFINED }
+  "Set ResProj:IAQHasFID"              ResProj:IAQHasFID              = { 1 }
+  "Set ResProj:IAQSupInletsAccessible" ResProj:IAQSupInletsAccessible = { 1 }
 END
 ;*************************************************************************
 
@@ -1103,22 +1001,6 @@ END
 ;************************************************************************* 06/05/25 SAC
 RULELIST  "Activate_EnableResearchMode"  1 0 1 1
   "Activate Proj:EnableResearchMode"    Proj:EnableResearchMode = { 1 }
-END
-;*************************************************************************
-
-;************************************************************************* SAC 06/16/26 (dev #903)
-RULELIST "Set_Proj_CliZnGrouping_from_CliZn" 1 0 1 0
-  "set Proj:CliZnGrouping based on CliZn"    Proj:CliZnGrouping =
-    { ClimateZoneGroupingtData:CZGroupName( "CliZnVal", EnumValue( CliZn ) ) }
-  "remove Proj:CliZn & Proj:WeatherStation inputs to force defaulting based on Proj:CliZnGrouping"  Proj:Action =
-    { EvalRulelist( "Reset_Proj_CliZn_WeatherStation" ) }
-END
-;*************************************************************************
-RULELIST "Reset_Proj_CliZn_WeatherStation" 1 0 0 0
-  "reset Proj:CliZnNum"           Proj:CliZnNum           = {  0  }
-  "reset Proj:CliZn"              Proj:CliZn              = {  "- select -"  }
-  "reset Proj:WeatherStationNum"  Proj:WeatherStationNum  = {  0  }
-  "reset Proj:WeatherStation"     Proj:WeatherStation     = {  "- select -"  }
 END
 ;*************************************************************************
 

@@ -633,13 +633,12 @@ Cons   "T24-2013 2x4 Altered Wall"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 15"
+   CavityLayer = "R 13"
    FrameLayer = "2x4 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "3 Coat Stucco"
    ; SAC 8/25/16 - switched from 0.101 -> 0.102 to ensure that 2x4, R-13 w/ Stucco analyzes properly (tic #604)
-   T24AltConsUValue = 0.095
-   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(c)3
+   T24AltConsUValue = 0.102
    ..
 
 Cons   "T24-2013 2x6 Altered Wall"  
@@ -647,12 +646,11 @@ Cons   "T24-2013 2x6 Altered Wall"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 21"
+   CavityLayer = "R 19 in 5-1/2 in. cavity (R-18)"
    FrameLayer = "2x6 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "3 Coat Stucco"
-   T24AltConsUValue = 0.069
-   ; DVK - raised CavityLayer from R-19/U-0.074 to R-21/U-0.069 to meet 160.1(c)3.
+   T24AltConsUValue = 0.074
    ..
 
 Cons   "T24-2013 R13 IntWall Cons"  
@@ -718,12 +716,11 @@ Cons   "T24-2013 2x4 Altered Wall-SynthStuc"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 15"
+   CavityLayer = "R 13"
    FrameLayer = "2x4 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Synthetic Stucco"
-   T24AltConsUValue = 0.095
-   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(b)3
+   T24AltConsUValue = 0.102
    ..
 Cons   "T24-2013 2x4 Altered Wall-WoodSid"  
    CanAssignTo = "Exterior Walls"
@@ -735,56 +732,50 @@ Cons   "T24-2013 2x4 Altered Wall-WoodSid"
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Wood Siding/sheathing/decking"
    T24AltConsUValue = 0.095
-   ; DVK - retained R-13/U-0.095 (R-15 would be U-0.089, stricter than 160.1(b)3)
    ..
 Cons   "T24-2013 2x4 Altered Wall-OtherSid"  
    CanAssignTo = "Exterior Walls"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 15"
+   CavityLayer = "R 13"
    FrameLayer = "2x4 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "All Other Siding"
-   T24AltConsUValue = 0.095
-   ; DVK - raised CavityLayer from R-13/U-0.102 to R-15/U-0.095 to mirror 160.1(b)3
+   T24AltConsUValue = 0.102
    ..
-Cons   "T24-2013 2x6 Altered Wall-SynthStuc"  
+Cons   "T24-2013 2x6 Altered Wall-SynthStu"  
    CanAssignTo = "Exterior Walls"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 21"
+   CavityLayer = "R 19 in 5-1/2 in. cavity (R-18)"
    FrameLayer = "2x6 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Synthetic Stucco"
-   T24AltConsUValue = 0.069
-   ; DVK - renamed from "-SynthStu" to "-SynthStuc" to match RuleLibrary lookup in Rules_BudgetConversion_Res.rule:1089
-   ; DVK - raised CavityLayer from R-19/U-0.074 to R-21/U-0.069 to meet 160.1(b)3.
+   T24AltConsUValue = 0.074
    ..
 Cons   "T24-2013 2x6 Altered Wall-WoodSid"  
    CanAssignTo = "Exterior Walls"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 19"
+   CavityLayer = "R 19 in 5-1/2 in. cavity (R-18)"
    FrameLayer = "2x6 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "Wood Siding/sheathing/decking"
-   T24AltConsUValue = 0.069
-   ; DVK - CavityLayer R-19/U-0.069 to meet 160.1(b)3B (R-21 would be U-0.066, stricter than mandate)
+   T24AltConsUValue = 0.070
    ..
 Cons   "T24-2013 2x6 Altered Wall-OtherSid"  
    CanAssignTo = "Exterior Walls"
    Type = "Wood Framed Wall"
    InsideFinishLayer = "Gypsum Board"
    SheathInsul2Layer = "- no sheathing/insul. -"
-   CavityLayer = "R 20"
+   CavityLayer = "R 19 in 5-1/2 in. cavity (R-18)"
    FrameLayer = "2x6 @ 16 in. O.C."
    SheathInsulLayer = "- no sheathing/insul. -"
    WallExtFinishLayer = "All Other Siding"
-   T24AltConsUValue = 0.070
-   ; DVK - CavityLayer R-20/U-0.070 closest at/above 160.1(b)3 (R-21 would be U-0.066, stricter than mandate)
+   T24AltConsUValue = 0.074
    ..
 
 ;-------------------------------------------------------------------------

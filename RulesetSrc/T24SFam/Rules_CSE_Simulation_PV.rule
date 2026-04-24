@@ -133,7 +133,7 @@ RULELIST "CreateCSE_PVArray_1" 1 0 0 0
    "Set csePVARRAY:pvDCSysSize"      csePVARRAY:pvDCSysSize      = {   Proj:PVWDCSysSize[1] * ValidOr( Proj:PVWDCSizeMultiplier[1], 1 ) / ValidOr( Proj:CSE_CFIPVSizeDiv[1], 1 )  }         ; already checked before PVARRAY created
    "Set csePVARRAY:pvModuleType"      csePVARRAY:pvModuleType      =       ; SAC 4/20/20 - mods to use 'Custom' when PVWTempCoeff and EnableResearchMode activated   ; SAC 6/10/20 (CommunitySolar)
       {  if ( IfValidAnd( Proj:PVWModuleType[1] < 4 ) .AND. IfValidAnd( Proj:PVWTempCoeff[1] > -100 ) .AND.
-              (IfValidAnd( Proj:EnableResearchMode > 0 ) .OR. IfValidAnd( Proj:CommunitySolarProjID = 1 )) )
+              (IfValidAnd( Proj:EnableResearchMode > 0 ) .OR. IfValidAnd( Proj:CommunitySolarProjID > 0 )) )
          then  "Custom"
          else if (IfValidAnd( Proj:PVWModuleType[1] > 0 ) .AND. IfValidAnd( Proj:PVWModuleType[1] < 5 ))
          then  Proj:PVWModuleType[1]  else  UNDEFINED  endif endif  }
@@ -178,7 +178,7 @@ RULELIST "CreateCSE_PVArray_1" 1 0 0 0
          else  UNDEFINED  endif endif  }
    "Set csePVARRAY:pvTempCoeff"      csePVARRAY:pvTempCoeff      =         ; SAC 6/10/20 (CommunitySolar)
       {  if ( IfValidAnd( Proj:PVWTempCoeff[1]  > -100 ) .AND.
-              (IfValidAnd( Proj:PVWModuleType[1] = 4 ) .OR. IfValidAnd( Proj:EnableResearchMode > 0 ) .OR. IfValidAnd( Proj:CommunitySolarProjID = 1 )) )
+              (IfValidAnd( Proj:PVWModuleType[1] = 4 ) .OR. IfValidAnd( Proj:EnableResearchMode > 0 ) .OR. IfValidAnd( Proj:CommunitySolarProjID > 0 )) )
          then  Proj:PVWTempCoeff[1]      else  UNDEFINED  endif  }
 
    "Set csePVARRAY:pvUsePVWatts"      csePVARRAY:pvUsePVWatts      = {   if (IfValidAnd( Proj:UsePVWattsDLL     >  0 )) then  "Yes"  else  UNDEFINED  endif  }

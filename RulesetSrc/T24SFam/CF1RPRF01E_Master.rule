@@ -478,13 +478,13 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                                   else UNCHANGED
                                   endif  }  
 
-; RJH 5/6/26 CBECC-user-support Issue 585 - remove output of Section_Umlh
+
   ; Section_Umlh 
-;   "Create & initialize new cf1rSection_Umlh object"
-;      cf1rCF1RPRF01E:Action  = {  if ( Proj:AnalysisVersion > 220000 ) 
-;                                  then CreateChildren( cf1rSection_Umlh, 1, "Section_Umlh" )
-;                                  else UNCHANGED
-;                                  endif  }  
+   "Create & initialize new cf1rSection_Umlh object"
+      cf1rCF1RPRF01E:Action  = {  if ( Proj:AnalysisVersion > 220000 ) 
+                                  then CreateChildren( cf1rSection_Umlh, 1, "Section_Umlh" )
+                                  else UNCHANGED
+                                  endif  }  
 
 
       ; SAC 5/1/19 - moved creation of Da & Db to here (from ...Final rules) to ensure proper output order
@@ -8514,13 +8514,6 @@ RULELIST "CF1RPRF01E_Final"  1 0 0 1
                            then  EvalRulelist( "CF1RPRF01E_Section_Da_FinalUpdate" )
                            else  UNCHANGED  endif }
 
-   ; RJH 8/25/26 2025-CBECC-Res-Schema Issue 83 - populate final value of 
-   "Call subordinate rulelist to populate Section_Da"     
-      Project:Action   = { if (ComponentCount( cf1rSection_Da ) > 0 .AND. Proj:AnalysisVersion >= 250300)
-                           then  EvalRulelist( "CF1RPRF01E_Section_Da_FinalUpdate_250300" )
-                           else  UNCHANGED  endif }
-
-
   ; Section_Db Energy Design Rating BATTERY INPUTS (NOTE - should be created within RULELIST "CF1RPRF01E_Proposed" to be located correctly, then populated here)
 ;   "Create & initialize new cf1rSection_Db object"
 ;      cf1rCF1RPRF01E:Action  = {  
@@ -8804,9 +8797,9 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
                                                                                                                         then UNDEFINED 
                                                                                                                         else  if(Proj:AnalysisVersion < 250000) 
                                                                                                                               then Proj:ResultSummary[1]:StdPeakCoolElec 
-                                                                                                                              else int( Proj:ResultSummary[1]:StdPeakCoolElecLimit + 0.5 )
+                                                                                                                              else Proj:ResultSummary[1]:StdPeakCoolElecLimit 
                                                                                                                               endif 
-                                                                                                                        endif  }   ; RJH 10/26/25 2025-CBECC-Res-Schema Issue 65  ; rounded std peak clg - SAC 05/14/26 (dev #757)
+                                                                                                                        endif  }   ; RJH 10/26/25 2025-CBECC-Res-Schema Issue 65
    "Set cf1rLscStandardDesign:Lsc05_LSC_NotApplicableMessage"  cf1rLscStandardDesign:Lsc05_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc05_LSC_StandardPeakCooling ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
 
   ; Create cf1rLscProposedDesign object
@@ -8819,7 +8812,7 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
    "Set cf1rLscProposedDesign:Lsc03_LSC_NotApplicableMessage"  cf1rLscProposedDesign:Lsc03_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc03_LSC_ProposedTotal ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
    "Set cf1rLscProposedDesign:Lsc04_LSC_ProposedSourceEnergy"  cf1rLscProposedDesign:Lsc04_LSC_ProposedSourceEnergy = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else atof( Proj:ResultSummary[1]:Enduse10[31] ) endif  }
    "Set cf1rLscProposedDesign:Lsc04_LSC_NotApplicableMessage"  cf1rLscProposedDesign:Lsc04_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc04_LSC_ProposedSourceEnergy ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
-   "Set cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling"   cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling  = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else int( Proj:ResultSummary[1]:PropPeakCoolElec + 0.5 ) endif  }  ; rounded std peak clg - SAC 05/14/26 (dev #757)
+   "Set cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling"   cf1rLscProposedDesign:Lsc05_LSC_ProposedPeakCooling  = {  if( Proj:RunScope == 2 .OR. Proj:IsAddAlone == 1 ) then UNDEFINED else Proj:ResultSummary[1]:PropPeakCoolElec endif  }
    "Set cf1rLscProposedDesign:Lsc05_LSC_NotApplicableMessage"  cf1rLscProposedDesign:Lsc05_LSC_NotApplicableMessage = { if ( (LocalStatus ( Lsc05_LSC_ProposedPeakCooling ) < 1) ) then "n/a" else UNDEFINED endif  }   ; RJH 3/5/26 2025-CBECC-Res-Schema Issue 68 - add all NotApplicable elements
 
   ; Create cf1rLscComplianceMargin object
@@ -8871,11 +8864,7 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
                                                                                                                         endif  }   ; RJH 10/27/25 - updated msg options 2025-CBECC-Res-Schema Issue 56
 
    "Set cf1rLscSingleOrientation:afterchildren_LscEndNote1"   cf1rLscSingleOrientation:afterchildren_LscEndNote1  = { "* Building complies when the Proposed Design is equal to or less than the Standard Design in all compliance categories." }
-   "Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { Proj:ResultSummary[1]:PeakCoolElecFtnote[1] }    ; SAC 05/13/26 (dev #757)
-   ;"Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
-   "Set cf1rLscSingleOrientation:afterchildren_LscEndNote3"   cf1rLscSingleOrientation:afterchildren_LscEndNote3  = {   if (IfValidAnd( Proj:ResultSummary[1]:PropPeakCoolBattElecCredit < -0.001 ))  ; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
-                                                                                                                        then  Proj:ResultSummary[1]:PeakCoolElecFtnote[2]
-                                                                                                                        else  UNDEFINED  endif  }
+   "Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
 
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[1], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[2], "" )  }
@@ -8890,17 +8879,7 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
                                                                                                                                                                                     endif
                                                                                                                                                                               else UNDEFINED
                                                                                                                                                                               endif  }
-;   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )  }  ; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 83 duplication of string
-   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {   if (GlobalStatus( Proj:ResultSummary[1]:ResultsNotes[5] ) > 0) 
-                                                                                                                                                                              then  if (GlobalStatus( Proj:ResultSummary[1]:ResultsNotes[1] ) > 0) 
-                                                                                                                                                                                    then  if (Proj:ResultSummary[1]:ResultsNotes[5] == Proj:ResultSummary[1]:ResultsNotes[1])
-                                                                                                                                                                                          then UNDEFINED
-                                                                                                                                                                                          else ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )
-                                                                                                                                                                                          endif
-                                                                                                                                                                                    else ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )
-                                                                                                                                                                                    endif
-                                                                                                                                                                              else UNDEFINED
-                                                                                                                                                                              endif  }
+   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[6]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[6]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[6], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[7]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[7]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[7], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[8]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[8]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[8], "" )  }
@@ -8988,8 +8967,7 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_MultipleOrientations_Populate"  1
                                                                                                                               endif  }   ; RJH 10/30/25 - updated msg options 2025-CBECC-Res-Schema Issue 13
 
    "Set cf1rLscMultipleOrientations:afterchildren_LscEndNote1"   cf1rLscMultipleOrientations:afterchildren_LscEndNote1  = { "* Building complies when the Proposed Design is equal to or less than the Standard Design in all compliance categories." }
-   "Set cf1rLscMultipleOrientations:afterchildren_LscEndNote2"   cf1rLscMultipleOrientations:afterchildren_LscEndNote2  = { Proj:ResultSummary[1]:PeakCoolElecFtnote[1] }    ; SAC 05/13/26 (dev #757)
-   ;"Set cf1rLscMultipleOrientations:afterchildren_LscEndNote2"   cf1rLscMultipleOrientations:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
+   "Set cf1rLscMultipleOrientations:afterchildren_LscEndNote2"   cf1rLscMultipleOrientations:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
 
    "Set cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]"    cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[1], "" )  }
    "Set cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]"    cf1rLscMultipleOrientations:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[2], "" )  }
@@ -9363,16 +9341,8 @@ END
 
 ;************************************************************************* SAC 6/12/20 (CommunitySolar)
 RULELIST "CF1RPRF01E_Section_Da_Row1_CommunitySolar"  1 0 0 1
-   ; RJH 8/24/26 2025-CBECC-Res-Schema Issue 83 - Switch to Da01_PV_100kWhmBlockCount for only option for 2025 community solar - Plumas Sierra
      "Set cf1rtblRowEDR_PV:Da01_PV_SystemTotalRatedPowerDC"    cf1rtblRowEDR_PV:Da01_PV_SystemTotalRatedPowerDC  = {
-         if (Proj:AnalysisVersion < 250300)
-         then int((Proj:PVWDCSysSize[1] * ValidOr( Proj:PVWDCSizeMultiplier[1], 1 ) * 100) + 0.5) / 100
-         else UNCHANGED endif  }
-
-     "Set cf1rtblRowEDR_PV:Da01_PV_100kWhmBlockCount"    cf1rtblRowEDR_PV:Da01_PV_100kWhmBlockCount  = {
-         if (Proj:AnalysisVersion >= 250300)
-         then Proj:ResultSummary[1]:CmntySlrProjVal
-         else UNCHANGED endif  }
+            int((Proj:PVWDCSysSize[1] * ValidOr( Proj:PVWDCSizeMultiplier[1], 1 ) * 100) + 0.5) / 100  }
 
      "Set cf1rtblRowEDR_PV:Da02_PhotoVoltaicExceptionRes"    cf1rtblRowEDR_PV:Da02_PhotoVoltaicExceptionRes  = { 
             "CommunitySolar"  }
@@ -9820,17 +9790,6 @@ RULELIST "CF1RPRF01E_Section_Da_FinalUpdate"  1 0 0 1
 END
 ;*************************************************************************
 
-
-;************************************************************************* RJH 8/25/26 - report final CmntySlrProjVal
-RULELIST "CF1RPRF01E_Section_Da_FinalUpdate_250300"  1 0 0 1
-
-   ; PVCommunitySolar - RJH 8/25/26 - 2025-CBECC-Res-Schema Issue 83
-     "Set Proj:CF1R_EDR_PVRow[1]:Da01_PV_100kWhmBlockCount"    Proj:CF1R_EDR_PVRow[1]:Da01_PV_100kWhmBlockCount  = {
-         if (AnalysisVersion >= 250300 .AND. IfValidAnd( CommunitySolarProjID > 0 ) .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ))
-         then ResultSummary[1]:CmntySlrProjVal
-         else UNCHANGED endif  }
-END
-;*************************************************************************
 
 ;*************************************************************************
 RULELIST "CF1RPRF01E_Section_Db"  1 0 0 1
@@ -13727,7 +13686,6 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
             then  CreateComp( cf1rOo03, Name + " RowSpcCondEx-Ht1" )
             else  UNDEFINED  endif  }
     "Set HVACSys:CF1R_OoHeatingRow[1]:Oo03a_ResidentialHeatingSystemName"    HVACSys:CF1R_OoHeatingRow[1]:Oo03a_ResidentialHeatingSystemName  = {  HtPumpSystem[1]:Name  }
-    ; updated enum ID of 11 to 34 for AirToWaterHeatPump reporting - SAC 08/26/26
     "Set HVACSys:CF1R_OoHeatingRow[1]:Oo03b_ResidentialHeatingSystemType" HVACSys:CF1R_OoHeatingRow[1]:Oo03b_ResidentialHeatingSystemType  = { 
                  switch(HtPumpSystem[1]:Type)
                     case  4 :  "CentralSplitHP"           ; CBECC "SplitHeatPump - Ducted central split heat pump"                         or DuctlessSplitHP
@@ -13738,7 +13696,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13765,7 +13723,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13792,7 +13750,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13819,7 +13777,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13846,7 +13804,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13873,7 +13831,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13900,7 +13858,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13927,7 +13885,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13954,7 +13912,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13981,7 +13939,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14246,7 +14204,6 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
             then  CreateComp( cf1rOo04, Name + " RowSpcCondEx-Cl1" )
             else  UNDEFINED  endif  }
     "Set HVACSys:CF1R_OoCoolingRow[1]:Oo04a_ResidentialCoolingSystemName"    HVACSys:CF1R_OoCoolingRow[1]:Oo04a_ResidentialCoolingSystemName  = {  HtPumpSystem[1]:Name  }
-    ; updated enum ID of 11 to 34 for AirToWaterHeatPump reporting - SAC 08/26/26
     "Set HVACSys:CF1R_OoCoolingRow[1]:Oo04b_ResidentialCoolingSystemType"    HVACSys:CF1R_OoCoolingRow[1]:Oo04b_ResidentialCoolingSystemType  = {  
                  switch(HtPumpSystem[1]:Type)
                     case  4 :  "CentralSplitHP"           ; CBECC "SplitHeatPump - Ducted central split heat pump"                         or DuctlessSplitHP
@@ -14257,7 +14214,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14418,7 +14375,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14579,7 +14536,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14740,7 +14697,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14901,7 +14858,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15062,7 +15019,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15223,7 +15180,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15384,7 +15341,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15545,7 +15502,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15706,7 +15663,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED

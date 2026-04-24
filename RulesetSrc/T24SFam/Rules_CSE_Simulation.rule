@@ -702,8 +702,6 @@ RULELIST "CSE_Defaulting_Project" 1 0 0 1
    ; SAC 7/29/18 - removed all logic pertaining to DHWCalcMethod (related to transition from T24DHW DLLs to CSE)
 	"Default cseTOP:jan1DOW"      cseTOP:jan1DOW		= {	"THU"  }
 
-  "set cseTOP:ucFileName"       cseTOP:ucFileName	= {  "YES"  }  ; to have CSE continue to write output files w/ all-caps filenames - SAC 08/03/26 (dev #607)
-
 	; SAC 1/15/15 - call subordinate rulelists to setup simulation speed inputs based on Proj:SimSpeedOption
 	"Setup simulation speed settings"	Proj:Action	= {	switch (SimSpeedOption)
 																				case  0 :  EvalRulelist( "CSE_SimSpeedOption_Compliance" )

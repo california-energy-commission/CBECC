@@ -195,39 +195,6 @@ RULE NEW AirSys:BaseFanPwrIdx
     else  0
     endif endif endif
 ENDRULE
-RULE NEW AirSys:AddBaseFanPwrIdxForEAA
-  DATATYPE
-    Float
-  LONGFORM
-    AdditionalBaselineFanPowerIndexForEAA
-  INPUTCLASS
-    NotInput
-  UNITS
-    W/cfm
-  ANNUAL : T24N_2022
-    0
-  ANNUAL
-    if( Proj:IsAddOrAlt > 0 .AND.
-        BaseSysNum > 0 .AND. 
-        BaseFanModelingMthd = "PowerPerUnitFlow" .AND.
-        IfValidAnd( SupFanCap > 0 ) )
-    then  if( BaseSysNum = 5 .OR.
-              BaseSysNum = 6 .OR.
-              BaseSysNum = 15 )
-          then  T24N_2025AddBaseFanPwrIdxForEAA:MZVAV( "FlowCap", SupFanCap )
-          else if( BaseSysNum = 14 )
-          then  T24N_2025AddBaseFanPwrIdxForEAA:MZVAV( "FlowCap", MaxAreaThrmlZnRef:TotalBaseAirSys14SupFanCap )
-          else if( BaseSysNum = 1 .OR.
-                   BaseSysNum = 3 .OR.
-                   BaseSysNum = 7 .OR.
-                   BaseSysNum = 9 .OR.
-                   BaseSysNum = 13 )
-          then  T24N_2025AddBaseFanPwrIdxForEAA:AllOther( "FlowCap", SupFanCap )
-          else  0
-          endif endif endif
-    else  0
-    endif
-ENDRULE
 // Calculate baseline fan power allowance in kW
 RULE NEW AirSys:BaseFanPwrAllowance
   DATATYPE
@@ -241,7 +208,7 @@ RULE NEW AirSys:BaseFanPwrAllowance
   ANNUAL
     // For 2022, the *FanPwrAdj values have the units of kW
     if( BaseSysNum > 0 .OR. IsLrgHlthCareFanSys > 0 .OR. IsHlthCareDOAS > 0 )
-    then ( BaseFanPwrIdx + AddBaseFanPwrIdxForEAA ) * SupFanCap / 1000
+    then BaseFanPwrIdx * SupFanCap / 1000
     else 0
     endif
 ENDRULE

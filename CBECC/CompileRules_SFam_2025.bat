@@ -6,7 +6,6 @@ echo BEMCompiler25.exe returned (%ERRORLEVEL%) for CA Res 2025
 if %ERRORLEVEL%==0 goto :copyfiles2
 goto :error2
 :copyfiles2
-if not exist "Data\Rulesets\CA Res 2025\RTF" mkdir "Data\Rulesets\CA Res 2025\RTF"
 copy "..\RulesetSrc\T24SFam\CAR25 Screens.txt"  "Data\Rulesets\CA Res 2025\*.*"
 copy "..\RulesetSrc\T24SFam\T24R ToolTips.txt" "Data\Rulesets\CA Res 2025\CAR25 ToolTips.txt"
 copy "..\RulesetSrc\T24SFam\RTF\*.*" "Data\Rulesets\CA Res 2025\RTF\*.*"

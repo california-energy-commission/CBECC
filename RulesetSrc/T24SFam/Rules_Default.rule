@@ -330,8 +330,8 @@ RULELIST "ProposedInput" 0 0 0 0
 	"Blast Proj:MultiFamilyType if not set to 'Other' - pending final implementation plans/design"		; SAC 4/28/15 - disable initial duplex/townhome options (issue 508/365)
 			Proj:Action		= {	if (MultiFamilyType != 3) then  EvalRulelist( "ForceReset_MultiFamilyType" )  else  UNCHANGED  endif  }
 
-; 	"Set Proj:IsMFamDuplex"			Proj:IsMFamDuplex			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 1) then  1  else  0  endif  }
-; 	"Set Proj:IsMFamTownhm"			Proj:IsMFamTownhm			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 2) then  1  else  0  endif  }  
+	"Set Proj:IsMFamDuplex"			Proj:IsMFamDuplex			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 1) then  1  else  0  endif  }
+	"Set Proj:IsMFamTownhm"			Proj:IsMFamTownhm			= {	if (IsMultiFamily > 0.5 .AND.  MultiFamilyType == 2) then  1  else  0  endif  }  
 	"Set Proj:IsMFamDupOrTownhm"	Proj:IsMFamDupOrTownhm	= {	if (IsMultiFamily > 0.5 .AND. (MultiFamilyType == 1 .OR. MultiFamilyType == 2)) then  1  else  0  endif  }  
 
 	"Set Proj:BuildingTypeRpt"		Proj:BuildingTypeRpt		= {	if (IsMultiFamily < 0.5) then  "Single Family"
@@ -796,12 +796,6 @@ RULELIST "ProposedInput" 0 0 0 0
 ; RJH 2/12/26 (CBECC-Dev Issue 666)
   "default Proj:MeetsPart7CBC"    Proj:MeetsPart7CBC = {  0  }
 
-  ; moved PeakCooling init up here from below (before battery stuff that now references it) - SAC 08/05/26 (dev #989)
-  "Default Proj:IncludePeakCooling"            Proj:IncludePeakCooling =                 ; SAC 03/18/24 (2025)
-    { if (LocalStatus( DfltInclPeakCooling ) > 0) then  DfltInclPeakCooling  else  UNCHANGED  endif  }
-  "Default EUseSummary:IncludePeakCooling"     EUseSummary:IncludePeakCooling =          ; SAC 03/20/24 (2025)
-    { if (EnergyCodeYearNum >= 2025 .AND. LocalStatus( IncludePeakCooling ) < 3) then  1  else  UNCHANGED  endif  }
-
   ; MOVED PV defaulting rules down here from above HVAC defaulting to accommodate 2025 prescrip PV defaulting dependent on EER2 - SAC 07/20/23
   ; SAC 10/24/16 - new rulelist to default photovoltaic (PV) system properties
 	; SAC 10/6/16 - allow PV sim regardless of *DesignRating* settings for 2019 analysis
@@ -853,11 +847,10 @@ RULELIST "ProposedInput" 0 0 0 0
 ; APB 05/11/2022 - allow standalone batt inputs with community solar (tic #1319)
    ; allow ReducedPVReqValue to impact setting of AllowStandaloneBattInputs only when ReducedPVReq > 0 (toggled on) - SAC 07/21/23
    ; toggle OFF access to StandAloneBatt for 2025 research version - SAC 10/10/23 (2025)
-   ; restore access to StandAloneBatt for 2025 analysis - SAC 07/30/26 (RV6)
    "Default Proj:AllowStandaloneBattInputs"     Proj:AllowStandaloneBattInputs =          ; enable StandaloneBattInputs for 2025 in research mode - SAC 03/20/25
-   {  if( IfValidAnd( Proj:AnalysisVersion >= 250008 ) )
-      then  if( (IfValidAnd( ReducedPVReq > 0 ) .AND. IfValidAnd( ReducedPVReqValue == 0 )) .OR.
-                IfValidAnd( PVWDCSysTotal == 0 ) .OR. IfValidAnd( CommunitySolarProjID > 0 ) )
+   {  if (IfValidAnd( Proj:AnalysisVersion >= 250008 ))
+      then  if (EnableResearchMode > 0 .AND. ( (IfValidAnd( ReducedPVReq > 0 ) .AND. IfValidAnd( ReducedPVReqValue == 0 )) .OR.
+                                                IfValidAnd( PVWDCSysTotal == 0 ) .OR. IfValidAnd( CommunitySolarProjID > 0 )) )
             then  1
             else  0  endif
       else if (IfValidAnd( Proj:AnalysisVersion >= 220000 ) .AND. ( (IfValidAnd( ReducedPVReq > 0 ) .AND. IfValidAnd( ReducedPVReqValue == 0 )) .OR.
@@ -1081,6 +1074,11 @@ RULELIST "ProposedInput" 0 0 0 0
                     default      :  0
                endswitch  endif  }
 
+   "Default Proj:IncludePeakCooling"            Proj:IncludePeakCooling =                 ; SAC 03/18/24 (2025)
+      {  if (LocalStatus( DfltInclPeakCooling ) > 0) then  DfltInclPeakCooling  else  UNCHANGED  endif  }
+   "Default EUseSummary:IncludePeakCooling"     EUseSummary:IncludePeakCooling =          ; SAC 03/20/24 (2025)
+      {  if (EnergyCodeYearNum >= 2025 .AND. LocalStatus( IncludePeakCooling ) < 3) then  1  else  UNCHANGED  endif  }
+
    ;--------------------------------------------------------------------
    ; ProposedInput: default StdPeakCoolElecLimitMult
    ;--------------------------------------------------------------------
@@ -1092,13 +1090,6 @@ RULELIST "ProposedInput" 0 0 0 0
    "Default Proj:StdPeakCoolElecLimitMult - mult on StdPeakCoolElec to determine compliance margin"      ; revised for IncludePeakCooling - SAC 03/20/24 (2025)
       Proj:StdPeakCoolElecLimitMult  = {  if (IfValidAnd( IncludePeakCooling > 0 )==0) then  0.0
                                           else  T24RClimateZoneCodeBase:StdPkCoolElecLimitMult( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  endif  }   ; updated to look-up table - SAC 08/14/23
-
-  "Blast Proj:PropPeakCoolBattCreditLimit if user-specified but not EnableResearchMode"    Proj:Action =      ; SAC 08/10/26 (dev #989)
-    { if ( LocalStatus( PropPeakCoolBattCreditLimit ) > 5 .AND. 
-           (EnableResearchMode < 1 .OR. IfValidAnd( IncludePeakCooling > 0 )==0) )
-      then  EvalRulelist( "Blast_Proj_PropPeakCoolBattCreditLimit" )
-      else  UNCHANGED  endif  }
-  "set Proj:PropPeakCoolBattCreditLimit"    Proj:PropPeakCoolBattCreditLimit = { 0.2 }    ; SAC 07/08/26 (dev #989)
 
    ;--------------------------------------------------------------------
    ; ProposedInput: Determine whether Standard Mixed Fuel run is required during analysis
@@ -2140,15 +2131,6 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
 	"Set Proj:RuleRepoRev"		                        Proj:Action	= {	EvalRulelist( "Set_RuleRepoRev" )  }
 	"Set various Code & Program Version properties"		Proj:Action	= {	EvalRulelist( "Default_CodeVersion" )  }
 
-  "prevent use of StdFenInclSkyltsAndWInp (at least for the time being)"    Proj:Action =     ; SAC 07/28/26 (dev #1004)
-    { if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) ) 
-      then  EvalRulelist( "DisableFeature_StdFenInclSkyltsAndWInp" )
-      else  UNCHANGED  endif  }
-  "prevent use of PropOrientStdPeakCooling (at least for the time being)"   Proj:Action =     ; SAC 07/28/26 (dev #983)
-    { if( IfValidAnd( PropOrientStdPeakCooling > 0 ) ) 
-      then  EvalRulelist( "DisableFeature_PropOrientStdPeakCooling" )
-      else  UNCHANGED  endif  }
-
    "Warn user if reduced PV req inputs are specified but DefaultReducedPVReq is undefined"   Proj:Action =     ; SAC 04/30/24 (tic #1352)
       {  if (LocalStatus( DefaultReducedPVReq ) < 1 .AND. LocalStatus( ReducedPVReq ) > 4)
          then  EvalRulelist( "BackwardCompat_DefaultReducedPVReq" )  else  UNCHANGED  endif  }
@@ -2190,18 +2172,6 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
       {  if (IfValidAnd( Proj:EnergyCodeYearNum	>= 2022 ) && Status == 4)
          then  EvalRulelist( "ForceUpdate_Attic_Status_AlteredRoofSurface", 1 )
          else  UNCHANGED  endif  }
-
-   ; 08-05-2026 (GH #991) - retire FID (fault indicator) ACCharge selection
-   "Check for FID no longer a valid HVACCool:ACCharge selection"   HVACCool:Action =
-      { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
-        else if( EnumValue( ACCharge ) == 3 )
-        then  EvalRulelist( "ForceUpdate_HVACCool_ACCharge_NotVerified", 1 )
-        else  UNCHANGED  endif endif  }
-   "Check for FID no longer a valid HVACHtPump:ACCharge selection"   HVACHtPump:Action =
-      { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
-        else if( EnumValue( ACCharge ) == 3 )
-        then  EvalRulelist( "ForceUpdate_HVACHtPump_ACCharge_NotVerified", 1 )
-        else  UNCHANGED  endif endif  }
 
    "Delete Mat objects with invalid ConductivityQII (=0)"   ; SAC 10/11/17 - prune invalid Mat objects related to addition of compressed insulation Cons layers (tic #902)
       Mat:Action  = {
@@ -2367,24 +2337,6 @@ RULELIST "ForceUpdate_Attic_Status_AlteredRoofSurface" 1 0 1 0
 END
 ;*************************************************************************
 
-
-;************************************************************************* 08-05-2026 (GH #991)
-RULELIST "ForceUpdate_HVACCool_ACCharge_NotVerified" 1 0 1 1
-   "post warning that FID is no longer valid"   HVACCool:Action =
-      {  PostWarning( "Cooling system '%s': the 'FID (fault indicator)' AC Charge selection is no
-                       longer allowed and has been reset to 'Not Verified'.", Name )  }
-   "force ACCharge to Not Verified"   HVACCool:ACCharge = {  "Not Verified"  }
-END
-;*************************************************************************
-
-;************************************************************************* 08-05-2026 (GH #991)
-RULELIST "ForceUpdate_HVACHtPump_ACCharge_NotVerified" 1 0 1 1
-   "post warning that FID is no longer valid"   HVACHtPump:Action =
-      {  PostWarning( "Heat pump system '%s': the 'FID (fault indicator)' AC Charge selection is no
-                       longer allowed and has been reset to 'Not Verified'.", Name )  }
-   "force ACCharge to Not Verified"   HVACHtPump:ACCharge = {  "Not Verified"  }
-END
-;*************************************************************************
 
 ;*************************************************************************
 RULELIST "ForceDefault_TDVType_Std" 1 0 0 0
@@ -2797,24 +2749,6 @@ END
 ;************************************************************************* SAC 08/08/23 (2025)
 RULELIST  "Blast_Proj_StdPeakCoolElecLimitMult"  1 0 0 0
    "Blast Proj:StdPeakCoolElecLimitMult"    Proj:StdPeakCoolElecLimitMult  = {  UNDEFINED  }
-END
-;************************************************************************* SAC 08/10/26 (dev #989)
-RULELIST  "Blast_Proj_PropPeakCoolBattCreditLimit"  1 0 0 0
-  "log msg re: PropPeakCoolBattCreditLimit being blasted"   Proj:Action  = { PostMessageToLog( "PropPeakCoolBattCreditLimit of %g being removed from input - only available when EnableResearchMode is activated", PropPeakCoolBattCreditLimit ) }
-  "Blast Proj:PropPeakCoolBattCreditLimit"                  Proj:PropPeakCoolBattCreditLimit  = {  UNDEFINED  }
-END
-;*************************************************************************
-
-
-;************************************************************************* SAC 07/28/26 (dev #1004)
-RULELIST  "DisableFeature_StdFenInclSkyltsAndWInp"  1 0 0 1
-  "post msg re: blasting StdFenInclSkyltsAndWInp"   Proj:Action = {  PostMessageToLog( "Disabling user input setting StdFenInclSkyltsAndWInp (was = %g)", StdFenInclSkyltsAndWInp )  }
-  "blast Proj:StdFenInclSkyltsAndWInp"              Proj:StdFenInclSkyltsAndWInp = {  UNDEFINED  }
-END
-;************************************************************************* SAC 07/28/26 (dev #983)
-RULELIST  "DisableFeature_PropOrientStdPeakCooling"  1 0 0 1
-  "post msg re: blasting PropOrientStdPeakCooling"  Proj:Action = {  PostMessageToLog( "Disabling user input setting PropOrientStdPeakCooling (was = %g)", PropOrientStdPeakCooling )  }
-  "blast Proj:PropOrientStdPeakCooling"             Proj:PropOrientStdPeakCooling = {  UNDEFINED  }
 END
 ;*************************************************************************
 

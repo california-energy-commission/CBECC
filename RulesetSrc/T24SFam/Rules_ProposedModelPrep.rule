@@ -183,10 +183,6 @@ RULELIST "PostProposedInput" 1 0 0 1
       {  if (IfValidAnd( CmntySlr_ElecEnergy < 0 )==0) then  UNDEFINED
          else  CommunitySolar:SrcKBtu( "CodeBase", StdDesignBase, "CSProjectID", CommunitySolarProjID )  endif  }
 
-  "reset Proj:PropPeakCoolBattCreditLimit if needed"    Proj:PropPeakCoolBattCreditLimit =    ; PeakCoolBattCredit - SAC 08/05/26 (dev #989)
-    { if( BattCreditOption == 2 )    ; => PeakClg
-      then  UNCHANGED
-      else  0.0  endif  } 
 
    ;--------------------------------------------------------------------
    ; Ensure SlabFloor:EdgeInsul* properties are zeroed out if they are toggled off in the interface    - SAC 10/7/13
@@ -1402,7 +1398,6 @@ RULELIST  "ApplyPVSystemScaling_StandardDesignTDV" 1 0 0 1
          then  Format( "PV System resized to %.2f kWdc (a factor of %.3f) to achieve '%s' PV scaling", T24RPrescribedPV, PVWDCSizeMultiplier[1], EnumString( PVSizeOption ) )
          else  Format( "PV System resized to %.2f kWdc (a factor of %.3f) to achieve '%s' PV scaling", UseReducedPVReqVal, PVWDCSizeMultiplier[1], EnumString( PVSizeOption ) )
          endif endif endif endif endif  }
-            ; "dbg" Proj:Action = { PostMessageToLog( "setting UserPVScalingMsg in ApplyPVSystemScaling_StandardDesignTDV rulelist:  %s", ResultSummary[1]:UserPVScalingMsg ) }
 END
 ;*************************************************************************
 RULELIST  "ApplyPVSystemScaling_StandardDesignTDV_N" 1 0 0 1

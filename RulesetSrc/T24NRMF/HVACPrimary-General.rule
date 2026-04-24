@@ -93,7 +93,7 @@ RULE FluidSys:Status
     then  "New"
     else if( IfValidAnd( IsBaseSys > 0 ) .OR. Proj:IsNewMech )
     then  "New"
-    else  UNCHANGED
+    else  u:Status
     endif endif
   ANNUAL
     z:Status

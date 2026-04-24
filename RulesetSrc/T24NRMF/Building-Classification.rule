@@ -78,7 +78,7 @@ ENDRULE
 RULE Proj:Bldg:CompleteBldgOccClass
   DESCRIPTION
     "The principal building occupancy (Residential vs NonResidential
-     or Relocatable or Permanent Public School Building)"  
+     or Relocatable Public School Building)"  
   HELP
     "At least 80% of the building area is required to be of the selected occupancy"  
   REFERENCE 
@@ -98,22 +98,15 @@ RULE Proj:Bldg:CompleteBldgOccClass
 ENDRULE
 
 // -------------- Relocatable Public School Building --------------------
-// switched to Prescribed, default based on Proj:FacilityType and remove from UI - SAC 08/04/26 (dev #903)
 RULE Proj:Bldg:RelocPubSchoolBldg
   RULESETS
     T24N
+  REFERENCE 
+
   INPUTCLASS 
-    Prescribed
+    Optional
   DEFAULT
-    if( FacilityType == "Relocatable Pre-checked Public School Building" )
-    then  1
-    else  0
-    endif
-  CHECKCODE
-    if( Bldg:RelocPubSchoolBldg > 0 .AND. Proj:CompOptExist > 0 )
-    then  PostError( "EAA is not permitted for relocatable school buildings." )
-    else  UNCHANGED
-    endif
+    0
   SIZING
     u:RelocPubSchoolBldg
   ANNUAL

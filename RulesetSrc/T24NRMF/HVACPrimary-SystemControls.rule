@@ -534,13 +534,13 @@ RULE FluidSys:FixedSupTemp
                 endif 
           else  UNDEFINED
           endif endif endif
-    else if( TempCtrl = "Fixed" .AND. Type = "ServiceHotWater" )
+    else if( u:TempCtrl = "Fixed" .AND. u:Type = "ServiceHotWater" )
     then  if ( IfValidAnd(Proj:SHWPropOnly = 1) )
-          then  UNCHANGED
+          then  u:FixedSupTemp
           else  135
           endif 
-    else if( TempCtrl = "Fixed" .OR. TempCtrl = "FixedDualSetpoint" )
-    then  UNCHANGED
+    else if( u:TempCtrl = "Fixed" .OR. u:TempCtrl = "FixedDualSetpoint" )
+    then  u:FixedSupTemp
     else  UNDEFINED
     endif endif endif
   ANNUAL
@@ -657,7 +657,7 @@ RULE FluidSys:TempSetptSchRef
     if( IsBaseSys )
     then  UNDEFINED
     else if( ( TempCtrl = "Scheduled" .OR. TempCtrl = "ScheduledDualSetpoint" ) .AND.
-             LocalCompAssigned( TempSetptSchRef ) )
+             LocalCompAssigned( u:TempSetptSchRef ) )
     then  UNCHANGED
     else  UNDEFINED
     endif endif
@@ -681,7 +681,7 @@ RULE FluidSys:HtgTempSetptSchRef
     if( IsBaseSys )
     then  UNDEFINED
     else if( TempCtrl = "ScheduledDualSetpoint" .AND.
-             LocalCompAssigned( TempSetptSchRef ) )
+             LocalCompAssigned( u:TempSetptSchRef ) )
     then  UNCHANGED
     else  UNDEFINED
     endif endif
@@ -729,8 +729,8 @@ RULE FluidSys:RstSupHi
           then  180
           else  UNDEFINED
           endif endif
-    else if( TempCtrl = "LoadReset" .OR. TempCtrl = "OutsideAirReset" )
-    then  UNCHANGED
+    else if( u:TempCtrl = "LoadReset" .OR. u:TempCtrl = "OutsideAirReset" )
+    then  u:RstSupHi
     else  UNDEFINED
     endif endif
   SIZING
@@ -786,7 +786,7 @@ RULE FluidSys:RstSupLow
           then  150
           else  UNDEFINED
           endif endif
-    else if( TempCtrl = "LoadReset" .OR. TempCtrl = "OutsideAirReset" )
+    else if( u:TempCtrl = "LoadReset" .OR. u:TempCtrl = "OutsideAirReset" )
     then  UNCHANGED
     else  UNDEFINED
     endif endif
@@ -799,7 +799,7 @@ RULE FluidSys:RstSupLow
     else if( TempCtrl = "LoadReset" .OR. 
              TempCtrl = "OutsideAirReset" .OR. 
              TempCtrl = "WetBulbReset")
-    then  UNCHANGED
+    then  u:RstSupLow
     else  UNDEFINED
     endif endif
     //    else if( u:TempCtrl = "WetBulbReset" ) 
@@ -842,8 +842,8 @@ RULE FluidSys:RstOutdrHi
           then  20
           else  UNDEFINED
           endif endif
-    else if( TempCtrl = "OutsideAirReset" )
-    then  UNCHANGED
+    else if( u:TempCtrl = "OutsideAirReset" )
+    then  u:RstOutdrHi
     else  UNDEFINED
     endif endif
   SIZING
@@ -892,8 +892,8 @@ RULE FluidSys:RstOutdrLow
           then  50
           else  UNDEFINED
           endif endif
-    else if( TempCtrl = "OutsideAirReset" )
-    then  UNCHANGED
+    else if( u:TempCtrl = "OutsideAirReset" )
+    then  u:RstOutdrLow
     else  UNDEFINED
     endif endif
   SIZING
@@ -948,8 +948,8 @@ RULE FluidSys:WetBulbApproach
           then  10
           else  UNDEFINED
           endif
-    else if( TempCtrl = "WetBulbReset" )
-    then  UNCHANGED
+    else if( u:TempCtrl = "WetBulbReset" )
+    then  u:WetBulbApproach
     else  UNDEFINED
     endif endif
   SIZING

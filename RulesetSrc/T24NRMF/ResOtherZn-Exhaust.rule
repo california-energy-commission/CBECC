@@ -142,7 +142,7 @@ RULE ResOtherZn:ExhstOutsideOpening
     endif endif endif
 ENDRULE
 
-// ------------------- Total Zone Exhaust Flow Rate (Reported) ------------------------------------------
+// ------------------- Total Zone Exhaust Flow Rate ------------------------------------------
 RULE ResOtherZn:TotalExhCFM
   DESCRIPTION
      "Total zone exhaust flow rate."

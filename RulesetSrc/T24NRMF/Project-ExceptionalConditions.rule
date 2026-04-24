@@ -1746,20 +1746,3 @@ RULE ProjVar:ExcptCondCampusPV
   DEFAULT
     "No"
 ENDRULE
-
-RULE ProjVar:ExcptCondG36Lib
-  RULESETS
-    T24N
-  DESCRIPTION
-    "A flag to indicate that project uses JA18 Guideline 36 Library
-     Version requirements as per Section 140.4(r)"
-  DEFAULT
-    if ( Proj:IsNewMech > 0 .OR. Proj:IsAddMech > 0 .OR. Proj:IsPartMech > 0  )
-    then 
-       if ( SumAll( AirSys:UseCertG36Lib ) > 0 )
-       then "Yes"
-       else "No"
-       endif
-    else "No" 
-    endif
-ENDRULE

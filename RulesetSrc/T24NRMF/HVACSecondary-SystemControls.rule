@@ -294,7 +294,7 @@ RULE NEW AirSys:UseCertG36Lib
     if( CertG36LibIsRequired = 1 .AND. UseCertG36Lib = 0 )
     then  PostWarning( "Certified ASHRAE Guideline 36 programming library is not used in the 
                         control system in AirSystem '%s' while it should be. Penalties will be
-                        applied to the terminal minimum airflow and the performance of the fan."
+                        applied to the termianl minimum airflow and the performance of the fan."
                         , name )
     else  UNCHANGED
     endif

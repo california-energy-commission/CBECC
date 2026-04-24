@@ -64,30 +64,18 @@ RULELIST "ProposedInput_CoolVent_IAQ_IntGains" 0 0 0 0
       {  if (EnableClVent .OR. LimitedClVent)
          then  1  else  0  endif  }
 
-  "set Proj:StdWHFan - whether NewCons Std design includes a WHF"   Proj:StdWHFan =         ; SAC 06/23/26 (dev #926)
-    { if( IfValidAnd( ClimateZone > 0 ) .AND. IfValidAnd( StdDesignBase > 0 ) .AND.
-          LocalStatus( BldgTypeTblStr ) > 0 .AND. IfValidAnd( AnalysisVersion >= 250300 ) )
-      then  T24RClimateZoneCodeBase:WHFan( "ClimateZone", ClimateZone, "CodeBase", StdDesignBase, "BldgType", Proj:BldgTypeTblStr )
-      else  -1  endif }
-
-  ; SAC 1/16/19 - added rule default for Proj:UnitClVentOption which may be defaulted via enums before a dependency (tic #1040)
-  "Reset Proj:UnitClVentOption (set it to 'none') if necessary"  Proj:Action  =             ; revisions - SAC 06/23/26 (dev #926)
-    { if( LocalStatus( UnitClVentOption ) > 4 .AND. EnableClVent == 0 .AND.
-          UnitClVentOption != 0 .AND. ( LimitedClVent == 0 .OR. UnitClVentOption == 1 ) )
-      then  EvalRulelist( "Blast_Proj_UnitClVentOption" )
-      else if( LocalStatus( UnitClVentOption ) > 4 .AND. IfValidAnd( StdWHFan = 0 ) .AND.
-               ( IfValidAnd( UnitClVentOption = 1 ) .OR. IfValidAnd( UnitClVentOption = 5 ) ) )
-      then  EvalRulelist( "Blast_Proj_UnitClVentOption" )
-      else  UNCHANGED  endif endif }
-  "Default Proj:UnitClVentOption"     Proj:UnitClVentOption  =                              ; revisions - SAC 06/23/26 (dev #926)
-    { if( EnableClVent .AND. IfValidAnd( StdWHFan = 0 )==0 )
-      then  1     ; Default Prescriptive Whole House Fan
-      else  0     ; none 
-      endif  }
-   "Set Proj:PropClVentOption iff user or proposed model"   Proj:PropClVentOption =         ; SAC 06/08/26 (dev #956)
-    { if (Proj:RunAbbrev == "p" .OR. Proj:RunAbbrev == "p-N" .OR. Proj:RunAbbrev == "p-E" .OR. 
-          Proj:RunAbbrev == "u" .OR. Proj:RunAbbrev == "p-S" .OR. Proj:RunAbbrev == "p-W")
-      then  UnitClVentOption  else  UNCHANGED  endif  }
+   ; SAC 1/16/19 - added rule default for Proj:UnitClVentOption which may be defaulted via enums before a dependency (tic #1040)
+   "Reset Proj:UnitClVentOption (set it to 'none') if necessary"  Proj:Action  =
+      {  if (LocalStatus( UnitClVentOption ) > 4 .AND. EnableClVent == 0 .AND.
+             UnitClVentOption != 0 .AND.
+             ( LimitedClVent == 0 .OR. UnitClVentOption == 1 ))
+         then  EvalRulelist( "Blast_Proj_UnitClVentOption" )
+         else  UNCHANGED  endif }
+   "Default Proj:UnitClVentOption"     Proj:UnitClVentOption  =
+      {  if (EnableClVent)
+         then  1     ; Default Prescriptive Whole House Fan
+         else  0     ; none 
+         endif  }
 
    "Set Proj:ClVentFanUI"     Proj:ClVentFanUI  =        ; SAC 1/19/19 (tic #1040)
       {  if (ClVentUI > 0 .AND. UnitClVentOption = 2)

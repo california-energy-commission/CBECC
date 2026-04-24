@@ -240,13 +240,6 @@ RULELIST "LMCCPRF_Proposed_MFam_SpecialFeatures"  1 0 0 1
          then  CreateChildren( cf1rSpecialFeature, 1, "CF1R SecE SclFtr",
                                "LMCCPRF_MFam_SpecialFeature_IAQVentilationFID" )
          else  UNCHANGED  endif  }
-   "Create cf1rSpecialFeature object - NoIAQVentilationFID"    ; RJH 7/19/26 2025-CBECC-Schema Issue 66
-      cf1rSection_FeatMF:Action  = {
-         if (IfValidAnd( ResProj:EnergyCodeYearNum >= 2025 ) .AND. 
-             IfValidAnd( ResProj:IAQHasFID == 0 ))
-         then  CreateChildren( cf1rSpecialFeature, 1, "CF1R SecE SclFtr",
-                               "LMCCPRF_MFam_SpecialFeature_NoIAQVentilationFID" )
-         else  UNCHANGED  endif  }
    "Create cf1rSpecialFeature object - DuctHighInsulation"
       cf1rSection_FeatMF:Action  = {
          if (IfValidAnd( ResProj:SpeclFeatrs:DuctInsul != 0 ))
@@ -744,13 +737,6 @@ RULELIST "LMCCPRF_MFam_SpecialFeature_IAQVentilationFID"  1 0 0 1
            "IAQVentilationFID"  }
      "Set Feat01b_SpecialFeatureCategoryString"  cf1rSpecialFeature:Feat01b_SpecialFeatureCategoryString  = {
            "IAQ Ventilation System: fault indicator display"  }
-END
-;************************************************************************* - NoIAQVentilationFID   - RJH 7/19/26 2025-CBECC-Schema Issue 66
-RULELIST "LMCCPRF_MFam_SpecialFeature_NoIAQVentilationFID"  1 0 0 1
-     "Set Feat01_SpecialFeatureCategory"  cf1rSpecialFeature:Feat01_SpecialFeatureCategory  = {
-           "NoIAQVentilationFID"  }
-     "Set Feat01b_SpecialFeatureCategoryString"  cf1rSpecialFeature:Feat01b_SpecialFeatureCategoryString  = {
-           "IAQ Ventilation System: fault indicator display not included, confirm FID is not required"  }
 END
 ;************************************************************************* - DuctHighInsulation          DuctInsul            DuctInsulMsg (sym)
 RULELIST "LMCCPRF_MFam_SpecialFeature_DuctHighInsulation"  1 0 0 1

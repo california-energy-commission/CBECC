@@ -121,8 +121,6 @@
 0, Proj:ClimateZone
 1,    Proj:NetEnergyMeteringNSCAdj
 1,    Proj:TDVSummerPkFirstHr
-      ; SAC 08/05/26 (dev #989)
-1,    Proj:BattCreditOption
 
 ; added resets of NoDwellingUnit - SAC 07/05/23 (tic #1351)
 0, Proj:RunScope
@@ -144,12 +142,10 @@
 0, Proj:UseCommunitySolar
 1,    Proj:InCmntySlrProjTerritory
 1,    Proj:SMUDSlrSharesReserved
-1,    Proj:CmntySlrProjReserved
 1,    Proj:PVSizeOption
 0, Proj:CommunitySolarProject
 1,    Proj:InCmntySlrProjTerritory
 1,    Proj:SMUDSlrSharesReserved
-1,    Proj:CmntySlrProjReserved
 
 
 ; ; Community Solar PVOptOut - SAC 04/07/23
@@ -315,8 +311,6 @@
 ; APB 04/04/22 - Start/end months for TOU control (tic #1319)
 1,    Proj:TOUStartMonth
 1,    Proj:TOUEndMonth
-      ; SAC 08/05/26 (dev #989)
-1,    Proj:BattCreditOption
 
 ; APB 03/30/22 - Battery charge/discharge efficiency reset to square root of roundtrip efficiency (tic #1319)
 0, Proj:BattRoundTripEff

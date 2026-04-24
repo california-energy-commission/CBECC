@@ -56,26 +56,6 @@
 ; ; 2,              1,    "Proposed Only"					; When developing a solution you save time by not rerunning STD
 ; 2,              2,    "Research"							; Unlocks T24 rules
 
-0, Proj:FacilityType, 0       ; SAC 06/15/26 (dev #903)  ; added backward compat and new option - SAC 07/31/26 (dev #903)
-1,    Proj:Ruleset,  -1001,  1   ; Backward compatibility
-2,           10,    "Relocatable School Building"
-1,    Proj:Ruleset,   -999,  1   ; Current options
-2,            0,   "Nonresidential"
-2,            1,   "Includes Residential Dwellings &/or Common Areas"
-2,            2,   "Healthcare Facility"
-2,           10,   "Relocatable Pre-checked Public School Building"
-2,           11,   "Permanent Pre-checked Public School Building"
-; value of >=10 for * School Building enum is coded into compliance engine associated w/ multi-orientation analysis option
-
-0, Proj:CliZnGrouping, 100      ; SAC 06/16/26 (dev #903)  ; added 'No Climate Zone Group' (and set to default) - SAC 08/04/26 (dev #903)
-2,            0,   "- select CZ grouping -"
-2,          100,   "No Climate Zone Group"
-2,           16,   "Group A ( CZ1, CZ16* )"
-2,            4,   "Group B ( CZ2, CZ3, CZ4*, CZ5 )"
-2,           10,   "Group C ( CZ6, CZ7, CZ8, CZ9, CZ10* )"
-2,           14,   "Group D ( CZ11, CZ12, CZ13, CZ14* )"
-2,           15,   "Climate Zone (CZ) 15"
-
 0, Proj:WeatherFileSet,   0    ; moved from RULE block & revised for upcoming 2028.0.2 - SAC 06/08/25
 1,    Proj:Ruleset,  -1001,  2520   ; Backward compatibility
 2,      2520,	"7 year TMY"
@@ -1192,10 +1172,6 @@
 2,              2,    "No"
 
 0, ProjVar:ExcptCondCampusPV,  0
-2,              1,    "Yes"
-2,              2,    "No"
-
-0, ProjVar:ExcptCondG36Lib,  0
 2,              1,    "Yes"
 2,              2,    "No"
 

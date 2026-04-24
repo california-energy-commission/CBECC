@@ -398,18 +398,6 @@ RULELIST  "BudgetConversion" 1 0 1 0
   "Set CathedralCeiling:StdDesignCeiling - Attic roof SolEmiss"
            CathedralCeiling:StdDesignCeiling:AtticZone:RoofEmiss    = { if(EnergyCodeYearNum = 2019 .AND. IfValidAnd( Proj:AnalysisVersion <= 190101 )) then UNCHANGED else RoofEmiss endif }
 
-  "set CathedralCeiling:ChildAreaSumDelByO[1] - West"       CathedralCeiling:ChildAreaSumDelByO[1] =        ; SAC 07/12/26 (dev #1004)  ; shift to by orientation - SAC 07/15/26 (dev #1004)
-    { if( LocalCompAssigned( StdDesignCeiling ) .AND. IfValidAnd( ChildAreaSum[1] > 0 ) .AND. IfValidAnd( CathedralCeiling:WinOrientationIdx = 4 ) )
-      then  ChildAreaSum[1]
-      else  UNDEFINED  endif  }
-  "set CathedralCeiling:ChildAreaSumDelByO[2] - NotWest"    CathedralCeiling:ChildAreaSumDelByO[2] =  
-    { if( LocalCompAssigned( StdDesignCeiling ) .AND. IfValidAnd( ChildAreaSum[1] > 0 ) .AND. IfValidAnd( CathedralCeiling:WinOrientationIdx = 4 )==0 )
-      then  ChildAreaSum[1]
-      else  UNDEFINED  endif  }
-  "set Zone:SkyltAreaDelByO[1] - West"      Zone:SkyltAreaDelByO[1] =       ; skylight areas (incl. multipliers) for cathedral ceilings replaced during BudgetConversion - SAC 07/12/26 (dev #1004)  ; shift to by orientation - SAC 07/15/26 (dev #1004)
-    { SumChildren( CathedralCeiling:ChildAreaSumDelByO[1] )  }
-  "set Zone:SkyltAreaDelByO[2] - NotWest"   Zone:SkyltAreaDelByO[2] = 
-    { SumChildren( CathedralCeiling:ChildAreaSumDelByO[2] )  }
 
    "Delete CathedralCeiling objects that are being replaced by a CeilingBelowAttic"
          CathedralCeiling:Action   = {   if (LocalCompAssigned( StdDesignCeiling )) then  DeleteComp()  else  UNCHANGED  endif  }
@@ -1034,40 +1022,25 @@ RULELIST  "BudgetConversion" 1 0 1 0
          Proj:Action	= {	if (ComponentCount( CeilingBelowAttic ) < 1) then  UNCHANGED  else  EvalRulelist( "ProposedInput" )  endif  }
    ;         Proj:Action	= {	if (ComponentCount( CeilingBelowAttic ) < (NumPropClgBlwAtticObjs + 0.5)) then  UNCHANGED  else  EvalRulelist( "ProposedInput" )  endif  }
 
-  ; Moved Window/Skylt Std design area calcs UP HERE from below, BEFORE CathedralCeilings (and their Skylts) are deleted - SAC 07/11/26 (dev #1004)
-  ;--------------------------------------------------------------------
-  ;  store window/skylt areas fixing lack of skylt and West-facing logic and to meet requirements of Std design run used to calculate peak cooling limit - dev #983
-  ;--------------------------------------------------------------------
-  "set Proj:FenAreaByOrient[1] - WestWins"              Proj:FenAreaByOrient[1]  = {  SumAcrossIf(   Win:TotAreaInclMultByO[1],   Win:IsEAAAddZoneGChild = 0 )  }   ; SAC 07/10/26 (dev #1004)
-  "set Proj:FenAreaByOrient[2] - NotWestWins"           Proj:FenAreaByOrient[2]  = {  SumAcrossIf(   Win:TotAreaInclMultByO[2],   Win:IsEAAAddZoneGChild = 0 )  }
-  "set Proj:FenAreaByOrient[3] - WestSkylts"            Proj:FenAreaByOrient[3]  = {  SumAcrossIf( Skylt:TotAreaInclMultByO[1], Skylt:IsEAAAddZoneGChild = 0 ) + SumAll( Zone:SkyltAreaDelByO[1] )  }
-  "set Proj:FenAreaByOrient[4] - NotWestSkylts"         Proj:FenAreaByOrient[4]  = {  SumAcrossIf( Skylt:TotAreaInclMultByO[2], Skylt:IsEAAAddZoneGChild = 0 ) + SumAll( Zone:SkyltAreaDelByO[2] )  }
-  "set Proj:FenAreaByOrient[5] - WestWins+Skylts"       Proj:FenAreaByOrient[5]  = {  FenAreaByOrient[1] + FenAreaByOrient[3]  }
-  "set Proj:FenAreaByOrient[6] - NotWestWins+Skylts"    Proj:FenAreaByOrient[6]  = {  FenAreaByOrient[2] + FenAreaByOrient[4]  }
-  "set Proj:FenAreaByOrient[7] - AllGlazingAllOrients"  Proj:FenAreaByOrient[7]  = {  FenAreaByOrient[5] + FenAreaByOrient[6]  }
-    ;"dbg" Proj:Action = { if( RunScope == 2 .OR. (RunScope == 1 .AND. IfValidAnd( IsAddAlone > 0.5 )) .OR. RunAbbrev != "s" ) then  UNCHANGED         ; debugging - SAC 07/15/26 (dev #1004)
-    ;                      else  PostMessageToLog( "    run '%s' BudgetConversion Glazing-SF/CFA ratios:  West %.2f%%  /  NotWest %.2f%%  /  Overall %.2f%", RunAbbrev,
-    ;                                  FenAreaByOrient[5] * 100 / (CondFloorArea - CondAdditionSize), FenAreaByOrient[6] * 100 / (CondFloorArea - CondAdditionSize), FenAreaByOrient[7] * 100 / (CondFloorArea - CondAdditionSize) )  endif }
-    ;"DBG" Proj:Action = { StoreBEMProc( "b4 StdWinAreas", 0 ) }
 
-  ;--------------------------------------------------------------------
-  ; BudgetConversion: Building-wide window area multiplier rules - related to Res ACM section 2.3.5.5
-  ;
-  ;mjb-10/21/13	
-  ;	E+A+A - need to treat New Windows differently than Existing or Altered Windows
-  ;          - all parameters used for summing and allocating window area on 4 cardinal-oriented walls below are for New Windows only:
-  ;		ExtWall:TotWinArea
-  ;		Zone:TotCondZoneWinArea
-  ;		Proj:TotCondZoneWinArea
-  ;    TotAltWinArea - new ExtWall parameter for total altered window area
-  ;    TotCondZoneAltWinArea - new Zone and Proj parameters for sum of TotAltWinArea + ChildAreaSum 
-  ;	Proj:CondWinAreaCFARat - based on sum of New and Altered Window Areas + New and Altered SkyLt Areas   
-  ;    Proj:CondWinAreaMult - based on sum of New and Altered Window Areas + New and Altered SkyLt Areas
-  ;					Status:
-  ;              1,    "Existing"
-  ;              2,    "Altered"
-  ;              3,    "New"
-  ;--------------------------------------------------------------------
+   ;--------------------------------------------------------------------
+   ; BudgetConversion: Building-wide window area multiplier rules - related to Res ACM section 2.3.5.5
+   ;
+   ;mjb-10/21/13	
+   ;	E+A+A - need to treat New Windows differently than Existing or Altered Windows
+   ;          - all parameters used for summing and allocating window area on 4 cardinal-oriented walls below are for New Windows only:
+   ;		ExtWall:TotWinArea
+   ;		Zone:TotCondZoneWinArea
+   ;		Proj:TotCondZoneWinArea
+   ;    TotAltWinArea - new ExtWall parameter for total altered window area
+   ;    TotCondZoneAltWinArea - new Zone and Proj parameters for sum of TotAltWinArea + ChildAreaSum 
+   ;	Proj:CondWinAreaCFARat - based on sum of New and Altered Window Areas + New and Altered SkyLt Areas   
+   ;    Proj:CondWinAreaMult - based on sum of New and Altered Window Areas + New and Altered SkyLt Areas
+	;					Status:
+	;              1,    "Existing"
+	;              2,    "Altered"
+	;              3,    "New"
+   ;--------------------------------------------------------------------
 ; mjb 12/17/13 - cannot lump new and altered window areas together - only NEW windows get added to cardinal-oriented walls
 ; SAC 2/20/15 - modified to REMOVE E+A+A Additions window/skylight area from New (item 2) and added separate Additions array element
 	"Re-calculate Win:TotAreaInclMult[1] - total"								Win:TotAreaInclMult[1]		= {	Area * Multiplier  }
@@ -1129,134 +1102,34 @@ RULELIST  "BudgetConversion" 1 0 1 0
 																								else  max(	PrescripAdditions_MaxGlazingArea:MaxWinArea(     "AdditionSize", AdditionSize ) / CondAdditionSize,
 																												PrescripAdditions_MaxGlazingArea:MaxFracWinArea( "AdditionSize", AdditionSize ) )		endif  }
 
-  ;--------------------------------------------------------------------
-  ;  setup scaling of window areas fixing lack of skylt and West-facing logic and to meet requirements of Std design run used to calculate peak cooling limit - dev #983
-  ;--------------------------------------------------------------------
-  "set Proj:FenAreaCFAFracs[1] - Total"     Proj:FenAreaCFAFracs[1]  =    ; SAC 07/09/26 (dev #983)
-    { if( IfValidAnd( CondFloorArea > CondAdditionSize )==0 ) then  0
-      else  FenAreaByOrient[7] / (CondFloorArea - CondAdditionSize)
-      endif  }
-  "set Proj:FenAreaCFAFracs[2] - West"      Proj:FenAreaCFAFracs[2]  =
-    { if( IfValidAnd( CondFloorArea > CondAdditionSize )==0 ) then  0
-      else  FenAreaByOrient[5] / (CondFloorArea - CondAdditionSize)
-      endif  }
-  "set Proj:FenAreaCFAFracs[3] - NotWest"   Proj:FenAreaCFAFracs[3]  =
-    { if( IfValidAnd( CondFloorArea > CondAdditionSize )==0 ) then  0
-      else  FenAreaByOrient[6] / (CondFloorArea - CondAdditionSize)
-      endif  }
+;	MJB	4/14/14	keep all existing windows in Std. Design
+;	"Set model's cond zone Existing win area multiplier"		Proj:CondExWinAreaMult	= {	if (CondWinAreaCFARat <= 0.2 .OR. CondFloorArea <= 0 .OR. TotCondZoneWinArea[3] <= 0) then  1.0
+;																														else if (TotCondZoneWinArea[3] / CondFloorArea <= 0.2) then  1.0
+;																														else  0.2 / (TotCondZoneWinArea[3] / CondFloorArea)  endif endif  }
+	"Set model's cond zone Existing win area multiplier"		Proj:CondExWinAreaMult	= {	1.0	}
+;	"Set model's cond zone New/Altered win area multiplier"	Proj:CondNewWinAreaMult	= {	if (CondWinAreaCFARat <= 0.2 .OR. CondFloorArea <= 0 .OR. TotCondZoneWinArea[2] <= 0) then  1.0
+;																														else if (TotCondZoneWinArea[3] > 0 .AND. CondExWinAreaMult < 1.0) then  0.0
+;																														else  ((0.2 * CondFloorArea) - (TotCondZoneWinArea[3] * CondExWinAreaMult)) / TotCondZoneWinArea[2]  endif endif  }
+; SAC 2/20/15 - revised logic to use floor and window areas that exclude AdditionSize
+; KN 04/22/2015 to support different glazing percentages such as the 18% needed in IECC
+;	"Set model's cond zone New/Altered win area multiplier"	Proj:CondNewWinAreaMult	= {	if (AdditionSize < 0.1)
+;																														then  if (CondWinAreaCFARat <= 0.2 .OR. (CondFloorArea - CondAdditionSize) <= 0 .OR. TotCondZoneWinArea[2] <= 0) then  1.0
+;																																else  (0.2 * (CondFloorArea - CondAdditionSize)) / TotCondZoneWinArea[2]  endif
+;																														else	if (CondAddWinAreaCFARat <= MaxAddWinAreaCFARat .OR. CondAdditionSize <= 0 .OR. TotCondZoneWinArea[4] <= 0) then  1.0
+;																																else  (MaxAddWinAreaCFARat * CondAdditionSize) / TotCondZoneWinArea[4]  endif
+;																														endif	}
+	"Set model's cond zone New/Altered win area multiplier"	Proj:CondNewWinAreaMult	= {	if (AdditionSize < 0.1)
+																														then  if (CondWinAreaCFARat <= T24RClimateZoneCodeBase:WindowFrac( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) .OR.
+                                                                                                    (CondFloorArea - CondAdditionSize) <= 0 .OR. TotCondZoneWinArea[2] <= 0) then  1.0
+																																else  (T24RClimateZoneCodeBase:WindowFrac( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) * (CondFloorArea - CondAdditionSize)) / TotCondZoneWinArea[2]  endif
+																														else	if (CondAddWinAreaCFARat <= MaxAddWinAreaCFARat .OR. CondAdditionSize <= 0 .OR. TotCondZoneWinArea[4] <= 0) then  1.0
+																																else  (MaxAddWinAreaCFARat * CondAdditionSize) / TotCondZoneWinArea[4]  endif
+																														endif	}
+; SAC 12/31/13 - fixed bug where CondNewWinAreaMult invalid when New win area exceeds limit of 0.2 Win/CFA
+;																														else  ((0.2 * CondFloorArea) - (TotCondZoneWinArea[3] / (TotCondZoneWinArea[1] - TotCondZoneWinArea[3]))) endif endif  }
 
-  "set Proj:FenAreaOrientMults[1] - West"     Proj:FenAreaOrientMults[1]  =
-    { if( IfValidAnd( MaxFenAreaCFAFrac_West > 0.001 ) )
-      then  if( FenAreaCFAFracs[2] > 0.001 )
-            then  min( 1, (MaxFenAreaCFAFrac_West / FenAreaCFAFracs[2]) )
-            else  1  endif
-      else  if( FenAreaCFAFracs[1] > 0.001 )
-            then  min( 1, (ValidOr( MaxFenAreaCFAFrac, 0.2 ) / FenAreaCFAFracs[1]) )
-            else  1  endif
-      endif  }
-  "set Proj:FenAreaOrientMults[2] - NotWest"  Proj:FenAreaOrientMults[2]  =     ; fix to logic for case where W scaled down and some needs to shift to NotW orientations to meet target - SAC 07/13/26 (dev #1004)
-    { if( IfValidAnd( MaxFenAreaCFAFrac_West > 0.001 ) )
-      then  if( FenAreaCFAFracs[3] > 0.001 )
-            then  ( min( ValidOr( MaxFenAreaCFAFrac, 0.2 ), FenAreaCFAFracs[1] ) - min( MaxFenAreaCFAFrac_West, FenAreaCFAFracs[2] ) ) / FenAreaCFAFracs[3]
-            ; was:  then  min( 1, ((ValidOr( MaxFenAreaCFAFrac, 0.2 ) - min( MaxFenAreaCFAFrac_West, FenAreaCFAFracs[2] )) / FenAreaCFAFracs[3]) )
-            else  1  endif
-      else  if( FenAreaCFAFracs[1] > 0.001 )
-            then  min( 1, (ValidOr( MaxFenAreaCFAFrac, 0.2 ) / FenAreaCFAFracs[1]) )
-            else  1  endif
-      endif  }
-    ;"dbg" Proj:Action = { if( RunScope == 2 .OR. (RunScope == 1 .AND. IfValidAnd( IsAddAlone > 0.5 )) ) then  UNCHANGED                          ; debugging - SAC 07/15/26 (dev #1004)
-    ;                      else  PostMessageToLog( "    run '%s' calc Proj:FenAreaOrientMults[1-W] %g / [2-notW] %g  :  MaxFenAreaCFAFrac %g / MaxFenAreaCFAFrac_West %g  :  FenAreaCFAFracs[1-tot] %g / [2-W] %g / [3-notW] %g  :  SkyltArea Removed[1-W] %g / [2-notW] %g", RunAbbrev,
-    ;                              FenAreaOrientMults[1], FenAreaOrientMults[2], MaxFenAreaCFAFrac, MaxFenAreaCFAFrac_West, FenAreaCFAFracs[1], FenAreaCFAFracs[2], FenAreaCFAFracs[3], SumAll( Zone:SkyltAreaDelByO[1] ), SumAll( Zone:SkyltAreaDelByO[2] ) )  endif }
-
-  ; method of equal-orientation Standarad design fenestration scaling: 0=>unchanged from prev (ignores skylts & orientation), 1=>fixes to (a) incl skylt area in std and (b) scale West glazing first, before remaining  ; SAC 07/10/26 (dev #1004)
-  "set Proj:StdFenInclSkyltsAndWest"    Proj:StdFenInclSkyltsAndWest =
-    { if( IfValidAnd( StdPropOrient > 0 ) .OR. IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-      then  1  else  0  endif  }
-
-    ;	MJB	4/14/14	keep all existing windows in Std. Design
-    ;	"Set model's cond zone Existing win area multiplier"		Proj:CondExWinAreaMult	= {	if (CondWinAreaCFARat <= 0.2 .OR. CondFloorArea <= 0 .OR. TotCondZoneWinArea[3] <= 0) then  1.0
-    ;																														else if (TotCondZoneWinArea[3] / CondFloorArea <= 0.2) then  1.0
-    ;																														else  0.2 / (TotCondZoneWinArea[3] / CondFloorArea)  endif endif  }
-  "Set model's cond zone Existing win area multiplier"		Proj:CondExWinAreaMult	= {	1.0	}
-    ;	"Set model's cond zone New/Altered win area multiplier"	Proj:CondNewWinAreaMult	= {	if (CondWinAreaCFARat <= 0.2 .OR. CondFloorArea <= 0 .OR. TotCondZoneWinArea[2] <= 0) then  1.0
-    ;																														else if (TotCondZoneWinArea[3] > 0 .AND. CondExWinAreaMult < 1.0) then  0.0
-    ;																														else  ((0.2 * CondFloorArea) - (TotCondZoneWinArea[3] * CondExWinAreaMult)) / TotCondZoneWinArea[2]  endif endif  }
-    ; SAC 2/20/15 - revised logic to use floor and window areas that exclude AdditionSize
-    ; KN 04/22/2015 to support different glazing percentages such as the 18% needed in IECC
-    ;	"Set model's cond zone New/Altered win area multiplier"	Proj:CondNewWinAreaMult	= {	if (AdditionSize < 0.1)
-    ;																														then  if (CondWinAreaCFARat <= 0.2 .OR. (CondFloorArea - CondAdditionSize) <= 0 .OR. TotCondZoneWinArea[2] <= 0) then  1.0
-    ;																																else  (0.2 * (CondFloorArea - CondAdditionSize)) / TotCondZoneWinArea[2]  endif
-    ;																														else	if (CondAddWinAreaCFARat <= MaxAddWinAreaCFARat .OR. CondAdditionSize <= 0 .OR. TotCondZoneWinArea[4] <= 0) then  1.0
-    ;																																else  (MaxAddWinAreaCFARat * CondAdditionSize) / TotCondZoneWinArea[4]  endif
-    ;																														endif	}
-  "Set model's cond zone New/Altered win area multiplier"   Proj:CondNewWinAreaMult  =
-    { if( AdditionSize < 0.1 )
-      then  if( CondWinAreaCFARat <= T24RClimateZoneCodeBase:WindowFrac( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) .OR.
-                (CondFloorArea - CondAdditionSize) <= 0 .OR. TotCondZoneWinArea[2] <= 0)
-            then  1.0
-            else  (T24RClimateZoneCodeBase:WindowFrac( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) * (CondFloorArea - CondAdditionSize)) / TotCondZoneWinArea[2]
-            endif
-      else  if( CondAddWinAreaCFARat <= MaxAddWinAreaCFARat .OR. CondAdditionSize <= 0 .OR. TotCondZoneWinArea[4] <= 0 )
-            then  1.0
-            else  (MaxAddWinAreaCFARat * CondAdditionSize) / TotCondZoneWinArea[4]
-            endif
-      endif  }
-  ; SAC 12/31/13 - fixed bug where CondNewWinAreaMult invalid when New win area exceeds limit of 0.2 Win/CFA
-  ;                                                            else  ((0.2 * CondFloorArea) - (TotCondZoneWinArea[3] / (TotCondZoneWinArea[1] - TotCondZoneWinArea[3]))) endif endif  }
-
-  ; setup orientation-specific win scaling multipliers to ensure proper West facing fenestration handling (plus taking into account Skylts) - SAC 07/10/26 (dev #1004)  - fixes to logic - SAC 07/14/26 (dev #1004)
-  "set model's cond zone New window area multiplier By Orientation[1] - West"   Proj:CondNewWinAreaMultByO[1]  =
-    { if( StdFenInclSkyltsAndWest < 1 ) then  CondNewWinAreaMult    ; use old/prior win scaling method
-      else if( AdditionSize > 0.1 )     then  CondNewWinAreaMult    ; no change for addition analysis (for now)
-      else if( IfValidAnd( MaxFenAreaCFAFrac_West > 0.001 ) )
-      then  ; scale West glazing FIRST
-            if( FenAreaCFAFracs[2] <= MaxFenAreaCFAFrac_West .OR.
-                (CondFloorArea - CondAdditionSize) <= 0 .OR. FenAreaByOrient[5] <= 0) then  1.0
-            else  (min( MaxFenAreaCFAFrac_West, FenAreaCFAFracs[2] ) * (CondFloorArea - CondAdditionSize)) / FenAreaByOrient[5]
-            endif
-      else  ; scale ALL glazing regardless of orientation
-            if( FenAreaCFAFracs[1] <= MaxFenAreaCFAFrac .OR.
-                (CondFloorArea - CondAdditionSize) <= 0 .OR. FenAreaByOrient[7] <= 0) then  1.0
-            else  (MaxFenAreaCFAFrac * (CondFloorArea - CondAdditionSize)) / FenAreaByOrient[7]
-            endif
-      endif endif endif  }
-  "set model's cond zone New window area multiplier By Orientation[2] - NotWest"   Proj:CondNewWinAreaMultByO[2]  =
-    { if( StdFenInclSkyltsAndWest < 1 ) then  CondNewWinAreaMult    ; use old/prior win scaling method
-      else if( AdditionSize > 0.1 )     then  CondNewWinAreaMult    ; no change for addition analysis (for now)
-      else if( IfValidAnd( MaxFenAreaCFAFrac_West > 0.001 ) )
-      then  ; scale NotWest glazing taking into account separately scaled West glazing
-            if( (FenAreaCFAFracs[1] <= MaxFenAreaCFAFrac .AND. FenAreaCFAFracs[2] <= MaxFenAreaCFAFrac_West) .OR.
-                (CondFloorArea - CondAdditionSize) <= 0 .OR. FenAreaByOrient[6] <= 0) then  1.0
-            else if( FenAreaCFAFracs[3] < 0.001 ) then  CondNewWinAreaMultByO[1]   ; doesn't matter, no NotWest glazing
-            else  ( min( MaxFenAreaCFAFrac, FenAreaCFAFracs[1] ) - min( MaxFenAreaCFAFrac_West, FenAreaCFAFracs[2] ) ) * (CondFloorArea - CondAdditionSize) / FenAreaByOrient[6]
-            endif endif
-      else  ; scale ALL glazing regardless of orientation
-            CondNewWinAreaMultByO[1]
-      endif endif endif  }
-    ;"dbg" Proj:Action = { if( RunScope == 2 .OR. (RunScope == 1 .AND. IfValidAnd( IsAddAlone > 0.5 )) ) then  UNCHANGED                          ; debugging - SAC 07/15/26 (dev #1004)
-    ;                      else  PostMessageToLog( "    run '%s' calc Proj:CondNewWinAreaMultByO[1-W] %g / [2-notW] %g  :  (old) CondNewWinAreaMult %g", RunAbbrev, CondNewWinAreaMultByO[1], CondNewWinAreaMultByO[2], CondNewWinAreaMult )  endif }
-
-  ; updates to following rule replacing references to Proj:CondNewWinAreaMult w/ CondNewWinAreaMultByO[1-2] - SAC 07/13/26 (dev #1004)  ; updates for StdPropOrient activated & SkyltAreaDelByO - SAC 07/16/26 (dev #983)
-  "Set Win:WinAreaMult"  Win:WinAreaMult  = { if (IsNew .OR. IsAltered) 
-                                              then  if( (IfValidAnd( StdPropOrient > 0 )==0 .AND. IfValidAnd( Orientation = 3 )) .OR.       ; => 'Right' => 270 Az => West-facing
-                                                        (IfValidAnd( StdPropOrient > 0 )    .AND. IfValidAnd( TrueOrientationIdx = 4 )) )   ; TrueOrientationIdx = 4 => West
-                                                    then  Proj:CondNewWinAreaMultByO[1]
-                                                    else  Proj:CondNewWinAreaMultByO[2]  endif
-                                              else  Proj:CondExWinAreaMult  endif  }
-  "set Win:WinAreaSkyltAdder"   Win:WinAreaSkyltAdder =  ; SAC 07/16/26 (dev #983)
-    { if( (IsNew .OR. IsAltered) .AND. IfValidAnd( Multiplier > 0 ) )
-      then  if( (IfValidAnd( StdPropOrient > 0 )==0 .AND. IfValidAnd( Orientation = 3 )) .OR.       ; => 'Right' => 270 Az => West-facing
-                (IfValidAnd( StdPropOrient > 0 )    .AND. IfValidAnd( TrueOrientationIdx = 4 )) )   ; TrueOrientationIdx = 4 => West
-            then  if( SumAll( Zone:SkyltAreaDelByO[1] ) > 0.01 .AND. Proj:FenAreaByOrient[1] > 0 )
-                  then  (SumAll( Zone:SkyltAreaDelByO[1] ) * TotAreaInclMultByO[1] / Proj:FenAreaByOrient[1] / Multiplier)
-                  else  0  endif
-            else  if( SumAll( Zone:SkyltAreaDelByO[2] ) > 0.01 .AND. Proj:FenAreaByOrient[2] > 0 )
-                  then  (SumAll( Zone:SkyltAreaDelByO[2] ) * TotAreaInclMultByO[2] / Proj:FenAreaByOrient[2] / Multiplier)
-                  else  0  endif  endif
-      else  0  endif  }
-  ;"Debug log message - ExtWall Window Area"      ExtWall:Action    = {  PostMessageToLog( "ExtWall '%s' TotWinArea = %g", Name, TotWinArea[1] )  }
-
-  ;"DBG" Proj:Action = { StoreBEMProc( "aft StdWinAreas", 0 ) }
+	"Set Win:WinAreaMult"	Win:WinAreaMult	= {	if (IsNew .OR. IsAltered) then  Proj:CondNewWinAreaMult  else  Proj:CondExWinAreaMult  endif  }
+; 	"Debug log message - ExtWall Window Area"			ExtWall:Action		= {	PostMessageToLog( "ExtWall '%s' TotWinArea = %g", Name, TotWinArea[1] )  }
 
 
    ;--------------------------------------------------------------------
@@ -1294,21 +1167,16 @@ RULELIST  "BudgetConversion" 1 0 1 0
 ;	"Keep Skylt Area if Verified"		Skylt:Area = { if ( IsVerified ) then exArea else UNCHANGED endif }
 
 
-  ;--------------------------------------------------------------------
-  ; call subordinate rulelist to handle bulk mods to ensure equal-orientation wall & window areas - SAC 11/9/19
-  ; revised to prevent EqualOrientation conversion if Proj:StdPropOrient flag set - SAC 07/01/26 (dev #983)
-  "mods to ensure equal-orientation wall & window areas"   Proj:Action  =
-    { if( IfValidAnd( StdPropOrient > 0 ) )
-      then  EvalRulelist( "BudgetConversion_ProposedOrientation" )
-      else  EvalRulelist( "BudgetConversion_EqualOrientation" )  endif  }
+   ;--------------------------------------------------------------------
+   ; call subordinate rulelist to handle bulk mods to ensure equal-orientation wall & window areas - SAC 11/9/19
+   "mods to ensure equal-orientation wall & window areas"   Proj:Action  =
+      {  EvalRulelist( "BudgetConversion_EqualOrientation" )  }
    ;--------------------------------------------------------------------
 
 
-  ; revised to prevent Garage conversion if Proj:StdPropOrient flag set - SAC 07/01/26 (dev #983)
-  "Call subordinate rulelist to deal with Garage standard design conversion"    Proj:Action	=
-    {	if( HasGarage < 0.5 .OR. ComponentCount( Garage ) < 0.1 ) then  UNCHANGED
-      else if( IfValidAnd( StdPropOrient > 0 ) ) then  UNCHANGED
-      else  EvalRulelist( "BudgetConversion_Garage" )  endif endif  }
+	"Call subordinate rulelist to deal with Garage standard design conversion"
+			Proj:Action	= {	if (HasGarage < 0.5 .OR. ComponentCount( Garage ) < 0.1) then  UNCHANGED
+									else	EvalRulelist( "BudgetConversion_Garage" )  endif  }
 
 
    ;--------------------------------------------------------------------
@@ -1887,7 +1755,6 @@ RULELIST  "BudgetConversion" 1 0 1 0
 ; mjb 8/1/14  - revised logic to ensure that ClVent added to Additions > 1000sf (GC #337 related)
 ; mjb 1/12/15 - modified to use new look up table for code levels
 ; modified for 2022+ code to require WHFan for NewCons SFam w/ CondFloorArea > 500SF and also expand AdditionCFA checks to span entire model (not just single zone) - SAC 04/28/22 (tic #1291)
-  ; added logic to prevent Std WHF in 2025.3.0+ if the proposed model includes no vented attics over conditioned spaces and the proposed model does not include a WHF - SAC 06/08/26 (dev #956) & SAC 06/09/26
 	"Set Zone:NeedStdClVent"		Zone:NeedStdClVent		=
       {  if (IfValidAnd( Proj:AnalysisVersion <= 199999 ))
          then  if (( Proj:RunScope == 2 .AND. Status == 3 .AND. AdditionCFA > 1000) .OR.
@@ -1902,10 +1769,7 @@ RULELIST  "BudgetConversion" 1 0 1 0
                    ( Proj:RunScope == 1 .AND. Proj:IsAddAlone > 0.5 .AND. CondFloorArea > 1 .AND. SumAll( Zone:CondFloorArea ) > 1000) .OR.
                    ( Proj:RunScope == 1 .AND. Proj:IsAddAlone < 0.5 .AND. CondFloorArea > 1 .AND. SumAll( Zone:CondFloorArea ) >  500) )
                then  if (T24RClimateZoneCodeBase:WHFan( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) > 0.5)
-                     then  if (IfValidAnd( Proj:AnalysisVersion >= 250300 ) .AND. IfValidAnd( Proj:PropClVentOption < 1 ) .AND.
-                               SumAcrossIf( Attic:FloorAreaOverCond, Attic:PropTypeVentilated = 1 ) < 0.5)
-                           then  0
-                           else  1  endif
+                     then 1
                      else 0 endif  
                else 0 endif  
          endif   }
@@ -2173,10 +2037,8 @@ RULELIST "BudgetConversion_EqualOrientation"  1 0 1 0
       {  if (IfValidAnd( Proj:FrontOrientation != 0 )==0) then  UNCHANGED
          else  Proj:FrontOrientation  endif  }
 
-	"Set Proj:FrontOrientation to ensure that it is consistently facing North (for locating Doors on North facing walls only)"   ; add logic to retain proposed model FrontOrientation when StdFenInclSkyltsAndWInp - SAC 07/23/26 (dev #1004)
-																	Proj:FrontOrientation		= {	if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                              then  UNCHANGED
-                                                              else  0  endif  }
+	"Set Proj:FrontOrientation to ensure that it is consistently facing North (for locating Doors on North facing walls only)"
+																	Proj:FrontOrientation		= {	0  }
 
 	"Set ExtWall:ParentType"				ExtWall:ParentType	= {	if (ParentComponentType() == "Zone")
 																					then	if (Parent( Type ) < 10) then  1  else  0  endif
@@ -2185,62 +2047,30 @@ RULELIST "BudgetConversion_EqualOrientation"  1 0 1 0
 
 	"Setup Wall/Window/Door Area Totals"		Proj:Action	= {	EvalRulelist( "SetupWallWindowDoorAreaTotals" )  }
 
-  ; JP 10/9/19 avoid double counting the new doors (tic # 877)
+; JP 10/9/19 avoid double counting the new doors (tic # 877)
 	"Delete each New Skylt"		Skylt:Action	= {	if ( IsNew ) then DeleteComp() else UNCHANGED endif  }
 	"Delete each New door"	Door:Action	= {	if (EnergyCodeYearNum = 2019 .AND. IfValidAnd( Proj:AnalysisVersion <= 190101 )) then UNCHANGED
 									                        else if ( IsNew .AND. ParentComponentType() = "ExtWall" ) then DeleteComp() 
                                                else UNCHANGED endif endif }  ; SAC 10/17/19 - only blast New doors of ExtWalls (tic #877)
 
 
-  ;mjb-10/29/13	E+A+A	if wall area = 0 but win area is > 0, add wall area for new windows
-  ;			- this will happen whenever all Walls are Existing or Altered, and New Windows are added
-  ;			- calculated new wall area = window area * Project level window area multiplier + 0.4
-	"Add Zone:ExtWallAreaByWallType[1] - wood framed"	  Zone:ExtWallAreaByWallType[1]			= {	if (ExtWallAreaByWallType[1] < 0.1 .AND. (ExtWallWinAreaByWallType[1] > 0.1 .OR. ExtWallDoorAreaByWallType[1] > 0.1))
-                                                                                            then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                  then  (ExtWallWinAreaByWallType[1] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[1] + 0.4)
-                                                                                                  else  (ExtWallWinAreaByWallType[1] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[1] + 0.4)  endif
-                                                                                            else UNCHANGED endif  }
-	"Add Zone:ExtWallAreaByWallType[2] - steel framed"	Zone:ExtWallAreaByWallType[2]			= {	if (ExtWallAreaByWallType[2] < 0.1 .AND. (ExtWallWinAreaByWallType[2] > 0.1 .OR. ExtWallDoorAreaByWallType[2] > 0.1))
-                                                                                            then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                  then  (ExtWallWinAreaByWallType[2] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[2] + 0.4)
-                                                                                                  else  (ExtWallWinAreaByWallType[2] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[2] + 0.4)  endif
-                                                                                            else UNCHANGED endif  }
-	"Add Zone:ExtWallAreaByWallType[3] - concrete/CMU"	Zone:ExtWallAreaByWallType[3]			= {	if (ExtWallAreaByWallType[3] < 0.1 .AND. (ExtWallWinAreaByWallType[3] > 0.1 .OR. ExtWallDoorAreaByWallType[3] > 0.1))
-                                                                                            then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                  then  (ExtWallWinAreaByWallType[3] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[3] + 0.4)
-                                                                                                  else  (ExtWallWinAreaByWallType[3] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[3] + 0.4)  endif
-                                                                                            else UNCHANGED endif  }
-	"Add Zone:ExtWallAreaByWallType[4] - total"			    Zone:ExtWallAreaByWallType[4]			= {	if (ExtWallAreaByWallType[4] < 0.1 .AND. (ExtWallWinAreaByWallType[4] > 0.1 .OR. ExtWallDoorAreaByWallType[4] > 0.1))
-                                                                                            then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                  then  (ExtWallWinAreaByWallType[4] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[4] + 0.4)
-                                                                                                  else  (ExtWallWinAreaByWallType[4] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[4] + 0.4)  endif
-                                                                                            else UNCHANGED endif  }
-  ; safe rules with larger than needed wall area:
-  ;	"Add Zone:ExtWallAreaByWallType[1] - wood framed"	Zone:ExtWallAreaByWallType[1]			= {	if (ExtWallAreaByWallType[1] < 0.1 .AND. ExtWallWinAreaByWallType[1] > 0.1) then (ExtWallWinAreaByWallType[1]  + .4) else UNCHANGED endif }
-  ;	"Add Zone:ExtWallAreaByWallType[2] - steel framed"	Zone:ExtWallAreaByWallType[2]			= {	if (ExtWallAreaByWallType[2] < 0.1 .AND. ExtWallWinAreaByWallType[2] > 0.1) then (ExtWallWinAreaByWallType[2]  + .4) else UNCHANGED endif  }
-  ;	"Add Zone:ExtWallAreaByWallType[3] - concrete/CMU"	Zone:ExtWallAreaByWallType[3]			= {	if (ExtWallAreaByWallType[3] < 0.1 .AND. ExtWallWinAreaByWallType[3] > 0.1) then (ExtWallWinAreaByWallType[3]  + .4) else UNCHANGED endif  }
+;mjb-10/29/13	E+A+A	if wall area = 0 but win area is > 0, add wall area for new windows
+;			- this will happen whenever all Walls are Existing or Altered, and New Windows are added
+;			- calculated new wall area = window area * Project level window area multiplier + 0.4
+	"Add Zone:ExtWallAreaByWallType[1] - wood framed"	Zone:ExtWallAreaByWallType[1]			= {	if (ExtWallAreaByWallType[1] < 0.1 .AND. (ExtWallWinAreaByWallType[1] > 0.1 .OR. ExtWallDoorAreaByWallType[1] > 0.1)) then (ExtWallWinAreaByWallType[1] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[1] + 0.4) else UNCHANGED endif  }
+	"Add Zone:ExtWallAreaByWallType[2] - steel framed"	Zone:ExtWallAreaByWallType[2]			= {	if (ExtWallAreaByWallType[2] < 0.1 .AND. (ExtWallWinAreaByWallType[2] > 0.1 .OR. ExtWallDoorAreaByWallType[2] > 0.1)) then (ExtWallWinAreaByWallType[2] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[2] + 0.4) else UNCHANGED endif  }
+	"Add Zone:ExtWallAreaByWallType[3] - concrete/CMU"	Zone:ExtWallAreaByWallType[3]			= {	if (ExtWallAreaByWallType[3] < 0.1 .AND. (ExtWallWinAreaByWallType[3] > 0.1 .OR. ExtWallDoorAreaByWallType[3] > 0.1)) then (ExtWallWinAreaByWallType[3] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[3] + 0.4) else UNCHANGED endif  }
+	"Add Zone:ExtWallAreaByWallType[4] - total"			Zone:ExtWallAreaByWallType[4]			= {	if (ExtWallAreaByWallType[4] < 0.1 .AND. (ExtWallWinAreaByWallType[4] > 0.1 .OR. ExtWallDoorAreaByWallType[4] > 0.1)) then (ExtWallWinAreaByWallType[4] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[4] + 0.4) else UNCHANGED endif  }
+; safe rules with larger than needed wall area:
+;	"Add Zone:ExtWallAreaByWallType[1] - wood framed"	Zone:ExtWallAreaByWallType[1]			= {	if (ExtWallAreaByWallType[1] < 0.1 .AND. ExtWallWinAreaByWallType[1] > 0.1) then (ExtWallWinAreaByWallType[1]  + .4) else UNCHANGED endif }
+;	"Add Zone:ExtWallAreaByWallType[2] - steel framed"	Zone:ExtWallAreaByWallType[2]			= {	if (ExtWallAreaByWallType[2] < 0.1 .AND. ExtWallWinAreaByWallType[2] > 0.1) then (ExtWallWinAreaByWallType[2]  + .4) else UNCHANGED endif  }
+;	"Add Zone:ExtWallAreaByWallType[3] - concrete/CMU"	Zone:ExtWallAreaByWallType[3]			= {	if (ExtWallAreaByWallType[3] < 0.1 .AND. ExtWallWinAreaByWallType[3] > 0.1) then (ExtWallWinAreaByWallType[3]  + .4) else UNCHANGED endif  }
 
    ; SAC 9/19/19 - OtherZone (MFamProto)
-	"Add OtherZone:ExtWallAreaByWallType[1] - wood framed"	OtherZone:ExtWallAreaByWallType[1]	= {	if (ExtWallAreaByWallType[1] < 0.1 .AND. (ExtWallWinAreaByWallType[1] > 0.1 .OR. ExtWallDoorAreaByWallType[1] > 0.1)) 
-                                                                                                  then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                        then  (ExtWallWinAreaByWallType[1] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[1] + 0.4)
-                                                                                                        else  (ExtWallWinAreaByWallType[1] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[1] + 0.4)  endif
-                                                                                                  else UNCHANGED endif  }
-	"Add OtherZone:ExtWallAreaByWallType[2] - steel framed"	OtherZone:ExtWallAreaByWallType[2]	= {	if (ExtWallAreaByWallType[2] < 0.1 .AND. (ExtWallWinAreaByWallType[2] > 0.1 .OR. ExtWallDoorAreaByWallType[2] > 0.1))
-                                                                                                  then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                        then  (ExtWallWinAreaByWallType[2] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[2] + 0.4)
-                                                                                                        else  (ExtWallWinAreaByWallType[2] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[2] + 0.4)  endif
-                                                                                                  else UNCHANGED endif  }
-	"Add OtherZone:ExtWallAreaByWallType[3] - concrete/CMU"	OtherZone:ExtWallAreaByWallType[3]	= {	if (ExtWallAreaByWallType[3] < 0.1 .AND. (ExtWallWinAreaByWallType[3] > 0.1 .OR. ExtWallDoorAreaByWallType[3] > 0.1))
-                                                                                                  then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                        then  (ExtWallWinAreaByWallType[3] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[3] + 0.4)
-                                                                                                        else  (ExtWallWinAreaByWallType[3] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[3] + 0.4)  endif
-                                                                                                  else UNCHANGED endif  }
-	"Add OtherZone:ExtWallAreaByWallType[4] - total"			  OtherZone:ExtWallAreaByWallType[4]	= {	if (ExtWallAreaByWallType[4] < 0.1 .AND. (ExtWallWinAreaByWallType[4] > 0.1 .OR. ExtWallDoorAreaByWallType[4] > 0.1))
-                                                                                                  then  if( IfValidAnd( StdFenInclSkyltsAndWInp > 0 ) )
-                                                                                                        then  (ExtWallWinAreaByWallType[4] * ((Proj:CondNewWinAreaMultByO[1]/4) + (3*Proj:CondNewWinAreaMultByO[2]/4)) + ExtWallDoorAreaByWallType[4] + 0.4)
-                                                                                                        else  (ExtWallWinAreaByWallType[4] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[4] + 0.4)  endif
-                                                                                                  else UNCHANGED endif  }
+	"Add OtherZone:ExtWallAreaByWallType[1] - wood framed"	OtherZone:ExtWallAreaByWallType[1]			= {	if (ExtWallAreaByWallType[1] < 0.1 .AND. (ExtWallWinAreaByWallType[1] > 0.1 .OR. ExtWallDoorAreaByWallType[1] > 0.1)) then (ExtWallWinAreaByWallType[1] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[1] + 0.4) else UNCHANGED endif  }
+	"Add OtherZone:ExtWallAreaByWallType[2] - steel framed"	OtherZone:ExtWallAreaByWallType[2]			= {	if (ExtWallAreaByWallType[2] < 0.1 .AND. (ExtWallWinAreaByWallType[2] > 0.1 .OR. ExtWallDoorAreaByWallType[2] > 0.1)) then (ExtWallWinAreaByWallType[2] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[2] + 0.4) else UNCHANGED endif  }
+	"Add OtherZone:ExtWallAreaByWallType[3] - concrete/CMU"	OtherZone:ExtWallAreaByWallType[3]			= {	if (ExtWallAreaByWallType[3] < 0.1 .AND. (ExtWallWinAreaByWallType[3] > 0.1 .OR. ExtWallDoorAreaByWallType[3] > 0.1)) then (ExtWallWinAreaByWallType[3] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[3] + 0.4) else UNCHANGED endif  }
+	"Add OtherZone:ExtWallAreaByWallType[4] - total"			OtherZone:ExtWallAreaByWallType[4]			= {	if (ExtWallAreaByWallType[4] < 0.1 .AND. (ExtWallWinAreaByWallType[4] > 0.1 .OR. ExtWallDoorAreaByWallType[4] > 0.1)) then (ExtWallWinAreaByWallType[4] * Proj:CondNewWinAreaMult + ExtWallDoorAreaByWallType[4] + 0.4) else UNCHANGED endif  }
 
 
   ; ZONES - "Generate std design wall - wood framed - (each orientation)"
@@ -2294,7 +2124,7 @@ RULELIST "BudgetConversion_EqualOrientation"  1 0 1 0
 	"Set Zone:StdExtWallsBack[1]:Absorptivity"			Zone:StdExtWallsBack[1]:Absorptivity			= {	StdExtWallsFront[1]:Absorptivity  }
 	"Set Zone:StdExtWallsBack[1]:IsStdCondZoneWall"		Zone:StdExtWallsBack[1]:IsStdCondZoneWall		= {	1  }
 	
-  ; SAC 11/22/14 - added std design MASS walls	
+  ; SAC 11/22/14 - added std desing MASS walls	
 	"Create Zone:StdExtWallsFront[3] - concrete"			Zone:StdExtWallsFront[3]	= {	if (ExtWallAreaByWallType[3] < 0.1 .OR. Type >= 10) then  UNCHANGED
 																													else  CreateComp( ExtWall, Local( Name ) + "-StdExtWall-Ms-Front" )  endif  }
 	"Set Zone:StdExtWallsFront[3]:Parent"					Zone:StdExtWallsFront[3]:Parent					= {	Local( Name )  }
@@ -2434,74 +2264,24 @@ RULELIST "BudgetConversion_EqualOrientation"  1 0 1 0
 																			else if (WinAreaMult == 0) then  0.0
 																			else	Area * WinAreaMult  endif endif  }
 
-  ; ZONE WINDOWS - Create & setup Windows on all NEW conditioned zone ExtWalls      ; more West/NotWest glazing fixes - SAC 07/15/26 (dev #1004)
+  ; ZONE WINDOWS - Create & setup Windows on all NEW conditioned zone ExtWalls
 	"Create ExtWall:StdWindow"					ExtWall:StdWindow						= {	;	if (Parent( TotCondZoneWinArea[2] ) > 0 .AND. Proj:CondNewWinAreaMult > 0 .AND. IsStdCondZoneWall == 1)
 																											;	then  CreateComp( Win, Local( Name ) + "-Win" )  else  UNCHANGED  endif  }
 																											if (LocalStatus( IsStdCondZoneWall ) < 1 .OR. Proj:CondNewWinAreaMult < 0.00001) then  UNCHANGED
 																											else	switch (IsStdCondZoneWall)
-																														case  1 :	if (IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )==0 .AND. ValidOr( ExtWallWinAreaByWallType[1], 0 ) < 0.001 .AND. ValidOr( ExtWallWinAreaByWallType[2], 0 ) < 0.001) then  UNCHANGED
-                                                                      else if (IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 ) .AND. IfValidAnd( Orientation = 3  ) .AND. ValidOr( ExtWallWinAreaByWallType_W[1], 0 ) < 0.001 .AND. ValidOr( ExtWallWinAreaByWallType_W[2], 0 ) < 0.001) then  UNCHANGED
-                                                                      else if (IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 ) .AND. IfValidAnd( Orientation != 3 ) .AND. ValidOr( ExtWallWinAreaByWallType_NW[1], 0 ) < 0.001 .AND. ValidOr( ExtWallWinAreaByWallType_NW[2], 0 ) < 0.001) then  UNCHANGED
-																																		  else	CreateComp( Win, Local( Name ) + "-Win" )  endif endif endif
-																														case  3 :	if (IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )==0 .AND. ValidOr( ExtWallWinAreaByWallType[3], 0 ) < 0.001) then  UNCHANGED
-                                                                      else if (IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 ) .AND. IfValidAnd( Orientation = 3  ) .AND. ValidOr( ExtWallWinAreaByWallType_W[3], 0 ) < 0.001) then  UNCHANGED
-                                                                      else if (IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 ) .AND. IfValidAnd( Orientation != 3 ) .AND. ValidOr( ExtWallWinAreaByWallType_NW[3], 0 ) < 0.001) then  UNCHANGED
-																																		  else	CreateComp( Win, Local( Name ) + "-Win" )  endif endif endif
+																														case  1 :	if (ValidOr( ExtWallWinAreaByWallType[1], 0 ) < 0.001 .AND. ValidOr( ExtWallWinAreaByWallType[2], 0 ) < 0.001) then  UNCHANGED
+																																		else	CreateComp( Win, Local( Name ) + "-Win" )  endif
+																														case  3 :	if (ValidOr( ExtWallWinAreaByWallType[3], 0 ) < 0.001) then  UNCHANGED
+																																		else	CreateComp( Win, Local( Name ) + "-Win" )  endif
 																														default :	UNCHANGED
 																													endswitch  endif  }
 	"Set ExtWall:StdWindow:Parent"			ExtWall:StdWindow:Parent			= {	Local( Name )  }
-      "dbg" ExtWall:Action = {  if( IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )==0 )   ; OLD method (ignoring West vs. NotWest glazing)
-                                then  switch (IsStdCondZoneWall)
-                                      case  1 :	UNCHANGED
-                                      case  3 :	UNCHANGED
-                                      default :	UNCHANGED
-                                      endswitch
-                                else if( IfValidAnd( Orientation = 3 ) )  ; => 'Right' => 270 Az => West-facing
-                                then  switch (IsStdCondZoneWall)
-                                      case  1 :	PostMessageToLog( "      West StdWall '%s' Area:  %g = (%g + %g) * %g", Name, (ValidOr( ExtWallWinAreaByWallType_W[1], 0 ) + ValidOr( ExtWallWinAreaByWallType_W[2], 0 )) * Proj:CondNewWinAreaMultByO[1],
-                                                                      ValidOr( ExtWallWinAreaByWallType_W[1], 0 ), ValidOr( ExtWallWinAreaByWallType_W[2], 0 ), Proj:CondNewWinAreaMultByO[1] )
-                                      case  3 :	PostMessageToLog( "      West StdWall '%s' Area:  %g = %g * %g",        Name,  ValidOr( ExtWallWinAreaByWallType_W[3], 0 ) * Proj:CondNewWinAreaMultByO[1], ValidOr( ExtWallWinAreaByWallType_W[3], 0 ), Proj:CondNewWinAreaMultByO[1] )
-                                      default :	UNCHANGED
-                                      endswitch
-                                else  ; NOT West-facing
-                                      switch (IsStdCondZoneWall)
-                                      case  1 :	PostMessageToLog( "   NotWest StdWall '%s' Area:  %g = (%g + %g) * %g / 3", Name, (ValidOr( ExtWallWinAreaByWallType_NW[1], 0 ) + ValidOr( ExtWallWinAreaByWallType_NW[2], 0 )) * Proj:CondNewWinAreaMultByO[2] / 3,
-                                                                      ValidOr( ExtWallWinAreaByWallType_NW[1], 0 ), ValidOr( ExtWallWinAreaByWallType_NW[2], 0 ), Proj:CondNewWinAreaMultByO[2] )
-                                      case  3 :	PostMessageToLog( "   NotWest StdWall '%s' Area:  %g = %g * %g / 3",        Name,  ValidOr( ExtWallWinAreaByWallType_NW[3], 0 ) * Proj:CondNewWinAreaMultByO[2] / 3, ValidOr( ExtWallWinAreaByWallType_NW[3], 0 ), Proj:CondNewWinAreaMultByO[2] )
-                                      default :	UNCHANGED
-                                      endswitch
-                                endif endif }
-	"Set ExtWall:StdWindow:Area"        ExtWall:StdWindow:Area				=                           ; update logic for win orientation fix (StdFenInclSkyltsAndWest) - SAC 07/13/26 (dev #1004)  ; SAC 07/15/26
-    {	;	Parent( TotCondZoneWinArea[2] ) * Proj:CondNewWinAreaMult / 4  }
-      if( IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )==0 )   ; OLD method (ignoring West vs. NotWest glazing)
-      then  switch (IsStdCondZoneWall)
-            case  1 :	(ValidOr( ExtWallWinAreaByWallType[1], 0 ) + ValidOr( ExtWallWinAreaByWallType[2], 0 )) * Proj:CondNewWinAreaMult / 4
-            case  3 :	 ValidOr( ExtWallWinAreaByWallType[3], 0 ) * Proj:CondNewWinAreaMult / 4 
-            default :	UNCHANGED
-            endswitch
-      else if( IfValidAnd( Orientation = 3 ) )  ; => 'Right' => 270 Az => West-facing
-      then  switch (IsStdCondZoneWall)
-            case  1 :	(ValidOr( ExtWallWinAreaByWallType_W[1], 0 ) + ValidOr( ExtWallWinAreaByWallType_W[2], 0 )) * Proj:CondNewWinAreaMultByO[1]
-            case  3 :	 ValidOr( ExtWallWinAreaByWallType_W[3], 0 ) * Proj:CondNewWinAreaMultByO[1]
-            default :	UNCHANGED
-            endswitch
-      else  ; NOT West-facing
-            switch (IsStdCondZoneWall)
-            case  1 :	(ValidOr( ExtWallWinAreaByWallType_NW[1], 0 ) + ValidOr( ExtWallWinAreaByWallType_NW[2], 0 )) * Proj:CondNewWinAreaMultByO[2] / 3
-            case  3 :	 ValidOr( ExtWallWinAreaByWallType_NW[3], 0 ) * Proj:CondNewWinAreaMultByO[2] / 3
-            default :	UNCHANGED
-            endswitch
-      endif endif  }
-
-  ; "adjust ExtWall:StdWindow:Area for deleted Skylt area"    ExtWall:StdWindow:Area =      ; fix to ensure deleted Skylt area represented in Std design - SAC 07/12/26 (dev #1004)
-  ;   { if( IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 ) .AND. IfValidAnd( SkyltAreaDeleted > 0 ) .AND.
-  ;         (IsStdCondZoneWall == 1 .OR. IsStdCondZoneWall == 3) )
-  ;     then  if( IfValidAnd( Orientation = 3 ) )  ; => 'Right' => 270 Az => West-facing
-  ;           then  StdWindow:Area + (SkyltAreaDeleted * Proj:CondNewWinAreaMultByO[1] / 4)
-  ;           else  StdWindow:Area + (SkyltAreaDeleted * Proj:CondNewWinAreaMultByO[2] / 4)
-  ;           endif
-  ;     else  UNCHANGED  endif }
-
+	"Set ExtWall:StdWindow:Area"        	ExtWall:StdWindow:Area				= {	;	Parent( TotCondZoneWinArea[2] ) * Proj:CondNewWinAreaMult / 4  }
+																											switch (IsStdCondZoneWall)
+																												case  1 :	(ValidOr( ExtWallWinAreaByWallType[1], 0 ) + ValidOr( ExtWallWinAreaByWallType[2], 0 )) * Proj:CondNewWinAreaMult / 4
+																												case  3 :	 ValidOr( ExtWallWinAreaByWallType[3], 0 ) * Proj:CondNewWinAreaMult / 4 
+																												default :	UNCHANGED
+																											endswitch  }
 	"Set ExtWall:StdWindow:Height"      	ExtWall:StdWindow:Height			= {	sqrt( StdWindow:Area )  }
 	"Set ExtWall:StdWindow:Width"       	ExtWall:StdWindow:Width				= {	StdWindow:Height  }
 	"Set ExtWall:StdWindow:Multiplier"  	ExtWall:StdWindow:Multiplier		= {	1     }
@@ -3139,24 +2919,14 @@ RULELIST "SetupWallWindowDoorAreaTotals"  1 0 0 0
 	;																						else  PostMessageToLog( "ExtWall '%s':  Wood framed area based on New window area %g * WinAreaMult %g = %g", Name, TotWinArea[2], ValidOr( Proj:CondNewWinAreaMult, 0 ),
 	;																												(TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMult, 0 )) )  endif
 	;																		default :	UNCHANGED	endswitch  endif  }
-  ; updates to following rules replacing references to Proj:CondNewWinAreaMult w/ CondNewWinAreaMultByO[1-2] - SAC 07/13/26 (dev #1004)
 	"Set ExtWall:AreaByWallType[1] - wood framed"		ExtWall:AreaByWallType[1]		= {	if( LocalCompAssigned( Construction ) == 0 ) then  0
 																														else	switch( Construction:Type )
 																																	case  0 :	if (IsNew > 0.5) then  Area		; "Wood Framed Wall"  
-																																					  else if( IfValidAnd( Orientation = 3 ) )
-                                                                            then  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[1], 0 )) + TotDoorArea
-                                                                            else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[2], 0 )) + TotDoorArea
-                                                                            endif endif
+																																					else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMult, 0 )) + TotDoorArea  endif
 																																	case  5 :	if (IsNew > 0.5) then  Area		; "SIPS Wall"  
-																																					  else if( IfValidAnd( Orientation = 3 ) )
-                                                                            then  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[1], 0 )) + TotDoorArea
-                                                                            else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[2], 0 )) + TotDoorArea
-                                                                            endif endif
+																																					else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMult, 0 )) + TotDoorArea  endif
 																																	case  6 :	if (IsNew > 0.5) then  Area		; "Dual Panel Hollow (DPH) Wall" - SAC 11/01/22  
-																																					  else if( IfValidAnd( Orientation = 3 ) )
-                                                                            then  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[1], 0 )) + TotDoorArea
-                                                                            else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[2], 0 )) + TotDoorArea
-                                                                            endif endif
+																																					else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMult, 0 )) + TotDoorArea  endif
 																																	default :	0	endswitch  endif  }
 																											;			if( LocalCompAssigned( Construction ) == 0 .OR. IsNew == 0 ) then  0
 																											;			else	switch( Construction:Type )
@@ -3165,11 +2935,8 @@ RULELIST "SetupWallWindowDoorAreaTotals"  1 0 0 0
 	"Set ExtWall:AreaByWallType[2] - steel framed"		ExtWall:AreaByWallType[2]		= {	if( LocalCompAssigned( Construction ) == 0 ) then  0
 																														else	switch( Construction:Type )
 																																	case  1 :	if (IsNew > 0.5) then  Area		; "Steel Framed Wall" 
-																																					  else if( IfValidAnd( Orientation = 3 ) )
-                                                                            then  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[1], 0 )) + TotDoorArea
-                                                                            else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[2], 0 )) + TotDoorArea
-                                                                            endif endif
-																																	default :	0	 endswitch  endif  }
+																																					else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMult, 0 )) + TotDoorArea  endif
+																																	default :	0	endswitch  endif  }
 																											;			if( LocalCompAssigned( Construction ) == 0 .OR. IsNew == 0 ) then  0
 																											;			else	switch( Construction:Type )
 																											;						case  1 :	Area		; "Steel Framed Wall" 
@@ -3178,10 +2945,7 @@ RULELIST "SetupWallWindowDoorAreaTotals"  1 0 0 0
 																														else if ( Construction:Type == 2 .OR. Construction:Type == 3 .OR. Construction:Type == 4 .OR.   ; "Concrete / ICF / Brick" or "Hollow Unit Masonry" or "Adobe / Strawbale / Log"
 																																	 Construction:Type == 9 )				; "No Frame (concrete/CMU)"
 																														then	if (IsNew > 0.5) then  Area	
-																																  else if( IfValidAnd( Orientation = 3 ) )
-                                                                  then  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[1], 0 )) + TotDoorArea
-                                                                  else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMultByO[2], 0 )) + TotDoorArea
-                                                                  endif endif
+																																else  (TotWinArea[2] * ValidOr( Proj:CondNewWinAreaMult, 0 )) + TotDoorArea  endif
 																														else	0  endif endif  }
 																											;			if( LocalCompAssigned( Construction ) == 0 .OR. IsNew == 0 ) then  0
 																											;			else	switch( Construction:Type )
@@ -3226,7 +2990,8 @@ RULELIST "SetupWallWindowDoorAreaTotals"  1 0 0 0
 	"Set Zone:ExtWallWinAreaByWallType[1] - wood framed"		Zone:ExtWallWinAreaByWallType[1]		= {   SumChildren( ExtWall:NewWinAreaByWallType[1] )  }
 	"Set Zone:ExtWallWinAreaByWallType[2] - steel framed"		Zone:ExtWallWinAreaByWallType[2]		= {   SumChildren( ExtWall:NewWinAreaByWallType[2] )  }
 	"Set Zone:ExtWallWinAreaByWallType[3] - concrete/CMU"		Zone:ExtWallWinAreaByWallType[3]		= {   SumChildren( ExtWall:NewWinAreaByWallType[3] )  }
-  ; JP 10/9/19 added the area of NEW Skylts to the windows (tic #877)
+	"Set Zone:ExtWallWinAreaByWallType[4] - total"				Zone:ExtWallWinAreaByWallType[4] 	= {   ExtWallWinAreaByWallType[1] + ExtWallWinAreaByWallType[2] + ExtWallWinAreaByWallType[3]  }
+; JP 10/9/19 added the area of NEW Skylts to the windows (tic #877)
 	"Set Zone:ExtWallWinAreaByWallType[1] - wood framed - add new Skylt area"	Zone:ExtWallWinAreaByWallType[1]	= { if (EnergyCodeYearNum = 2019 .AND. IfValidAnd( Proj:AnalysisVersion <= 190101 ))
 										then UNCHANGED else if (ExtWallAreaByWallType[1] >= ExtWallAreaByWallType[2] .AND. ExtWallAreaByWallType[1] >= ExtWallAreaByWallType[3])
 										then  ExtWallWinAreaByWallType[1] + SumChildren( CathedralCeiling:ChildAreaSum[2] ) + SumChildren( CathedralCeiling:ChildAreaSum[4] )   else  UNCHANGED  endif endif }
@@ -3236,55 +3001,14 @@ RULELIST "SetupWallWindowDoorAreaTotals"  1 0 0 0
 	"Set Zone:ExtWallWinAreaByWallType[3] - concrete/CMU - add new Skylt area"	Zone:ExtWallWinAreaByWallType[3]	= { if (EnergyCodeYearNum = 2019 .AND. IfValidAnd( Proj:AnalysisVersion <= 190101 ))
 										then UNCHANGED else if (ExtWallAreaByWallType[3] > ExtWallAreaByWallType[1] .AND. ExtWallAreaByWallType[3] > ExtWallAreaByWallType[2])
 										then  ExtWallWinAreaByWallType[3] + SumChildren( CathedralCeiling:ChildAreaSum[2] ) + SumChildren( CathedralCeiling:ChildAreaSum[4] )   else  UNCHANGED  endif  endif}
-  ;"Set Zone:ExtWallWinAreaByWallType[4] - total"	Zone:ExtWallWinAreaByWallType[4]			= {   ExtWallAreaByWallType[1] + ExtWallAreaByWallType[2] + ExtWallAreaByWallType[3]  }
-  "Set Zone:ExtWallWinAreaByWallType[4] - total"	   Zone:ExtWallWinAreaByWallType[4]			= {   ExtWallWinAreaByWallType[1] + ExtWallWinAreaByWallType[2] + ExtWallWinAreaByWallType[3]  }
+;  "Set Zone:ExtWallWinAreaByWallType[4] - total"	Zone:ExtWallWinAreaByWallType[4]			= {   ExtWallAreaByWallType[1] + ExtWallAreaByWallType[2] + ExtWallAreaByWallType[3]  }
+  "Set Zone:ExtWallWinAreaByWallType[4] - total"	Zone:ExtWallWinAreaByWallType[4]			= {   ExtWallWinAreaByWallType[1] + ExtWallWinAreaByWallType[2] + ExtWallWinAreaByWallType[3]  }
 
-  "set Zone:ExtWallWinAreaByWallType_W[1] - West wood framed"   Zone:ExtWallWinAreaByWallType_W[1]	= { SumChildrenIf( ExtWall:NewWinAreaByWallType[1], ExtWall:TrueOrientationIdx = 4 ) }    ; SAC 07/15/26 (dev #1004)
-  "set Zone:ExtWallWinAreaByWallType_W[2] - West steel framed"  Zone:ExtWallWinAreaByWallType_W[2]	= { SumChildrenIf( ExtWall:NewWinAreaByWallType[2], ExtWall:TrueOrientationIdx = 4 ) }
-  "set Zone:ExtWallWinAreaByWallType_W[3] - West concrete/CMU"  Zone:ExtWallWinAreaByWallType_W[3]	= { SumChildrenIf( ExtWall:NewWinAreaByWallType[3], ExtWall:TrueOrientationIdx = 4 ) }
-  "set Zone:ExtWallWinAreaByWallType_W[1] - West wood framed - add new/alt+addition Skylt area"   Zone:ExtWallWinAreaByWallType_W[1]	= 
-                  { if (ExtWallAreaByWallType[1] >= ExtWallAreaByWallType[2] .AND. ExtWallAreaByWallType[1] >= ExtWallAreaByWallType[3])
-                    then  ExtWallWinAreaByWallType_W[1] + SumChildrenIf( CathedralCeiling:ChildAreaSum[2], CathedralCeiling:WinOrientationIdx = 4 ) +
-                                                          SumChildrenIf( CathedralCeiling:ChildAreaSum[4], CathedralCeiling:WinOrientationIdx = 4 ) + ValidOr( SkyltAreaDelByO[1], 0 )
-                    else  UNCHANGED  endif }
-  "set Zone:ExtWallWinAreaByWallType_W[2] - West steel framed - add new/alt+addition Skylt area"  Zone:ExtWallWinAreaByWallType_W[2]	= 
-                  { if (ExtWallAreaByWallType[2] >= ExtWallAreaByWallType[1] .AND. ExtWallAreaByWallType[2] >= ExtWallAreaByWallType[3])
-                    then  ExtWallWinAreaByWallType_W[2] + SumChildrenIf( CathedralCeiling:ChildAreaSum[2], CathedralCeiling:WinOrientationIdx = 4 ) +
-                                                          SumChildrenIf( CathedralCeiling:ChildAreaSum[4], CathedralCeiling:WinOrientationIdx = 4 ) + ValidOr( SkyltAreaDelByO[1], 0 )
-                    else  UNCHANGED  endif }
-  "set Zone:ExtWallWinAreaByWallType_W[3] - West concrete/CMU - add new/alt+addition Skylt area"  Zone:ExtWallWinAreaByWallType_W[3]	= 
-                  { if (ExtWallAreaByWallType[3] >= ExtWallAreaByWallType[1] .AND. ExtWallAreaByWallType[3] >= ExtWallAreaByWallType[2])
-                    then  ExtWallWinAreaByWallType_W[3] + SumChildrenIf( CathedralCeiling:ChildAreaSum[2], CathedralCeiling:WinOrientationIdx = 4 ) +
-                                                          SumChildrenIf( CathedralCeiling:ChildAreaSum[4], CathedralCeiling:WinOrientationIdx = 4 ) + ValidOr( SkyltAreaDelByO[1], 0 )
-                    else  UNCHANGED  endif }
-
-  "set Zone:ExtWallWinAreaByWallType_W[4] - West total"   Zone:ExtWallWinAreaByWallType_W[4]	= { ExtWallWinAreaByWallType_W[1] + ExtWallWinAreaByWallType_W[2] + ExtWallWinAreaByWallType_W[3] }
-
-  "set Zone:ExtWallWinAreaByWallType_NW[1] - West wood framed"   Zone:ExtWallWinAreaByWallType_NW[1]	= { SumChildrenIf( ExtWall:NewWinAreaByWallType[1], ExtWall:TrueOrientationIdx != 4 ) }    ; SAC 07/15/26 (dev #1004)
-  "set Zone:ExtWallWinAreaByWallType_NW[2] - West steel framed"  Zone:ExtWallWinAreaByWallType_NW[2]	= { SumChildrenIf( ExtWall:NewWinAreaByWallType[2], ExtWall:TrueOrientationIdx != 4 ) }
-  "set Zone:ExtWallWinAreaByWallType_NW[3] - West concrete/CMU"  Zone:ExtWallWinAreaByWallType_NW[3]	= { SumChildrenIf( ExtWall:NewWinAreaByWallType[3], ExtWall:TrueOrientationIdx != 4 ) }
-  "set Zone:ExtWallWinAreaByWallType_NW[1] - West wood framed - add new/alt+addition Skylt area"   Zone:ExtWallWinAreaByWallType_NW[1]	= 
-                  { if (ExtWallAreaByWallType[1] >= ExtWallAreaByWallType[2] .AND. ExtWallAreaByWallType[1] >= ExtWallAreaByWallType[3])
-                    then  ExtWallWinAreaByWallType_NW[1] + SumChildrenIf( CathedralCeiling:ChildAreaSum[2], CathedralCeiling:WinOrientationIdx != 4 ) +
-                                                           SumChildrenIf( CathedralCeiling:ChildAreaSum[4], CathedralCeiling:WinOrientationIdx != 4 ) + ValidOr( SkyltAreaDelByO[2], 0 )
-                    else  UNCHANGED  endif }
-  "set Zone:ExtWallWinAreaByWallType_NW[2] - West steel framed - add new/alt+addition Skylt area"  Zone:ExtWallWinAreaByWallType_NW[2]	= 
-                  { if (ExtWallAreaByWallType[2] >= ExtWallAreaByWallType[1] .AND. ExtWallAreaByWallType[2] >= ExtWallAreaByWallType[3])
-                    then  ExtWallWinAreaByWallType_NW[2] + SumChildrenIf( CathedralCeiling:ChildAreaSum[2], CathedralCeiling:WinOrientationIdx != 4 ) +
-                                                           SumChildrenIf( CathedralCeiling:ChildAreaSum[4], CathedralCeiling:WinOrientationIdx != 4 ) + ValidOr( SkyltAreaDelByO[2], 0 )
-                    else  UNCHANGED  endif }
-  "set Zone:ExtWallWinAreaByWallType_NW[3] - West concrete/CMU - add new/alt+addition Skylt area"  Zone:ExtWallWinAreaByWallType_NW[3]	= 
-                  { if (ExtWallAreaByWallType[3] >= ExtWallAreaByWallType[1] .AND. ExtWallAreaByWallType[3] >= ExtWallAreaByWallType[2])
-                    then  ExtWallWinAreaByWallType_NW[3] + SumChildrenIf( CathedralCeiling:ChildAreaSum[2], CathedralCeiling:WinOrientationIdx != 4 ) +
-                                                           SumChildrenIf( CathedralCeiling:ChildAreaSum[4], CathedralCeiling:WinOrientationIdx != 4 ) + ValidOr( SkyltAreaDelByO[2], 0 )
-                    else  UNCHANGED  endif }
-  "set Zone:ExtWallWinAreaByWallType_NW[4] - West total"   Zone:ExtWallWinAreaByWallType_NW[4]	= { ExtWallWinAreaByWallType_NW[1] + ExtWallWinAreaByWallType_NW[2] + ExtWallWinAreaByWallType_NW[3] }
-
-	"Set Zone:ExtWallDoorArea"											        Zone:ExtWallDoorArea						  = {   SumChildren( ExtWall:TotDoorArea )  }
+	"Set Zone:ExtWallDoorArea"											Zone:ExtWallDoorArea						= {   SumChildren( ExtWall:TotDoorArea )  }
 	"Set Zone:ExtWallDoorAreaByWallType[1] - wood framed"		Zone:ExtWallDoorAreaByWallType[1]	= {   SumChildren( ExtWall:DoorAreaByWallType[1] )  }
 	"Set Zone:ExtWallDoorAreaByWallType[2] - steel framed"	Zone:ExtWallDoorAreaByWallType[2]	= {   SumChildren( ExtWall:DoorAreaByWallType[2] )  }
 	"Set Zone:ExtWallDoorAreaByWallType[3] - concrete/CMU"	Zone:ExtWallDoorAreaByWallType[3]	= {   SumChildren( ExtWall:DoorAreaByWallType[3] )  }
-	"Set Zone:ExtWallDoorAreaByWallType[4] - total"				  Zone:ExtWallDoorAreaByWallType[4] = {   ExtWallDoorAreaByWallType[1] + ExtWallDoorAreaByWallType[2] + ExtWallDoorAreaByWallType[3]  }
+	"Set Zone:ExtWallDoorAreaByWallType[4] - total"				Zone:ExtWallDoorAreaByWallType[4] 	= {   ExtWallDoorAreaByWallType[1] + ExtWallDoorAreaByWallType[2] + ExtWallDoorAreaByWallType[3]  }
   ; SAC 7/23/14 - adjust std wall area up to ensure adequate size to handle all New windows/doors (GC #329)
 	"Set Zone:ExtWallAreaByWallType[4] - rev if necessary"	Zone:ExtWallAreaByWallType[4]			= {   if (ExtWallAreaByWallType[4] >= (ExtWallWinAreaByWallType[4] + ExtWallDoorAreaByWallType[4] + SumChildren( CathedralCeiling:ChildAreaSum[2] ) + SumChildren( CathedralCeiling:ChildAreaSum[4] ) + 0.001))
 																																		then  UNCHANGED  else			  (ExtWallWinAreaByWallType[4] + ExtWallDoorAreaByWallType[4] + SumChildren( CathedralCeiling:ChildAreaSum[2] ) + SumChildren( CathedralCeiling:ChildAreaSum[4] ) + 0.001)   endif  }
@@ -3715,178 +3439,6 @@ RULELIST "ConvertTo_DHWSys_Gas" 1 0 1 1
 END
 ;*************************************************************************
 
-
-;************************************************************************* - based on MFam rulelists of shared/Rules_BudgetConversion_MFam_Envelope.rule - SAC 07/01/26 (dev #983)
-;*************************************************************************
-RULELIST  "BudgetConversion_ProposedOrientation" 1 0 1 0
-;*************************************************************************
-;*************************************************************************
-;"store BEMProc details" Proj:Action = {  StoreBEMProc( "begin BudgetConv_PropOrientEnv", 0 )  }
-;"dbg" Proj:Action = {  PostMessageToLog( "   eval rulelist 'BudgetConversion_ProposedOrientation' for run %s", RunAbbrev )  }
-
-   "Setup Wall/Window/Door Area Totals"   Proj:Action   = {   EvalRulelist( "SetupWallWindowDoorAreaTotals" )  }
-
-  ; added logic to prevent changing Cons of ExtWalls that are not children of Zones - SAC 07/02/26 (dev #983)
-  "Assign new ExtWall:Construction based on wall type: AreaByWallType 1:wood framed 2:steel framed 3:concrete/CMU"  ExtWall:Construction =
-    { if( IfValidAnd( IsNew > 0.5 )==0 .OR. ParentComponentType() != "Zone" ) then  UNCHANGED
-      else if( IfValidAnd( AreaByWallType[3] > 0.01 ) )   ; "Concrete / ICF / Brick" or "Hollow Unit Masonry" or "Adobe / Strawbale / Log" or "No Frame (concrete/CMU)"
-      then  RuleLibrary( Cons, T24RClimateZoneCodeBase:StdMassExtWallCons( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) )
-      else if( IfValidAnd( Proj:CondAdditionSize > 0 ) )
-      then  RuleLibrary( Cons, PrescripAdditions_WoodExtWallCons:StdFrameExtWallCons( "CodeBase", Proj:StdDesignBase, "ClimateZone", Proj:ClimateZone, "AdditionSize", Proj:CondAdditionSize, "FrameLayer", 416 ) )
-      else  RuleLibrary( Cons, T24RClimateZoneCodeBase:StdFrameExtWallCons( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) )
-      endif endif endif  }
-
-   "Adjust New/Alt Win of Cond zones"     Win:Action =        ; added IsEAAAddZoneGChild == 0 logic for consistency w/ other win defaulting/classification - SAC 07/20/26 (dev #983)
-    { if( Status != 1 .AND. IsEAAAddZoneGChild == 0 .AND. 
-          ParentComponentType() == "ExtWall" .AND. Parent2ComponentType() == "Zone" )
-      then  if( IfValidAnd( Zone:CondFloorArea > 0 )==0 ) then  UNCHANGED   
-            else  EvalRulelist( "BudgetConversion_ProposedOrientation_Win", 1 )
-            endif
-      else  UNCHANGED  endif  }
-
-  "sum into ExtWall:PropOStdWinArea all Win areas needing to be removed and recreated"    ExtWall:PropOStdWinArea =     ; SAC 07/20/26 (dev #983)
-    { SumChildren( Win:PropOAreaInclMult ) }
-  "delete new/alt Wins (to be replaced w/ new StdWindow)"   Win:Action =
-    { if( IfValidAnd( PropOAreaInclMult > 0.001 ) ) then  DeleteComp()  else  UNCHANGED  endif }
-
-  "reset ExtWall:ChildAreaSum => Sum of child window & door areas"                    ExtWall:ChildAreaSum        = { SumChildren( Win:TotAreaInclMult[1] ) + SumChildren( Door:Area ) }    ; SAC 07/20/26 (dev #983)
-  "set ExtWall:NetWallArea => gross wall area minus sum of child window & door area"  ExtWall:NetCondZoneWallArea = { if( IfValidAnd( IsNew > 0.5 )==0 .OR. ParentComponentType() != "Zone" ) then  0
-                                                                                                                      else  Local( Area ) - Local( ChildAreaSum )  endif }
-
-  "set Proj:PropOStdNetWallAreaByO[1] - N"   Proj:PropOStdNetWallAreaByO[1] = { SumAcrossIf( ExtWall:NetCondZoneWallArea, ExtWall:TrueOrientationIdx = 1 ) }    ; SAC 07/20/26 (dev #983)
-  "set Proj:PropOStdNetWallAreaByO[2] - E"   Proj:PropOStdNetWallAreaByO[2] = { SumAcrossIf( ExtWall:NetCondZoneWallArea, ExtWall:TrueOrientationIdx = 2 ) }
-  "set Proj:PropOStdNetWallAreaByO[3] - S"   Proj:PropOStdNetWallAreaByO[3] = { SumAcrossIf( ExtWall:NetCondZoneWallArea, ExtWall:TrueOrientationIdx = 3 ) }
-  "set Proj:PropOStdNetWallAreaByO[4] - W"   Proj:PropOStdNetWallAreaByO[4] = { SumAcrossIf( ExtWall:NetCondZoneWallArea, ExtWall:TrueOrientationIdx = 4 ) }
-
-  "set Proj:PropOStdNetWinWallRatByO[1] - N"   Proj:PropOStdNetWinWallRatByO[1] =
-    { if( IfValidAnd( PropOStdNetWallAreaByO[1] > 0.001 )==0 ) then  0.0 
-      else  SumAcrossIf( ExtWall:PropOStdWinArea, ExtWall:TrueOrientationIdx = 1 ) / PropOStdNetWallAreaByO[1]  endif }
-  "set Proj:PropOStdNetWinWallRatByO[2] - E"   Proj:PropOStdNetWinWallRatByO[2] =
-    { if( IfValidAnd( PropOStdNetWallAreaByO[2] > 0.001 )==0 ) then  0.0 
-      else  SumAcrossIf( ExtWall:PropOStdWinArea, ExtWall:TrueOrientationIdx = 2 ) / PropOStdNetWallAreaByO[2]  endif }
-  "set Proj:PropOStdNetWinWallRatByO[3] - S"   Proj:PropOStdNetWinWallRatByO[3] =
-    { if( IfValidAnd( PropOStdNetWallAreaByO[3] > 0.001 )==0 ) then  0.0 
-      else  SumAcrossIf( ExtWall:PropOStdWinArea, ExtWall:TrueOrientationIdx = 3 ) / PropOStdNetWallAreaByO[3]  endif }
-  "set Proj:PropOStdNetWinWallRatByO[4] - W"   Proj:PropOStdNetWinWallRatByO[4] =
-    { if( IfValidAnd( PropOStdNetWallAreaByO[4] > 0.001 )==0 ) then  0.0 
-      else  SumAcrossIf( ExtWall:PropOStdWinArea, ExtWall:TrueOrientationIdx = 4 ) / PropOStdNetWallAreaByO[4]  endif }
-
-  "create new StdWindow for each ExtWall where PropOStdWinArea > 0"   ExtWall:Action =
-    { if( IfValidAnd( PropOStdWinArea > 0.001 )==0 ) then  UNCHANGED
-      else  EvalRulelist( "BudgetConversion_ProposedOrientation_RecreateWindows", 1 )  endif }
-
-;"dbg BEMProc details"  Proj:Action = {  StoreBEMProc( "end of BudgetConv_PropOrientEnv", 0 )  }
-;"dbg" Proj:Action = {  MessageBox( "End of 'BudgetConversion_ProposedOrientation' for run %s", RunAbbrev )  }
-END
-;*************************************************************************
-RULELIST  "BudgetConversion_ProposedOrientation_Win" 1 0 1 0
-
-   "Set Win:NFRCUfactor"      Win:NFRCUfactor  =
-      { if (Proj:EnergyCodeYearNum >= 2025 .AND. Proj:ClimateZone == 5 .AND.
-             ( (((Proj:RunScope == 1 .AND. Proj:IsAddAlone < 0.5) .OR. Proj:RunScope == 2) .AND. IfValidAnd( Proj:CondFloorArea <= 500 )) .OR.
-               (Proj:RunScope == 1 .AND. Proj:IsAddAlone > 0.5 .AND. IfValidAnd( Proj:AddAloneAddedArea <= 500 )) ) ) then  0.3
-			  else  T24RClimateZoneCodeBase:WindowUfactor( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  endif  }
-   "Adjust Win:NFRCUfactor"   Win:NFRCUfactor  =         ; SAC 01/22/21
-      {  if ((Proj:IsStdRun .OR. (Proj:SMFFollowsStdDesignFuel .AND. Proj:RunAbbrev == "smf")) .AND.
-             IfValidAnd( Proj:StdDesignWinAdj_Ufactor != 0 ))
-         then  StdWindow:NFRCUfactor + Proj:StdDesignWinAdj_Ufactor
-         else  UNCHANGED  endif  }
-
-   "Set Win:NFRCSHGC"         Win:NFRCSHGC  =
-      {	 T24RClimateZoneCodeBase:WindowSHGC(    "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  }
-   "Adjust Win:NFRCSHGC"      Win:NFRCSHGC  =            ; SAC 01/22/21
-      {  if ((Proj:IsStdRun .OR. (Proj:SMFFollowsStdDesignFuel .AND. Proj:RunAbbrev == "smf")) .AND.
-             IfValidAnd( Proj:StdDesignWinAdj_SHGC != 0 ))
-         then  NFRCSHGC + Proj:StdDesignWinAdj_SHGC
-         else  UNCHANGED  endif  }
-
-   ; ExteriorShade = "Insect Screen (default)" - ACM section 2.3.5.5.3
-   "Set Win:ExteriorShade"    Win:ExteriorShade    = {  "Insect Screen (default)"  }
-   "Set Win:IsStdCondZoneWin" Win:IsStdCondZoneWin = {  1  }      ; SAC 2/11/14
-
-   "Adjust Win Area and remove fins/overhangs"  Win:Action =
-      {  if (SpecMethod == 2)
-         then  EvalRulelist( "BudgetConversion_ProposedOrientation_Win_Area", 1 )
-         else  EvalRulelist( "BudgetConversion_ProposedOrientation_Win_Dimensions", 1 )  endif  } 
-  "track win area for re-created proposed-orientation std design windows"   Win:Action = { EvalRulelist( "BudgetConversion_ProposedOrientation_WinAreaTracking", 1 ) }    ; SAC 07/20/26 (dev #983)
-END
-;*************************************************************************
-RULELIST  "BudgetConversion_ProposedOrientation_Win_Area" 1 0 1 0
-;   "Set Win:Area"                Win:Area              = {  (Area * WinAreaMult) + WinAreaSkyltAdder  }   ; switch from Proj level to indiv Win scaling factor - SAC 07/02/26 (dev #983)
-   "Set Win:Area"                Win:Area              = {  (Area + WinAreaSkyltAdder) * WinAreaMult  }   ; switch from Proj level to indiv Win scaling factor - SAC 07/02/26 (dev #983)
-END
-;*************************************************************************
-RULELIST  "BudgetConversion_ProposedOrientation_Win_Dimensions" 1 0 1 0
-   "Set Win:ModelFinsOverhang"   Win:ModelFinsOverhang = {  0  }
-   "Set Win:Height"              Win:Height            = {  if( IfValidAnd( Width > 0 ) )
-                                                            then  ((Area + WinAreaSkyltAdder) * WinAreaMult) / Width
-                                                            else  Height * WinAreaMult  endif  }
-;                                                            then  ((Area * WinAreaMult) + WinAreaSkyltAdder) / Width
-   ; check/confirm Area re-defaulted before simulation
-END
-;*************************************************************************
-RULELIST  "BudgetConversion_ProposedOrientation_WinAreaTracking" 1 0 0 0
-  "reset Win:Area"              Win:Area              = { if (SpecMethod == 2) then  UNCHANGED
-                                                            else if( IfValidAnd( Height > 0 ) .AND. IfValidAnd( Width > 0 ) )
-                                                            then  Height * Width
-                                                            else  UNCHANGED  endif endif  }     ; reset area in prep for re-creating Std Wins - SAC 07/20/26 (dev #983)
-  "set Win:PropOAreaInclMult"   Win:PropOAreaInclMult = { ValidOr( Area, 0 ) * Multiplier }     ; SAC 07/20/26 (dev #983)
-END
-;************************************************************************* ;  - SAC 07/20/26 (dev #983)
-RULELIST  "BudgetConversion_ProposedOrientation_RecreateWindows" 1 0 1 0
-  "create ExtWall:StdWindow"          ExtWall:StdWindow           = { CreateComp( Win, Local( Name ) + "-PropOStdWin" ) }
-  "set ExtWall:StdWindow:Parent"      ExtWall:StdWindow:Parent    = {	Local( Name ) }
-      "dbg" ExtWall:Action = {  if( IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )==0 )   ; OLD method (ignoring West vs. NotWest glazing)
-                                then  UNCHANGED
-                                else if( IfValidAnd( Orientation = 3 ) )  ; => 'Right' => 270 Az => West-facing
-                                then  switch (IsStdCondZoneWall)
-                                      case  1 :	PostMessageToLog( "      West StdWall '%s' Area:  %g = (%g + %g) * %g", Name, (ValidOr( ExtWallWinAreaByWallType_W[1], 0 ) + ValidOr( ExtWallWinAreaByWallType_W[2], 0 )) * Proj:CondNewWinAreaMultByO[1],
-                                                                      ValidOr( ExtWallWinAreaByWallType_W[1], 0 ), ValidOr( ExtWallWinAreaByWallType_W[2], 0 ), Proj:CondNewWinAreaMultByO[1] )
-                                      case  3 :	PostMessageToLog( "      West StdWall '%s' Area:  %g = %g * %g",        Name,  ValidOr( ExtWallWinAreaByWallType_W[3], 0 ) * Proj:CondNewWinAreaMultByO[1], ValidOr( ExtWallWinAreaByWallType_W[3], 0 ), Proj:CondNewWinAreaMultByO[1] )
-                                      default :	UNCHANGED
-                                      endswitch
-                                else  ; NOT West-facing
-                                      switch (IsStdCondZoneWall)
-                                      case  1 :	PostMessageToLog( "   NotWest StdWall '%s' Area:  %g = (%g + %g) * %g / 3", Name, (ValidOr( ExtWallWinAreaByWallType_NW[1], 0 ) + ValidOr( ExtWallWinAreaByWallType_NW[2], 0 )) * Proj:CondNewWinAreaMultByO[2] / 3,
-                                                                      ValidOr( ExtWallWinAreaByWallType_NW[1], 0 ), ValidOr( ExtWallWinAreaByWallType_NW[2], 0 ), Proj:CondNewWinAreaMultByO[2] )
-                                      case  3 :	PostMessageToLog( "   NotWest StdWall '%s' Area:  %g = %g * %g / 3",        Name,  ValidOr( ExtWallWinAreaByWallType_NW[3], 0 ) * Proj:CondNewWinAreaMultByO[2] / 3, ValidOr( ExtWallWinAreaByWallType_NW[3], 0 ), Proj:CondNewWinAreaMultByO[2] )
-                                      default :	UNCHANGED
-                                      endswitch
-                                endif endif }
-  "Set ExtWall:StdWindow:Area"        ExtWall:StdWindow:Area        = ; { PropOStdWinArea } 
-    { switch( TrueOrientationIdx )
-      case  1 :  NetCondZoneWallArea * min( Proj:PropOStdNetWinWallRatByO[1], 0.9 )
-      case  2 :  NetCondZoneWallArea * min( Proj:PropOStdNetWinWallRatByO[2], 0.9 )
-      case  3 :  NetCondZoneWallArea * min( Proj:PropOStdNetWinWallRatByO[3], 0.9 )
-      default :  NetCondZoneWallArea * min( Proj:PropOStdNetWinWallRatByO[4], 0.9 )
-      endswitch }
-  "Set ExtWall:StdWindow:Height"      ExtWall:StdWindow:height      = {	sqrt( StdWindow:Area ) }
-  "Set ExtWall:StdWindow:Width"       ExtWall:StdWindow:Width       = {	StdWindow:Height }
-  "Set ExtWall:StdWindow:Multiplier"  ExtWall:StdWindow:Multiplier  = {	1     }
-
-   ; RJH 4/1/25 - tic #1396 - modified 2025 SF lookup table and added exception logic for Proj:CondFloorArea <= 500 .AND. Proj:ClimateZone == 5
-   ; revised prior logic to apply CZ 5 small home (<=500SF) exception to additions and alterations - SAC 04/23/25 (tic #1396)
-  "Set ExtWall:StdWindow:NFRCUfactor" 	ExtWall:StdWindow:NFRCUfactor		= 
-     {   if (Proj:EnergyCodeYearNum >= 2025 .AND. Proj:ClimateZone == 5 .AND.
-             ( (((Proj:RunScope == 1 .AND. Proj:IsAddAlone < 0.5) .OR. Proj:RunScope == 2) .AND. IfValidAnd( Proj:CondFloorArea <= 500 )) .OR.
-               (Proj:RunScope == 1 .AND. Proj:IsAddAlone > 0.5 .AND. IfValidAnd( Proj:AddAloneAddedArea <= 500 )) ) ) then  0.3
-			else  T24RClimateZoneCodeBase:WindowUfactor( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  endif  }
-   "Adjust ExtWall:StdWindow:NFRCUfactor" ExtWall:StdWindow:NFRCUfactor    =        ; SAC 01/22/21
-      {  if ((Proj:IsStdRun .OR. (Proj:SMFFollowsStdDesignFuel .AND. Proj:RunAbbrev == "smf")) .AND.
-             IfValidAnd( Proj:StdDesignWinAdj_Ufactor != 0 ))
-         then  StdWindow:NFRCUfactor + Proj:StdDesignWinAdj_Ufactor
-         else  UNCHANGED  endif  }
-	"Set ExtWall:StdWindow:NFRCSHGC"    	ExtWall:StdWindow:NFRCSHGC			= {	T24RClimateZoneCodeBase:WindowSHGC(    "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  }
-   "Adjust ExtWall:StdWindow:NFRCSHGC"  ExtWall:StdWindow:NFRCSHGC      =        ; SAC 01/22/21
-      {  if ((Proj:IsStdRun .OR. (Proj:SMFFollowsStdDesignFuel .AND. Proj:RunAbbrev == "smf")) .AND.
-             IfValidAnd( Proj:StdDesignWinAdj_SHGC != 0 ))
-         then  StdWindow:NFRCSHGC + Proj:StdDesignWinAdj_SHGC
-         else  UNCHANGED  endif  }
-	; ExteriorShade = "Insect Screen (default)" - ACM section 2.3.5.5.3
-	"Set ExtWall:StdWindow:ExteriorShade" 	  ExtWall:StdWindow:ExteriorShade	    = {	"Insect Screen (default)"  }
-	"Set ExtWall:StdWindow:IsStdCondZoneWin" 	ExtWall:StdWindow:IsStdCondZoneWin	= {	1  }		; SAC 2/11/14
-END
-;************************************************************************* ;  - SAC 07/20/26 (dev #983)
 
 
 ;*************************************************************************

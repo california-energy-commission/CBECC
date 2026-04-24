@@ -149,8 +149,8 @@ Proj:SFamMaxVertDist    >   0,                            None,    ERROR, "Maxim
 Proj:SFamMaxVertDist    >=  Proj:SFamMaxVertLimits[1],    None,  WARNING, "Maximum vertical distance is typically > 50% of the default value."
 Proj:SFamMaxVertDist    <=  Proj:SFamMaxVertLimits[2],    None,  WARNING, "Maximum vertical distance is typically <= 200% of the default value."
 
-;Proj:OtherZnOccFrac     >=  0,    None,  ERROR, "OtherZone simulated occupancy fraction must be >= 0."      ; SAC 10/7/19 - MFamProto
-;Proj:OtherZnOccFrac     <=  5,    None,  ERROR, "OtherZone simulated occupancy fraction must be <= 5."
+Proj:OtherZnOccFrac     >=  0,    None,  ERROR, "OtherZone simulated occupancy fraction must be >= 0."      ; SAC 10/7/19 - MFamProto
+Proj:OtherZnOccFrac     <=  5,    None,  ERROR, "OtherZone simulated occupancy fraction must be <= 5."
 
 ; Proj:UnitIAQCFM[1]    >=   Proj:UnitMinIAQCFM[1] ,  Proj:UnitMinIAQCFM[1]  > 0,   ERROR,   "Indoor Air Quality CFM must be equal or greater than the calculated minimum."
 ; Proj:UnitIAQCFM[2]    >=   Proj:UnitMinIAQCFM[2] ,  Proj:UnitMinIAQCFM[2]  > 0,   ERROR,   "Indoor Air Quality CFM must be equal or greater than the calculated minimum."

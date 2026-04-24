@@ -135,36 +135,10 @@ RULELIST "ProposedInput_Battery" 0 0 0 0
          then  EvalRulelist( "ForceDefault_SimStandaloneBatt" )
          else	UNCHANGED  endif  }
 
-  "set Proj:BattCreditOptAvail (0-n/a, 1-SelfUtilOnly, 2-PkClgOnly, 3-eitherPkClgOrSelfUtil)"   Proj:BattCreditOptAvail =   ; SAC 08/05/26 (dev #989)
-    { if( IfValidAnd( IncludePeakCooling > 0 ) .AND.
-          T24RClimateZoneCodeBase:StdPkCoolElecLimitMult( "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr ) > 0.001 )
-      then  if( IfValidAnd( SimulateBattery > 0 ) .AND. IfValidAnd( SimStandaloneBatt > 0 )==0 )
-            then  3   ; eitherPkClgOrSelfUtil
-            else  2   ; PkClgOnly
-            endif
-      else  if( IfValidAnd( SimulateBattery > 0 ) .AND. IfValidAnd( SimStandaloneBatt > 0 )==0 )
-            then  1   ; SelfUtilOnly
-            else  0   ; n/a
-            endif
-      endif  }
-  "force reset of Proj:BattCreditOption if needed"    Proj:Action =           ; SAC 08/05/26 (dev #989)
-    { if( BattCreditOption == 1 .AND. (BattCreditOptAvail == 0 .OR. BattCreditOptAvail == 2) )
-      then  EvalRulelist( "Force_Proj_BattCreditOption_NotSelfUtil" )
-      else if( BattCreditOption == 2 .AND. (BattCreditOptAvail == 0 .OR. BattCreditOptAvail == 1) )
-      then  EvalRulelist( "Force_Proj_BattCreditOption_NotPeakClg" )
-      else  UNCHANGED  endif endif  }
-  "default Proj:BattCreditOption"     Proj:BattCreditOption =                 ; SAC 08/05/26 (dev #989)
-    { switch( BattCreditOptAvail )
-      case  0 :  0    ; neither PeakClg or SelfUtil available  ==>>  n/a
-      case  1 :  1    ; SelfUtil available, PeakClg not  ==>>  SelfUtil
-      case  2 :  2    ; PeakClg available, SelfUtil not  ==>>  PeakClg
-      default :  1    ; both PeakClg & SelfUtil available  ==>>  SelfUtil
-      endswitch  }
-
-   "Set Proj:ApplyBattGridHarmCredit - flag whether to apply/use self utilization credit"    Proj:ApplyBattGridHarmCredit =      ; SAC 10/10/23  ; SAC 08/05/26 (dev #989)
+   "Set Proj:ApplyBattGridHarmCredit - flag whether to apply/use self utilization credit"    Proj:ApplyBattGridHarmCredit =      ; SAC 10/10/23
       {  if (LocalStatus( RunAbbrev ) < 1 .OR. IfValidAnd( RunAbbrev = "u" ))
          then  if (IfValidAnd( SimulateBattery > 0 ) .AND. IfValidAnd( SimStandaloneBatt > 0 )==0 .AND.
-                   IfValidAnd( BattGridHarmCredit > 0 ) .AND. BattCreditOption == 1) then  1  else  0  endif
+                   IfValidAnd( BattGridHarmCredit > 0 )) then  1  else  0  endif
          else  UNCHANGED  endif  }
 
 ;   "Prevent Battery performance user inputs if not ResearchMode"  Proj:Action = {   ; SAC 12/31/17
@@ -395,21 +369,6 @@ RULELIST "ForceDefault_TDVSummerPkFirstHr_StandaloneChgStartHr_TOUStartMonth_TOU
    "Blast Proj:TOUEndMonth"            Proj:TOUEndMonth           = { UNDEFINED }
 END
 ;*************************************************************************
-
-;************************************************************************* ; SAC 08/05/26 (dev #989)
-RULELIST "Force_Proj_BattCreditOption_NotSelfUtil"  1 0 0 0
-  "reset Proj:BattCreditOption"   Proj:BattCreditOption =
-    { if( BattCreditOptAvail == 0 )
-      then  0  else  2  endif  }
-END
-;*************************************************************************
-RULELIST "Force_Proj_BattCreditOption_NotPeakClg"  1 0 0 0
-  "reset Proj:BattCreditOption"   Proj:BattCreditOption =
-    { if( BattCreditOptAvail == 0 )
-      then  0  else  1  endif  }
-END
-;*************************************************************************
-
 
 
 ;*************************************************************************
