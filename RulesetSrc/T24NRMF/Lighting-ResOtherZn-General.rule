@@ -445,7 +445,6 @@ RULE NEW ResOtherZn:IsFutureLtg
     endif
 ENDRULE
 
-; add logic to prevent setting ApplyStdLtg to 1 for zones where Type != "Conditioned" - SAC 09/04/26 (dev #1083)
 RULE NEW ResOtherZn:ApplyStdLtg
   DATATYPE 
     Integer
@@ -456,17 +455,17 @@ RULE NEW ResOtherZn:ApplyStdLtg
   INPUTCLASS
     NotInput
   DEFAULT : T24N
-    if( IsFutureLtg .AND. Type == "Conditioned" )
+    if( IsFutureLtg )
     then  1  // envelope only compliance, proposed lighting subject to standard design rules
     else  0  // all other lighting statuses subject to proposed rules
     endif
   SIZING_PROPOSED : T24N
-    if( IsFutureLtg .AND. Type == "Conditioned" )
+    if( IsFutureLtg )
     then  1  // proposed lighting subject to standard design rules, such as in 'NewEnvelope' compliance
     else  0  // all other lighting statuses subject to proposed rules
     endif
   SIZING_BASELINE : T24N
-    if( IsExistingLtg .OR. Type != "Conditioned" )
+    if( IsExistingLtg )
     then  0  // for existing lighting, standard design is set equal to proposed
     else  1
     endif

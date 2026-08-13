@@ -38,7 +38,7 @@ RULE Proj:CompManagerVersion
   DESCRIPTION
     "Version of Compliance Manager software"
   DEFAULT 
-    Format( "BEMCmpMgr 2025.3.0 (%g)", RuleRepoRev )
+    Format( "BEMCmpMgr 2025.3.0-RV-7 (%g)", RuleRepoRev )
   SIZING
     u:CompManagerVersion
   ANNUAL
@@ -71,7 +71,7 @@ RULE Proj:ReleaseNotesURL
   DESCRIPTION
     "URL (web address) of site to provide release notes"
   DEFAULT 
-    "https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RC"
+    "https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RV"
 ENDRULE
 
 // ********** Compliance Reporting properties **********************************
@@ -288,17 +288,6 @@ RULE NEW Proj:UtilRateDownloadContainer
 ENDRULE
 ; was:    "30sp2"
 ;    "22.3.2"
-
-; SAC 09/10/26 (dev #713)
-RULE NEW Proj:UtilRateDownloadSector
-  DESCRIPTION
-    "Sector describing project data"
-  INPUTCLASS
-    Prescribed
-  DEFAULT 
-    "MFam"
-ENDRULE
-;    "Expire"
 
 
 ////////////////////////////////////////////////////////////////////////////////

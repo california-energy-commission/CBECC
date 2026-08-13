@@ -291,8 +291,7 @@ RULELIST "CARes_ProcessResults" 1 0 0 1
                   case  "p-S"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_S" )
                   case  "p-W"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_W" )
                                                 ; restored check of AnalysisVersion > 250000 (was 990000) to avoid Src energy retrieval for 2025 's' run - SAC 07/27/26 (dev #859)
-                                                ; switched logic to Proj:NumStdRuns > 1 to ensure EAA Source results still retrieved - SAC 08/22/26
-                  case  "s"     :  if (IfValidAnd( Proj:NumStdRuns > 1 )) then  UNCHANGED
+                  case  "s"     :  if (Proj:AnalysisVersion > 250000) then  UNCHANGED
                                    else if (AllOrientations < 0.5)
                                    then   EvalRulelist( "CARes_StandardSrcEnergyResults" )
                                    else   EvalRulelist( "CARes_StandardSrcEnergyResults_NESW" )  endif endif
@@ -5026,8 +5025,6 @@ RULELIST "CARes_StandardResults_NESW" 1 0 1 1
   "Set ResultSummary[4]:HaveResultsNotesPV[5]"  Proj:ResultSummary[4]:HaveResultsNotesPV[5]  = {  ResultSummary[2]:HaveResultsNotesPV[5]  }
   "Set ResultSummary[5]:ResultsNotes[5]"        Proj:ResultSummary[5]:ResultsNotes[5]        = {  ResultSummary[2]:ResultsNotes[5]        }
   "Set ResultSummary[5]:HaveResultsNotesPV[5]"  Proj:ResultSummary[5]:HaveResultsNotesPV[5]  = {  ResultSummary[2]:HaveResultsNotesPV[5]  }
-  "Set ResultSummary[1]:ResultsNotes[5]"        Proj:ResultSummary[1]:ResultsNotes[5]        = {  ResultSummary[2]:ResultsNotes[5]        }   ; set run [1] as well to avoid undefined data later - SAC 08/17/26 (support)
-  "Set ResultSummary[1]:HaveResultsNotesPV[5]"  Proj:ResultSummary[1]:HaveResultsNotesPV[5]  = {  ResultSummary[2]:HaveResultsNotesPV[5]  }
 
   ; Space Heating (& heating fan)
 ; mjb-10/16/13	moved "Other HVAC" [4] into "Space Heating" [1]
@@ -11057,9 +11054,7 @@ RULELIST "CARes_StandardSummary" 1 0 1 1
   "reset ResultSummary[1]:HaveResultsNotesPV[4] to report PV scaling"     Proj:ResultSummary[1]:HaveResultsNotesPV[4] =
     { if (ResultSummary[1]:HaveResultsNotesPV[1] < 1) then  0  else  1  endif  }
   "reset ResultSummary[1]:HaveResultsNotesPV[5]"     Proj:ResultSummary[1]:HaveResultsNotesPV[5] =
-    { if (LocalStatus( ResultSummary[1]:ResultsNotes[5] ) < 1) then  0
-      else if (strlen( ResultSummary[1]:ResultsNotes[5] ) > 2) then  1  else  0  endif endif  }   ; replaced below w/ above to avoid undef data error in NESW runs - SAC 08/17/26 (support)
-    ; { if (ResultSummary[1]:HaveResultsNotesPV[5] < 1) then  0  else  1  endif  }
+    { if (ResultSummary[1]:HaveResultsNotesPV[5] < 1) then  0  else  1  endif  }
       ; "dbg" Proj:Action = { if( CommunitySolarProjID == 2 .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ) ) then  PostMessageToLog( "setting UserPVScalingMsg in CARes_StandardSummary rulelist:  %s", ResultSummary[1]:UserPVScalingMsg )  else  UNCHANGED  endif }
 
   ; Standard Site Natural Gas Use

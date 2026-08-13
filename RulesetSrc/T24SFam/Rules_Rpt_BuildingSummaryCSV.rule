@@ -8532,15 +8532,15 @@ RULELIST  "HVACSys_Data_Report" 0 0 0 1
 																						else UNCHANGED endif 
 																					else UNCHANGED endif }
 
-   "Write column headings for CoolSystem Data"	HVACSys:Action =     ; SAC 09/16/22 (tic #1331)  ; label 'AC Charge' to 'Rfg. Charge' - SAC 08/14/26 (dev #1008)
+   "Write column headings for CoolSystem Data"	HVACSys:Action =     ; SAC 09/16/22 (tic #1331)
       {  if ( HaveCooling .AND. FloorAreaServed > 0.5  )
          then  if ( Type == 2 .AND. HaveHtPump )
                then  if (EffMetric < 2)
-                     then  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER, EER, CFM/Ton, Rfg. Charge, Ducted,\n" )
-                     else  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER2, EER2, CFM/Ton, Rfg. Charge, Ducted,\n" )  endif
+                     then  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER, EER, CFM/Ton, AC Charge, Ducted,\n" )
+                     else  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER2, EER2, CFM/Ton, AC Charge, Ducted,\n" )  endif
 					else  if (EffMetric < 2)
-                     then  WriteToFile( "\n,,Cooling System:, Type, SEER, EER, CFM/Ton, Rfg. Charge, Ducted,\n" )
-                     else  WriteToFile( "\n,,Cooling System:, Type, SEER2, EER2, CFM/Ton, Rfg. Charge, Ducted,\n" )  endif
+                     then  WriteToFile( "\n,,Cooling System:, Type, SEER, EER, CFM/Ton, AC Charge, Ducted,\n" )
+                     else  WriteToFile( "\n,,Cooling System:, Type, SEER2, EER2, CFM/Ton, AC Charge, Ducted,\n" )  endif
 					endif
 			else UNCHANGED endif  }
 

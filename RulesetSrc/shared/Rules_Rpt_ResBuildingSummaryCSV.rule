@@ -958,10 +958,7 @@ RULELIST  "Reporting_HERS_SpecialFeaturesSummary" 1 0 0 0
     else UNDEFINED 
     endif }
 
-	"Check for Verified Pipe Insulation"		ResDHWSys:HERSCheck:VerifiedPipeInsulation =
-    { if( ResDHWSys:CentralRecircType > 0.5 .AND. IfValidAnd( NumAssignedDUFracs > 0.5 ) .AND.
-          IfValidAnd( VerifiedPipeInsulation > 0.5 ) .AND. IfValidAnd( Proj:CompOptNew > 0 ) )
-      then 1 else 0 endif }	; RJH 3/18/26 2025-CBECC-Schema Issue 29  ; DVK 8/19/26 CEC: DUs and/or Htl/Mtl guestrooms, not common-only  ; Proj:CompOptNew check - SAC 08/19/26 (dev #944)
+	"Check for Verified Pipe Insulation"		ResDHWSys:HERSCheck:VerifiedPipeInsulation = { if ( ResDHWSys:CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND. IfValidAnd( VerifiedPipeInsulation > 0 ) ) then 1 else 0 endif }	; RJH 3/18/26 2025-CBECC-Schema Issue 29
 
 	"Check for Parallel Piping"					ResDHWSys:HERSCheck:ParallelPipe = { if ( ResDHWSys:SystemType == 8393216 .AND. ResDHWSys:CentralDHW < 0.5 .AND. Status != 1 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) ) then 1 else 0 endif }
 	"Write Parallel Piping Msg" 						ResDHWSys:HERSCheck:ParaPipeRptMsg = { if ( HERSCheck:ParallelPipe > 0.5 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) ) then ResDHWSys:SystemType else UNDEFINED endif }
@@ -1253,18 +1250,11 @@ RULELIST  "Reporting_HERS_SpecialFeaturesSummary" 1 0 0 0
 			else if (RoofSolReflect >= 0.2) then  2
 			else  1  endif endif endif  }
 
-; RJH 3/19/26 2025-CBECC-Schema Issue 29      ; added check for Proj:CompOptNew > 0 & NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #944)
-	"Set ResDHWSys:PipeSizingPerCPCAppMSpeclFtr flag"	ResDHWSys:PipeSizingPerCPCAppMSpeclFtr =
-    { if ( CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND. 
-           IfValidAnd( Proj:CompOptNew > 0 ) .AND. IfValidAnd( NumAssignedDUFracs > 0.5 ) .AND.
-           IfValidAnd( PipeSizingPerCPCAppM > 0 ) ) then 1 else 0 endif }
+; RJH 3/19/26 2025-CBECC-Schema Issue 29
+	"Set ResDHWSys:PipeSizingPerCPCAppMSpeclFtr flag"	ResDHWSys:PipeSizingPerCPCAppMSpeclFtr = { if ( CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND. IfValidAnd( PipeSizingPerCPCAppM > 0 ) ) then 1 else 0 endif }
 	"Check for PipeSizingPerCPCAppMSpeclFtr" 			ResProj:SpeclFeatrs:PipeSizingPerCPCAppMSpeclFtr = {  MaxAll( ResDHWSys:PipeSizingPerCPCAppMSpeclFtr )  }
 
-  ; added check for Proj:CompOptNew > 0 & NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
-	"Set ResDHWSys:MasterMixingValveSpeclFtr flag"		ResDHWSys:MasterMixingValveSpeclFtr =
-    { if ( CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND.
-           IfValidAnd( Proj:CompOptNew > 0 ) .AND. IfValidAnd( NumAssignedDUFracs > 0.5 ) .AND.
-           IfValidAnd( MasterMixingValve > 0 ) ) then 1 else 0 endif }
+	"Set ResDHWSys:MasterMixingValveSpeclFtr flag"		ResDHWSys:MasterMixingValveSpeclFtr = { if ( CentralRecircType > 0 .AND. IfValidAnd( FloorAreaServed[1] > 0 ) .AND. IfValidAnd( MasterMixingValve > 0 ) ) then 1 else 0 endif }
 	"Check for MasterMixingValveSpeclFtr" 				ResProj:SpeclFeatrs:MasterMixingValveSpeclFtr = {  MaxAll( ResDHWSys:MasterMixingValveSpeclFtr )  }
 
 
@@ -8637,15 +8627,15 @@ RULELIST  "HVACSys_Data_Report" 0 0 0 1
 																						else UNCHANGED endif 
 																					else UNCHANGED endif }
 
-   "Write column headings for CoolSystem Data"	ResHVACSys:Action =     ; SAC 09/16/22 (tic #1331)  ; label 'AC Charge' to 'Rfg. Charge' - SAC 08/14/26 (dev #1008)
+   "Write column headings for CoolSystem Data"	ResHVACSys:Action =     ; SAC 09/16/22 (tic #1331)
       {  if ( HaveCooling .AND. FloorAreaServed > 0.5  )
          then  if ( Type == 2 .AND. HaveHtPump )
                then  if (EffMetric < 2)
-                     then  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER, EER, CFM/Ton, Rfg. Charge, Ducted,\n" )
-                     else  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER2, EER2, CFM/Ton, Rfg. Charge, Ducted,\n" )  endif
+                     then  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER, EER, CFM/Ton, AC Charge, Ducted,\n" )
+                     else  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER2, EER2, CFM/Ton, AC Charge, Ducted,\n" )  endif
 					else  if (EffMetric < 2)
-                     then  WriteToFile( "\n,,Cooling System:, Type, SEER, EER, CFM/Ton, Rfg. Charge, Ducted,\n" )
-                     else  WriteToFile( "\n,,Cooling System:, Type, SEER2, EER2, CFM/Ton, Rfg. Charge, Ducted,\n" )  endif
+                     then  WriteToFile( "\n,,Cooling System:, Type, SEER, EER, CFM/Ton, AC Charge, Ducted,\n" )
+                     else  WriteToFile( "\n,,Cooling System:, Type, SEER2, EER2, CFM/Ton, AC Charge, Ducted,\n" )  endif
 					endif
 			else UNCHANGED endif  }
 

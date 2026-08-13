@@ -3803,19 +3803,20 @@
 0, HVACCool:ACCharge,  2    ; SAC 4/1/13 - switched default enum to 'Verified' (issue #59)
 1,    Proj:Ruleset,   -1001,  0   ; Backward compatibility
 2,              3,    "CID (charge indicator)"
-2,              3,    "FID (fault indicator)"     ; retired GH #991 - legacy only
 1,    Proj:Ruleset,    -999,  2   ; Current selections
 2,              1,    "Not Verified"
 2,              2,    "Verified"
+2,              3,    "FID (fault indicator)"
 0, HVACHtPump:ACCharge,  2
 1,    Proj:Ruleset,   -1001,  0   ; Backward compatibility
 2,              3,    "CID (charge indicator)"
-2,              3,    "FID (fault indicator)"     ; retired GH #991 - legacy only
 1,    HVACHtPump:Type,   22,  2   ; VCHP - SAC 11/13/18
 2,              2,    "Verified"
+2,              3,    "FID (fault indicator)"
 1,    Proj:Ruleset,    -999,  2   ; Current selections
 2,              1,    "Not Verified"
 2,              2,    "Verified"
+2,              3,    "FID (fault indicator)"
 0, HERSCool:ACChargRptMsg,  0
 0, HERSHtPump:ACChargRptMsg,  0
 2,              0,    "n/a"

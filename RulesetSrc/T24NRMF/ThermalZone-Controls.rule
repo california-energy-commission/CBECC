@@ -372,10 +372,7 @@ RULE NEW ThrmlZn:HtgTstatSchMaxVal
     else  70
     endif
   ANNUAL
-    if( LocalCompAssigned( HtgTstatSchRef ) )
-    then  HtgTstatSchRef:MaxVal
-    else  70
-    endif
+    z:HtgTstatSchMaxVal
 ENDRULE
 RULE NEW ThrmlZn:ClgTstatSchMinVal
   DATATYPE
@@ -395,10 +392,7 @@ RULE NEW ThrmlZn:ClgTstatSchMinVal
     else  75
     endif
   ANNUAL
-    if( LocalCompAssigned( ClgTstatSchRef ) )
-    then  ClgTstatSchRef:MinVal
-    else  75
-    endif
+    z:ClgTstatSchMinVal
 ENDRULE
 
 // Determine whether the ventilation system is unique form the Primary System

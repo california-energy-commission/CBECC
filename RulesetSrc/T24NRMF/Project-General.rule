@@ -408,42 +408,18 @@ ENDRULE
 
 // -----------------------------------------------------------------------------
 //         Compliance Scope Options - Lighting
-RULE NEW ResZnGrp:ResOtherZnCondFlrAreaWithMult
-  DATATYPE
-    Float
-  LONGFORM
-    ResidentialOtherZoneConditionedFloorAreaWithMultiplier
-  DESCRIPTION
-    "The total ResZnGrp common (conditioned) floor area,
-     including multipliers.  This includes high-rise
-     Residential and Hotel / Motel." 
-  INPUTCLASS
-    NotInput
-  MINIMUM 
-    0
-  UNITS 
-    ft2  
-  DEFAULT 
-    SumChildren( ResOtherZn:ResCondFlrAreaWithMult )
-ENDRULE
-
-
-
 RULE Proj:ResCompOptLtg
   DESCRIPTION
     "Flag that indicates that the analysis includes lighting."
   INPUTCLASS
     NotInput
   DEFAULT : T24N_2022 T24N_2025 T24N_2028
-    if( IfValidAnd( SumChildren( ResZnGrp:ResOtherZnCondFlrAreaWithMult ) > 0 ) )
+    if( IfValidAnd( Proj:ResDwellUnits > 0 ) )
     then
       1
-    else if( IfValidAnd( Proj:ResDwellUnits > 0 ) )
-    then  
-      2
     else
       0
-    endif endif
+    endif
 ENDRULE
 
 
@@ -742,7 +718,7 @@ RULE Proj:ResCompType
   INPUTCLASS
     NotInput
   DEFAULT : T24N_2022 T24N_2025 T24N_2028
-    if( ResCompOptNew = 1 .AND. ResCompOptEnve = 1 .AND. ResCompOptLtg > 0 .AND. ResCompOptMech = 1 .AND. ResCompOptDHW = 1 )
+    if( ResCompOptNew = 1 .AND. ResCompOptEnve = 1 .AND. ResCompOptLtg = 1 .AND. ResCompOptMech = 1 .AND. ResCompOptDHW = 1 )
     then
      "NewComplete"
     else if ( ResCompOptNew = 2 )
@@ -2367,7 +2343,11 @@ RULE Proj:HtgUnmetLdHrTol
 ENDRULE
 
 // -----------------------------------------------------------------------------
-RULE Proj:NumZnsExceedClgUnmetLdHrs
+RULE NEW Proj:NumZnsExceedClgUnmetLdHrs
+  DATATYPE
+    Integer
+  LONGFORM
+    NumberZonesExceedCoolingUnmetLoadHours  
   DESCRIPTION
     "The number of zones that exceed the maximum number of unmet cooling load hours"
   HELP
@@ -2378,7 +2358,11 @@ RULE Proj:NumZnsExceedClgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:NumZnsExceedHtgUnmetLdHrs
+RULE NEW Proj:NumZnsExceedHtgUnmetLdHrs
+  DATATYPE
+    Integer
+  LONGFORM
+    NumberZonesExceedHeatingUnmetLoadHours  
   DESCRIPTION
     "The number of zones that exceed the maximum number of unmet heating load hours"
   HELP
@@ -2389,7 +2373,11 @@ RULE Proj:NumZnsExceedHtgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnClgUnmetLdHrs
+RULE NEW Proj:MaxZnClgUnmetLdHrs
+  DATATYPE
+    Float
+  LONGFORM
+    MaximumZoneCoolingUnmetLoadHours  
   DESCRIPTION
     "Number of unmet cooling load hours for the zone with the maximum"
   HELP
@@ -2400,7 +2388,11 @@ RULE Proj:MaxZnClgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnHtgUnmetLdHrs
+RULE NEW Proj:MaxZnHtgUnmetLdHrs
+  DATATYPE
+    Float
+  LONGFORM
+    MaximumZoneHeatingUnmetLoadHours  
   DESCRIPTION
     "Number of unmet heating load hours for the zone with the maximum"
   HELP
@@ -2411,7 +2403,11 @@ RULE Proj:MaxZnHtgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnClgUnmetLdHrsName
+RULE NEW Proj:MaxZnClgUnmetLdHrsName
+  DATATYPE
+    String
+  LONGFORM
+    MaximumZoneCoolingUnmetLoadHoursName  
   DESCRIPTION
     "Name of the zone with the maximum number of unmet cooling load hours"
   HELP
@@ -2422,7 +2418,11 @@ RULE Proj:MaxZnClgUnmetLdHrsName
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnHtgUnmetLdHrsName
+RULE NEW Proj:MaxZnHtgUnmetLdHrsName
+  DATATYPE
+    String
+  LONGFORM
+    MaximumZoneHeatingUnmetLoadHoursName  
   DESCRIPTION
     "Name of the zone with the maximum number of unmet heating load hours"
   HELP

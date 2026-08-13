@@ -2232,40 +2232,30 @@ RULELIST "ProposedInput_DHWEquipment" 0 0 0 0
             default :  UNDEFINED
             endswitch
       else  UNDEFINED  endif  }
-  ; replaced ResProj:RunScope checks w/ Proj:CompOptNew > 0 & ResProj:IsMultiFamily w/ NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
-  ; revised logic to set adjustment based on no MMV for cases where this input is not avaialble to the user - SAC 08/20/26 (dev #942)
   "set ResDHWSys:CntrlDWHFAdjElec[1] (DT < 7)"      ResDHWSys:CntrlDWHFAdjElec[1] =   ; SAC 08/01/26 (dev #942)   ; fixed rule eval err - SAC 08/03/26
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
-          IfValidAnd( CentralRecircType > 0.5 )==0 )
-      then  if( LocalStatus( CHPWH_MMVLookup ) > 0 )
-            then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 6, "MMVType", "NoMasterMixValve" )
-            else  UNDEFINED  endif
+    { if( IfValidAnd( ResProj:RunScope = 1 )==0 .OR. IfValidAnd( ResProj:IsMultiFamily > 0.5 )==0 .OR.
+          IfValidAnd( CentralRecircType > 0.5 )==0 ) then  UNDEFINED
       else if( LocalStatus( CHPWH_MMVLookup ) > 0 )
       then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 6, "MMVType", EnumString( MasterMixingValve ) )
       else  1  endif endif  }
   "set ResDHWSys:CntrlDWHFAdjElec[2] (DT >= 7)"     ResDHWSys:CntrlDWHFAdjElec[2] =
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
-          IfValidAnd( CentralRecircType > 0.5 )==0 )
-      then  if( LocalStatus( CHPWH_MMVLookup ) > 0 )
-            then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 8, "MMVType", "NoMasterMixValve" )
-            else  UNDEFINED  endif
+    { if( IfValidAnd( ResProj:RunScope = 1 )==0 .OR. IfValidAnd( ResProj:IsMultiFamily > 0.5 )==0 .OR.
+          IfValidAnd( CentralRecircType > 0.5 )==0 ) then  UNDEFINED
       else if( LocalStatus( CHPWH_MMVLookup ) > 0 )
       then  T24MFDHW_CHPWH_MMVCorrectionFactor:CorrectFactor( "CodeBase", Proj:StdDesignBase, "SystemDescrip", CHPWH_MMVLookup, "OutletReturnDT", 8, "MMVType", EnumString( MasterMixingValve ) )
       else  1  endif endif  }
 
-  ; replaced ResProj:RunScope checks w/ Proj:CompOptNew > 0 & ResProj:IsMultiFamily w/ NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
-  ; revised logic to set adjustment to 1.03 (no MMV) for cases where this input is not avaialble to the user - SAC 08/20/26 (dev #942)
   "set ResDHWSys:CntrlDWHFAdjFuel[1] (DT < 7)"      ResDHWSys:CntrlDWHFAdjFuel[1] =   ; SAC 08/01/26 (dev #942)
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
+    { if( IfValidAnd( ResProj:RunScope = 1 )==0 .OR. IfValidAnd( ResProj:IsMultiFamily > 0.5 )==0 .OR.
           IfValidAnd( CentralRecircType > 0.5 )==0 .OR. IfValidAnd( NumFuelHeaters > 0 )==0 )
-      then  1.03
+      then  UNDEFINED
       else if( MasterMixingValve < 1 )
       then  1.03      ; no MMV
       else  1  endif endif  }
   "set ResDHWSys:CntrlDWHFAdjFuel[2] (DT >= 7)"     ResDHWSys:CntrlDWHFAdjFuel[2] = 
-    { if( IfValidAnd( Proj:CompOptNew > 0 )==0 .OR. IfValidAnd( NumAssignedDUFracs > 0.5 )==0 .OR.
+    { if( IfValidAnd( ResProj:RunScope = 1 )==0 .OR. IfValidAnd( ResProj:IsMultiFamily > 0.5 )==0 .OR.
           IfValidAnd( CentralRecircType > 0.5 )==0 .OR. IfValidAnd( NumFuelHeaters > 0 )==0 )
-      then  1.03
+      then  UNDEFINED
       else if( MasterMixingValve < 1 )
       then  1.03      ; no MMV
       else  1  endif endif  }

@@ -8,7 +8,7 @@ SACriswell and the CEC team requested a dedicated folder of models used to verif
 
 ## Pre-Release Workflow
 
-Before a release, run this set of models and confirm each produces positive compliance results with no water marking on generated reports. This step is required on all release checklists (major, minor, and patch); see `scripts/release-issue-templates/release-checklist-data.yaml`.
+Before a release, run this set of models and confirm each produces positive compliance results with no water marking on generated reports. This step is required on all release checklists (major, minor, and patch); see `scripts/release/issue-templates/release-checklist-data.yaml`.
 
 ## Models
 

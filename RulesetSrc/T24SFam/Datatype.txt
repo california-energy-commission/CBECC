@@ -2662,7 +2662,7 @@ HVACHtPump:CEER,               Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:MinCEER,           NotInput,   0,    0,   0,    1,  1,  1
 HVACHtPump:CFMperTon,          Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:ACCharge,           Default,   0,    1,   1,    1,  1,  1
-HVACHtPump:RefrigerantType, Prescribed,   0,    0,   0,    1,  1,  1    ; switched to Prescribed - SAC 08/14/26 (dev #1007)
+HVACHtPump:RefrigerantType,    Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:IsMultiSpeed,       Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:IsZonal,     	    Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:ClSizingFactor,     Default,   0,    1,   1,    1,  1,  1
@@ -2774,7 +2774,7 @@ HVACCool:CEER,               Default,   0,    1,   1,    1,  1,  1
 HVACCool:MinCEER,           NotInput,   0,    0,   0,    1,  1,  1
 HVACCool:CFMperTon,          Default,   0,    1,   1,    1,  1,  1
 HVACCool:ACCharge,           Default,   0,    1,   1,    1,  1,  1
-HVACCool:RefrigerantType, Prescribed,   0,    0,   0,    1,  1,  1      ; switched to Prescribed - SAC 08/14/26 (dev #1007)
+HVACCool:RefrigerantType,    Default,   0,    1,   1,    1,  1,  1
 
 HVACCool:IsMultiSpeed,       Default,   0,    1,   1,    1,  1,  1
 HVACCool:IsZonal,     	    Default,   0,    1,   1,    1,  1,  1

@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1743206698
-   ModDate = 1787717773
-   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
+   ModDate = 1778146018
+   SoftwareVersion = "CBECC 2025.2.1 (1408)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.9 RV (1371)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,7 +16,6 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
-   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -44,7 +43,6 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
-   BattCreditOption = "n/a"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -109,7 +107,7 @@ Proj   "2025 Prototype"
    UnitIAQZone3[2] = "Zone1"
    UnitIAQZone4[1] = "Zone1"
    UnitIAQZone4[2] = "Zone1"
-   UnitClVentOption = "- none -"
+   UnitClVentOption = "Default Prescriptive Whole House Fan"
    ClVentVerified = 0
    UnitClVentZone[1] = "Zone1"
    ApplRefrigZone[1] = "Zone1"
@@ -591,7 +589,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250300
+   ResultsAnalysisVer = 250201
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -936,17 +934,16 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "4.5"
    PctSavCmpTDVLbl = "8.6"
    PctSavSrcLbl = "39.4"
-   PropElecDemand[1] = 0.997579
+   PropElecDemand[1] = 0.997574
    StdElecDemand = 1.10891
    IncludePeakCooling = 1
-   PropPeakCoolElec = 2.93803
+   PropPeakCoolElec = 2.93794
    StdPeakCoolElec = 3.76954
    StdPeakCoolElecLimit = 3.76954
    PeakCoolElecMargin = 0
    PeakCoolElecLabels[1] = "3"
    PeakCoolElecLabels[2] = "4"
    PeakCoolElecLabels[4] = "n/a"
-   PeakCoolElecFtnote[1] = "** Peak cooling target not applicable for Climate Zone 3."
    PropDesignPVInp[1] = 2.17
    PropDesignPVInp[6] = 2.17
    PropDesignPVSize[1] = 2.8156
@@ -979,7 +976,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.622843
+   PropElecCarbon[1] = 0.622842
    PropFuelCarbon[1] = 0.276306
    PropFinalCarbon[1] = 0.9
    PropExclExpCarbon[1] = 0.94

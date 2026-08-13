@@ -708,9 +708,8 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
       else  UNCHANGED  endif endif endif  }
 
   ; SAC 07/20/23  ; replaced check for Status w/ IsExisting, since Status not necessarily defined - SAC 12/10/25
-  ; prevent this error for 'AirToWaterHeatPump' (Type = 11) - SAC 08/26/26 (dev #1075)
 	"Check for HVACHtPump perf metrics via HSPF2/SEER2/EER2 for 2025+ analysis"	HVACHtPump:Action	=         
-      {  if (IfValidAnd( FloorAreaServed > 0 )==0 .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR. IfValidAnd( Type = 11 ) .OR.
+      {  if (IfValidAnd( FloorAreaServed > 0 )==0 .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR.
              EffMetric > 1 .OR. IfValidAnd( Proj:AnalysisVersion < 250002 ) .OR. IfValidAnd( Proj:CUACReportID > 0 ) .OR. 
              (IfValidAnd( IsExisting > 0 ) .AND. (Proj:RunScope > 1 .OR. Proj:IsAddAlone > 0)))
          then  UNCHANGED

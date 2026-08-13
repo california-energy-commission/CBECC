@@ -266,13 +266,6 @@ RULELIST  "BudgetConversion_DHW" 1 0 1 0
 																				;		else if (IfValidAnd( NumDUsServed > 8 ))
 																				;		then	2
 																				;		else	1  endif endif  }
-
-  ; added std design setting of PipeSizingPerCPCAppM - SAC 08/13/26 (dev #943)
-  "Set DHWSys:PipeSizingPerCPCAppM"	DHWSys:PipeSizingPerCPCAppM =
-    {	if (Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 ) .OR. IfValidAnd( CentralDHW < 0.5 ) .OR. MFamDistType == 0)
-      then  UNCHANGED
-      else  1  endif  }
-
 	; SAC 11/11/15 - based on stds, table 120.3-A, which for all pipe diameters >= 1 in. and in the temperature range 105-140 is simply 1.5 in.
    ; added logic to prevent changes to following properties when DHWSys is Existing (or not setting up std design) - SAC 05/02/25 (gh support #176)
 	"Reset DHWSys:LoopPipeInsulThk"	DHWSys:LoopPipeInsulThk	= {	if (Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 )) then  UNCHANGED
@@ -290,11 +283,9 @@ RULELIST  "BudgetConversion_DHW" 1 0 1 0
 	"Reset DHWSys:RecircPipeLoc[6]"	DHWSys:RecircPipeLoc[6]	= {	if (Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 )) then  UNCHANGED
                                                                   else  0  endif  }
 
-  ; added checks for Proj:CompOptNew > 0 & NumAssignedDUFracs > 0.5 - SAC 08/19/26 (dev #942)
   "set ResDHWSys:MasterMixingValve to Mechanical for new/alt, central, recirc systems"    ResDHWSys:MasterMixingValve =     ; SAC 08/01/26 (dev #942)
     { if( Proj:SimulateStdDHW < 0.5 .OR. IfValidAnd( StdEqProp > 0.5 ) .OR. IfValidAnd( IsExisting > 0.5 ) .OR.
-          IfValidAnd( CentralDHW < 0.5 ) .OR. MFamDistType == 0 .OR. IfValidAnd( Proj:CompOptNew > 0 )==0 .OR.
-          IfValidAnd( NumAssignedDUFracs > 0.5 )==0 ) then  UNCHANGED
+          IfValidAnd( CentralDHW < 0.5 ) .OR. MFamDistType == 0 ) then  UNCHANGED
       else  "Mechanical"  endif  }
 
 ; SAC 9/30/15 - rules to reset DHWSys:SolFracType for new and altered systems
