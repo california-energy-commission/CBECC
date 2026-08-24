@@ -2343,7 +2343,11 @@ RULE Proj:HtgUnmetLdHrTol
 ENDRULE
 
 // -----------------------------------------------------------------------------
-RULE Proj:NumZnsExceedClgUnmetLdHrs
+RULE NEW Proj:NumZnsExceedClgUnmetLdHrs
+  DATATYPE
+    Integer
+  LONGFORM
+    NumberZonesExceedCoolingUnmetLoadHours  
   DESCRIPTION
     "The number of zones that exceed the maximum number of unmet cooling load hours"
   HELP
@@ -2354,7 +2358,11 @@ RULE Proj:NumZnsExceedClgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:NumZnsExceedHtgUnmetLdHrs
+RULE NEW Proj:NumZnsExceedHtgUnmetLdHrs
+  DATATYPE
+    Integer
+  LONGFORM
+    NumberZonesExceedHeatingUnmetLoadHours  
   DESCRIPTION
     "The number of zones that exceed the maximum number of unmet heating load hours"
   HELP
@@ -2365,7 +2373,11 @@ RULE Proj:NumZnsExceedHtgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnClgUnmetLdHrs
+RULE NEW Proj:MaxZnClgUnmetLdHrs
+  DATATYPE
+    Float
+  LONGFORM
+    MaximumZoneCoolingUnmetLoadHours  
   DESCRIPTION
     "Number of unmet cooling load hours for the zone with the maximum"
   HELP
@@ -2376,7 +2388,11 @@ RULE Proj:MaxZnClgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnHtgUnmetLdHrs
+RULE NEW Proj:MaxZnHtgUnmetLdHrs
+  DATATYPE
+    Float
+  LONGFORM
+    MaximumZoneHeatingUnmetLoadHours  
   DESCRIPTION
     "Number of unmet heating load hours for the zone with the maximum"
   HELP
@@ -2387,7 +2403,11 @@ RULE Proj:MaxZnHtgUnmetLdHrs
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnClgUnmetLdHrsName
+RULE NEW Proj:MaxZnClgUnmetLdHrsName
+  DATATYPE
+    String
+  LONGFORM
+    MaximumZoneCoolingUnmetLoadHoursName  
   DESCRIPTION
     "Name of the zone with the maximum number of unmet cooling load hours"
   HELP
@@ -2398,7 +2418,11 @@ RULE Proj:MaxZnClgUnmetLdHrsName
 ENDRULE
 
 //------------------------------------------------------------------------------
-RULE Proj:MaxZnHtgUnmetLdHrsName
+RULE NEW Proj:MaxZnHtgUnmetLdHrsName
+  DATATYPE
+    String
+  LONGFORM
+    MaximumZoneHeatingUnmetLoadHoursName  
   DESCRIPTION
     "Name of the zone with the maximum number of unmet heating load hours"
   HELP
