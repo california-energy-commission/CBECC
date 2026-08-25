@@ -408,13 +408,34 @@ ENDRULE
 
 // -----------------------------------------------------------------------------
 //         Compliance Scope Options - Lighting
+RULE NEW ResZnGrp:ResOtherZnCondFlrAreaWithMult
+  DATATYPE
+    Float
+  LONGFORM
+    ResidentialOtherZoneConditionedFloorAreaWithMultiplier
+  DESCRIPTION
+    "The total ResZnGrp common (conditioned) floor area,
+     including multipliers.  This includes high-rise
+     Residential and Hotel / Motel." 
+  INPUTCLASS
+    NotInput
+  MINIMUM 
+    0
+  UNITS 
+    ft2  
+  DEFAULT 
+    SumChildren( ResOtherZn:ResCondFlrAreaWithMult )
+ENDRULE
+
+
+
 RULE Proj:ResCompOptLtg
   DESCRIPTION
     "Flag that indicates that the analysis includes lighting."
   INPUTCLASS
     NotInput
   DEFAULT : T24N_2022 T24N_2025 T24N_2028
-    if( IfValidAnd( Proj:ResDwellUnits > 0 ) )
+    if( IfValidAnd( SumChildren( ResZnGrp:ResOtherZnCondFlrAreaWithMult ) > 0 ) )
     then
       1
     else
