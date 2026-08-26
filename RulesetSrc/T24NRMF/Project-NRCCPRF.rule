@@ -934,10 +934,10 @@ RULE nrccC22Result1_StandardDesign:Action
   NRCCPRF
     if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
     then  switch( attrib_StandardAttribute1 )
-          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_StandardDesign_Results", 1 )
-          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_StandardDesign_Results" , 1 )
-          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_StandardDesign_Results", 1 )
-          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_StandardDesign_Results" , 1 )
+          case  "North" :  EvalRulelist( "NRCC_North_nrccC22Result1_StandardDesign_Results", 1 )
+          case  "East"  :  EvalRulelist( "NRCC_East_nrccC22Result1_StandardDesign_Results" , 1 )
+          case  "South" :  EvalRulelist( "NRCC_South_nrccC22Result1_StandardDesign_Results", 1 )
+          case  "West"  :  EvalRulelist( "NRCC_West_nrccC22Result1_StandardDesign_Results" , 1 )
           default       :  UNCHANGED
           endswitch
     else  UNCHANGED
@@ -1008,10 +1008,10 @@ RULE nrccC22Result1_ProposedDesign:Action
   NRCCPRF
     if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
     then  switch( attrib_ProposedAttribute1 )
-          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_ProposedDesign_Results", 1 )
-          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ProposedDesign_Results" , 1 )
-          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_ProposedDesign_Results", 1 )
-          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ProposedDesign_Results" , 1 )
+          case  "North" :  EvalRulelist( "NRCC_North_nrccC22Result1_ProposedDesign_Results", 1 )
+          case  "East"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ProposedDesign_Results" , 1 )
+          case  "South" :  EvalRulelist( "NRCC_South_nrccC22Result1_ProposedDesign_Results", 1 )
+          case  "West"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ProposedDesign_Results" , 1 )
           default       :  UNCHANGED
           endswitch
     else  UNCHANGED
@@ -1082,10 +1082,10 @@ RULE nrccC22Result1_ComplianceMargin:Action
   NRCCPRF
     if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
     then  switch( attrib_ComplianceAttribute1 )
-          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_ComplianceMargin_Results", 1 )
-          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ComplianceMargin_Results" , 1 )
-          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_ComplianceMargin_Results", 1 )
-          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ComplianceMargin_Results" , 1 )
+          case  "North" :  EvalRulelist( "NRCC_North_nrccC22Result1_ComplianceMargin_Results", 1 )
+          case  "East"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ComplianceMargin_Results" , 1 )
+          case  "South" :  EvalRulelist( "NRCC_South_nrccC22Result1_ComplianceMargin_Results", 1 )
+          case  "West"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ComplianceMargin_Results" , 1 )
           default       :  UNCHANGED
           endswitch
     else  UNCHANGED
@@ -1156,10 +1156,10 @@ RULE nrccC22Result1_ResultsByOrientation:Action
   NRCCPRF
     if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
     then  switch( attrib_ResultAttribute1 )
-          case  "NORTH" :  EvalRulelist( "NRCC_North_nrccC22Result1_ResultsByOrientation_Results", 1 )
-          case  "EAST"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ResultsByOrientation_Results" , 1 )
-          case  "SOUTH" :  EvalRulelist( "NRCC_South_nrccC22Result1_ResultsByOrientation_Results", 1 )
-          case  "WEST"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ResultsByOrientation_Results" , 1 )
+          case  "North" :  EvalRulelist( "NRCC_North_nrccC22Result1_ResultsByOrientation_Results", 1 )
+          case  "East"  :  EvalRulelist( "NRCC_East_nrccC22Result1_ResultsByOrientation_Results" , 1 )
+          case  "South" :  EvalRulelist( "NRCC_South_nrccC22Result1_ResultsByOrientation_Results", 1 )
+          case  "West"  :  EvalRulelist( "NRCC_West_nrccC22Result1_ResultsByOrientation_Results" , 1 )
           default       :  UNCHANGED
           endswitch
     else  UNCHANGED
