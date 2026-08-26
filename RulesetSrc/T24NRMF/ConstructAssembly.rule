@@ -8270,23 +8270,25 @@ RULE NEW Proj:VertFenUFactor
 	  then  UNCHANGED 
     // For All New Construction - Section 120.7(d)
 	  else if( ProjVar:ExcptCondInCWUICHazard != "Yes" .AND. Proj:CompOptNew = 1 .AND. Proj:VertFenUFactor > 0.47 )
-      then  PostError( "The area weighted average U-Factor of all vertical fenestrations 
-                     in the project is '%.3f', which exceeds the maximum allowable 
-                     value of '0.470', violating Section 120.7(d).",VertFenUFactor)
+      then  PostError( "New construction vertical fenestration exceeds Section 120.7(d): 
+                     the area-weighted U-Factor of all vertical fenestrations is '%.3f' 
+                     (limit 0.470).",VertFenUFactor)
     // Existing: added vertical fenestration > 50 sf - Section 141.0(b)1E-2 -> 120.7(d)
     else if( ProjVar:ExcptCondInCWUICHazard != "Yes" .AND. Proj:CompOptExist = 1 
                .AND. Proj:VertFenAreaNew > 50 .AND. Proj:VertFenUFactorNew > 0.47 ) 
-      then  PostError( "Over 50 square feet of vertical fenestration is added per Section 141.0(b)1E-2 
-                      and the area weighted average U-Factor of the added vertical fenestrations 
-                      is '%.3f', which exceeds the maximum allowable 
-                      value of '0.470', violating Section 120.7(d).",VertFenUFactorNew)
+      then  PostError( "Added vertical fenestration exceeds Section 141.0(b)1E-2: Status=New area 
+                      is '%.0f' sf (over 50 sf) and its area-weighted U-Factor is '%.3f' 
+                      (limit 0.470 per Section 120.7(d)). Reduce U-Factor on New vertical 
+                      fenestration only; Altered fenestration is checked separately.",
+                      VertFenAreaNew, VertFenUFactorNew)
     // Existing: altered/replaced vertical fenestration > 150 sf - Section 141.0(b)1E-1
     else if( ProjVar:ExcptCondInCWUICHazard != "Yes" .AND. Proj:CompOptExist = 1 
                .AND. Proj:VertFenAreaAltered > 150 .AND. Proj:VertFenUFactorAltered > 0.58 ) 
-      then  PostError( "Over 150 square feet of vertical fenestration is replaced per Section 141.0(b)1E-1 
-                      and the area weighted average U-Factor of the altered vertical fenestrations 
-                      is '%.3f', which exceeds the maximum allowable 
-                      value of '0.580'.",VertFenUFactorAltered)
+      then  PostError( "Altered vertical fenestration exceeds Section 141.0(b)1E-1: Status=Altered area 
+                      is '%.0f' sf (over 150 sf) and its area-weighted U-Factor is '%.3f' 
+                      (limit 0.580). Reduce U-Factor on Altered (replaced) vertical fenestration 
+                      only; New fenestration is checked separately.",
+                      VertFenAreaAltered, VertFenUFactorAltered)
     else  UNCHANGED
     endif endif endif endif
 ENDRULE
