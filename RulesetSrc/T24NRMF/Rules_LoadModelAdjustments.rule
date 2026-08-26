@@ -45,7 +45,8 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
             GlobalStatus( Bldg:RelocPubSchoolBldg ) > 4 ) )
       then  ; if FacilityType user-defined, then that overrides ResDwellUnits, HlthCareFacility & Bldg:RelocPubSchoolBldg
             EvalRulelist( "FacilityType_TakesPrecedence" )
-      else if( LocalStatus( ResDwellUnits ) > 4 .AND. IfValidAnd( ResDwellUnits > 0 ) )
+      else if( ( LocalStatus( ResDwellUnits ) > 4 .AND. IfValidAnd( ResDwellUnits > 0 ) ) .OR.
+               ( LocalStatus( ResDwellUnits ) < 4 .AND. ComponentCount( ResProj ) > 0   ) )
       then  EvalRulelist( "FacilityType_SetTo_ResDwellUnits" )
       else if( LocalStatus( HlthCareFacility ) > 4 .AND. IfValidAnd( HlthCareFacility > 0 ) )
       then  EvalRulelist( "FacilityType_SetTo_HlthCareFacility" )

@@ -1149,7 +1149,8 @@ ENDRULE
 ; RJH 3/18/26 2025-CBECC-Schema Issue 29
 RULE nrcctblRowWaterMF:WaterMF10a_VerifyCentralHotWaterDistInsulation
   ANNUAL_PROPOSED
-    if (LocalCompAssigned( noXMLoutput_ResDHWSysRef ) .AND. IfValidAnd(noXMLoutput_ResDHWSysRef:CentralRecircType != "Non-Central" ))
+    if (LocalCompAssigned( noXMLoutput_ResDHWSysRef ) .AND. IfValidAnd(noXMLoutput_ResDHWSysRef:CentralRecircType != "Non-Central" )
+        .AND. IfValidAnd( noXMLoutput_ResDHWSysRef:NumAssignedDUFracs > 0.5 ))
     then if (noXMLoutput_ResDHWSysRef:VerifiedPipeInsulation > 0)
          then "true"  
          else "false"  

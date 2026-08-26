@@ -96,8 +96,11 @@
 2,          1, "Central Fan IAQ ventilation"                  
 
 0, HERSOther:KitRangeHoodMsg,  0       ; SAC 3/8/19 (tic #1085)
-2,	    0,	" n/a "
+1,    Proj:Ruleset,   -1001,  0   ; Backward compatibility
 2,          1, "Kitchen range hood" 
+1,    Proj:Ruleset,    -999,  0   ; Current selections      ; RJH 8/21/26 - revised for latest HERS messages Schema Issue #73  ; restore 0-n/a - SAC 08/23/26
+2,	    0,	" n/a "
+2,          1, "Kitchen Exhaust" 
 
 ;0, HERSOther:CoolVentRptMsg,  0
 ;2,	    0,	" n/a "

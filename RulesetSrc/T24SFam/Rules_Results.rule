@@ -291,7 +291,8 @@ RULELIST "CARes_ProcessResults" 1 0 0 1
                   case  "p-S"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_S" )
                   case  "p-W"   :  EvalRulelist( "CARes_ProposedSrcEnergyResults_W" )
                                                 ; restored check of AnalysisVersion > 250000 (was 990000) to avoid Src energy retrieval for 2025 's' run - SAC 07/27/26 (dev #859)
-                  case  "s"     :  if (Proj:AnalysisVersion > 250000) then  UNCHANGED
+                                                ; switched logic to Proj:NumStdRuns > 1 to ensure EAA Source results still retrieved - SAC 08/22/26
+                  case  "s"     :  if (IfValidAnd( Proj:NumStdRuns > 1 )) then  UNCHANGED
                                    else if (AllOrientations < 0.5)
                                    then   EvalRulelist( "CARes_StandardSrcEnergyResults" )
                                    else   EvalRulelist( "CARes_StandardSrcEnergyResults_NESW" )  endif endif

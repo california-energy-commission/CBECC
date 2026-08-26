@@ -8514,6 +8514,13 @@ RULELIST "CF1RPRF01E_Final"  1 0 0 1
                            then  EvalRulelist( "CF1RPRF01E_Section_Da_FinalUpdate" )
                            else  UNCHANGED  endif }
 
+   ; RJH 8/25/26 2025-CBECC-Res-Schema Issue 83 - populate final value of 
+   "Call subordinate rulelist to populate Section_Da"     
+      Project:Action   = { if (ComponentCount( cf1rSection_Da ) > 0 .AND. Proj:AnalysisVersion >= 250300)
+                           then  EvalRulelist( "CF1RPRF01E_Section_Da_FinalUpdate_250300" )
+                           else  UNCHANGED  endif }
+
+
   ; Section_Db Energy Design Rating BATTERY INPUTS (NOTE - should be created within RULELIST "CF1RPRF01E_Proposed" to be located correctly, then populated here)
 ;   "Create & initialize new cf1rSection_Db object"
 ;      cf1rCF1RPRF01E:Action  = {  
@@ -8866,6 +8873,9 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
    "Set cf1rLscSingleOrientation:afterchildren_LscEndNote1"   cf1rLscSingleOrientation:afterchildren_LscEndNote1  = { "* Building complies when the Proposed Design is equal to or less than the Standard Design in all compliance categories." }
    "Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { Proj:ResultSummary[1]:PeakCoolElecFtnote[1] }    ; SAC 05/13/26 (dev #757)
    ;"Set cf1rLscSingleOrientation:afterchildren_LscEndNote2"   cf1rLscSingleOrientation:afterchildren_LscEndNote2  = { "** Peak cooling target represents 120% of the standard design building peak cooling energy use." }
+   "Set cf1rLscSingleOrientation:afterchildren_LscEndNote3"   cf1rLscSingleOrientation:afterchildren_LscEndNote3  = {   if (IfValidAnd( Proj:ResultSummary[1]:PropPeakCoolBattElecCredit < -0.001 ))  ; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
+                                                                                                                        then  Proj:ResultSummary[1]:PeakCoolElecFtnote[2]
+                                                                                                                        else  UNDEFINED  endif  }
 
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[1]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[1], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[2]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[2], "" )  }
@@ -8880,7 +8890,17 @@ RULELIST "CF1RPRF01E_Section_ComplianceSummary_SingleOrientation_Populate"  1 0 
                                                                                                                                                                                     endif
                                                                                                                                                                               else UNDEFINED
                                                                                                                                                                               endif  }
-   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )  }
+;   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )  }  ; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 83 duplication of string
+   "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[5]   = {   if (GlobalStatus( Proj:ResultSummary[1]:ResultsNotes[5] ) > 0) 
+                                                                                                                                                                              then  if (GlobalStatus( Proj:ResultSummary[1]:ResultsNotes[1] ) > 0) 
+                                                                                                                                                                                    then  if (Proj:ResultSummary[1]:ResultsNotes[5] == Proj:ResultSummary[1]:ResultsNotes[1])
+                                                                                                                                                                                          then UNDEFINED
+                                                                                                                                                                                          else ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )
+                                                                                                                                                                                          endif
+                                                                                                                                                                                    else ValidOr( Proj:ResultSummary[1]:ResultsNotes[5], "" )
+                                                                                                                                                                                    endif
+                                                                                                                                                                              else UNDEFINED
+                                                                                                                                                                              endif  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[6]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[6]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[6], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[7]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[7]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[7], "" )  }
    "Set cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[8]"    cf1rLscSingleOrientation:afterchildren_LscResultNotes_LSC_ComplianceNotes[8]   = {  ValidOr( Proj:ResultSummary[1]:ResultsNotes[8], "" )  }
@@ -9343,8 +9363,16 @@ END
 
 ;************************************************************************* SAC 6/12/20 (CommunitySolar)
 RULELIST "CF1RPRF01E_Section_Da_Row1_CommunitySolar"  1 0 0 1
+   ; RJH 8/24/26 2025-CBECC-Res-Schema Issue 83 - Switch to Da01_PV_100kWhmBlockCount for only option for 2025 community solar - Plumas Sierra
      "Set cf1rtblRowEDR_PV:Da01_PV_SystemTotalRatedPowerDC"    cf1rtblRowEDR_PV:Da01_PV_SystemTotalRatedPowerDC  = {
-            int((Proj:PVWDCSysSize[1] * ValidOr( Proj:PVWDCSizeMultiplier[1], 1 ) * 100) + 0.5) / 100  }
+         if (Proj:AnalysisVersion < 250300)
+         then int((Proj:PVWDCSysSize[1] * ValidOr( Proj:PVWDCSizeMultiplier[1], 1 ) * 100) + 0.5) / 100
+         else UNCHANGED endif  }
+
+     "Set cf1rtblRowEDR_PV:Da01_PV_100kWhmBlockCount"    cf1rtblRowEDR_PV:Da01_PV_100kWhmBlockCount  = {
+         if (Proj:AnalysisVersion >= 250300)
+         then Proj:ResultSummary[1]:CmntySlrProjVal
+         else UNCHANGED endif  }
 
      "Set cf1rtblRowEDR_PV:Da02_PhotoVoltaicExceptionRes"    cf1rtblRowEDR_PV:Da02_PhotoVoltaicExceptionRes  = { 
             "CommunitySolar"  }
@@ -9792,6 +9820,17 @@ RULELIST "CF1RPRF01E_Section_Da_FinalUpdate"  1 0 0 1
 END
 ;*************************************************************************
 
+
+;************************************************************************* RJH 8/25/26 - report final CmntySlrProjVal
+RULELIST "CF1RPRF01E_Section_Da_FinalUpdate_250300"  1 0 0 1
+
+   ; PVCommunitySolar - RJH 8/25/26 - 2025-CBECC-Res-Schema Issue 83
+     "Set Proj:CF1R_EDR_PVRow[1]:Da01_PV_100kWhmBlockCount"    Proj:CF1R_EDR_PVRow[1]:Da01_PV_100kWhmBlockCount  = {
+         if (AnalysisVersion >= 250300 .AND. IfValidAnd( CommunitySolarProjID > 0 ) .AND. IfValidAnd( ResultSummary[1]:CmntySlrProjVal > 0 ))
+         then ResultSummary[1]:CmntySlrProjVal
+         else UNCHANGED endif  }
+END
+;*************************************************************************
 
 ;*************************************************************************
 RULELIST "CF1RPRF01E_Section_Db"  1 0 0 1
