@@ -94,10 +94,28 @@ RULE nrccSection_Info:Info08_ClimateZone
   ANNUAL_PROPOSED
     Proj:CliZnNum
 ENDRULE
+
+; RJH 8/26/26 2025-CBECC-Schema Issue 80
 RULE nrccSection_Info:Info09_Azimuth
   ANNUAL_PROPOSED
-    atof( Format( "%.2f", Bldg:BldgAz ) )
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1) .OR. IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)
+    then atof( Format( "%.2f", Bldg:BldgAz ) )
+    else UNDEFINED
+    endif
 ENDRULE
+
+; RJH 8/26/26 2025-CBECC-Schema Issue 80
+RULE nrccSection_Info:Info09_AzimuthString
+  ANNUAL_PROPOSED
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10)
+    then "0/90/180/270"
+    else UNDEFINED
+    endif 
+ENDRULE
+
+
+
+
 ; RJH 5/26/23 Added Healthcare and LowRiseResidential enumerations per GitHub 2022-CBECC-NonRes-PRF-Schema Issue #71 
 ; updated old w/ new reloc classrm Bldg:BldgType selection - SAC 08/04/26 (dev #903)
 ; updated to output this element only for pre-250300 and MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
