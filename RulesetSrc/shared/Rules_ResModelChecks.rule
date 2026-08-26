@@ -2647,9 +2647,8 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 
   ; SAC 07/20/23  ; replaced check for Status w/ IsExisting, since Status not necessarily defined - SAC 12/10/25
   ; moved down here from CodeCheck to ensure that IsExisting is set PRIOR to performing this check - SAC 04/23/26 (dev #855)
-  ; prevent this error for 'AirToWaterHeatPump' (Type = 11) - SAC 08/26/26 (dev #1075)
   "Check for HVACHtPump perf metrics via HSPF2/SEER2/EER2 for 2025+ analysis"	ResHtPumpSys:Action	= 
-       {  if ((FloorAreaServed < 0.1 .AND. NumAssigningDUs < 0.1) .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR. IfValidAnd( Type = 11 ) .OR.
+       {  if ((FloorAreaServed < 0.1 .AND. NumAssigningDUs < 0.1) .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR.
               EffMetric > 1 .OR. IfValidAnd( Proj:AnalysisVersion < 250002 ) .OR. IfValidAnd( Proj:CUACReportID > 0 ) .OR. 
               (IfValidAnd( IsExisting > 0 ) .AND. (ResProj:RunScope > 1 .OR. ResProj:IsAddAlone > 0))) then  UNCHANGED
           else if (IfValidAnd( Proj:EnableResearchMode > 0 ))

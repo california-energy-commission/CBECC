@@ -13727,7 +13727,6 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
             then  CreateComp( cf1rOo03, Name + " RowSpcCondEx-Ht1" )
             else  UNDEFINED  endif  }
     "Set HVACSys:CF1R_OoHeatingRow[1]:Oo03a_ResidentialHeatingSystemName"    HVACSys:CF1R_OoHeatingRow[1]:Oo03a_ResidentialHeatingSystemName  = {  HtPumpSystem[1]:Name  }
-    ; updated enum ID of 11 to 34 for AirToWaterHeatPump reporting - SAC 08/26/26
     "Set HVACSys:CF1R_OoHeatingRow[1]:Oo03b_ResidentialHeatingSystemType" HVACSys:CF1R_OoHeatingRow[1]:Oo03b_ResidentialHeatingSystemType  = { 
                  switch(HtPumpSystem[1]:Type)
                     case  4 :  "CentralSplitHP"           ; CBECC "SplitHeatPump - Ducted central split heat pump"                         or DuctlessSplitHP
@@ -13738,7 +13737,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13765,7 +13764,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13792,7 +13791,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13819,7 +13818,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13846,7 +13845,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13873,7 +13872,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13900,7 +13899,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13927,7 +13926,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13954,7 +13953,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -13981,7 +13980,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACHeating_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14246,7 +14245,6 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
             then  CreateComp( cf1rOo04, Name + " RowSpcCondEx-Cl1" )
             else  UNDEFINED  endif  }
     "Set HVACSys:CF1R_OoCoolingRow[1]:Oo04a_ResidentialCoolingSystemName"    HVACSys:CF1R_OoCoolingRow[1]:Oo04a_ResidentialCoolingSystemName  = {  HtPumpSystem[1]:Name  }
-    ; updated enum ID of 11 to 34 for AirToWaterHeatPump reporting - SAC 08/26/26
     "Set HVACSys:CF1R_OoCoolingRow[1]:Oo04b_ResidentialCoolingSystemType"    HVACSys:CF1R_OoCoolingRow[1]:Oo04b_ResidentialCoolingSystemType  = {  
                  switch(HtPumpSystem[1]:Type)
                     case  4 :  "CentralSplitHP"           ; CBECC "SplitHeatPump - Ducted central split heat pump"                         or DuctlessSplitHP
@@ -14257,7 +14255,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14418,7 +14416,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14579,7 +14577,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14740,7 +14738,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -14901,7 +14899,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15062,7 +15060,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15223,7 +15221,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15384,7 +15382,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15545,7 +15543,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED
@@ -15706,7 +15704,7 @@ RULELIST "CF1RPRF01E_VerifiedAltered_HVACCooling_HeatPump"  1 0 0 1
                     case  5 :  "CentralPackagedHP"        ; CBECC "PkgHeatPump - Ducted central packaged heat pump"
                     case  6 :  "CentralLargePackagedHP"   ; CBECC "LrgPkgHeatPump - Large (>= 65 kBtuh) packaged unit"
                     case  7 :  "RoomHP"                   ; CBECC "RoomHeatPump - Non-central room A/C system"
-                    case 34 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+                    case 11 :  "AirToWaterHeatPump"       ; CBECC "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                     case 12 :  "GroundSourceHeatPump"     ; CBECC "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
                     case 22 :  "VCHP"                     ; CBECC "VCHP - Meets requirements of the VCHP compliance option - Not Available"     or VCHP_IndoorUnitDucted / VCHP_IndoorUnitDuctedAndDuctless / VCHP_IndoorUnitDuctless
                     default : UNDEFINED

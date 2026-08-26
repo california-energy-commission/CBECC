@@ -7654,7 +7654,6 @@
 1,           "Info07c_Build",                           BEMP_Int,  1,  0,  1,  Pres,  "",       0,  0,                             555, "Info07c_Build",         "map from: Proj:RuleRepoRev"         ; SAC 06/20/23 (gh LMCC #24)
 1,           "Info08_ClimateZone",                      BEMP_Int,  1,  0,  1,  Pres,  "",       0,  0,                             555, "Info08_ClimateZone",                      "map from: Project:CliZnNum"
 1,           "Info09_Azimuth",                          BEMP_Flt,  1,  0,  1,  Pres,  "",       0,  0,                             555, "Info09_Azimuth",                          "map from: Proj:Bldg:BldgAz"
-1,           "Info09_AzimuthString",                    BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info09_AzimuthString",                    "hardwire to 0/90/180/270"     ; RJH 8/26/26 2025-CBECC-Schema Issue 80
 1,           "Info10_TopLevelOccupancy",                BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info10_TopLevelOccupancy",                "map from: Bldg:BldgType"
 1,           "Info11_WeatherFile",                      BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "Info11_WeatherFile",                      "map from: Proj:AnnualWeatherFileNoPath"
 1,           "afterchildren_Info11_WeatherFile",                  BEMP_Str,  1,  0,  0,  Pres,  "",       0,  0,                             555, "afterchildren_Info11_WeatherFile",                      "map from: Proj:AnnualWeatherFileNoPath"
