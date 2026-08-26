@@ -3566,7 +3566,7 @@
 1,    HVACHtPump:Type,     24,  2   ; "SglPkgVertHeatPump - Single package vertical heat pump"
 2,              1,    "EER"
 2,              2,    "EER2"
-1,    HVACHtPump:Type,     11,  2   ; "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+1,    HVACHtPump:Type,     34,  2   ; "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
 2,              1,    "EER"
 2,              2,    "EER2"
 1,    HVACHtPump:Type,     12,  2   ; "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
