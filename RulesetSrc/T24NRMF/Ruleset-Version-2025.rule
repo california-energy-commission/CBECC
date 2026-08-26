@@ -38,7 +38,7 @@ RULE Proj:CompManagerVersion
   DESCRIPTION
     "Version of Compliance Manager software"
   DEFAULT 
-    Format( "BEMCmpMgr 2025.3.0-RV-7 (%g)", RuleRepoRev )
+    Format( "BEMCmpMgr 2025.3.0-RC (%g)", RuleRepoRev )
   SIZING
     u:CompManagerVersion
   ANNUAL
@@ -71,7 +71,7 @@ RULE Proj:ReleaseNotesURL
   DESCRIPTION
     "URL (web address) of site to provide release notes"
   DEFAULT 
-    "https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RV"
+    "https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RC"
 ENDRULE
 
 // ********** Compliance Reporting properties **********************************
