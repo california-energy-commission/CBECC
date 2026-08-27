@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1743206330
-   ModDate = 1778146234
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787719887
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.9 RV (1371)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -107,7 +109,7 @@ Proj   "2025 Prototype"
    UnitIAQZone3[2] = "Zone1"
    UnitIAQZone4[1] = "Zone1"
    UnitIAQZone4[2] = "Zone1"
-   UnitClVentOption = "Default Prescriptive Whole House Fan"
+   UnitClVentOption = "- none -"
    ClVentVerified = 0
    UnitClVentZone[1] = "Zone1"
    ApplRefrigZone[1] = "Zone1"
@@ -628,7 +630,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -688,7 +690,7 @@ EUseSummary   "EUSummary"
    Title3[35] = "(kBtu/ft²-yr)"
    Title3[36] = "(kBtu/ft²-yr)"
    Enduse1[1] = "Space Heating"
-   Enduse1[2] = "1,691"
+   Enduse1[2] = "1,692"
    Enduse1[4] = "6.45"
    Enduse1[5] = "1,690"
    Enduse1[7] = "6.45"
@@ -753,9 +755,9 @@ EUseSummary   "EUSummary"
    Enduse5[1] = "Water Heating"
    Enduse5[2] = "1,309"
    Enduse5[4] = "4.17"
-   Enduse5[5] = "1,309"
-   Enduse5[7] = "4.17"
-   Enduse5[8] = "0.00"
+   Enduse5[5] = "1,308"
+   Enduse5[7] = "4.16"
+   Enduse5[8] = "-0.01"
    Enduse5[10] = "0.14"
    Enduse5[11] = "0.14"
    Enduse5[23] = "121"
@@ -843,10 +845,10 @@ EUseSummary   "EUSummary"
    Enduse10[2] = "2,913"
    Enduse10[3] = "43.1"
    Enduse10[4] = "20.81"
-   Enduse10[5] = "2,911"
+   Enduse10[5] = "2,910"
    Enduse10[6] = "43.1"
-   Enduse10[7] = "20.81"
-   Enduse10[8] = "0.00"
+   Enduse10[7] = "20.80"
+   Enduse10[8] = "-0.01"
    Enduse10[10] = "1.15"
    Enduse10[11] = "1.15"
    Enduse10[23] = "675"
@@ -864,8 +866,8 @@ EUseSummary   "EUSummary"
    Enduse11[2] = "3,393"
    Enduse11[4] = "11.96"
    Enduse11[5] = "3,391"
-   Enduse11[7] = "11.96"
-   Enduse11[8] = "0.00"
+   Enduse11[7] = "11.95"
+   Enduse11[8] = "-0.01"
    Enduse11[10] = "0.75"
    Enduse11[11] = "0.75"
    Enduse11[23] = "439"
@@ -938,15 +940,15 @@ EUseSummary   "EUSummary"
    EndusePVB[32] = "-0.97"
    EndusePVB[33] = "0.00"
    EndusePVB[34] = "-0.97"
-   MetricPassFail = ( "Pass", "Pass", "Pass" )
-   PassFail = "PASS"
-   ComplyMessage = "COMPLIES"
+   MetricPassFail = ( "Fail", "Pass", "Pass" )
+   PassFail = "FAIL"
+   ComplyMessage = "DOES NOT COMPLY"
    SummaryCol1[4] = "Standard Design"
    SummaryCol1[5] = "Proposed Design"
    SummaryCol2[1] = "Compliance"
    SummaryCol2[2] = "Energy Use"
    SummaryCol2[3] = "(kTDV/ft²-yr)"
-   SummaryCol2[4] = "11.96"
+   SummaryCol2[4] = "11.95"
    SummaryCol2[5] = "11.96"
    SummaryColNPVMarg[2] = "Efficiency¹"
    SummaryColNPVMarg[3] = "(EDR)"
@@ -959,28 +961,29 @@ EUseSummary   "EUSummary"
    SummaryColFinDR[2] = "Total²"
    SummaryColFinDR[3] = "(EDR)"
    MarginkW[1] = 0
-   MarginkWh = -2
+   MarginkWh = -2.4
    MarginTherms = 0
    PctSavingskW = -0.1
    PctSavingskWh = -0.1
    PctSavingsTherms = 0
    PctSavingsTDV = 0
-   PctSavingsCmpTDV = 0
+   PctSavingsCmpTDV = -0.1
    PctSavingsSrc = 33.1
    PctSavkWLbl = "-0.1"
    PctSavkWhLbl = "-0.1"
    PctSavThermsLbl = "-"
    PctSavTDVLbl = "-"
-   PctSavCmpTDVLbl = "-"
+   PctSavCmpTDVLbl = "-0.1"
    PctSavSrcLbl = "33.1"
-   PropElecDemand[1] = 1.14779
-   StdElecDemand = 1.14701
+   PropElecDemand[1] = 1.14778
+   StdElecDemand = 1.147
    IncludePeakCooling = 1
-   PropPeakCoolElec = 67.8835
-   StdPeakCoolElec = 67.7057
-   StdPeakCoolElecLimit = 81.2469
-   PeakCoolElecMargin = 13
-   PeakCoolElecLabels = ( "68", "81", "13", "Pass" )
+   PropPeakCoolElec = 67.8832
+   StdPeakCoolElec = 67.7055
+   StdPeakCoolElecLimit = 88.0171
+   PeakCoolElecMargin = 20
+   PeakCoolElecLabels = ( "68", "88", "20", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 4."
    PropDesignPVInp[1] = 2.19
    PropDesignPVInp[6] = 2.19
    PropDesignPVSize[1] = 2.4406
@@ -995,8 +998,8 @@ EUseSummary   "EUSummary"
    PropPV_Export = 2053.29
    PropPV_PctExport = 50.4239
    StdPV_Total = 4072.06
-   StdPV_Export = 2053.2
-   StdPV_PctExport = 50.4216
+   StdPV_Export = 2053.03
+   StdPV_PctExport = 50.4176
    ResultsNotes[1] = "PV System resized to 2.44 kWdc (a factor of 1.114) to achieve 'Standard Design PV' PV scaling"
    ResultsNotes[4] = "PV System resized to 2.44 kWdc (a factor of 1.114) to achieve 'Standard Design PV' PV scaling"
    ResultsNotes[5] = "Standard Design PV Capacity: 2.44 kWdc"

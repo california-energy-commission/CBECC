@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffMed-FanPowerAdj"  
    BldgEngyModelVersion = 17
    CreateDate = 1447794955
-   ModDate = 1778187188
-   RunDate = 1778187189
+   ModDate = 1787732059
+   RunDate = 1787732060
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    CompType = "NewComplete"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
    ..
@@ -3414,8 +3414,8 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse1[4] = "7.14"
    Enduse1[5] = "41.5"
    Enduse1[6] = "--"
-   Enduse1[7] = "5.34"
-   Enduse1[8] = "-1.80"
+   Enduse1[7] = "5.35"
+   Enduse1[8] = "-1.79"
    Enduse1[9] = "15.0"
    Enduse1[10] = "12.2"
    Enduse1[11] = "3.38"
@@ -3423,17 +3423,17 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse1[13] = "-0.85"
    Enduse1[17] = "9.60"
    Enduse1[19] = "9.60"
-   Enduse1[20] = "7.17"
-   Enduse1[22] = "7.17"
-   Enduse1[23] = "-2.43"
+   Enduse1[20] = "7.18"
+   Enduse1[22] = "7.18"
+   Enduse1[23] = "-2.42"
    Enduse2[1] = "Space Cooling"
    Enduse2[2] = "80.4"
    Enduse2[3] = "--"
    Enduse2[4] = "6.67"
-   Enduse2[5] = "75.5"
+   Enduse2[5] = "75.3"
    Enduse2[6] = "--"
-   Enduse2[7] = "6.30"
-   Enduse2[8] = "-0.37"
+   Enduse2[7] = "6.29"
+   Enduse2[8] = "-0.38"
    Enduse2[9] = "0.8"
    Enduse2[10] = "0.7"
    Enduse2[11] = "0.84"
@@ -3448,20 +3448,20 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse3[2] = "63.1"
    Enduse3[3] = "--"
    Enduse3[4] = "6.14"
-   Enduse3[5] = "43.1"
+   Enduse3[5] = "42.6"
    Enduse3[6] = "--"
-   Enduse3[7] = "3.87"
-   Enduse3[8] = "-2.27"
+   Enduse3[7] = "3.82"
+   Enduse3[8] = "-2.32"
    Enduse3[9] = "4.3"
-   Enduse3[10] = "2.1"
+   Enduse3[10] = "2.0"
    Enduse3[11] = "1.71"
-   Enduse3[12] = "0.87"
-   Enduse3[13] = "-0.84"
+   Enduse3[12] = "0.86"
+   Enduse3[13] = "-0.85"
    Enduse3[17] = "4.85"
    Enduse3[19] = "4.85"
-   Enduse3[20] = "2.47"
-   Enduse3[22] = "2.47"
-   Enduse3[23] = "-2.38"
+   Enduse3[20] = "2.45"
+   Enduse3[22] = "2.45"
+   Enduse3[23] = "-2.40"
    Enduse4[1] = "Heat Rejection"
    Enduse4[2] = "--"
    Enduse4[3] = "--"
@@ -3532,21 +3532,21 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse8[2] = "257.2"
    Enduse8[3] = "68.6"
    Enduse8[4] = "25.91"
-   Enduse8[5] = "-24.8"
+   Enduse8[5] = "-25.5"
    Enduse8[6] = "0.0"
-   Enduse8[7] = "4.09"
-   Enduse8[8] = "-21.82"
+   Enduse8[7] = "4.04"
+   Enduse8[8] = "-21.87"
    Enduse8[9] = "22.4"
    Enduse8[10] = "14.4"
    Enduse8[11] = "8.37"
-   Enduse8[12] = "3.15"
-   Enduse8[13] = "-5.22"
+   Enduse8[12] = "3.14"
+   Enduse8[13] = "-5.23"
    Enduse8[17] = "20.46"
    Enduse8[18] = "3.75"
    Enduse8[19] = "24.21"
-   Enduse8[20] = "8.96"
-   Enduse8[22] = "8.96"
-   Enduse8[23] = "-15.25"
+   Enduse8[20] = "8.95"
+   Enduse8[22] = "8.95"
+   Enduse8[23] = "-15.26"
    Enduse9[1] = "Receptacle"
    Enduse9[2] = "235.2"
    Enduse9[3] = "--"
@@ -3647,40 +3647,40 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse15[2] = "546.3"
    Enduse15[3] = "68.6"
    Enduse15[4] = "51.50"
-   Enduse15[5] = "264.3"
+   Enduse15[5] = "263.6"
    Enduse15[6] = "0.0"
-   Enduse15[7] = "29.68"
-   Enduse15[8] = "-21.82"
+   Enduse15[7] = "29.63"
+   Enduse15[8] = "-21.87"
    Enduse15[9] = "31.9"
    Enduse15[10] = "23.9"
    Enduse15[11] = "14.05"
-   Enduse15[12] = "8.83"
-   Enduse15[13] = "-5.22"
+   Enduse15[12] = "8.82"
+   Enduse15[13] = "-5.23"
    Enduse15[17] = "36.57"
    Enduse15[18] = "3.75"
    Enduse15[19] = "40.32"
-   Enduse15[20] = "25.07"
-   Enduse15[22] = "25.07"
-   Enduse15[23] = "-15.25"
+   Enduse15[20] = "25.06"
+   Enduse15[22] = "25.06"
+   Enduse15[23] = "-15.26"
    Enduse16[1] = "Efficiency Compliance"
    Enduse16[2] = "257.2"
    Enduse16[3] = "68.6"
    Enduse16[4] = "25.91"
-   Enduse16[5] = "231.0"
+   Enduse16[5] = "230.3"
    Enduse16[6] = "0.0"
-   Enduse16[7] = "22.03"
-   Enduse16[8] = "-3.88"
+   Enduse16[7] = "21.98"
+   Enduse16[8] = "-3.93"
    Enduse16[9] = "22.4"
    Enduse16[10] = "17.9"
    Enduse16[11] = "8.37"
-   Enduse16[12] = "5.74"
-   Enduse16[13] = "-2.63"
+   Enduse16[12] = "5.73"
+   Enduse16[13] = "-2.64"
    Enduse16[17] = "20.46"
    Enduse16[18] = "3.75"
    Enduse16[19] = "24.21"
-   Enduse16[20] = "16.30"
-   Enduse16[22] = "16.30"
-   Enduse16[23] = "-7.91"
+   Enduse16[20] = "16.29"
+   Enduse16[22] = "16.29"
+   Enduse16[23] = "-7.92"
    ZoneUMLHsLoaded = ( 0, 1 )
    ZoneUMLHs = ( 
                  "clg: 0  htg: 9  'Core_bottom Thermal Zone'
@@ -3702,9 +3702,9 @@ clg: 0  htg: 0  'Perimeter_top_ZN_3 Thermal Zone'
 clg: 21  htg: 0  'Perimeter_top_ZN_4 Thermal Zone'
 clg: 0  htg: 0  'TopFloor_Plenum Thermal Zone'", 
                  "clg: 0  htg: 4  'Core_bottom Thermal Zone'
-clg: 0  htg: 4  'Perimeter_bot_ZN_1 Thermal Zone'
+clg: 0  htg: 3  'Perimeter_bot_ZN_1 Thermal Zone'
 clg: 0  htg: 4  'Perimeter_bot_ZN_2 Thermal Zone'
-clg: 0  htg: 5  'Perimeter_bot_ZN_3 Thermal Zone'
+clg: 0  htg: 4  'Perimeter_bot_ZN_3 Thermal Zone'
 clg: 0  htg: 4  'Perimeter_bot_ZN_4 Thermal Zone'
 clg: 0  htg: 0  'FirstFloor_Plenum Thermal Zone'
 clg: 0  htg: 1  'Core_mid Thermal Zone'
@@ -3713,7 +3713,7 @@ clg: 0  htg: 4  'Perimeter_mid_ZN_2 Thermal Zone'
 clg: 0  htg: 4  'Perimeter_mid_ZN_3 Thermal Zone'
 clg: 0  htg: 5  'Perimeter_mid_ZN_4 Thermal Zone'
 clg: 0  htg: 0  'MidFloor_Plenum Thermal Zone'
-clg: 0  htg: 1  'Core_top Thermal Zone'
+clg: 0  htg: 0  'Core_top Thermal Zone'
 clg: 0  htg: 5  'Perimeter_top_ZN_1 Thermal Zone'
 clg: 0  htg: 4  'Perimeter_top_ZN_2 Thermal Zone'
 clg: 0  htg: 4  'Perimeter_top_ZN_3 Thermal Zone'
@@ -3723,7 +3723,7 @@ clg: 0  htg: 0  'TopFloor_Plenum Thermal Zone'" )
    ZoneUMLHsMsg = "Warning:  3 zone(s) in Proposed model exceed maximum heating unmet load hours.
 
 All thermal zones exceeding unmet load hour limits will be reported on PRF-1, which will be watermarked 'not for compliance'."
-   ZoneUMLHsLink = "https://bees.noresco.com/faq_hvac.html#umlh"
+   ZoneUMLHsLink = "https://github.com/california-energy-commission/CBECC/wiki/Unmet-Load-Hours-%28UMLH%29"
    SimSummary[1] = "E+ Successful (190 warnings)"
    SimSummary[3] = "CSE Successful, E+ Successful (204 warnings)"
    PassFail = "FAIL"
@@ -3735,18 +3735,18 @@ All thermal zones exceeding unmet load hour limits will be reported on PRF-1, wh
    AnalysisValid = 0
    HideCompSmrySrc = 0
    HideCompSmryTot = 0
-   PctSavingsSLCC = -73.5175
-   PctSavingsEffSLCC = -17.6123
-   PctSavingsCmpSLCC = -533.496
-   PctSavSLCCLbl = "-73.5"
-   PctSavEffSLCCLbl = "-17.6"
-   PctSavCmpSLCCLbl = "-533.5"
-   PctSavingsSrc = -59.1166
-   PctSavingsEffSrc = -45.8188
-   PctSavingsCmpSrc = -165.714
-   PctSavSrcLbl = "-59.1"
-   PctSavEffSrcLbl = "-45.8"
-   PctSavCmpSrcLbl = "-165.7"
+   PctSavingsSLCC = -73.8103
+   PctSavingsEffSLCC = -17.8799
+   PctSavingsCmpSLCC = -541.337
+   PctSavSLCCLbl = "-73.8"
+   PctSavEffSLCCLbl = "-17.9"
+   PctSavCmpSLCCLbl = "-541.3"
+   PctSavingsSrc = -59.2971
+   PctSavingsEffSrc = -46.0733
+   PctSavingsCmpSrc = -166.561
+   PctSavSrcLbl = "-59.3"
+   PctSavEffSrcLbl = "-46.1"
+   PctSavCmpSrcLbl = "-166.6"
    MarginkW = -8
    PVBattResultsValid = 1
    PropPV_Size = 0
@@ -3757,11 +3757,12 @@ All thermal zones exceeding unmet load hour limits will be reported on PRF-1, wh
    PropBatt_Pwr = 0
    StdPV_Size = 164.05
    StdPV_Total = 257756
-   StdPV_Export = 26979.8
-   StdPV_PctExport = 10.4672
+   StdPV_Export = 27009.9
+   StdPV_PctExport = 10.4789
    StdBatt_Size = 289.7
    StdBatt_Pwr = 72.43
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

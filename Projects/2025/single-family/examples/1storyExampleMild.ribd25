@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Example Mild Climate PV+Battery"  
    BEMVersion = 12
    CreateDate = 1665422094
-   ModDate = 1778151518
+   ModDate = 1787716694
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "1storyExampleMild.ribd25"
    RunTitle = "1 Story Example"
@@ -19,6 +19,7 @@ Proj   "1 Story Example Mild Climate PV+Battery"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "1 Story Example Mild Climate PV+Battery"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -982,7 +984,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1337,6 +1339,7 @@ EUseSummary   "EUSummary"
    PeakCoolElecLabels[1] = "0"
    PeakCoolElecLabels[2] = "0"
    PeakCoolElecLabels[4] = "n/a"
+   PeakCoolElecFtnote[1] = "** Peak cooling target not applicable for Climate Zone 3."
    PropDesignPVInp[1] = 2
    PropDesignPVInp[6] = 2
    PropDesignPVSize[1] = 2.4388

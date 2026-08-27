@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "SmallRetail_DOAS"  
    BldgEngyModelVersion = 17
    CreateDate = 1448129614
-   ModDate = 1778189298
-   RunDate = 1778189299
+   ModDate = 1787733081
+   RunDate = 1787733082
    ZipCode = 95814
    HVACAutoSizing = 0
    AutoHardSize = 1
@@ -21,7 +21,7 @@ Proj   "SmallRetail_DOAS"
    RunTitle = "Retail_Demo"
    AnalysisType = "Title24Compliance"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    ..
 
@@ -1831,6 +1831,7 @@ clg: 0  htg: 0  'Retail_Zn'" )
    StdPV_PctExport = 0
    StdBatt_Size = 0
    StdBatt_Pwr = 0
+   NumUIDialogTabs = 5
    ..
 
 

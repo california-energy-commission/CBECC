@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "030012-OffMed-CECStd19"  
    BldgEngyModelVersion = 17
    CreateDate = 1748456870
-   ModDate = 1778185593
-   RunDate = 1778185594
+   ModDate = 1787731397
+   RunDate = 1787731398
    CliZn = "ClimateZone12"
    ZipCode = 95814
    WeatherStation = "SACRAMENTO EXECUTIVE"
@@ -19,7 +19,7 @@ Proj   "030012-OffMed-CECStd19"
    CompOptMech = 1
    CompOptDHW = 0
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    CompReportPDF = 0
    CompReportXML = 0
    ResultsCurrentMessage = "(not current)"
@@ -3815,6 +3815,7 @@ clg: 0  htg: 0  'TopFloor_Plenum Thermal Zone'" )
    StdBatt_Size = 296.9
    StdBatt_Pwr = 74.23
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750728714
-   ModDate = 1778148284
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787718786
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -584,7 +586,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -930,29 +932,30 @@ EUseSummary   "EUSummary"
    PctSavCmpTDVLbl = "6.3"
    PctSavSrcLbl = "31.3"
    PropElecDemand[1] = 1.34041
-   StdElecDemand = 1.38028
+   StdElecDemand = 1.38027
    IncludePeakCooling = 1
-   PropPeakCoolElec = 524.615
+   PropPeakCoolElec = 524.614
    StdPeakCoolElec = 609.801
-   StdPeakCoolElecLimit = 731.761
-   PeakCoolElecMargin = 207
-   PeakCoolElecLabels = ( "525", "732", "207", "Pass" )
+   StdPeakCoolElecLimit = 792.741
+   PeakCoolElecMargin = 268
+   PeakCoolElecLabels = ( "525", "793", "268", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 11."
    PropDesignPVInp[1] = 2.83
    PropDesignPVInp[6] = 2.83
    PropDesignPVSize[1] = 3.6972
    PropDesignPVTot = 3.6972
    StdDesignPVSize = 3.6972
-   PrelimPropkWh = 9133.36
+   PrelimPropkWh = 9133.37
    PrelimPropCompTDV = 13.3497
    PrelimPropPV = -4324.05
    PrelimPropPVTDV = -8.18
    UnscaledPropPVRatio = 0.61851
    PropPV_Total = 5649.08
-   PropPV_Export = 2816.49
-   PropPV_PctExport = 49.8576
+   PropPV_Export = 2816.48
+   PropPV_PctExport = 49.8574
    StdPV_Total = 5649.08
    StdPV_Export = 2739.59
-   StdPV_PctExport = 48.4962
+   StdPV_PctExport = 48.4961
    ResultsNotes[1] = "PV System resized to 3.70 kWdc (a factor of 1.306) to achieve 'Standard Design PV' PV scaling"
    ResultsNotes[4] = "PV System resized to 3.70 kWdc (a factor of 1.306) to achieve 'Standard Design PV' PV scaling"
    ResultsNotes[5] = "Standard Design PV Capacity: 3.70 kWdc"

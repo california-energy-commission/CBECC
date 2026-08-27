@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Example Drain Water Heat Recovery"  
    BEMVersion = 12
    CreateDate = 1555708801
-   ModDate = 1778150722
+   ModDate = 1787716073
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "1storyExample3DrainWtrRecov.ribd22"
    RunTitle = "1 Story Example"
@@ -19,6 +19,7 @@ Proj   "1 Story Example Drain Water Heat Recovery"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "1 Story Example Drain Water Heat Recovery"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -982,7 +984,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1332,13 +1334,14 @@ EUseSummary   "EUSummary"
    PctSavCmpTDVLbl = "7.9"
    PctSavSrcLbl = "38.9"
    PropElecDemand[1] = 1.1044
-   StdElecDemand = 1.1389
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
-   PropPeakCoolElec = 28.1539
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 49
-   PeakCoolElecLabels = ( "28", "77", "49", "Pass" )
+   PropPeakCoolElec = 28.154
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 56
+   PeakCoolElecLabels = ( "28", "84", "56", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVInp[1] = 2
    PropDesignPVInp[6] = 2
    PropDesignPVSize[1] = 2.6873
@@ -1374,7 +1377,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = -3.86106e-05
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.607142
+   PropElecCarbon[1] = 0.607141
    PropFuelCarbon[1] = 0.252315
    PropFinalCarbon[1] = 0.86
    PropExclExpCarbon[1] = 0.87

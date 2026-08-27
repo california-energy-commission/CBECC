@@ -3,14 +3,14 @@ RulesetFilename   "T24_2025.bin"
 Proj   "021013-OffSml-VRF"  
    BldgEngyModelVersion = 17
    CreateDate = 1484669320
-   ModDate = 1778183828
-   RunDate = 1778183829
+   ModDate = 1787724355
+   RunDate = 1787724356
    ZipCode = 93727
    AutoHardSize = 1
    AutoEffInput = 0
    CompOptDHW = 0
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ..
 
 ProjVar   "021013-OffSml-VRF - ProjVar"  
@@ -2407,6 +2407,7 @@ clg: 2  htg: 0  'Perimeter_ZN_4 Thermal Zone'" )
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

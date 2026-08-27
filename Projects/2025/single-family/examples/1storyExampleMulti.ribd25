@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Example Multi Orientation PV+Battery"  
    BEMVersion = 12
    CreateDate = 1555708208
-   ModDate = 1778151674
+   ModDate = 1787716824
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "1storyExample4Multi.ribd22"
    RunTitle = "1 Story Example"
@@ -19,6 +19,7 @@ Proj   "1 Story Example Multi Orientation PV+Battery"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "1 Story Example Multi Orientation PV+Battery"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -982,7 +984,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "Worst Case (W)"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 1
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1339,13 +1341,13 @@ EUseSummary   "Worst Case (W)"
    SummaryColCmpSLCC[9] = "17.63"
    SummaryColPkClgMarg[2] = "Electricity"
    SummaryColPkClgMarg[3] = "(kWh)"
-   SummaryColPkClgMarg[6] = "50"
-   SummaryColPkClgMarg[7] = "10"
-   SummaryColPkClgMarg[8] = "45"
-   SummaryColPkClgMarg[9] = "18"
+   SummaryColPkClgMarg[6] = "57"
+   SummaryColPkClgMarg[7] = "17"
+   SummaryColPkClgMarg[8] = "52"
+   SummaryColPkClgMarg[9] = "25"
    SummaryColPkClg[2] = "Electricity"
    SummaryColPkClg[3] = "(kWh)"
-   SummaryColPkClg[4] = "77"
+   SummaryColPkClg[4] = "84"
    SummaryColPkClg[6] = "27"
    SummaryColPkClg[7] = "67"
    SummaryColPkClg[8] = "32"
@@ -1378,13 +1380,14 @@ EUseSummary   "Worst Case (W)"
    PctSavCmpTDVLbl = "4.0"
    PctSavSrcLbl = "38.1"
    PropElecDemand[1] = 1.09825
-   StdElecDemand = 1.1389
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
-   PropPeakCoolElec = 59.2375
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 18
-   PeakCoolElecLabels = ( "59", "77", "18", "Pass" )
+   PropPeakCoolElec = 59.2377
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 25
+   PeakCoolElecLabels = ( "59", "84", "25", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVTot = 2.6873
    PropDesignBattCap = 5
    PropDesignBattPwr = 1.78571
@@ -1417,7 +1420,7 @@ EUseSummary   "Worst Case (W)"
    GHCEnergyEffCO2 = -3.90605e-05
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.617459
+   PropElecCarbon[1] = 0.61746
    PropFuelCarbon[1] = 0.252315
    PropFinalCarbon[2] = 0.85
    PropFinalCarbon[3] = 0.86
@@ -1463,7 +1466,7 @@ EUseSummary   "Worst Case (W)"
    ..
 
 EUseSummary   "North Facing"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 1
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1820,13 +1823,13 @@ EUseSummary   "North Facing"
    SummaryColCmpSLCC[9] = "17.63"
    SummaryColPkClgMarg[2] = "Electricity"
    SummaryColPkClgMarg[3] = "(kWh)"
-   SummaryColPkClgMarg[6] = "50"
-   SummaryColPkClgMarg[7] = "10"
-   SummaryColPkClgMarg[8] = "45"
-   SummaryColPkClgMarg[9] = "18"
+   SummaryColPkClgMarg[6] = "57"
+   SummaryColPkClgMarg[7] = "17"
+   SummaryColPkClgMarg[8] = "52"
+   SummaryColPkClgMarg[9] = "25"
    SummaryColPkClg[2] = "Electricity"
    SummaryColPkClg[3] = "(kWh)"
-   SummaryColPkClg[4] = "77"
+   SummaryColPkClg[4] = "84"
    SummaryColPkClg[6] = "27"
    SummaryColPkClg[7] = "67"
    SummaryColPkClg[8] = "32"
@@ -1858,14 +1861,15 @@ EUseSummary   "North Facing"
    PctSavTDVLbl = "19.1"
    PctSavCmpTDVLbl = "7.3"
    PctSavSrcLbl = "39.3"
-   PropElecDemand[1] = 1.09062
-   StdElecDemand = 1.1389
+   PropElecDemand[1] = 1.09061
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
-   PropPeakCoolElec = 27.1146
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 50
-   PeakCoolElecLabels = ( "27", "77", "50", "Pass" )
+   PropPeakCoolElec = 27.1147
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 57
+   PeakCoolElecLabels = ( "27", "84", "57", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVTot = 2.6873
    PropDesignBattCap = 5
    PropDesignBattPwr = 1.78571
@@ -1944,7 +1948,7 @@ EUseSummary   "North Facing"
    ..
 
 EUseSummary   "East Facing"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 1
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -2301,13 +2305,13 @@ EUseSummary   "East Facing"
    SummaryColCmpSLCC[9] = "17.63"
    SummaryColPkClgMarg[2] = "Electricity"
    SummaryColPkClgMarg[3] = "(kWh)"
-   SummaryColPkClgMarg[6] = "50"
-   SummaryColPkClgMarg[7] = "10"
-   SummaryColPkClgMarg[8] = "45"
-   SummaryColPkClgMarg[9] = "18"
+   SummaryColPkClgMarg[6] = "57"
+   SummaryColPkClgMarg[7] = "17"
+   SummaryColPkClgMarg[8] = "52"
+   SummaryColPkClgMarg[9] = "25"
    SummaryColPkClg[2] = "Electricity"
    SummaryColPkClg[3] = "(kWh)"
-   SummaryColPkClg[4] = "77"
+   SummaryColPkClg[4] = "84"
    SummaryColPkClg[6] = "27"
    SummaryColPkClg[7] = "67"
    SummaryColPkClg[8] = "32"
@@ -2340,20 +2344,21 @@ EUseSummary   "East Facing"
    PctSavCmpTDVLbl = "6.1"
    PctSavSrcLbl = "39.0"
    PropElecDemand[1] = 1.09627
-   StdElecDemand = 1.1389
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
    PropPeakCoolElec = 66.7781
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 10
-   PeakCoolElecLabels = ( "67", "77", "10", "Pass" )
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 17
+   PeakCoolElecLabels = ( "67", "84", "17", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVTot = 2.6873
    PropDesignBattCap = 5
    PropDesignBattPwr = 1.78571
    PropDesignBattCtl = "Time of Use"
    StdDesignPVSize = 2.6873
    PrelimPropkWh = 7284.82
-   PrelimPropCompTDV = 12.6228
+   PrelimPropCompTDV = 12.6229
    PrelimPropPV = -3143.22
    PrelimPropPVTDV = -7.62
    UnscaledPropPVRatio = 0.578304
@@ -2376,7 +2381,7 @@ EUseSummary   "East Facing"
    GHCEnergyEffTDV = 1.215
    GHCEnergyEffSrc = -0.757403
    GHCEnergyEffElec = 98.0053
-   GHCEnergyEffCO2 = -3.99643e-05
+   GHCEnergyEffCO2 = -3.99644e-05
    MeetsTier1 = 0
    MeetsTier2 = 0
    PropElecCarbon[1] = 0.606269
@@ -2425,7 +2430,7 @@ EUseSummary   "East Facing"
    ..
 
 EUseSummary   "South Facing"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 1
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -2782,13 +2787,13 @@ EUseSummary   "South Facing"
    SummaryColCmpSLCC[9] = "17.63"
    SummaryColPkClgMarg[2] = "Electricity"
    SummaryColPkClgMarg[3] = "(kWh)"
-   SummaryColPkClgMarg[6] = "50"
-   SummaryColPkClgMarg[7] = "10"
-   SummaryColPkClgMarg[8] = "45"
-   SummaryColPkClgMarg[9] = "18"
+   SummaryColPkClgMarg[6] = "57"
+   SummaryColPkClgMarg[7] = "17"
+   SummaryColPkClgMarg[8] = "52"
+   SummaryColPkClgMarg[9] = "25"
    SummaryColPkClg[2] = "Electricity"
    SummaryColPkClg[3] = "(kWh)"
-   SummaryColPkClg[4] = "77"
+   SummaryColPkClg[4] = "84"
    SummaryColPkClg[6] = "27"
    SummaryColPkClg[7] = "67"
    SummaryColPkClg[8] = "32"
@@ -2821,26 +2826,27 @@ EUseSummary   "South Facing"
    PctSavCmpTDVLbl = "8.6"
    PctSavSrcLbl = "39.7"
    PropElecDemand[1] = 1.08195
-   StdElecDemand = 1.1389
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
    PropPeakCoolElec = 31.5885
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 45
-   PeakCoolElecLabels = ( "32", "77", "45", "Pass" )
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 52
+   PeakCoolElecLabels = ( "32", "84", "52", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVTot = 2.6873
    PropDesignBattCap = 5
    PropDesignBattPwr = 1.78571
    PropDesignBattCtl = "Time of Use"
    StdDesignPVSize = 2.6873
    PrelimPropkWh = 7223.96
-   PrelimPropCompTDV = 12.3268
+   PrelimPropCompTDV = 12.3269
    PrelimPropPV = -3143.22
    PrelimPropPVTDV = -7.62
    UnscaledPropPVRatio = 0.583196
    PropPV_Total = 4223.38
-   PropPV_Export = 965.339
-   PropPV_PctExport = 22.857
+   PropPV_Export = 965.342
+   PropPV_PctExport = 22.8571
    StdPV_Total = 4223.38
    StdPV_Export = 2244.76
    StdPV_PctExport = 53.1509
@@ -2906,7 +2912,7 @@ EUseSummary   "South Facing"
    ..
 
 EUseSummary   "West Facing"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 1
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -3263,13 +3269,13 @@ EUseSummary   "West Facing"
    SummaryColCmpSLCC[9] = "17.63"
    SummaryColPkClgMarg[2] = "Electricity"
    SummaryColPkClgMarg[3] = "(kWh)"
-   SummaryColPkClgMarg[6] = "50"
-   SummaryColPkClgMarg[7] = "10"
-   SummaryColPkClgMarg[8] = "45"
-   SummaryColPkClgMarg[9] = "18"
+   SummaryColPkClgMarg[6] = "57"
+   SummaryColPkClgMarg[7] = "17"
+   SummaryColPkClgMarg[8] = "52"
+   SummaryColPkClgMarg[9] = "25"
    SummaryColPkClg[2] = "Electricity"
    SummaryColPkClg[3] = "(kWh)"
-   SummaryColPkClg[4] = "77"
+   SummaryColPkClg[4] = "84"
    SummaryColPkClg[6] = "27"
    SummaryColPkClg[7] = "67"
    SummaryColPkClg[8] = "32"
@@ -3302,13 +3308,14 @@ EUseSummary   "West Facing"
    PctSavCmpTDVLbl = "4.0"
    PctSavSrcLbl = "38.1"
    PropElecDemand[1] = 1.09825
-   StdElecDemand = 1.1389
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
-   PropPeakCoolElec = 59.2375
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 18
-   PeakCoolElecLabels = ( "59", "77", "18", "Pass" )
+   PropPeakCoolElec = 59.2377
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 25
+   PeakCoolElecLabels = ( "59", "84", "25", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVTot = 2.6873
    PropDesignBattCap = 5
    PropDesignBattPwr = 1.78571
@@ -3341,7 +3348,7 @@ EUseSummary   "West Facing"
    GHCEnergyEffCO2 = -3.90605e-05
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.617459
+   PropElecCarbon[1] = 0.61746
    PropFuelCarbon[1] = 0.252315
    PropFinalCarbon[2] = 0.85
    PropFinalCarbon[3] = 0.86

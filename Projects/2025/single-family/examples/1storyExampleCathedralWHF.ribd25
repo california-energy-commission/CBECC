@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Example PV+Battery"  
    BEMVersion = 12
    CreateDate = 1555708090
-   ModDate = 1778150368
+   ModDate = 1787715792
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "1storyExampleCathedralWHF.ribd22"
    RunTitle = "1 Story Example"
@@ -19,6 +19,7 @@ Proj   "1 Story Example PV+Battery"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "1 Story Example PV+Battery"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -994,7 +996,7 @@ CathedralCeiling   "Cathedral R"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1346,11 +1348,12 @@ EUseSummary   "EUSummary"
    PropElecDemand[1] = 1.1402
    StdElecDemand = 1.1354
    IncludePeakCooling = 1
-   PropPeakCoolElec = 56.2812
-   StdPeakCoolElec = 66.7156
-   StdPeakCoolElecLimit = 80.0587
-   PeakCoolElecMargin = 24
-   PeakCoolElecLabels = ( "56", "80", "24", "Pass" )
+   PropPeakCoolElec = 56.2813
+   StdPeakCoolElec = 66.7148
+   StdPeakCoolElecLimit = 86.7293
+   PeakCoolElecMargin = 31
+   PeakCoolElecLabels = ( "56", "87", "31", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVInp[1] = 2
    PropDesignPVInp[6] = 2
    PropDesignPVSize[1] = 2.6873
@@ -1365,7 +1368,7 @@ EUseSummary   "EUSummary"
    PrelimPropPVTDV = -7.62
    UnscaledPropPVRatio = 0.567679
    PropPV_Total = 4223.38
-   PropPV_Export = 970.312
+   PropPV_Export = 970.313
    PropPV_PctExport = 22.9748
    StdPV_Total = 4223.38
    StdPV_Export = 2266.38

@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1743206770
-   ModDate = 1778149699
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787719419
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.9 RV (1371)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "n/a"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -107,7 +109,7 @@ Proj   "2025 Prototype"
    UnitIAQZone3[2] = "Zone1"
    UnitIAQZone4[1] = "Zone1"
    UnitIAQZone4[2] = "Zone1"
-   UnitClVentOption = "Default Prescriptive Whole House Fan"
+   UnitClVentOption = "- none -"
    ClVentVerified = 0
    UnitClVentZone[1] = "Zone1"
    ApplRefrigZone[1] = "Zone1"
@@ -589,7 +591,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -937,13 +939,14 @@ EUseSummary   "EUSummary"
    PropElecDemand[1] = 1.49715
    StdElecDemand = 1.58554
    IncludePeakCooling = 1
-   PropPeakCoolElec = 49.2033
+   PropPeakCoolElec = 49.2032
    StdPeakCoolElec = 101.879
    StdPeakCoolElecLimit = 101.879
    PeakCoolElecMargin = 0
    PeakCoolElecLabels[1] = "49"
    PeakCoolElecLabels[2] = "102"
    PeakCoolElecLabels[4] = "n/a"
+   PeakCoolElecFtnote[1] = "** Peak cooling target not applicable for Climate Zone 16."
    PropDesignPVInp[1] = 2.2
    PropDesignPVInp[6] = 2.2
    PropDesignPVSize[1] = 2.813
@@ -953,7 +956,7 @@ EUseSummary   "EUSummary"
    PrelimPropCompTDV = 15.0484
    PrelimPropPV = -3634.86
    PrelimPropPVTDV = -7.15
-   UnscaledPropPVRatio = 0.485787
+   UnscaledPropPVRatio = 0.485788
    PropPV_Total = 4647.67
    PropPV_Export = 2364.59
    PropPV_PctExport = 50.877
@@ -976,7 +979,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.977995
+   PropElecCarbon[1] = 0.977994
    PropFuelCarbon[1] = 0.276306
    PropFinalCarbon[1] = 1.25
    PropExclExpCarbon[1] = 1.29

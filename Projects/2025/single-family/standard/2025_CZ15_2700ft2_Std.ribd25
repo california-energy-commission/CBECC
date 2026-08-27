@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750729295
-   ModDate = 1778149498
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787721149
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -102,7 +104,7 @@ Proj   "2025 Prototype"
    UnitIAQZone3[2] = "Zone1"
    UnitIAQZone4[1] = "Zone1"
    UnitIAQZone4[2] = "Zone1"
-   UnitClVentOption = "Default Prescriptive Whole House Fan"
+   UnitClVentOption = "- none -"
    ClVentVerified = 0
    UnitClVentZone[1] = "Zone1"
    ApplRefrigZone[1] = "Zone1"
@@ -644,7 +646,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -989,14 +991,15 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "-"
    PctSavCmpTDVLbl = "-"
    PctSavSrcLbl = "34.4"
-   PropElecDemand[1] = 0.868468
-   StdElecDemand = 0.868465
+   PropElecDemand[1] = 0.868467
+   StdElecDemand = 0.868463
    IncludePeakCooling = 1
    PropPeakCoolElec = 1063.43
    StdPeakCoolElec = 1063.43
-   StdPeakCoolElecLimit = 1276.12
-   PeakCoolElecMargin = 213
-   PeakCoolElecLabels = ( "1,063", "1,276", "213", "Pass" )
+   StdPeakCoolElecLimit = 1382.46
+   PeakCoolElecMargin = 319
+   PeakCoolElecLabels = ( "1,063", "1,382", "319", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 15."
    PropDesignPVInp[1] = 4.09
    PropDesignPVInp[6] = 4.09
    PropDesignPVSize[1] = 5.682
@@ -1006,11 +1009,11 @@ EUseSummary   "EUSummary"
    PrelimPropCompTDV = 14.8224
    PrelimPropPV = -6890.95
    PrelimPropPVTDV = -13.65
-   UnscaledPropPVRatio = 0.913004
-   PropPV_Total = 9573.19
+   UnscaledPropPVRatio = 0.913005
+   PropPV_Total = 9573.2
    PropPV_Export = 4832.6
    PropPV_PctExport = 50.4805
-   StdPV_Total = 9573.19
+   StdPV_Total = 9573.2
    StdPV_Export = 4832.6
    StdPV_PctExport = 50.4805
    ResultsNotes[1] = "PV System resized to 5.68 kWdc (a factor of 1.389) to achieve 'Standard Design PV' PV scaling"

@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "Left Duplex"  
    BEMVersion = 12
    CreateDate = 1557441305
-   ModDate = 1778150951
+   ModDate = 1787716240
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "1storyExample3Duplex.ribd22"
    RunTitle = "1 Story Example"
@@ -19,6 +19,7 @@ Proj   "Left Duplex"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "Left Duplex"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
@@ -789,7 +791,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1134,14 +1136,15 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "-0.1"
    PctSavCmpTDVLbl = "0.1"
    PctSavSrcLbl = "34.0"
-   PropElecDemand[1] = 0.903376
+   PropElecDemand[1] = 0.903378
    StdElecDemand = 0.895367
    IncludePeakCooling = 1
-   PropPeakCoolElec = 26.1877
-   StdPeakCoolElec = 82.3926
-   StdPeakCoolElecLimit = 98.8712
-   PeakCoolElecMargin = 73
-   PeakCoolElecLabels = ( "26", "99", "73", "Pass" )
+   PropPeakCoolElec = 26.1879
+   StdPeakCoolElec = 82.3916
+   StdPeakCoolElecLimit = 107.109
+   PeakCoolElecMargin = 81
+   PeakCoolElecLabels = ( "26", "107", "81", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVInp[1] = 2
    PropDesignPVInp[6] = 2
    PropDesignPVSize[1] = 2.34402
@@ -1154,7 +1157,7 @@ EUseSummary   "EUSummary"
    UnscaledPropPVRatio = 0.611632
    PropPV_Total = 3683.88
    PropPV_Export = 1926.24
-   PropPV_PctExport = 52.2883
+   PropPV_PctExport = 52.2882
    StdPV_Total = 3683.88
    StdPV_Export = 1907.43
    StdPV_PctExport = 51.7778
@@ -1174,7 +1177,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.573305
+   PropElecCarbon[1] = 0.573306
    PropFuelCarbon[1] = 0.252315
    PropFinalCarbon[1] = 0.83
    PropExclExpCarbon[1] = 0.85

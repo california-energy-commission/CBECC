@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1743206604
-   ModDate = 1778145873
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787717707
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.9 RV (1371)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "n/a"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -107,7 +109,7 @@ Proj   "2025 Prototype"
    UnitIAQZone3[2] = "Zone1"
    UnitIAQZone4[1] = "Zone1"
    UnitIAQZone4[2] = "Zone1"
-   UnitClVentOption = "Default Prescriptive Whole House Fan"
+   UnitClVentOption = "- none -"
    ClVentVerified = 0
    UnitClVentZone[1] = "Zone1"
    ApplRefrigZone[1] = "Zone1"
@@ -568,7 +570,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -909,7 +911,7 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "4.0"
    PctSavCmpTDVLbl = "7.5"
    PctSavSrcLbl = "39.1"
-   PropElecDemand[1] = 0.939332
+   PropElecDemand[1] = 0.939333
    StdElecDemand = 1.02797
    IncludePeakCooling = 1
    PropPeakCoolElec = 0
@@ -919,19 +921,20 @@ EUseSummary   "EUSummary"
    PeakCoolElecLabels[1] = "0"
    PeakCoolElecLabels[2] = "0"
    PeakCoolElecLabels[4] = "n/a"
+   PeakCoolElecFtnote[1] = "** Peak cooling target not applicable for Climate Zone 3."
    PropDesignPVInp[1] = 2.17
    PropDesignPVInp[6] = 2.17
    PropDesignPVSize[1] = 2.4388
    PropDesignPVTot = 2.4388
    StdDesignPVSize = 2.4388
    PrelimPropkWh = 6196.68
-   PrelimPropCompTDV = 9.30808
+   PrelimPropCompTDV = 9.30809
    PrelimPropPV = -3429.87
    PrelimPropPVTDV = -8.43
    UnscaledPropPVRatio = 0.622064
    PropPV_Total = 3854.73
-   PropPV_Export = 1983
-   PropPV_PctExport = 51.4433
+   PropPV_Export = 1983.01
+   PropPV_PctExport = 51.4434
    StdPV_Total = 3854.73
    StdPV_Export = 1987.39
    StdPV_PctExport = 51.5572

@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "021016-OffSml-VRF"  
    BldgEngyModelVersion = 17
    CreateDate = 1452551259
-   ModDate = 1778184074
-   RunDate = 1778184075
+   ModDate = 1787724547
+   RunDate = 1787724548
    CliZn = "ClimateZone16"
    ZipCode = 93514
    AutoHardSize = 1
    AutoEffInput = 0
    CompOptDHW = 0
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ..
 
 ProjVar   "021016-OffSml-VRF - ProjVar"  
@@ -2378,7 +2378,7 @@ clg: 1  htg: 0  'Perimeter_ZN_4 Thermal Zone'" )
    ZoneUMLHsMsg = "Warning:  4 zone(s) in Proposed model exceed maximum heating unmet load hours.
 
 All thermal zones exceeding unmet load hour limits will be reported on PRF-1, which will be watermarked 'not for compliance'."
-   ZoneUMLHsLink = "https://bees.noresco.com/faq_hvac.html#umlh"
+   ZoneUMLHsLink = "https://github.com/california-energy-commission/CBECC/wiki/Unmet-Load-Hours-%28UMLH%29"
    SimSummary[1] = "E+ Successful (114 warnings)"
    SimSummary[3] = "CSE Successful, E+ Successful (136 warnings)"
    PassFail = "FAIL"
@@ -2417,6 +2417,7 @@ All thermal zones exceeding unmet load hour limits will be reported on PRF-1, wh
    StdBatt_Size = 25.2
    StdBatt_Pwr = 6.3
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

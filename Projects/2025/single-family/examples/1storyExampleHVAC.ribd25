@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Multiple HVAC types"  
    BEMVersion = 12
    CreateDate = 1555708263
-   ModDate = 1778151291
+   ModDate = 1787716517
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 RC (1379)"
    ProjFileName = "1storyExample3HVAC.ribd22"
    RunTitle = "Multiple HVAC types Example"
@@ -19,6 +19,7 @@ Proj   "1 Story Multiple HVAC types"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "1 Story Multiple HVAC types"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -982,7 +984,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1332,13 +1334,14 @@ EUseSummary   "EUSummary"
    PctSavCmpTDVLbl = "18.6"
    PctSavSrcLbl = "43.8"
    PropElecDemand[1] = 0.967401
-   StdElecDemand = 1.1389
+   StdElecDemand = 1.13889
    IncludePeakCooling = 1
-   PropPeakCoolElec = 23.2687
-   StdPeakCoolElec = 64.4039
-   StdPeakCoolElecLimit = 77.2847
-   PeakCoolElecMargin = 54
-   PeakCoolElecLabels = ( "23", "77", "54", "Pass" )
+   PropPeakCoolElec = 23.2688
+   StdPeakCoolElec = 64.4045
+   StdPeakCoolElecLimit = 83.7259
+   PeakCoolElecMargin = 61
+   PeakCoolElecLabels = ( "23", "84", "61", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVInp[1] = 2
    PropDesignPVInp[6] = 2
    PropDesignPVSize[1] = 2.6873

@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "060012-RstntSml-CECStd25"  
    BldgEngyModelVersion = 17
    CreateDate = 1414691411
-   ModDate = 1778174740
-   RunDate = 1778174741
+   ModDate = 1787737229
+   RunDate = 1787737230
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    CompType = "NewComplete"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    ..
 
@@ -1174,6 +1174,7 @@ clg: 0  htg: 0  'Kitchen Thermal Zone'" )
    StdPV_PctExport = 24.0247
    StdBatt_Size = 0
    StdBatt_Pwr = 0
+   NumUIDialogTabs = 5
    ..
 
 

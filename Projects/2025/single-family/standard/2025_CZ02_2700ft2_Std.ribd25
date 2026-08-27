@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750727471
-   ModDate = 1778145805
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787719683
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "n/a"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -102,7 +104,7 @@ Proj   "2025 Prototype"
    UnitIAQZone3[2] = "Zone1"
    UnitIAQZone4[1] = "Zone1"
    UnitIAQZone4[2] = "Zone1"
-   UnitClVentOption = "Default Prescriptive Whole House Fan"
+   UnitClVentOption = "- none -"
    ClVentVerified = 0
    UnitClVentZone[1] = "Zone1"
    ApplRefrigZone[1] = "Zone1"
@@ -644,7 +646,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -861,8 +863,8 @@ EUseSummary   "EUSummary"
    Enduse10[4] = "20.13"
    Enduse10[5] = "3,994"
    Enduse10[6] = "47.3"
-   Enduse10[7] = "20.12"
-   Enduse10[8] = "-0.01"
+   Enduse10[7] = "20.13"
+   Enduse10[8] = "0.00"
    Enduse10[10] = "1.32"
    Enduse10[11] = "1.32"
    Enduse10[23] = "850"
@@ -897,8 +899,8 @@ EUseSummary   "EUSummary"
    Enduse13[2] = "-4,392"
    Enduse13[4] = "-4.48"
    Enduse13[5] = "-4,392"
-   Enduse13[7] = "-4.49"
-   Enduse13[8] = "-0.01"
+   Enduse13[7] = "-4.48"
+   Enduse13[8] = "0.00"
    Enduse13[10] = "-0.01"
    Enduse13[23] = "-106"
    Enduse13[25] = "-106"
@@ -941,8 +943,8 @@ EUseSummary   "EUSummary"
    EndusePVB[2] = "-4,392"
    EndusePVB[4] = "-4.48"
    EndusePVB[5] = "-4,392"
-   EndusePVB[7] = "-4.49"
-   EndusePVB[8] = "-0.01"
+   EndusePVB[7] = "-4.48"
+   EndusePVB[8] = "0.00"
    EndusePVB[10] = "-0.01"
    EndusePVB[11] = "0.00"
    EndusePVB[23] = "-106"
@@ -992,13 +994,14 @@ EUseSummary   "EUSummary"
    PropElecDemand[1] = 1.32428
    StdElecDemand = 1.3239
    IncludePeakCooling = 1
-   PropPeakCoolElec = 5.33232
-   StdPeakCoolElec = 5.32109
-   StdPeakCoolElecLimit = 5.32109
+   PropPeakCoolElec = 5.33224
+   StdPeakCoolElec = 5.32114
+   StdPeakCoolElecLimit = 5.32114
    PeakCoolElecMargin = 0
    PeakCoolElecLabels[1] = "5"
    PeakCoolElecLabels[2] = "5"
    PeakCoolElecLabels[4] = "n/a"
+   PeakCoolElecFtnote[1] = "** Peak cooling target not applicable for Climate Zone 2."
    PropDesignPVInp[1] = 2.25
    PropDesignPVInp[6] = 2.25
    PropDesignPVSize[1] = 2.8967

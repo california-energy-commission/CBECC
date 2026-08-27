@@ -3,14 +3,14 @@ RulesetFilename   "T24_2025.bin"
 Proj   "010312-SchSml-VAVFluidZnSys"  
    BldgEngyModelVersion = 17
    CreateDate = 1448127801
-   ModDate = 1778176730
-   RunDate = 1778176731
+   ModDate = 1787724260
+   RunDate = 1787724261
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    ..
 
@@ -5948,6 +5948,7 @@ clg: 1  htg: 0  'Common_Cafeteria_Zn'" )
    StdBatt_Size = 142.1
    StdBatt_Pwr = 35.515
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

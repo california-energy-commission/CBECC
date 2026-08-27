@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffMed-CoreAndShellwithPlant19"  
    BldgEngyModelVersion = 17
    CreateDate = 1555799164
-   ModDate = 1778186964
-   RunDate = 1778186965
+   ModDate = 1787731950
+   RunDate = 1787731951
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -12,7 +12,7 @@ Proj   "OffMed-CoreAndShellwithPlant19"
    CompOptPartLtg = 1
    CompOptPartMech = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
    ..
@@ -3672,6 +3672,7 @@ clg: 0  htg: 0  'TopFloor_Plenum Thermal Zone'" )
    StdBatt_Size = 269.5
    StdBatt_Pwr = 67.365
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Example PV+Battery"  
    BEMVersion = 12
    CreateDate = 1648076595
-   ModDate = 1778151407
+   ModDate = 1787716608
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "1storyExample3IAQ.ribd22"
    RunTitle = "1 Story Example"
@@ -19,6 +19,7 @@ Proj   "1 Story Example PV+Battery"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "1 Story Example PV+Battery"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -983,7 +985,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1336,10 +1338,11 @@ EUseSummary   "EUSummary"
    StdElecDemand = 1.23732
    IncludePeakCooling = 1
    PropPeakCoolElec = 31.6193
-   StdPeakCoolElec = 65.3378
-   StdPeakCoolElecLimit = 78.4054
-   PeakCoolElecMargin = 46
-   PeakCoolElecLabels = ( "32", "78", "46", "Pass" )
+   StdPeakCoolElec = 65.3379
+   StdPeakCoolElecLimit = 84.9392
+   PeakCoolElecMargin = 53
+   PeakCoolElecLabels = ( "32", "85", "53", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    PropDesignPVInp[1] = 2
    PropDesignPVInp[6] = 2
    PropDesignPVSize[1] = 2.6873
@@ -1352,7 +1355,7 @@ EUseSummary   "EUSummary"
    PrelimPropCompTDV = 11.4537
    PrelimPropPV = -3143.22
    PrelimPropPVTDV = -7.62
-   UnscaledPropPVRatio = 0.604552
+   UnscaledPropPVRatio = 0.604553
    PropPV_Total = 4223.38
    PropPV_Export = 1006.09
    PropPV_PctExport = 23.8219

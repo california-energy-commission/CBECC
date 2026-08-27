@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750728368
-   ModDate = 1778147582
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787718464
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -563,7 +565,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -896,26 +898,27 @@ EUseSummary   "EUSummary"
    MarginkW[1] = 0.03
    MarginkWh = 158.2
    MarginTherms = 0
-   PctSavingskW = 4.3
+   PctSavingskW = 4.4
    PctSavingskWh = 11.9
    PctSavingsTherms = 0
    PctSavingsTDV = 2.8
    PctSavingsCmpTDV = 7.2
    PctSavingsSrc = 40.6
-   PctSavkWLbl = "4.3"
+   PctSavkWLbl = "4.4"
    PctSavkWhLbl = "11.9"
    PctSavThermsLbl = "-"
    PctSavTDVLbl = "2.8"
    PctSavCmpTDVLbl = "7.2"
    PctSavSrcLbl = "40.6"
-   PropElecDemand[1] = 0.685963
-   StdElecDemand = 0.717159
+   PropElecDemand[1] = 0.685962
+   StdElecDemand = 0.717158
    IncludePeakCooling = 1
    PropPeakCoolElec = 123.889
    StdPeakCoolElec = 173.77
-   StdPeakCoolElecLimit = 208.523
-   PeakCoolElecMargin = 85
-   PeakCoolElecLabels = ( "124", "209", "85", "Pass" )
+   StdPeakCoolElecLimit = 225.901
+   PeakCoolElecMargin = 102
+   PeakCoolElecLabels = ( "124", "226", "102", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 9."
    PropDesignPVInp[1] = 2.38
    PropDesignPVInp[6] = 2.38
    PropDesignPVSize[1] = 2.6473
