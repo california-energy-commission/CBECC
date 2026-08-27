@@ -1535,16 +1535,20 @@ RULE NEW Bldg:IsSchoolBldgForWtrHtr
     // Sum up "Classroom, Lecture, Training, Vocational Areas" area to Story (this is only SpcFunc that has 
     // FuncSchGrpSim = 'School'
     if ( IfValidAnd(Proj:CliZnNum > 1 ) .AND. IfValidAnd(Proj:CliZnNum < 16 ) .AND. IfValidAnd(Bldg:TotFlrArea < 250000) .AND. IfValidAnd( AboveGrdStoryCnt <= 3 ) )
-    then if( SumChildren( Story:FlrAreaForPredominantCalcWithMult ) > 0 .AND.
+    then 
+      if( EnumValue( Proj:FacilityType ) >= 10 ) // Reloctable School or Permanent Pre-checked School
+      then 1  // keep the heat-pump DHW baseline regardless of space function
+      else if( SumChildren( Story:FlrAreaForPredominantCalcWithMult ) > 0 .AND.
              SumChildren( Story:SchoolAreaForWtrHtrWithMult ) > 0 )
-          then  if( SumChildren( Story:SchoolAreaForWtrHtrWithMult ) / SumChildren( Story:FlrAreaForPredominantCalcWithMult ) > 0.5 )
+            then  if( SumChildren( Story:SchoolAreaForWtrHtrWithMult ) / SumChildren( Story:FlrAreaForPredominantCalcWithMult ) > 0.5 )
                 then  1 // more than 50% of the eligible conditioned area is 'School'
                 else  0
                 endif
-          else  0
-          endif
+            else  0
+            endif
+       endif
 	  else  0
-	  endif
+	  endif 
 ENDRULE
 
 RULE NEW Bldg:IsSchoolBldg

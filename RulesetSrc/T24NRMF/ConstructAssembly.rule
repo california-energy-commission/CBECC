@@ -8124,8 +8124,8 @@ RULE NEW Proj:VertFenArea
   RULESETS
     T24N
   DESCRIPTION
-    "The total area of new and altered vertical fenestrations.
-    Used with VertFenUA for reporting; mandatory checks use New/Altered separately."
+    "The total area of verical fenestrations. 
+    Based on criteria from Section 120.7(d), therefore only altered and new only."
   INPUTCLASS
     NotInput
   DEFAULT
@@ -8136,12 +8136,12 @@ RULE NEW Proj:VertFenAreaNew
   DATATYPE
     Float
   LONGFORM
-    VerticalFenestrationAreaNew
+    VerticalFenestrationArea
   RULESETS
     T24N
   DESCRIPTION
-    "The total area of new (added) vertical fenestrations.
-    Section 141.0(b)1E-2: over 50 sf added must meet Section 120.7(d)."
+    "The total area of verical fenestrations. 
+    Based on criteria from Section 120.7(d), therefore only altered and new only."
   INPUTCLASS
     NotInput
   DEFAULT
@@ -8156,8 +8156,8 @@ RULE NEW Proj:VertFenAreaAltered
   RULESETS
     T24N
   DESCRIPTION
-    "The total area of altered vertical fenestrations.
-    Section 141.0(b)1E-1: over 150 sf replaced max U-factor 0.58."
+    "The total area of verical fenestrations. 
+    Based on criteria from Section 120.7(d), therefore only altered and new only."
   INPUTCLASS
     NotInput
   DEFAULT
@@ -8172,77 +8172,12 @@ RULE NEW Proj:VertFenUA
   RULESETS
     T24N
   DESCRIPTION
-    "The total UA (area * UFactor) of new and altered vertical fenestrations."
+    "The total UA (area * UFactor) value of verical fenestrations. 
+    Based on criteria from Section 120.7(d), therefore only altered and new only."
   INPUTCLASS
     NotInput
   DEFAULT
     SumChildren( FenCons:UAVert )
-ENDRULE
-
-RULE NEW Proj:VertFenUANew
-  DATATYPE
-    Float
-  LONGFORM
-    VerticalFenestrationUANew
-  RULESETS
-    T24N
-  DESCRIPTION
-    "The total UA (area * UFactor) of new (added) vertical fenestrations."
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    SumChildren( FenCons:UAVertNew )
-ENDRULE
-
-RULE NEW Proj:VertFenUAAlt
-  DATATYPE
-    Float
-  LONGFORM
-    VerticalFenestrationUAAltered
-  RULESETS
-    T24N
-  DESCRIPTION
-    "The total UA (area * UFactor) of altered vertical fenestrations."
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    SumChildren( FenCons:UAVertAlt )
-ENDRULE
-
-RULE NEW Proj:VertFenUFactorNew
-  DATATYPE
-    Float
-  LONGFORM
-    VerticalFenestrationUFactorNew
-  RULESETS
-    T24N
-  DESCRIPTION
-    "Area-weighted U-factor of new (added) vertical fenestrations only."
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    if( VertFenAreaNew > 0 )
-    then  VertFenUANew / VertFenAreaNew
-    else  0
-    endif
-ENDRULE
-
-RULE NEW Proj:VertFenUFactorAltered
-  DATATYPE
-    Float
-  LONGFORM
-    VerticalFenestrationUFactorAltered
-  RULESETS
-    T24N
-  DESCRIPTION
-    "Area-weighted U-factor of altered vertical fenestrations only."
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    if( VertFenAreaAltered > 0 )
-    then  VertFenUAAlt / VertFenAreaAltered
-    else  0
-    endif
 ENDRULE
 
 RULE NEW Proj:VertFenUFactor
@@ -8253,10 +8188,8 @@ RULE NEW Proj:VertFenUFactor
   RULESETS
     T24N
   DESCRIPTION
-    "Area-weighted U-factor of new and altered vertical fenestrations.
-    Mandatory checks: new construction uses this value vs 0.47 (120.7(d));
-    existing uses VertFenUFactorNew (added >50 sf) and VertFenUFactorAltered
-    (altered >150 sf) per Section 141.0(b)1E."
+    "The total area weighted u-factor of vertical fenestrations in the project. 
+    Based on criteria from Section 120.7(d), therefore only altered and new only."
   INPUTCLASS
     NotInput
   DEFAULT
@@ -8265,30 +8198,21 @@ RULE NEW Proj:VertFenUFactor
     else  0
     endif
   CHECKCODE 
-    // ISSUE #1074: apply 0.47 only to newly added fenestration; 0.58 to altered >150 sf
+    // QUESTION: Is it correct to add this to BEMBASE? Can I make a Rule New? (Seemed to not work for me when I tried...because its in the UI?)
     if( IfValidAnd( Proj:DisableMandUFacChecks = 1 ) ) 
 	  then  UNCHANGED 
-    // For All New Construction - Section 120.7(d)
+    // For All New Construction
 	  else if( ProjVar:ExcptCondInCWUICHazard != "Yes" .AND. Proj:CompOptNew = 1 .AND. Proj:VertFenUFactor > 0.47 )
-      then  PostError( "New construction vertical fenestration exceeds Section 120.7(d): 
-                     the area-weighted U-Factor of all vertical fenestrations is '%.3f' 
-                     (limit 0.470).",VertFenUFactor)
-    // Existing: added vertical fenestration > 50 sf - Section 141.0(b)1E-2 -> 120.7(d)
+      then  PostError( "The area weighted average U-Factor of all vertical fenestrations 
+                     in the project is '%.3f', which exceeds the maximum allowable 
+                     value of '0.470', violating Section 120.7(d).",VertFenUFactor)
+    // For Existing Construction (add and/or altered)
     else if( ProjVar:ExcptCondInCWUICHazard != "Yes" .AND. Proj:CompOptExist = 1 
-               .AND. Proj:VertFenAreaNew > 50 .AND. Proj:VertFenUFactorNew > 0.47 ) 
-      then  PostError( "Added vertical fenestration exceeds Section 141.0(b)1E-2: Status=New area 
-                      is '%.0f' sf (over 50 sf) and its area-weighted U-Factor is '%.3f' 
-                      (limit 0.470 per Section 120.7(d)). Reduce U-Factor on New vertical 
-                      fenestration only; Altered fenestration is checked separately.",
-                      VertFenAreaNew, VertFenUFactorNew)
-    // Existing: altered/replaced vertical fenestration > 150 sf - Section 141.0(b)1E-1
-    else if( ProjVar:ExcptCondInCWUICHazard != "Yes" .AND. Proj:CompOptExist = 1 
-               .AND. Proj:VertFenAreaAltered > 150 .AND. Proj:VertFenUFactorAltered > 0.58 ) 
-      then  PostError( "Altered vertical fenestration exceeds Section 141.0(b)1E-1: Status=Altered area 
-                      is '%.0f' sf (over 150 sf) and its area-weighted U-Factor is '%.3f' 
-                      (limit 0.580). Reduce U-Factor on Altered (replaced) vertical fenestration 
-                      only; New fenestration is checked separately.",
-                      VertFenAreaAltered, VertFenUFactorAltered)
+               .AND. Proj:VertFenAreaNew > 50 .AND. Proj:VertFenUFactor > 0.47 ) 
+      then  PostError( "Over 50 square feet of vertical fenestration is added per  Section 141.0(b)1E-2 
+                      and the area weighted average U-Factor of all vertical fenestrations 
+                      in the project is '%.3f', which exceeds the maximum allowable 
+                      value of '0.470', violating Section 120.7(d).",VertFenUFactor)
     else  UNCHANGED
-    endif endif endif endif
+    endif endif endif
 ENDRULE
