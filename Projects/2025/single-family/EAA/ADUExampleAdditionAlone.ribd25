@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "Example ADU"  
    BEMVersion = 12
    CreateDate = 1652387341
-   ModDate = 1778152469
+   ModDate = 1787715056
    RunDate = 1474306815
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC 2025.2.0 RC (1390)"
    ProjFileName = "ADUExampleAdditionAlone.ribd25"
    RunTitle = "ADU Addition Alone"
@@ -19,6 +19,7 @@ Proj   "Example ADU"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Detailed"
    PVSizeOption = "Specify PV System Scaling"
@@ -53,6 +54,7 @@ Proj   "Example ADU"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
@@ -501,7 +503,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -757,14 +759,15 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "4.1"
    PctSavCmpTDVLbl = "8.3"
    PctSavSrcLbl = "2.5"
-   PropElecDemand[1] = 0.531241
-   StdElecDemand = 0.557242
+   PropElecDemand[1] = 0.531251
+   StdElecDemand = 0.557238
    IncludePeakCooling = 1
-   PropPeakCoolElec = 52.1609
+   PropPeakCoolElec = 52.1634
    StdPeakCoolElec = 142.058
-   StdPeakCoolElecLimit = 170.47
-   PeakCoolElecMargin = 118
-   PeakCoolElecLabels = ( "52", "170", "118", "Pass" )
+   StdPeakCoolElecLimit = 184.675
+   PeakCoolElecMargin = 133
+   PeakCoolElecLabels = ( "52", "185", "133", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    StdDesignPVSize = 0
    PropPV_Total = 0
    PropPV_Export = 0
@@ -773,23 +776,25 @@ EUseSummary   "EUSummary"
    StdPV_Export = 0
    StdPV_PctExport = 0
    ResultsNotes[5] = "Standard Design PV Capacity: 0.00 kWdc"
+   HaveResultsNotesPV[1] = 0
+   HaveResultsNotesPV[4] = 0
    HaveResultsNotesPV[5] = 1
    CO2FuelUnitLabel = "kg"
    CO2TotalUnitLabel = "kg"
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.450337
+   PropElecCarbon[1] = 0.450335
    PropFuelCarbon[1] = 0.200815
-   PropFinalCarbon[1] = 0.651152
-   PropExclExpCarbon[1] = 0.651152
+   PropFinalCarbon[1] = 0.651151
+   PropExclExpCarbon[1] = 0.651151
    PropExportCarbon[1] = 0
    PropSelfConsCarbon[1] = 0
-   PropNoSolFlxCarbon[1] = 0.651152
-   StdFinalCarbon = 0.666798
-   StdExclExpCarbon = 0.666798
+   PropNoSolFlxCarbon[1] = 0.651151
+   StdFinalCarbon = 0.666796
+   StdExclExpCarbon = 0.666796
    StdExportCarbon = 0
    StdSelfConsCarbon = 0
-   StdNoSolFlxCarbon = 0.666798
+   StdNoSolFlxCarbon = 0.666796
    HideCompSummary = 0
    HideEDRs = 1
    HideC02Emissions = 0

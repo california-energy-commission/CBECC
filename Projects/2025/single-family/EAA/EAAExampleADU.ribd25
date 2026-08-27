@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "EAA Example 3 w/ ADU"  
    BEMVersion = 12
    CreateDate = 1556214895
-   ModDate = 1778152735
+   ModDate = 1787715171
    RunDate = 1474307407
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC 2025.2.0 RC (1390)"
    ProjFileName = "EAAExampleADU.ribd25"
    RunTitle = "Ex HVAC Altered DHW"
@@ -19,6 +19,7 @@ Proj   "EAA Example 3 w/ ADU"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Use Specified Sizes"
@@ -53,6 +54,7 @@ Proj   "EAA Example 3 w/ ADU"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
@@ -888,7 +890,7 @@ Attic   "Addtn Attic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -940,7 +942,7 @@ EUseSummary   "EUSummary"
    Enduse1[3] = "356.1"
    Enduse1[4] = "27.32"
    Enduse1[5] = "1,158"
-   Enduse1[6] = "357.0"
+   Enduse1[6] = "357.1"
    Enduse1[7] = "27.59"
    Enduse1[8] = "0.27"
    Enduse1[10] = "0.35"
@@ -1143,7 +1145,7 @@ EUseSummary   "EUSummary"
    SummaryCol3[5] = "9.40"
    MarginkW[1] = 0.02
    MarginkWh = 95.2
-   MarginTherms = 148.16
+   MarginTherms = 148.19
    PctSavingskW = 2.7
    PctSavingskWh = 1.2
    PctSavingsTherms = 18.6
@@ -1156,14 +1158,15 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "12.0"
    PctSavCmpTDVLbl = "15.2"
    PctSavSrcLbl = "16.0"
-   PropElecDemand[1] = 0.782886
-   StdElecDemand = 0.804584
+   PropElecDemand[1] = 0.782887
+   StdElecDemand = 0.804588
    IncludePeakCooling = 1
    PropPeakCoolElec = 1451.32
    StdPeakCoolElec = 1478.75
-   StdPeakCoolElecLimit = 1774.5
-   PeakCoolElecMargin = 323
-   PeakCoolElecLabels = ( "1,451", "1,774", "323", "Pass" )
+   StdPeakCoolElecLimit = 1922.38
+   PeakCoolElecMargin = 471
+   PeakCoolElecLabels = ( "1,451", "1,922", "471", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 12."
    StdDesignPVSize = 0
    PropPV_Total = 0
    PropPV_Export = 0
@@ -1172,23 +1175,25 @@ EUseSummary   "EUSummary"
    StdPV_Export = 0
    StdPV_PctExport = 0
    ResultsNotes[5] = "Standard Design PV Capacity: 0.00 kWdc"
+   HaveResultsNotesPV[1] = 0
+   HaveResultsNotesPV[4] = 0
    HaveResultsNotesPV[5] = 1
    CO2FuelUnitLabel = "kg"
    CO2TotalUnitLabel = "kg"
    MeetsTier1 = 0
    MeetsTier2 = 0
    PropElecCarbon[1] = 0.689939
-   PropFuelCarbon[1] = 3.78414
+   PropFuelCarbon[1] = 3.78413
    PropFinalCarbon[1] = 4.47407
    PropExclExpCarbon[1] = 4.47407
    PropExportCarbon[1] = 0
    PropSelfConsCarbon[1] = 0
    PropNoSolFlxCarbon[1] = 4.47407
-   StdFinalCarbon = 5.35202
-   StdExclExpCarbon = 5.35202
+   StdFinalCarbon = 5.35218
+   StdExclExpCarbon = 5.35218
    StdExportCarbon = 0
    StdSelfConsCarbon = 0
-   StdNoSolFlxCarbon = 5.35202
+   StdNoSolFlxCarbon = 5.35218
    HideCompSummary = 0
    HideEDRs = 1
    HideC02Emissions = 0

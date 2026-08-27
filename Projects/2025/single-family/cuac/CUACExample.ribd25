@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "CUAC Example Model"  
    BEMVersion = 12
    CreateDate = 1748562935
-   ModDate = 1778202190
+   ModDate = 1787714826
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.2.1.1"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC 2025.2.1.1 (1409)"
    ProjFileName = "CUACExample.ribd25"
    RunTitle = "CUAC Example"
@@ -19,6 +19,7 @@ Proj   "CUAC Example Model"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Detailed"
    PVSizeOption = "Use Specified Sizes"
@@ -57,6 +58,7 @@ Proj   "CUAC Example Model"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -983,7 +985,7 @@ Attic   "Attic "
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[10] = "Proposed"
@@ -1067,10 +1069,10 @@ EUseSummary   "EUSummary"
    PropPV_PctExport = 64.1985
    ResultsNotes[6] = "Proposed PV kWh output exceeds proposed electricity use by 56% which may violate NEM rules. Contact local utility."
    HaveResultsNotesPV[6] = 1
-   PropElecCarbon[1] = 0.538426
+   PropElecCarbon[1] = 0.538429
    PropFuelCarbon[1] = 0
-   PropFinalCarbon[1] = 0.538426
-   PropExclExpCarbon[1] = 0.707213
+   PropFinalCarbon[1] = 0.538429
+   PropExclExpCarbon[1] = 0.707216
    PropExportCarbon[1] = 0.168787
    PropSelfConsCarbon[1] = 0.330974
    PropNoSolFlxCarbon[1] = 1.03819
