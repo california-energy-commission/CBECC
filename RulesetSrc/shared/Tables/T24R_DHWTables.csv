@@ -2,7 +2,8 @@
 ;,Collection of DHW tables based on the Residential ACM,,,,,
 ;,Separate Tables based on topic (to minimize duplicate data),,,,,
 ;,Created:,,10/22/15 - SAC,,,
-;,Last modified:,,08/12/26 - SAC - modifed T24RDHW_LoopPipeSize table w/ ACM AppB Table B-6 (dev #943),,,
+;,Last modified:,,08/26/26 - SAC - updated T24RDHW_LoopPipeSize table 2025+ Branch pipe diam from 1.5 (old value) to 0.75 for consistency w/ ACM AppB (dev #943),,,
+;,,,08/12/26 - SAC - modifed T24RDHW_LoopPipeSize table w/ ACM AppB Table B-6 (dev #943),,,
 ;,,,08/01/26 - SAC - added T24MFDHW_CHPWH_MMVCorrectionFactor table (dev #942),,,
 ;,,,,,,
 ;,Source Data:,,Residential ACM (Alternative Calculation Method),,,
@@ -28,7 +29,7 @@
 ,,<2024,*,<101,*,3.5
 ,,<2024,*,<145,*,4
 ,,<2024,*,<198,*,5
-,,*,*,<5,0,1.5
+,,*,*,<5,0,0.75
 ,,*,0,<5,1,1
 ,,*,0,<5,2,0.75
 ,,*,0,<5,3,0.75
