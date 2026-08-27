@@ -3850,7 +3850,7 @@ END
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_North_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
-   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "NORTH"  }
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "North"  }
 
    ; moved down into 'NRCC_North_nrccC22Result1_StandardDesign_Results' rulelist
    ;"Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1Std[1]  }
@@ -3862,21 +3862,21 @@ END
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_East_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
-   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "EAST"  }
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "East"  }
 
 END
 ;******************************************************************************
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_South_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
-   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "SOUTH"  }
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "South"  }
 
 END
 ;******************************************************************************
 ;*********** RJH 8/12/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_West_nrccC22Result1_StandardDesign"  1 0 0 1
   ; Populate nrccC22Result1_StandardDesign object
-   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "WEST"  }
+   "Set nrccC22Result1_StandardDesign:attrib_StandardAttribute1"  nrccC22Result1_StandardDesign:attrib_StandardAttribute1  = {  "West"  }
 
 END
 ;******************************************************************************
@@ -3884,75 +3884,75 @@ END
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_North_nrccC22Result1_ProposedDesign"  1 0 0 1
   ; Populate nrccC22Result1_ProposedDesign object
-   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "NORTH"  }
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "North"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_East_nrccC22Result1_ProposedDesign"  1 0 0 1
   ; Populate nrccC22Result1_ProposedDesign object
-   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "EAST"  }
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "East"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_South_nrccC22Result1_ProposedDesign"  1 0 0 1
   ; Populate nrccC22Result1_ProposedDesign object
-   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "SOUTH"  }
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "South"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_West_nrccC22Result1_ProposedDesign"  1 0 0 1
   ; Populate nrccC22Result1_ProposedDesign object
-   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "WEST"  }
+   "Set nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1"  nrccC22Result1_ProposedDesign:attrib_ProposedAttribute1  = {  "West"  }
 END
 ;******************************************************************************
 
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_North_nrccC22Result1_ComplianceMargin"  1 0 0 1
   ; Populate nrccC22Result1_ComplianceMargin object
-   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "NORTH"  }
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "North"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_East_nrccC22Result1_ComplianceMargin"  1 0 0 1
   ; Populate nrccC22Result1_ComplianceMargin object
-   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "EAST"  }
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "East"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_South_nrccC22Result1_ComplianceMargin"  1 0 0 1
   ; Populate nrccC22Result1_ComplianceMargin object
-   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "SOUTH"  }
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "South"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_West_nrccC22Result1_ComplianceMargin"  1 0 0 1
   ; Populate nrccC22Result1_ComplianceMargin object
-   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "WEST"  }
+   "Set nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1"  nrccC22Result1_ComplianceMargin:attrib_ComplianceAttribute1  = {  "West"  }
 END
 ;******************************************************************************
 
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_North_nrccC22Result1_ResultsByOrientation"  1 0 0 1
   ; Populate nrccC22Result1_ResultsByOrientation object
-   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "NORTH"  }
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "North"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_East_nrccC22Result1_ResultsByOrientation"  1 0 0 1
   ; Populate nrccC22Result1_ResultsByOrientation object
-   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "EAST"  }
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "East"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_South_nrccC22Result1_ResultsByOrientation"  1 0 0 1
   ; Populate nrccC22Result1_ResultsByOrientation object
-   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "SOUTH"  }
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "South"  }
 END
 ;******************************************************************************
 ;*********** RJH 8/14/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
 RULELIST "NRCC_West_nrccC22Result1_ResultsByOrientation"  1 0 0 1
   ; Populate nrccC22Result1_ResultsByOrientation object
-   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "WEST"  }
+   "Set nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1"  nrccC22Result1_ResultsByOrientation:attrib_ResultAttribute1  = {  "West"  }
 END
 ;******************************************************************************
 
