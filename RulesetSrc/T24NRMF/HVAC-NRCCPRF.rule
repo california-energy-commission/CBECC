@@ -2695,7 +2695,8 @@ RULE nrcctblRowHvacCommonMF:HvacCommonMF07_HeatPumpHeatCapacity47F
               then UNDEFINED
               else if (noXMLoutput_ResHVACSysRef:Type == "Central Heating and Cooling System")
                    then if (noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:Type == "Variable refrigerant flow")
-                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HPSysCap47 ) )
+;                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HPSysCap47 ) )
+                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:HtgCapTotNetRtd ) )  ; RJH 8/28/26 2025-CBECC-Schema Issue 84
                         else if (noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:Type == "Water source heat pump")
                              then UNDEFINED
                              else UNDEFINED
