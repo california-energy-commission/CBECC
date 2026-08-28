@@ -4036,29 +4036,29 @@ RULELIST "NRCC_West_nrccC22Result1_ComplianceMargin_Results"  1 0 0 1
 END
 ;******************************************************************************
 
-;*********** RJH 8/14/26 2025-CBECC-Schema Issue 64 - Multi-Orientation Pass Fail results *****************************************
+;*********** RJH 8/14/26 2025-CBECC-Schema Issue 64 - Multi-Orientation Pass Fail results - updated 8/28/26 *****************************************
 RULELIST "NRCC_North_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
   "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[1]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[1]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[1]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2PsFl[1]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3PsFl[1]  }
 END
 ;******************************************************************************
 RULELIST "NRCC_East_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
   "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[2]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[2]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[2]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2PsFl[2]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3PsFl[2]  }
 END
 ;******************************************************************************
 RULELIST "NRCC_South_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
   "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[3]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[3]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[3]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2PsFl[3]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3PsFl[3]  }
 END
 ;******************************************************************************
 RULELIST "NRCC_West_nrccC22Result1_ResultsByOrientation_Results"  1 0 0 1
   "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency" nrccC22Result1_ResultsByOrientation:C22Result1_PassFailEfficiency = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
-  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric1PsFl[4]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal"      nrccC22Result1_ResultsByOrientation:C22Result1_PassFailTotal      = {  Proj:EUseSummaryRef[1]:OrientMetric2PsFl[4]  }
+  "Set nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource"     nrccC22Result1_ResultsByOrientation:C22Result1_PassFailSource     = {  Proj:EUseSummaryRef[1]:OrientMetric3PsFl[4]  }
 END
 ;******************************************************************************
 
