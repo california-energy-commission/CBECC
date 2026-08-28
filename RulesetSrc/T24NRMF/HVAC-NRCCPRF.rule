@@ -1364,6 +1364,12 @@ RULE nrcctblRowHvacdwell:Hvacdwell10a_HeatPumpBackupFuel
     else UNDEFINED
     endif
 ENDRULE
+; RJH 8/27/26 2025-CBECC-Schema Issue 42
+RULE nrcctblRowHvacdwell:Hvacdwell10a_NotApplicableMessage
+  ANNUAL_PROPOSED
+    if (LocalStatus( Hvacdwell10a_HeatPumpBackupFuel ) > 0)
+    then  UNDEFINED  else  "NotApplicable"  endif
+ENDRULE
 
 RULE nrcctblRowHvacdwell:Hvacdwell11_NotApplicableMessage
   ANNUAL_PROPOSED
