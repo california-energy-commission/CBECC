@@ -74,7 +74,7 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
 
 ; Create sub-element Info10_BuildingType for 250300 and NOT-MFam projects - RJH 8/20/26 2025-CBECC-Schema Issue 64
    "Create nrccInfo10_BuildingType object"
-      nrccSection_Info:Action = {   if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0))
+      nrccSection_Info:Action = {   if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 )) ; RJH 9/2/26 2025-CBECC-Schema Issue 64 - remove filter for Proj:IsHighRiseMFam
                                     then CreateChildren( nrccInfo10_BuildingType,    1, "NRCC Info BldgType" ) 
                                     else UNCHANGED
                                     endif }
@@ -4278,7 +4278,7 @@ RULELIST "NRCCPRF_ap_PostSim"  1 0 0 1
       {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref ) > 0 .OR.
              ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
              (IfValidAnd( ClgUnmetLdHrs <= ClgUMLHLimit ) .AND.
-              IfValidAnd( HtgUnmetLdHrs <= HtgUMLHLimit )) ) 
+              IfValidAnd( HtgUnmetLdHrs <= HtgUMLHLimit )) .OR. (IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10))    ; RJH 9/2/26 2025-CBECC-Schema Issue 64
          then UNDEFINED
          else if ( (IfValidAnd( ClgUnmetLdHrs > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit = 0 )) .OR.
                    (IfValidAnd( HtgUnmetLdHrs > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit = 0 )) )
@@ -4296,7 +4296,7 @@ RULELIST "NRCCPRF_ap_PostSim"  1 0 0 1
 
   ; Rule to Delete empty nrccSection_C22Result9
    "DELETE empty nrccTableUMLHC22 object"
-      nrccSection_C22Result9:Action   = {  if (ComponentCount( nrcctblRowUMLHC22 ) < 1) then  DeleteComp()  else  UNCHANGED  endif }
+      nrccSection_C22Result9:Action   = {  if (ComponentCount( nrcctblRowUMLHC22 ) < 1 .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) then  DeleteComp()  else  UNCHANGED  endif } ; RJH 9/2/26 2025-CBECC-Schema Issue 64
 
 
   ; Rule to Delete empty nrccSection_Except
