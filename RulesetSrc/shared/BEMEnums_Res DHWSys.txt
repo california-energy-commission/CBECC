@@ -3260,12 +3260,12 @@
 2,            369,    "State SHPA-125-*-***C****  (26kW cap @ 40F)"
 2,            370,    "State SHPA-185-*-***C****  (40kW cap @ 40F)"
 2,            371,    "State SHPA-250-*-***C****  (45kW cap @ 40F)"
-; 2,            121,    "Rheem RMHPHDA068VD  (MP, 17kW cap @ 40F)"        ; commented out until CSE sim available - SAC 08/03/26 (dev #965)
-; 2,            122,    "Rheem RMHPHDA120VD  (MP, 28kW cap @ 40F)"
-; 2,            221,    "Raypack RMHPHDA068VD  (MP, 17kW cap @ 40F)"
-; 2,            222,    "Raypack RMHPHDA120VD  (MP, 28kW cap @ 40F)"
-; 2,            321,    "Ruud RMHPHDA068VD  (MP, 17kW cap @ 40F)"
-; 2,            322,    "Ruud RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            121,    "Rheem RMHPHDA068VD  (MP, 17kW cap @ 40F)"        ; commented out until CSE sim available - SAC 08/03/26 (dev #965)  ; restored - SAC 09/02/26 (dev #965)
+2,            122,    "Rheem RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            221,    "Raypack RMHPHDA068VD  (MP, 17kW cap @ 40F)"
+2,            222,    "Raypack RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            321,    "Ruud RMHPHDA068VD  (MP, 17kW cap @ 40F)"
+2,            322,    "Ruud RMHPHDA120VD  (MP, 28kW cap @ 40F)"
 2,            411,    "Ice Air ccHPWH275  (MP 70kW cap @ 40F)"       ; SAC 03/05/26 (dev #736)
 2,            412,    "Ice Air ccHPWH550  (MP 140kW cap @ 40F)"
 2,             77,    "Colmac CxV-5  (MP, 14kW cap @ 40F)"      ; multi pass additions - SAC 01/17/22
@@ -3418,12 +3418,12 @@
 2,             86,    "Rheem HPHD-135VNU (vertical MP, 30kW cap @ 45F)"
 1,    ResDHWSys:CHPWHSysDescrip,   3,   0   ; Multi Pass Primary
 2,              0,    "- select CHPWH type -"
-; 2,            121,    "Rheem RMHPHDA068VD  (MP, 17kW cap @ 40F)"        ; commented out until CSE sim available - SAC 08/03/26 (dev #965)
-; 2,            122,    "Rheem RMHPHDA120VD  (MP, 28kW cap @ 40F)"
-; 2,            221,    "Raypack RMHPHDA068VD  (MP, 17kW cap @ 40F)"
-; 2,            222,    "Raypack RMHPHDA120VD  (MP, 28kW cap @ 40F)"
-; 2,            321,    "Ruud RMHPHDA068VD  (MP, 17kW cap @ 40F)"
-; 2,            322,    "Ruud RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            121,    "Rheem RMHPHDA068VD  (MP, 17kW cap @ 40F)"        ; commented out until CSE sim available - SAC 08/03/26 (dev #965)  ; restored - SAC 09/02/26 (dev #965)
+2,            122,    "Rheem RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            221,    "Raypack RMHPHDA068VD  (MP, 17kW cap @ 40F)"
+2,            222,    "Raypack RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            321,    "Ruud RMHPHDA068VD  (MP, 17kW cap @ 40F)"
+2,            322,    "Ruud RMHPHDA120VD  (MP, 28kW cap @ 40F)"
 2,            411,    "Ice Air ccHPWH275  (MP 70kW cap @ 40F)"       ; SAC 03/05/26 (dev #736)
 2,            412,    "Ice Air ccHPWH550  (MP 140kW cap @ 40F)"
 2,             77,    "Colmac CxV-5  (MP, 14kW cap @ 40F)"      ; multi pass additions - SAC 01/17/22
@@ -3649,12 +3649,12 @@
 2,             86,    "Rheem HPHD-135VNU (vertical MP, 30kW cap @ 45F)"
 1,    ResDHWSys:CHPWHLoopTankType,  11,   0   ; Multi Pass Primary
 2,              0,    "- select CHPWH type -"
-; 2,            121,    "Rheem RMHPHDA068VD  (MP, 17kW cap @ 40F)"        ; commented out until CSE sim available - SAC 08/03/26 (dev #965)
-; 2,            122,    "Rheem RMHPHDA120VD  (MP, 28kW cap @ 40F)"
-; 2,            221,    "Raypack RMHPHDA068VD  (MP, 17kW cap @ 40F)"
-; 2,            222,    "Raypack RMHPHDA120VD  (MP, 28kW cap @ 40F)"
-; 2,            321,    "Ruud RMHPHDA068VD  (MP, 17kW cap @ 40F)"
-; 2,            322,    "Ruud RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            121,    "Rheem RMHPHDA068VD  (MP, 17kW cap @ 40F)"        ; commented out until CSE sim available - SAC 08/03/26 (dev #965)  ; restored - SAC 09/02/26 (dev #965)
+2,            122,    "Rheem RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            221,    "Raypack RMHPHDA068VD  (MP, 17kW cap @ 40F)"
+2,            222,    "Raypack RMHPHDA120VD  (MP, 28kW cap @ 40F)"
+2,            321,    "Ruud RMHPHDA068VD  (MP, 17kW cap @ 40F)"
+2,            322,    "Ruud RMHPHDA120VD  (MP, 28kW cap @ 40F)"
 2,            411,    "Ice Air ccHPWH275  (MP 70kW cap @ 40F)"       ; SAC 03/05/26 (dev #736)
 2,            412,    "Ice Air ccHPWH550  (MP 140kW cap @ 40F)"
 2,             77,    "Colmac CxV-5  (MP, 14kW cap @ 40F)"      ; multi pass additions - SAC 01/17/22
