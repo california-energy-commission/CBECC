@@ -47,6 +47,9 @@ Not mirrored to public repo. These directories in each of the core directories a
 
 **TODO: A workflow/wiki page should be created to track and manage these files.**
 
+### `batch-run-sets`
+Top-level directory under each year (currently `Projects/2025/batch-run-sets`). Contains CBECC batch run-set definition files (`.csv` / `.xlsx`) distributed with the installer. These are packaged with the release; see `Projects/release-package.json`.
+
 ### `README.md` Files
 Add README files as needed to any directory if there is specific information to know about models in that directory.
 

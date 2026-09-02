@@ -22,3 +22,7 @@
 !test-sets.json
 
 !*/multi-family/contains-nonres-elements.json
+
+# batch-run-sets: CSV/XLSX run-set definitions shipped with the installer
+!**/batch-run-sets/*.csv
+!**/batch-run-sets/*.xlsx
