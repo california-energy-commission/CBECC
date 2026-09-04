@@ -10790,13 +10790,10 @@ END
 ; add rulelist to force setup of HtPump system even if current system HP - for 2025 PM model equipment - SAC 03/12/25 (tic #1379)  ; ported to MF - SAC 04/14/25
 ;*************************************************************************
 RULELIST "Setup_HVACSys_SplitHeatPumpPM"       1 0 1 1
-  "set ResHVACSys:Type to HP"                    ResHVACSys:Type                  = {  2  }
-  "set ResHVACSys:NumHtPumpSystemTypes to 1"     ResHVACSys:NumHtPumpSystemTypes  = {  1  }
-  "set ResHVACSys:HtPumpSystemCount to 1"        ResHVACSys:HtPumpSystemCount     = {  NumDUsServed  }    ; switched from 1 to NumDUsServed (which also includes # ResOtherZns served) - SAC 04/29/25
-  "set ResHVACSys:HtPumpSystem[1] from library"  ResHVACSys:HtPumpSystem[1]       = {  RuleLibrary( HVACHtPump, "t24-SplitHeatPumpPM", 1 )  }
-  ;"set ResHVACSys:HtPumpSysType"                 ResHVACSys:HtPumpSysType         = {  HtPumpSystem[1]:Type  }    ; added setting of HtPumpSysType & HtPumpSysTypeAbbrev to prevent rule eval errors during defaulting - SAC 09/10/26 (dev #1086)
-  ;"set ResHVACSys:HtPumpSysTypeAbbrev"           ResHVACSys:HtPumpSysTypeAbbrev   = {  "SplitHeatPump"  }
-  ;"default ResHVACSys HtPump properties"         ResHVACSys:Action		            = {  EvalRulelist( "SetupHVACSys_Round1_HeatPump", 1 )  }   ; replaced setting of HtPumpSysType w/ eval of defaulting rules - SAC 09/11/26 (dev #1086)
+   "set HVACSys:Type to HP"                     HVACSys:Type                  = {  2  }
+   "set HVACSys:NumHtPumpSystemTypes to 1"      HVACSys:NumHtPumpSystemTypes  = {  1  }
+   "set HVACSys:HtPumpSystemCount to 1"         HVACSys:HtPumpSystemCount     = {  NumDUsServed  }    ; switched from 1 to NumDUsServed (which also includes # ResOtherZns served) - SAC 04/29/25
+   "set HVACSys:HtPumpSystem[1] from library"   HVACSys:HtPumpSystem[1]       = {  RuleLibrary( HVACHtPump, "t24-SplitHeatPumpPM", 1 )  }
 END
 
 ; SAC 12/5/13 - replaced individual equipment-based HVACHtPump budget conversion mechanism (above) w/ following that sets data directly to the HVACSys object(s)
