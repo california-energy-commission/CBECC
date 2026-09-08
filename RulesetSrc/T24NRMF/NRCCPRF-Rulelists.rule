@@ -112,15 +112,15 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
    "Create nrccSection_C22Result1 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result1,    1, "NRCC C22Result1" ) else UNDEFINED endif  }
 
-   ; RJH 8/9/26 2025-CBECC-Schema Issue 64 - added new Single and Multiple Orientation schema sections for >= 250300 and NRCC only
+   ; RJH 8/9/26 2025-CBECC-Schema Issue 64 - added new Single and Multiple Orientation schema sections for >= 250300 and NRCC only - RJH 9/8/26 Remove exclusion of Proj:IsHighRiseMFam since it outputs NRCC
    "Create nrccC22Result1_SingleOrientation object"   nrccSection_C22Result1:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) 
          then CreateChildren( nrccC22Result1_SingleOrientation, 1, "C22Result1_SingleOrientation" )
          else UNCHANGED 
          endif }
 
    "Create nrccC22Result1_MultipleOrientations object"   nrccSection_C22Result1:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
          then CreateChildren( nrccC22Result1_MultipleOrientations, 1, "C22Result1_MultipleOrientations" )
          else UNCHANGED 
          endif }
@@ -215,9 +215,9 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
    "Create nrccSection_C22Result8 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result8,    1, "NRCC C22Result8" ) else UNDEFINED endif  }
 
-   ; RJH 8/15/26 2025-CBECC-Schema Issue 64 - Create new Single and Multiple Orientation schema sections for >= 250300 and NRCC only
+   ; RJH 8/15/26 2025-CBECC-Schema Issue 64 - Create new Single and Multiple Orientation schema sections for >= 250300 and NRCC only - RJH 9/8/26 Remove exclusion of Proj:IsHighRiseMFam since it outputs NRCC
    "Create nrccSingleOrientationEUI object"   nrccSection_C22Result8:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) 
          then CreateChildren( nrccSingleOrientationEUI, 1, "SingleOrientationEUI" )
          else UNCHANGED 
          endif }
@@ -225,25 +225,25 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
    ; RJH 8/15/26 2025-CBECC-Schema Issue 64 - Create Multiple Orientation sections for >= 250300 and NRCC only
   ; Create NORTH (0) nrccMultipleOrientationEUI object
    "Create & initialize NORTH nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
          then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_North_nrccMultipleOrientationEUI" )
          else UNCHANGED 
          endif }
   ; Create EAST (90) nrccMultipleOrientationEUI object
    "Create & initialize EAST nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
          then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_East_nrccMultipleOrientationEUI" )
          else UNCHANGED 
          endif }
   ; Create SOUTH (180) nrccMultipleOrientationEUI object
    "Create & initialize SOUTH nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
          then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_South_nrccMultipleOrientationEUI" )
          else UNCHANGED 
          endif }
   ; Create WEST (270) nrccMultipleOrientationEUI object
    "Create & initialize WEST nrccMultipleOrientationEUI object"   nrccSection_C22Result8:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
          then CreateChildren( nrccMultipleOrientationEUI, 1, "MultipleOrientationEUI", "NRCC_West_nrccMultipleOrientationEUI" )
          else UNCHANGED 
          endif }
@@ -254,15 +254,14 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
 
    ; RJH 8/21/26 2025-CBECC-Schema Issue 64 - create backward compatible schema sections for < 250300 and ALL LMCC
    "Create nrccSection_C22Result9 nrccTableUMLHC22 object"  nrccSection_C22Result9:Action  =
-      {  if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1)) 
+      {  if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 )) 
          then CreateChildren( nrccTableUMLHC22, 1, "NRCC UMLHC22 table" )
          else UNCHANGED 
          endif }
 
    ; RJH 8/21/26 2025-CBECC-Schema Issue 64 - add new Single Orientation schema sections for >= 250300 and NRCC only
-   ; For 250300 release ONLY implement Single Orientation (Multiple Orientation to be implemented later)
    "Create nrccC22Result9_SingleOrientation object"   nrccSection_C22Result9:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) 
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. (IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)) 
          then CreateChildren( nrccC22Result9_SingleOrientation, 1, "C22Result9_SingleOrientation" )
          else UNCHANGED 
          endif }

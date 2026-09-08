@@ -98,7 +98,7 @@ ENDRULE
 ; RJH 8/26/26 2025-CBECC-Schema Issue 80
 RULE nrccSection_Info:Info09_Azimuth
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:IsHighRiseMFam == 1) .OR. IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 ) .OR. IfValidAnd(Proj:MultiOrientation == 0) .OR. EnumValue(Proj:FacilityType) < 10)
     then atof( Format( "%.2f", Bldg:BldgAz ) )
     else UNDEFINED
     endif
@@ -107,7 +107,7 @@ ENDRULE
 ; RJH 8/26/26 2025-CBECC-Schema Issue 80
 RULE nrccSection_Info:Info09_AzimuthString
   ANNUAL_PROPOSED
-    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:IsHighRiseMFam == 0) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10)
+    if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10)
     then "0/90/180/270"
     else UNDEFINED
     endif 
@@ -888,7 +888,7 @@ ENDRULE
 ; Standard Design
 RULE nrccSection_C22Result1:C22Result1_StandardDesignEfficiency
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[7] ) > 0)
           then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[7] )
           else  UNDEFINED  endif
@@ -897,7 +897,7 @@ RULE nrccSection_C22Result1:C22Result1_StandardDesignEfficiency
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1_StandardDesignTotal
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -911,7 +911,7 @@ RULE nrccSection_C22Result1:C22Result1_StandardDesignTotal
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1a_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_StandardDesignTotal ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -920,7 +920,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_StandardDesignSource
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
           then UNDEFINED
@@ -933,7 +933,7 @@ RULE nrccSection_C22Result1:C22Result1_StandardDesignSource
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1b_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_StandardDesignSource ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -961,7 +961,7 @@ ENDRULE
 ; Proposed Design
 RULE nrccSection_C22Result1:C22Result1_ProposedDesignEfficiency
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[4] ) > 0)
           then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[4] )
           else  UNDEFINED  endif
@@ -971,7 +971,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_ProposedDesignTotal
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -985,7 +985,7 @@ RULE nrccSection_C22Result1:C22Result1_ProposedDesignTotal
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1c_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_ProposedDesignTotal ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -994,7 +994,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_ProposedDesignSource
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
           then UNDEFINED
@@ -1007,7 +1007,7 @@ RULE nrccSection_C22Result1:C22Result1_ProposedDesignSource
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1d_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_ProposedDesignSource ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -1035,7 +1035,7 @@ ENDRULE
 ; Compliance Margins
 RULE nrccSection_C22Result1:C22Result1_ComplianceMarginEfficiency
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (GlobalStatus( Proj:EUseSummaryRef[1]:Enduse16[8] ) > 0)
           then  StrToFlt( Proj:EUseSummaryRef[1]:Enduse16[8] )
           else  UNDEFINED  endif
@@ -1045,7 +1045,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_ComplianceMarginTotal
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -1059,7 +1059,7 @@ RULE nrccSection_C22Result1:C22Result1_ComplianceMarginTotal
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1e_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_ComplianceMarginTotal ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -1068,7 +1068,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_ComplianceMarginSource
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
           then UNDEFINED
@@ -1081,7 +1081,7 @@ RULE nrccSection_C22Result1:C22Result1_ComplianceMarginSource
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1f_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_ComplianceMarginSource ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -1109,7 +1109,7 @@ ENDRULE
 ; Pass/Fail
 RULE nrccSection_C22Result1:C22Result1_PassFailEfficiency
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (GlobalStatus( Proj:EUseSummaryRef[1]:MetricPassFail[1] ) > 0)
           then  Proj:EUseSummaryRef[1]:MetricPassFail[1]
           else  UNDEFINED  endif
@@ -1119,7 +1119,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_PassFailTotal
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 11 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: AdditionComplete (CompType 11) and Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 11                                 ; Multifamily/Mixed-Use Project: AdditionComplete (ResCompType 11)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
@@ -1133,7 +1133,7 @@ RULE nrccSection_C22Result1:C22Result1_PassFailTotal
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1g_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_PassFailTotal ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -1142,7 +1142,7 @@ ENDRULE
 
 RULE nrccSection_C22Result1:C22Result1_PassFailSource
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if ( (enumvalue(Proj:CompType) >= 12 .AND. enumvalue(Proj:CompType) <= 22) ; RJH 20230702 Nonresidential Project: Other EAA compliance scopes (CompType 12-22)
               .OR. enumvalue(Proj:ResCompType) = 22 )                               ; Multifamily/mixed-use Project: ExistingAdditionAndAlteration (ResCompType 22)
           then UNDEFINED
@@ -1155,7 +1155,7 @@ RULE nrccSection_C22Result1:C22Result1_PassFailSource
 ENDRULE
 RULE nrccSection_C22Result1:C22Result1h_NotApplicableMessage
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (LocalStatus( C22Result1_PassFailSource ) > 0)
           then  UNDEFINED  else  "n/a"  endif
     else UNDEFINED
@@ -3836,12 +3836,12 @@ RULE nrccSingleOrientationEUI:C22Result8NEui4_MarginPctNetEUI
 ENDRULE
 
 
-; RJH 8/15/26 2025-CBECC-Schema Issue 64 - backward compatible XML output for pre-250300 AND all LMCC
+; RJH 8/15/26 2025-CBECC-Schema Issue 64 - backward compatible XML output for pre-250300 AND all LMCC - RJH 9/8/26 Remove exclusion of Proj:IsHighRiseMFam since it outputs NRCC
 
 ; RJH 9/7/22 Changed EUI calculation to ADD PV and Flex values (by substracting always negative values) rather than SUBTRACT them
 RULE nrccSection_C22Result8:C22Result8GEui1_StandardDesignGrossEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (Bldg:TotFlrArea != 0)
           then atof( Format( "%.2f", (((noXMLoutput_EnergySumStandard - noXMLoutput_PV1_EnergySumStandard - noXMLoutput_Flex1_EnergySumStandard) * 3412) + (noXMLoutput_EnergySumStandardMBtu * 1000)) / Bldg:TotFlrArea ) )
           else 0
@@ -3853,7 +3853,7 @@ ENDRULE
 ; RJH 9/7/22 Changed EUI calculation to ADD PV and Flex values (by substracting always negative values) rather than SUBTRACT them
 RULE nrccSection_C22Result8:C22Result8GEui2_ProposedDesignGrossEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (Bldg:TotFlrArea != 0)
           then atof( Format( "%.2f", (((noXMLoutput_EnergySumProposed - noXMLoutput_PV1_EnergySumProposed - noXMLoutput_Flex1_EnergySumProposed) * 3412) + (noXMLoutput_EnergySumProposedMBtu * 1000)) / Bldg:TotFlrArea ) )
           else 0
@@ -3864,7 +3864,7 @@ ENDRULE
 
 RULE nrccSection_C22Result8:C22Result8GEui3_MarginGrossEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI
     else UNDEFINED
     endif
@@ -3872,7 +3872,7 @@ ENDRULE
 
 RULE nrccSection_C22Result8:C22Result8GEui4_MarginPctGrossEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (C22Result8GEui1_StandardDesignGrossEUI != 0)
           then atof( Format( "%.2f", ((C22Result8GEui1_StandardDesignGrossEUI - C22Result8GEui2_ProposedDesignGrossEUI) / C22Result8GEui1_StandardDesignGrossEUI) * 100 ) )
           else 0
@@ -3883,7 +3883,7 @@ ENDRULE
 
 RULE nrccSection_C22Result8:C22Result8NEui1_StandardDesignNetEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (Bldg:TotFlrArea != 0)
           then atof( Format( "%.2f", ((noXMLoutput_EnergySumStandard * 3412) + (noXMLoutput_EnergySumStandardMBtu * 1000)) / Bldg:TotFlrArea ) )
           else 0
@@ -3894,7 +3894,7 @@ ENDRULE
 
 RULE nrccSection_C22Result8:C22Result8NEui2_ProposedDesignNetEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (Bldg:TotFlrArea != 0)
           then atof( Format( "%.2f", ((noXMLoutput_EnergySumProposed * 3412) + (noXMLoutput_EnergySumProposedMBtu * 1000)) / Bldg:TotFlrArea ) )
           else 0
@@ -3905,7 +3905,7 @@ ENDRULE
 
 RULE nrccSection_C22Result8:C22Result8NEui3_MarginNetEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI
     else UNDEFINED
     endif
@@ -3913,7 +3913,7 @@ ENDRULE
 
 RULE nrccSection_C22Result8:C22Result8NEui4_MarginPctNetEUI
   NRCCPRF
-    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ) .OR. IfValidAnd(Proj:IsHighRiseMFam > 0))
+    if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam > 0 ))
     then  if (C22Result8NEui1_StandardDesignNetEUI != 0)
           then atof( Format( "%.2f", ((C22Result8NEui1_StandardDesignNetEUI - C22Result8NEui2_ProposedDesignNetEUI) / C22Result8NEui1_StandardDesignNetEUI) * 100 ) )
           else 0
