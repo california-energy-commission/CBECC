@@ -269,6 +269,41 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
       {  CreateChildren( nrccTableUMLHC22, 1, "SingleOrientation NRCC UMLHC22 table" )  }
 
 
+
+
+
+
+   ; RJH 9/9/26 2025-CBECC-Schema Issue 64 - Create Multiple Orientation sections for >= 250300 and NRCC only
+   "Create & initialize NorthFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_North_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Create & initialize EastFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_East_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Create & initialize SouthFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_South_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Create & initialize WestFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_West_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+
+
+
+
+
+
+
+
+
+
    "Create nrccSection_Result1 object"
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion < 220000) then CreateChildren( nrccSection_Result1,    1, "NRCC Result1" ) else UNDEFINED endif  }
 
@@ -4238,6 +4273,79 @@ END
 ;  "Set nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency" nrccC22Result1_StandardDesign:C22Result1_StandardDesignEfficiency = {  StrToFlt( Proj:EUseSummaryRef[1]:OrientMetric1Std[1] )  }
 ;END
 
+
+
+
+
+
+;*********** RJH 9/9/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_North_nrccC22Result9_MultipleOrientationUmlh"  1 0 0 1
+  ; Initialize nrccC22Result9_MultipleOrientationUmlh object
+   "Set nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1"  nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1  = {  "NorthFacing"  }
+END
+;*********** RJH 9/9/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_East_nrccC22Result9_MultipleOrientationUmlh"  1 0 0 1
+  ; Initialize nrccC22Result9_MultipleOrientationUmlh object
+   "Set nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1"  nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1  = {  "EastFacing"  }
+END
+;*********** RJH 9/9/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_South_nrccC22Result9_MultipleOrientationUmlh"  1 0 0 1
+  ; Initialize nrccC22Result9_MultipleOrientationUmlh object
+   "Set nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1"  nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1  = {  "SouthFacing"  }
+END
+;*********** RJH 9/9/26 - 2025-CBECC-Schema Issue 64 *******************************************************************
+RULELIST "NRCC_West_nrccC22Result9_MultipleOrientationUmlh"  1 0 0 1
+  ; Initialize nrccC22Result9_MultipleOrientationUmlh object
+   "Set nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1"  nrccC22Result9_MultipleOrientationUmlh:attrib_UmlhAttribute1  = {  "WestFacing"  }
+END
+
+;*********** RJH 9/9/26 2025-CBECC-Schema Issue 64 - Multi-Orientation results *****************************************
+RULELIST "NRCC_North_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
+   "Create nrccC22Result9_MultipleOrientationUmlh nrccTableUMLHC22 object" nrccC22Result9_MultipleOrientationUmlh:Action  =
+      {  CreateChildren( nrccTableUMLHC22, 1, "North MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+
+  ; Create nrccSection_C22Result9 nrccC22Result9_MultipleOrientationUmlh nrcctblRowUMLHC22 objects
+;   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"     ThrmlZn:nrcctblRowUMLHC22Ref =
+;      {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref ) > 0 .OR.
+;             ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
+;             (IfValidAnd( ClgUnmetLdHrs[2] <= ClgUMLHLimit ) .AND.
+;              IfValidAnd( HtgUnmetLdHrs[2] <= HtgUMLHLimit )))
+;         then UNDEFINED
+;         else if ( (IfValidAnd( ClgUnmetLdHrs[2] > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit = 0 )) .OR.
+;                   (IfValidAnd( HtgUnmetLdHrs[2] > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit = 0 )) )
+;              then CreateComp( nrcctblRowUMLHC22, Format( "%s UMLHC22 tblRow", Name ) )
+;              else UNDEFINED
+;              endif
+;         endif  }
+
+   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"     ThrmlZn:nrcctblRowUMLHC22Ref =
+      {  CreateComp( nrcctblRowUMLHC22, Format( "%s UMLHC22 tblRow", Name ) )
+           }
+
+
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref:noXMLoutput_ThrmlZnRef   = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref:Parent                   = {  nrccTableUMLHC22:Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_01_ThermalZoneName           = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs[2]  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_04_ZoneUnmetHeatingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_04_ZoneUnmetHeatingLoadHours = {  HtgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_05_UnmetHeatingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_05_UnmetHeatingLoadHours     = {  HtgUnmetLdHrs[2]  }
+END
+RULELIST "NRCC_East_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
+;   "Create nrccC22Result9_MultipleOrientationUmlh nrccTableUMLHC22 object" nrccC22Result9_MultipleOrientationUmlh:Action  =
+;      {  CreateChildren( nrccTableUMLHC22, 1, "East MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+
+
+END
+RULELIST "NRCC_North_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
+
+END
+RULELIST "NRCC_South_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
+
+END
+RULELIST "NRCC_West_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
+
+END
 
 
 

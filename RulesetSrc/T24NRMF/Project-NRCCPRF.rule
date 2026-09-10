@@ -4553,26 +4553,21 @@ ENDRULE
 ;    nrccTableUMLHC22:Name
 ;ENDRULE
 
-;RULE nrcctblRowUMLHC22:C22Result9_01_ThermalZoneName
-;  ANNUAL_PROPOSED
-;    noXMLoutput_ThrmlZnRef:Name
-;ENDRULE
-;RULE nrcctblRowUMLHC22:C22Result9_02_ZoneUnmetCoolingLoadHours
-;  ANNUAL_PROPOSED
-;    atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:ClgUMLHLimit ) )
-;ENDRULE
-;RULE nrcctblRowUMLHC22:C22Result9_03_UnmetCoolingLoadHours
-;  ANNUAL_PROPOSED
-;    atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:ClgUnmetLdHrs ) )
-;ENDRULE
-;RULE nrcctblRowUMLHC22:C22Result9_04_ZoneUnmetHeatingLoadHours
-;  ANNUAL_PROPOSED
-;    atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:HtgUMLHLimit ) )
-;ENDRULE
-;RULE nrcctblRowUMLHC22:C22Result9_05_UnmetHeatingLoadHours
-;  ANNUAL_PROPOSED
-;    atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:HtgUnmetLdHrs ) )
-;ENDRULE
+
+; 2025-CBECC-Schema Issue 64 - call subordinate rulelists to populate multiple orientation UMLH run results - RJH 9/9/26
+RULE nrccC22Result9_MultipleOrientationUmlh:Action
+  NRCCPRF
+    if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
+    then  switch( attrib_UmlhAttribute1 )
+          case  "NorthFacing" :  EvalRulelist( "NRCC_North_nrccC22Result9_MultipleOrientationUmlh_Results", 1 )
+          case  "EastFacing"  :  EvalRulelist( "NRCC_East_nrccC22Result9_MultipleOrientationUmlh_Results" , 1 )
+          case  "SouthFacing" :  EvalRulelist( "NRCC_South_nrccC22Result9_MultipleOrientationUmlh_Results", 1 )
+          case  "WestFacing"  :  EvalRulelist( "NRCC_West_nrccC22Result9_MultipleOrientationUmlh_Results" , 1 )
+          default       :  UNCHANGED
+          endswitch
+    else  UNCHANGED
+    endif
+ENDRULE
 
 
 
