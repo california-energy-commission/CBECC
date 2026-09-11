@@ -291,3 +291,13 @@ RULE NEW Proj:UtilRateDownloadContainer
 ENDRULE
 ; was:    "30sp2"
 
+; SAC 09/10/26 (dev #713)
+RULE NEW Proj:UtilRateDownloadSector
+  DESCRIPTION
+    "Sector describing project data"
+  INPUTCLASS
+    Prescribed
+  DEFAULT 
+    "MFam"
+ENDRULE
+

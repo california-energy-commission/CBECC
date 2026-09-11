@@ -352,7 +352,7 @@ RULE Proj:ResCompPathLtg
   INPUTCLASS
     NotInput
   DEFAULT
-    if( IfValidAnd( Proj:ResCompOptLtg = 1 ) )
+    if( IfValidAnd( Proj:ResCompOptLtg > 0 ) )
     then
       "Performance"
     else

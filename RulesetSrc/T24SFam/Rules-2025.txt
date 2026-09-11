@@ -331,7 +331,7 @@ RULELIST "Default_CodeVersion" 1 0 0 0
 ;*************************************************************************
 																															; ************************************************************************************
    "Set Proj:DevMode"				Proj:DevMode				= {	1  }									; <<<<----  MODIFY FOR EACH RELEASE  -----  (1 if NON-release version, otherwise 0)
-   "Set Proj:CompMgrVersion"		Proj:CompMgrVersion		= {	Format( "BEMCmpMgr 2025.3.0-RC (%g)", RuleRepoRev )  }	; <<<<----  MODIFY FOR EACH RELEASE  -----  (to reflect release version/build)
+   "Set Proj:CompMgrVersion"		Proj:CompMgrVersion		= {	Format( "BEMCmpMgr 2025.3.0 (%g)", RuleRepoRev )  }	; <<<<----  MODIFY FOR EACH RELEASE  -----  (to reflect release version/build)
                                                                ; NOTE: above needs to be < 43 chars or CSE can throw TDV CSV reading errors
 																															; ************************************************************************************
    "Set Proj:ReleaseNotesURL"		Proj:ReleaseNotesURL		= {	"https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RC"  }	      ; SAC 04/30/26 (dev #847)
@@ -375,7 +375,7 @@ RULELIST "Default_CodeVersion" 1 0 0 0
 
    ; REMOVE following rule to enable report gen for 2025 analysis - SAC 12/01/22  ; compliance reporting re-enabled - SAC 02/26/25
    ;"Set Proj:BypassCompRptMsg"   Proj:BypassCompRptMsg   = {   "compliance report generation not yet available for 2025 analysis"   }
-   "Set Proj:UtilRateDownloadSector"      Proj:UtilRateDownloadSector    = {  "SFam"  }      ; SAC 01/02/25
+   "Set Proj:UtilRateDownloadSector"      Proj:UtilRateDownloadSector    = {  "SFam"  }      ; SAC 01/02/25   ; "Expire" - SAC 09/09/26 (dev #713)
 
 END;*************************************************************************
 
