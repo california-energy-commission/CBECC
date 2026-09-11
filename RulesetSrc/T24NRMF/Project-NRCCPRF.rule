@@ -4528,21 +4528,84 @@ RULE nrccMultipleOrientationEUI:Action
 ENDRULE
 
 
-
-
-
-
-
 ; nrccSection_C22Result9 nrccTableUMLHC22 
+RULE NEW nrccSection_C22Result9:noXMLoutput_TableUMLHC22Ref
+  DATATYPE
+    nrccTableUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW nrccC22Result9_SingleOrientation:noXMLoutput_TableUMLHC22Ref
+  DATATYPE
+    nrccTableUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
 RULE NEW ThrmlZn:nrcctblRowUMLHC22Ref
   DATATYPE
     nrcctblRowUMLHC22
   INPUTCLASS 
     Prescribed
 ENDRULE
+RULE NEW ThrmlZn:nrcctblRowUMLHC22Ref_North
+  DATATYPE
+    nrcctblRowUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW ThrmlZn:nrcctblRowUMLHC22Ref_East
+  DATATYPE
+    nrcctblRowUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW ThrmlZn:nrcctblRowUMLHC22Ref_South
+  DATATYPE
+    nrcctblRowUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW ThrmlZn:nrcctblRowUMLHC22Ref_West
+  DATATYPE
+    nrcctblRowUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+
 RULE NEW nrcctblRowUMLHC22:noXMLoutput_ThrmlZnRef
   DATATYPE
     ThrmlZn
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW nrccC22Result9_MultipleOrientationUmlh:noXMLoutput_UMLHTable
+  DATATYPE
+    nrccTableUMLHC22
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+
+RULE NEW nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North
+  DATATYPE
+    nrccC22Result9_MultipleOrientationUmlh
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East
+  DATATYPE
+    nrccC22Result9_MultipleOrientationUmlh
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South
+  DATATYPE
+    nrccC22Result9_MultipleOrientationUmlh
+  INPUTCLASS 
+    Prescribed
+ENDRULE
+RULE NEW nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West
+  DATATYPE
+    nrccC22Result9_MultipleOrientationUmlh
   INPUTCLASS 
     Prescribed
 ENDRULE
@@ -4553,25 +4616,14 @@ ENDRULE
 ;    nrccTableUMLHC22:Name
 ;ENDRULE
 
-
-; 2025-CBECC-Schema Issue 64 - call subordinate rulelists to populate multiple orientation UMLH run results - RJH 9/9/26
-RULE nrccC22Result9_MultipleOrientationUmlh:Action
+; 2025-CBECC-Schema Issue 64 - call rulelist to populate multiple orientation UMLH run results - RJH 9/11/26
+RULE nrccSection_C22Result9:Action
   NRCCPRF
     if( EnumValue( Proj:FacilityType ) >= 10 .AND. IfValidAnd( Proj:MultiOrientation > 0 ) )
-    then  switch( attrib_UmlhAttribute1 )
-          case  "NorthFacing" :  EvalRulelist( "NRCC_North_nrccC22Result9_MultipleOrientationUmlh_Results", 1 )
-          case  "EastFacing"  :  EvalRulelist( "NRCC_East_nrccC22Result9_MultipleOrientationUmlh_Results" , 1 )
-          case  "SouthFacing" :  EvalRulelist( "NRCC_South_nrccC22Result9_MultipleOrientationUmlh_Results", 1 )
-          case  "WestFacing"  :  EvalRulelist( "NRCC_West_nrccC22Result9_MultipleOrientationUmlh_Results" , 1 )
-          default       :  UNCHANGED
-          endswitch
+    then  EvalRulelist( "NRCC_nrccC22Result9_MultipleOrientationUmlh_Results" )
     else  UNCHANGED
     endif
 ENDRULE
-
-
-
-
 
 
 ; nrccSection_Result1 

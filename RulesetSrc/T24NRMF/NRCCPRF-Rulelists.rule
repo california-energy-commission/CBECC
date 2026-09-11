@@ -253,11 +253,13 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
       nrccNRCCPRF:Action    = {  if (Proj:AnalysisVersion >= 220000) then CreateChildren( nrccSection_C22Result9,    1, "NRCC C22Result9" ) else UNDEFINED endif  }
 
    ; RJH 8/21/26 2025-CBECC-Schema Issue 64 - create backward compatible schema sections for < 250300 and ALL LMCC
-   "Create nrccSection_C22Result9 nrccTableUMLHC22 object"  nrccSection_C22Result9:Action  =
+   "Create nrccSection_C22Result9 nrccTableUMLHC22 object"  nrccSection_C22Result9:noXMLoutput_TableUMLHC22Ref  =
       {  if (Proj:AnalysisVersion < 250300 .OR. IfValidAnd( Proj:IsLowRiseMFam == 1 )) 
-         then CreateChildren( nrccTableUMLHC22, 1, "NRCC UMLHC22 table" )
+         then CreateComp( nrccTableUMLHC22, "NRCC UMLHC22 table" )
          else UNCHANGED 
          endif }
+
+   "Set nrccSection_C22Result9:noXMLoutput_TableUMLHC22Ref:Parent"  nrccSection_C22Result9:noXMLoutput_TableUMLHC22Ref:Parent  = {  nrccSection_C22Result9:Name  }
 
    ; RJH 8/21/26 2025-CBECC-Schema Issue 64 - add new Single Orientation schema sections for >= 250300 and NRCC only
    "Create nrccC22Result9_SingleOrientation object"   nrccSection_C22Result9:Action =
@@ -265,43 +267,10 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
          then CreateChildren( nrccC22Result9_SingleOrientation, 1, "C22Result9_SingleOrientation" )
          else UNCHANGED 
          endif }
-   "Create nrccC22Result9_SingleOrientation nrccTableUMLHC22 object" nrccC22Result9_SingleOrientation:Action  =
-      {  CreateChildren( nrccTableUMLHC22, 1, "SingleOrientation NRCC UMLHC22 table" )  }
+   "Create nrccC22Result9_SingleOrientation nrccTableUMLHC22 object" nrccC22Result9_SingleOrientation:noXMLoutput_TableUMLHC22Ref  =
+      {  CreateComp( nrccTableUMLHC22, "SingleOrientation NRCC UMLHC22 table" )  }
 
-
-
-
-
-
-   ; RJH 9/9/26 2025-CBECC-Schema Issue 64 - Create Multiple Orientation sections for >= 250300 and NRCC only
-   "Create & initialize NorthFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
-         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_North_nrccC22Result9_MultipleOrientationUmlh" )
-         else UNCHANGED 
-         endif }
-   "Create & initialize EastFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
-         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_East_nrccC22Result9_MultipleOrientationUmlh" )
-         else UNCHANGED 
-         endif }
-   "Create & initialize SouthFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
-         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_South_nrccC22Result9_MultipleOrientationUmlh" )
-         else UNCHANGED 
-         endif }
-   "Create & initialize WestFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:Action =
-      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
-         then CreateChildren( nrccC22Result9_MultipleOrientationUmlh, 1, "C22Result9_MultipleOrientationUmlh", "NRCC_West_nrccC22Result9_MultipleOrientationUmlh" )
-         else UNCHANGED 
-         endif }
-
-
-
-
-
-
-
-
+   "Set nrccC22Result9_SingleOrientation:noXMLoutput_TableUMLHC22Ref:Parent"  nrccC22Result9_SingleOrientation:noXMLoutput_TableUMLHC22Ref:Parent  = {  nrccC22Result9_SingleOrientation:Name  }
 
 
    "Create nrccSection_Result1 object"
@@ -4300,54 +4269,139 @@ RULELIST "NRCC_West_nrccC22Result9_MultipleOrientationUmlh"  1 0 0 1
 END
 
 ;*********** RJH 9/9/26 2025-CBECC-Schema Issue 64 - Multi-Orientation results *****************************************
-RULELIST "NRCC_North_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
-   "Create nrccC22Result9_MultipleOrientationUmlh nrccTableUMLHC22 object" nrccC22Result9_MultipleOrientationUmlh:Action  =
-      {  CreateChildren( nrccTableUMLHC22, 1, "North MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+RULELIST "NRCC_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
+; "store BEMProc details"		Proj:Action = {  StoreBEMProc( "Before MultO", 0 )  }
+
+   ; RJH 9/9/26 2025-CBECC-Schema Issue 64 - Create Multiple Orientation sections for >= 250300 and NRCC only
+   "Create & initialize NorthFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateComp( nrccC22Result9_MultipleOrientationUmlh, "C22Result9_MultipleOrientationUmlh", "NRCC_North_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North:Parent  = {  nrccSection_C22Result9:Name  }
+   "Create & initialize EastFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateComp( nrccC22Result9_MultipleOrientationUmlh, "C22Result9_MultipleOrientationUmlh", "NRCC_East_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East:Parent  = {  nrccSection_C22Result9:Name  }
+   "Create & initialize SouthFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateComp( nrccC22Result9_MultipleOrientationUmlh, "C22Result9_MultipleOrientationUmlh", "NRCC_South_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:Parent  = {  nrccSection_C22Result9:Name  }
+   "Create & initialize WestFacing nrccC22Result9_MultipleOrientationUmlh object"   nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West =
+      {  if (Proj:AnalysisVersion >= 250300 .AND. IfValidAnd( Proj:IsLowRiseMFam == 0 ) .AND. IfValidAnd(Proj:MultiOrientation == 1) .AND. EnumValue(Proj:FacilityType) >= 10) 
+         then CreateComp( nrccC22Result9_MultipleOrientationUmlh, "C22Result9_MultipleOrientationUmlh", "NRCC_West_nrccC22Result9_MultipleOrientationUmlh" )
+         else UNCHANGED 
+         endif }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West:Parent  = {  nrccSection_C22Result9:Name  }
+
+   "Create noXMLoutput_MultiOrientUMLH_North nrccTableUMLHC22 object" nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North:noXMLoutput_UMLHTable  =
+      {  CreateComp( nrccTableUMLHC22, "North MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North:noXMLoutput_UMLHTable:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North:noXMLoutput_UMLHTable:Parent  = {  noXMLoutput_MultiOrientUMLH_North:Name  }
+   "Create noXMLoutput_MultiOrientUMLH_East nrccTableUMLHC22 object" nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East:noXMLoutput_UMLHTable  =
+      {  CreateComp( nrccTableUMLHC22, "East MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East:noXMLoutput_UMLHTable:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East:noXMLoutput_UMLHTable:Parent  = {  noXMLoutput_MultiOrientUMLH_East:Name  }
+   "Create noXMLoutput_MultiOrientUMLH_South nrccTableUMLHC22 object" nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:noXMLoutput_UMLHTable  =
+      {  CreateComp( nrccTableUMLHC22, "South MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:noXMLoutput_UMLHTable:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:noXMLoutput_UMLHTable:Parent  = {  noXMLoutput_MultiOrientUMLH_South:Name  }
+   "Create noXMLoutput_MultiOrientUMLH_West nrccTableUMLHC22 object" nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West:noXMLoutput_UMLHTable  =
+      {  CreateComp( nrccTableUMLHC22, "West MultipleOrientationUmlh NRCC UMLHC22 table" )  }
+   "Set nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West:noXMLoutput_UMLHTable:Parent"  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West:noXMLoutput_UMLHTable:Parent  = {  noXMLoutput_MultiOrientUMLH_West:Name  }
 
   ; Create nrccSection_C22Result9 nrccC22Result9_MultipleOrientationUmlh nrcctblRowUMLHC22 objects
-;   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"     ThrmlZn:nrcctblRowUMLHC22Ref =
-;      {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref ) > 0 .OR.
-;             ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
-;             (IfValidAnd( ClgUnmetLdHrs[2] <= ClgUMLHLimit ) .AND.
-;              IfValidAnd( HtgUnmetLdHrs[2] <= HtgUMLHLimit )))
-;         then UNDEFINED
-;         else if ( (IfValidAnd( ClgUnmetLdHrs[2] > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit = 0 )) .OR.
-;                   (IfValidAnd( HtgUnmetLdHrs[2] > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit = 0 )) )
-;              then CreateComp( nrcctblRowUMLHC22, Format( "%s UMLHC22 tblRow", Name ) )
-;              else UNDEFINED
-;              endif
-;         endif  }
+   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"  ThrmlZn:nrcctblRowUMLHC22Ref_North =
+      {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref_North ) > 0 .OR.
+             ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
+             (IfValidAnd( ClgUnmetLdHrs[2] <= ClgUMLHLimit ) .AND.
+              IfValidAnd( HtgUnmetLdHrs[2] <= HtgUMLHLimit )))
+         then UNDEFINED
+         else if ( (IfValidAnd( ClgUnmetLdHrs[2] > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit_Prop = 0 )) .OR.
+                   (IfValidAnd( HtgUnmetLdHrs[2] > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit_Prop = 0 )) )
+              then CreateComp( nrcctblRowUMLHC22, Format( "%s North UMLHC22 tblRow", Name ) )
+              else UNDEFINED
+              endif
+         endif  }
+   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"  ThrmlZn:nrcctblRowUMLHC22Ref_East =
+      {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref_East ) > 0 .OR.
+             ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
+             (IfValidAnd( ClgUnmetLdHrs[3] <= ClgUMLHLimit ) .AND.
+              IfValidAnd( HtgUnmetLdHrs[3] <= HtgUMLHLimit )))
+         then UNDEFINED
+         else if ( (IfValidAnd( ClgUnmetLdHrs[3] > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit_Prop = 0 )) .OR.
+                   (IfValidAnd( HtgUnmetLdHrs[3] > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit_Prop = 0 )) )
+              then CreateComp( nrcctblRowUMLHC22, Format( "%s East UMLHC22 tblRow", Name ) )
+              else UNDEFINED
+              endif
+         endif  }
+   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"  ThrmlZn:nrcctblRowUMLHC22Ref_South =
+      {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref_South ) > 0 .OR.
+             ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
+             (IfValidAnd( ClgUnmetLdHrs[4] <= ClgUMLHLimit ) .AND.
+              IfValidAnd( HtgUnmetLdHrs[4] <= HtgUMLHLimit )))
+         then UNDEFINED
+         else if ( (IfValidAnd( ClgUnmetLdHrs[4] > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit_Prop = 0 )) .OR.
+                   (IfValidAnd( HtgUnmetLdHrs[4] > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit_Prop = 0 )) )
+              then CreateComp( nrcctblRowUMLHC22, Format( "%s South UMLHC22 tblRow", Name ) )
+              else UNDEFINED
+              endif
+         endif  }
+   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"  ThrmlZn:nrcctblRowUMLHC22Ref_West =
+      {  if (LocalCompAssigned( nrcctblRowUMLHC22Ref_West ) > 0 .OR.
+             ComponentCount( nrccTableUMLHC22 ) < 1 .OR.
+             (IfValidAnd( ClgUnmetLdHrs[5] <= ClgUMLHLimit ) .AND.
+              IfValidAnd( HtgUnmetLdHrs[5] <= HtgUMLHLimit )))
+         then UNDEFINED
+         else if ( (IfValidAnd( ClgUnmetLdHrs[5] > ClgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassClgUMLHLimit_Prop = 0 )) .OR.
+                   (IfValidAnd( HtgUnmetLdHrs[5] > HtgUMLHLimit + 0.1 ) .AND. IfValidAnd( BypassHtgUMLHLimit_Prop = 0 )) )
+              then CreateComp( nrcctblRowUMLHC22, Format( "%s West UMLHC22 tblRow", Name ) )
+              else UNDEFINED
+              endif
+         endif  }
 
-   "Create nrcctblRowUMLHC22 object for each pertinent ThrmlZn"     ThrmlZn:nrcctblRowUMLHC22Ref =
-      {  CreateComp( nrcctblRowUMLHC22, Format( "%s UMLHC22 tblRow", Name ) )
-           }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref_North:noXMLoutput_ThrmlZnRef   = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref_North:Parent                   = {  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_North:noXMLoutput_UMLHTable  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_01_ThermalZoneName           = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs[2]  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_04_ZoneUnmetHeatingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_04_ZoneUnmetHeatingLoadHours = {  HtgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_05_UnmetHeatingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_North:C22Result9_05_UnmetHeatingLoadHours     = {  HtgUnmetLdHrs[2]  }
 
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref_East:noXMLoutput_ThrmlZnRef   = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref_East:Parent                   = {  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_East:noXMLoutput_UMLHTable  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_01_ThermalZoneName           = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs[3]  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_04_ZoneUnmetHeatingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_04_ZoneUnmetHeatingLoadHours = {  HtgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_05_UnmetHeatingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_East:C22Result9_05_UnmetHeatingLoadHours     = {  HtgUnmetLdHrs[3]  }
 
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref:noXMLoutput_ThrmlZnRef   = {  Name  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref:Parent                   = {  nrccTableUMLHC22:Name  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_01_ThermalZoneName           = {  Name  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs[2]  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_04_ZoneUnmetHeatingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_04_ZoneUnmetHeatingLoadHours = {  HtgUMLHLimit  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_05_UnmetHeatingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_05_UnmetHeatingLoadHours     = {  HtgUnmetLdHrs[2]  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref_South:noXMLoutput_ThrmlZnRef   = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref_South:Parent                   = {  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:noXMLoutput_UMLHTable  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_01_ThermalZoneName           = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs[3]  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_04_ZoneUnmetHeatingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_04_ZoneUnmetHeatingLoadHours = {  HtgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_05_UnmetHeatingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_South:C22Result9_05_UnmetHeatingLoadHours     = {  HtgUnmetLdHrs[3]  }
+
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref_West:noXMLoutput_ThrmlZnRef   = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref_West:Parent                   = {  nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_West:noXMLoutput_UMLHTable  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_01_ThermalZoneName           = {  Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs[3]  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_04_ZoneUnmetHeatingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_04_ZoneUnmetHeatingLoadHours = {  HtgUMLHLimit  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_05_UnmetHeatingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref_West:C22Result9_05_UnmetHeatingLoadHours     = {  HtgUnmetLdHrs[3]  }
+
+  ; Rule to Delete empty nrccSection_C22Result9 nrccTableUMLHC22 objects and overall empty nrccSection_C22Result9
+;   "DELETE empty nrccC22Result9_MultipleOrientationUmlh nrccTableUMLHC22 object"
+;      nrccSection_C22Result9:noXMLoutput_MultiOrientUMLH_South:Action   = {  if (ComponentCount( nrcctblRowUMLHC22 ) < 1 ) then  DeleteComp()  else  UNCHANGED  endif } ; RJH 9/11/26 2025-CBECC-Schema Issue 64
+
+   "DELETE empty nrccSection_C22Result9 object"
+      nrccSection_C22Result9:Action   = {  if (ComponentCount( nrcctblRowUMLHC22 ) < 1 ) then  DeleteComp()  else  UNCHANGED  endif } ; RJH 9/11/26 2025-CBECC-Schema Issue 64
+
+; "store BEMProc details"		Proj:Action = {  StoreBEMProc( "After MultO", 0 )  }
 END
-RULELIST "NRCC_East_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
-;   "Create nrccC22Result9_MultipleOrientationUmlh nrccTableUMLHC22 object" nrccC22Result9_MultipleOrientationUmlh:Action  =
-;      {  CreateChildren( nrccTableUMLHC22, 1, "East MultipleOrientationUmlh NRCC UMLHC22 table" )  }
-
-
-END
-RULELIST "NRCC_North_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
-
-END
-RULELIST "NRCC_South_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
-
-END
-RULELIST "NRCC_West_nrccC22Result9_MultipleOrientationUmlh_Results"  1 0 0 1
-
-END
-
-
 
 
 
@@ -4394,7 +4448,13 @@ RULELIST "NRCCPRF_ap_PostSim"  1 0 0 1
               endif
          endif  }
    "Set ThrmlZn:nrcctblRowUMLHC22Ref:noXMLoutput_ThrmlZnRef"      ThrmlZn:nrcctblRowUMLHC22Ref:noXMLoutput_ThrmlZnRef   = {  Name  }
-   "Set ThrmlZn:nrcctblRowUMLHC22Ref:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref:Parent                   = {  nrccTableUMLHC22:Name  }
+   "Set ThrmlZn:nrcctblRowUMLHC22Ref:Parent"                      ThrmlZn:nrcctblRowUMLHC22Ref:Parent                   = {   if (GlobalCompAssigned(nrccC22Result9_SingleOrientation:noXMLoutput_TableUMLHC22Ref) > 0)
+                                                                                                                              then nrccC22Result9_SingleOrientation:noXMLoutput_TableUMLHC22Ref:Name
+                                                                                                                              else  if (GlobalCompAssigned(nrccSection_C22Result9:noXMLoutput_TableUMLHC22Ref) > 0)
+                                                                                                                                    then  nrccSection_C22Result9:noXMLoutput_TableUMLHC22Ref:Name
+                                                                                                                                    else UNCHANGED
+                                                                                                                                    endif
+                                                                                                                              endif   }
    "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_01_ThermalZoneName"              ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_01_ThermalZoneName           = {  Name  }
    "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_02_ZoneUnmetCoolingLoadHours"    ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_02_ZoneUnmetCoolingLoadHours = {  ClgUMLHLimit  }
    "Set ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_03_UnmetCoolingLoadHours"        ThrmlZn:nrcctblRowUMLHC22Ref:C22Result9_03_UnmetCoolingLoadHours     = {  ClgUnmetLdHrs  }

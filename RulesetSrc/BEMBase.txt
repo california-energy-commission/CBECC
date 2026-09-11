@@ -8722,7 +8722,7 @@
 ;------------------------------------------------------------------------------------------------
 ;                                         LName                               Template                             MD  MR  AC   Parent1                   P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
 ;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0,  "nrccC22Result9_SingleOrientation", "nrccC22Result9_SingleOrientation",   "C22Result9_SingleOrientation <i>",   0,  0,  0, "nrccSection_C22Result9",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+0,  "nrccC22Result9_SingleOrientation", "nrccC22Result9_SingleOrientation",   "C22Result9_SingleOrientation <i>",   1,  0,  0, "nrccSection_C22Result9",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
 ;
 ;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                                 -------------------------------------------------------------------------------------------
@@ -8738,15 +8738,14 @@
 ;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                                 -------------------------------------------------------------------------------------------
 1,           "attrib_UmlhAttribute1",                      BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "attrib_UmlhAttribute1",  ""
+
 ;------------------------------------------------------------------------------------------------
-
-
 
 
 ;------------------------------------------------------------------------------------------------
 ;                             LName              Template           MD  MR  AC   Parent1                    P2                                  P3                                      P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
 ;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0,  "nrccTableUMLHC22", "nrccTableUMLHC22",   "TableUMLHC22 <i>",   1,  0,  0, "nrccSection_C22Result9",  "nrccC22Result9_SingleOrientation", "nrccC22Result9_MultipleOrientationUmlh", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+0,  "nrccTableUMLHC22", "nrccTableUMLHC22",   "TableUMLHC22 <i>",   4,  0,  0, "nrccSection_C22Result9",  "nrccC22Result9_SingleOrientation", "nrccC22Result9_MultipleOrientationUmlh", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
 ;
 ;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                                 -------------------------------------------------------------------------------------------
