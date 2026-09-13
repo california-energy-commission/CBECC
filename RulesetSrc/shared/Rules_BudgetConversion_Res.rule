@@ -1084,18 +1084,27 @@ RULELIST  "BudgetConversion" 1 0 1 0
 ;	"debug ResExtWall"					ResExtWall:Action = { if (ParentType == 1 .AND. IsAltered) then PostWarning( "ResExtWall: '%s' Cons: '%s'", Name, Construction:Name ) else UNCHANGED endif }
 	"Assign Altered Wall Cons UValue"		ResExtWall:AltConsUValue = {  if (ParentType == 1 .AND. IsAltered) then Construction:WinterDesUValue else UNCHANGED endif }
    "Assign Code-level Altered Cons from Library"   ResExtWall:Construction =     ; revised logic to assign Altered wall cons consistent w/ Proposed model finish - SAC 07/01/23 (tic #3479)
-      {  if (ParentType == 1 .AND. IsAltered) 
-         then  if (Construction:FrameLayer > 600)
-               then  if (     IfValidAnd( Construction:WallExtFinishLayer = 100112 )) then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall-SynthStuc" )
-                     else if (IfValidAnd( Construction:WallExtFinishLayer = 100102 )) then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall-WoodSid"   )
-                     else if (IfValidAnd( Construction:WallExtFinishLayer = 100113 )) then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall-OtherSid"  )
-                     else                                                                   RuleLibrary( Cons, "T24-2013 2x6 Altered Wall" ) 
-                     endif endif endif
-               else  if (     IfValidAnd( Construction:WallExtFinishLayer = 100112 )) then  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall-SynthStuc" )
-                     else if (IfValidAnd( Construction:WallExtFinishLayer = 100102 )) then  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall-WoodSid"   )
-                     else if (IfValidAnd( Construction:WallExtFinishLayer = 100113 )) then  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall-OtherSid"  )
-                     else                                                                   RuleLibrary( Cons, "T24-2013 2x4 Altered Wall" ) 
-                     endif endif endif
+      {  if (ParentType == 1 .AND. IsAltered)
+         then  if (LocalCompAssigned( Construction ) == ComponentType( "ResConsAssm" ))
+               then  if (Construction:FrameLayer > 600)
+                     then  if (     IfValidAnd( Construction:WallExtFinishLayer = 100112 )) then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall-SynthStuc" )
+                           else if (IfValidAnd( Construction:WallExtFinishLayer = 100102 )) then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall-WoodSid"   )
+                           else if (IfValidAnd( Construction:WallExtFinishLayer = 100113 )) then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall-OtherSid"  )
+                           else                                                                   RuleLibrary( Cons, "T24-2013 2x6 Altered Wall" )
+                           endif endif endif
+                     else  if (     IfValidAnd( Construction:WallExtFinishLayer = 100112 )) then  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall-SynthStuc" )
+                           else if (IfValidAnd( Construction:WallExtFinishLayer = 100102 )) then  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall-WoodSid"   )
+                           else if (IfValidAnd( Construction:WallExtFinishLayer = 100113 )) then  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall-OtherSid"  )
+                           else                                                                   RuleLibrary( Cons, "T24-2013 2x4 Altered Wall" )
+                           endif endif endif
+                     endif
+               else if (LocalCompAssigned( Construction ) == ComponentType( "ConsAssm" ))
+               then  if (Construction:FrmDepth > 5.4)
+                     then  RuleLibrary( Cons, "T24-2013 2x6 Altered Wall" )
+                     else  RuleLibrary( Cons, "T24-2013 2x4 Altered Wall" )
+                     endif
+               else  UNCHANGED
+               endif
                endif
          else  UNCHANGED  endif  }
 ;	"debug ResExtWall Cons"				ResExtWall:Action = { if (ParentType == 1 .AND. IsAltered) then PostWarning( "ResExtWall Cons: '%s' OverallCodeUValue = %g  AltConsUValue = %g T24AltConsUValue = %g", Construction:Name, Construction:OverallCodeUValue, AltConsUValue, Construction:T24AltConsUValue ) else UNCHANGED endif }

@@ -313,7 +313,7 @@ MAINSCREEN,  3
 	 CTRL, "ClimateZone",     1005, TDCT_Combo,  150, 145, 300, 200, 25, FNT_STD, "Climate Zone:",                      TA_LEFT,  -130, 4,     0, TA_LEFT, 0, 0, None,       None,       0,  0,  ""
 
     CTRL, "LAFirePVBattExcpt",3077, TDCT_Check, 150, 175,  22, 310,  0, FNT_STD, "Project subject to Executive Order N-29-25", TA_LEFT,  0, 4,   0, TA_LEFT, 0, 0,  None,   None,       0,  0,  ""  ; SAC 07/29/25 (com tic #3697)
-    CTRL, "MeetsPart7CBC",	  3080, TDCT_Check, 150, 205,  22, 550,  0, FNT_STD, "Building located in Fire Hazard Severity Zones / Wildland-Urban Interface (WUI) Fire Areas", TA_LEFT,  0, 4,   0, TA_LEFT, 0, 0,  None,   None,       0,  0,  ""  ; RJH 2/12/26 (CBECC-Dev Issue 666)
+    CTRL, "MeetsPart7CBC",	   3080, TDCT_Check, 150, 205,  22, 550,  0, FNT_STD, "Building located in Fire Hazard Severity Zones / Wildland-Urban Interface (WUI) Fire Areas", TA_LEFT,  0, 4,   0, TA_LEFT, 0, 0,  None,   None,       0,  0,  ""  ; RJH 2/12/26 (CBECC-Dev Issue 666)
 
 	 CTRL, "SpecifyWeatherFN", 1021, TDCT_Check,  30, 207,  22, 150,  0, FNT_STD, "Specify Weather File",               TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0, None,                                           BypassRuleLimits > 0,    0,  0,  "Whether or not to specify the hourly simulation weather file"   ; SAC 5/17/19
 	 CTRL, "WeatherFileSet",   1023, TDCT_Combo, 150, 235, 300, 240, 25, FNT_STD, "Weather Set:",                       TA_LEFT,  -110, 4,     0, TA_LEFT, 0, 0, SpecifyWeatherFN = 0,                           EnableResearchMode > 0,  0,  0,  "Weather file set to perform analysis with"
@@ -340,6 +340,10 @@ MAINSCREEN,  3
 	 CTRL, "ReplaceRuleTable[5]",     1044, TDCT_Combo,  480, 175, 400, 220,  25, FNT_STD, "",                               TA_LEFT,    -1, 4,  0, TA_LEFT, 0, 0, None,     EnableResearchMode > 0 And ReplaceRuleTable[4] > 0,    0,  0,  "ruleset table to be replaced" 
 	 CTRL, "ReplaceRuleTableFile[5]", 1045, TDCT_Edit,   715, 175,  25, 200,  99, FNT_STD, "",                               TA_LEFT,  -110, 4,  0, TA_LEFT, 0, 0, None,     EnableResearchMode > 0 And ReplaceRuleTable[5] > 0,    0,  0,  "CSV file containing replacement ruleset table" 
     CTRL, "",                        1046, TDCT_Button, 920, 175,  22,  27,3079, FNT_STD, "...",                            TA_CENTER,   0, 0,  0, TA_LEFT, 0, 0, None,     EnableResearchMode > 0 And ReplaceRuleTable[5] > 0,    0,  0,  "browse to select CSV file containing replacement ruleset table"
+
+      ; TEMPORARY - TESTING ONLY  ; removed - SAC 07/28/26 (dev #1004)
+      ;    CTRL, "StdFenInclSkyltsAndWInp",  3100, TDCT_Check, 495, 446,  22, 420,  0, FNT_STD, "Incl. Skylts and West Glazing in Standard Design Fenestration", TA_LEFT,  0, 4,   0, TA_LEFT, 0, 0,  None,   AnalysisVersion >= 250300,       0,  0,  "Standarad design fenestration scaling: unchecked is unchanged from prev, checked fixes to (a) incl skylt area in std and (b) scale West glazing first, before remaining"  ; SAC 07/10/26 (dev #1004)
+      ;    CTRL, "PropOrientStdPeakCooling", 3101, TDCT_Check, 495, 472,  22, 420,  0, FNT_STD, "Standard Peak Cooling based on Proposed Envelope Orientations", TA_LEFT,  0, 4,   0, TA_LEFT, 0, 0,  None,   AnalysisVersion >= 250300,       0,  0,  "calculate Standarad design peak cooling result based on Std design w/ Proposed model wall/window orientations and distributions"  ; SAC 07/09/26 (dev #983)
    ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -430,7 +434,7 @@ MAINSCREEN,  3
 ;    CTRL, "AlterIncl2Categs",    1048, TDCT_Check,  120, 307,  22, 250,   0, FNT_STD, "Alterations Span Multiple Categories", TA_LEFT,   0, 4,     0, TA_LEFT, 0, 0,  None,       RunScope = 2,     0,  0,  ""
     CTRL, "NoDwellingUnit",      1049, TDCT_Check,  125, 332,  22, 150,   0, FNT_STD, "No dwelling unit",                   TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  "whether this model includes no dwelling units"   ; SAC 07/05/23 (tic #1351)  ; removed 'Occupancy type U' from label & tooltip - SAC 10/26/23  ; now applicable to ALL analysis types - SAC 03/25/24 (tic #1375)
    ; SAC 3/8/19 - added Project construction includes a kitchen checkbox (tic #1085)   - SAC 10/19/19 - modified to display for all RunScopes (tic #1085)  ; revised label & tooltip msg - SAC 04/23/25 (tic #1392)  ; HERS -> ECC - SAC 06/16/25 (tic #1411)
-    CTRL, "ProjInclKitchen",     1048, TDCT_Check,  125, 357,  22, 420,   0, FNT_STD, "Project construction includes a new vented range hood in kitchen", TA_LEFT,  0, 4,    0, TA_LEFT, 0, 0,  None,       None,      0,  0,  "Project includes a new vented range hood (triggering vented range hood ECC verification)"
+    CTRL, "ProjInclKitchen",     1048, TDCT_Check,  125, 357,  22, 420,   0, FNT_STD, "Project construction includes new kitchen exhaust ventilation", TA_LEFT,  0, 4,    0, TA_LEFT, 0, 0,  None,       None,      0,  0,  "Project includes new kitchen exhaust ventilation (triggering kitchen exhaust ECC verification)"
 
 ;	 CTRL, "AdditionCFAFrac",     1047, TDCT_Edit,   620, 300,  25,  50,  11, FNT_STD, "Addition fraction of Dwelling Unit:", TA_LEFT, -195, 4,     1, TA_LEFT, 4, 4,  None,       RunScope = 1 And IsAddAlone > 0.5,  -195, 50,  "Fraction of total dwelling that is the Addition" 
 ; SAC 12/28/15 - replacement inputs for AdditionCFAFrac
@@ -476,6 +480,7 @@ MAINSCREEN,  3
     CTRL, "CmntySlrProjInfoCap",     1104, TDCT_Button, 585,  10,  22, 355,3070, FNT_STD, "",                                   TA_CENTER,  0, 0,     0, TA_LEFT, 0, 0,  None,   CmntySlrProjInfo > 0 And CmntySlrProjCZCompat > 0,     0,  0,  "access information about the selected Community Solar project"   ; SAC 6/30/20 (tic #1018)
 	 CTRL, "InCmntySlrProjTerritory", 1105, TDCT_Check,   50,  40,  22, 440,   0, FNT_STD, "This project is located within the Community Solar provider’s territory",  TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,   CommunitySolarProjID > 0 And CmntySlrProjCZCompat > 0,  0,  0,  "Whether or not, to the best of the user's knowledge, this home/building is located within the Community Solar provider’s territory"  ; SAC 7/3/20
 	 CTRL, "SMUDSlrSharesReserved",   1136, TDCT_Check,   50,  65,  22, 440,   0, FNT_STD, "SMUD Neighborhood SolarShares have been reserved for this project",   TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,  CommunitySolarProjID > 0 And CmntySlrProjCZCompat > 0 And CommunitySolarProject = 1,  0,  0,  "Whether or not SMUD Neighborhood SolarShares have been reserved for this home/building"   ; SAC 01/25/25 (com tic #3651)
+	 CTRL, "CmntySlrProjReserved",    1139, TDCT_Check,   50,  65,  22, 440,   0, FNT_STD, "This home is registered with the selected community Solar program",   TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,  CommunitySolarProjID > 0 And CmntySlrProjCZCompat > 0 And CommunitySolarProject > 1,  0,  0,  "Whether or not this home is registered with the selected community Solar program"   ; PSREC comm slr - SAC 07/24/26 (com tic #859)
 	 CTRL, "CommunitySolarWarnMsg[1]",1137, TDCT_Label,  445,  90,  16, 390,  -2, FNT_STD, "",                                                                    TA_RIGHT, 425, 0,     0, TA_LEFT, 0, 0,  None,  CommunitySolarProjID > 0 And CmntySlrProjCZCompat > 0 And CommunitySolarProject > 0,                               -425,  0,  ""                                                         ; SAC 01/25/25 (com tic #3651)
 	 CTRL, "CommunitySolarWarnMsg[2]",1138, TDCT_Label,  445, 108,  16, 390,  -2, FNT_STD, "",                                                                    TA_RIGHT, 425, 0,     0, TA_LEFT, 0, 0,  None,  CommunitySolarProjID > 0 And CmntySlrProjCZCompat > 0 And CommunitySolarProject = 1 And SMUDSlrSharesReserved < 1, -425,  0,  ""  
 
@@ -668,8 +673,12 @@ MAINSCREEN,  3
 
       ; APB 3/30/22 - enable standalone battery (no PV) capability
     CTRL, "SimStandaloneBatt",   2234, TDCT_Check,   25, 105,  22, 200,     0, FNT_STD, "Simulate Standalone Battery",  TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       AllowStandaloneBattInputs = 1 And BattMaxCap > 0,     0,  0,  "Whether or not a standalone Battery (without PV) is to be simulated"
+
     ; removed Self Utilization Credit from 2025 UI (unless in research mode) - SAC 03/27/25 (2025)
-    CTRL, "BattGridHarmCredit",  2215, TDCT_Check,  140, 135,  22, 210,     0, FNT_STD, "Take the Self Utilization Credit", TA_LEFT,  0, 4,    0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0 And SimStandaloneBatt < 1 And EnableResearchMode > 0,     0,  0,  "whether or not to take the Self Utilization battery credit"   ; SAC 12/30/17
+    ; CTRL, "BattGridHarmCredit",  2215, TDCT_Check,  140, 135,  22, 210,     0, FNT_STD, "Take the Self Utilization Credit", TA_LEFT,  0, 4,    0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0 And SimStandaloneBatt < 1 And EnableResearchMode > 0,     0,  0,  "whether or not to take the Self Utilization battery credit"   ; SAC 12/30/17
+    ; replaced BattGridHarmCredit checkbox w/ BattCreditOption selection for 2025+ - SAC 08/05/26 (dev #989)
+	 CTRL, "BattCreditOption",    2215, TDCT_Combo,  170, 135, 200, 130,    25, FNT_STD, "Apply Battery Credit To:",     TA_LEFT,  -150, 4,     0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0,  -155,  0,  "whether to apply battery credit to Peak Cooling or Self-Utilization (or n/a)"
+
 	 CTRL, "BatteryControl",      2202, TDCT_Combo,  140, 205, 200, 160,    25, FNT_STD, "Control:",                     TA_RIGHT,   -5, 4,     0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0,   -80,  0,  "Algorithm used to determine how/when the battery is charged and discharged"
 ;	 CTRL, "",                     101, TDCT_Label,   82, 185,  17,   0,    -1, FNT_STD, "TOU and Advanced DR controls are not available for this research version.",  TA_LEFT,   0, 0,     0, TA_LEFT, 0, 0,  None,    SimulateBattery > 0 And EnergyCodeYearNum >= 2025 And EnableResearchMode = 0,     0,  0,  ""     ; SAC 08/02/23 (2025)
 ; further BatteryControl UI mods for 2025.0.8-RV - hide combobox & revise screen label - SAC 10/05/23   ; restored Control combo and removed following message - SAC 03/27/25
@@ -711,6 +720,9 @@ MAINSCREEN,  3
     CTRL, "MaxPropPVRatioMsg",   2221, TDCT_Label,  380, 120,  18, 455,    -1, FNT_STD, "",                             TA_LEFT,     0, 0,     0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0 And CommunitySolarProjID < 1 And AllowStandaloneBattInputs < 1,     0,  0,  ""           
     CTRL, "AllowExcessPVEDR",    1191, TDCT_Check,  380, 140,  22, 470,   0, FNT_STD, "Allow Excess PV Generation Compliance Credit for above code programs", TA_LEFT,  0, 4, 0, TA_LEFT, 0, 0,  None,       SimulateBattery > 0 And AllowStandaloneBattInputs < 1,     0,  0,  "whether or not to allow excess PV generation (above cap based on proposed design electric use) to factor into compliance credit"     
 ;	 CTRL, "AllowExcessPVEDRMsg", 1193, TDCT_Label,   70, 154,  18, 600,  -1, FNT_STD, "",                                   TA_LEFT,     0, 0,     0, TA_LEFT, 0, 0,  None,       AllowDesignRating > 0.5 And DesignRatingCalcs > 0 And PVWDCSysTotal > 0 And AllowStandaloneBattInputs < 1,    0,  0,  ""           
+
+    ; switched to available only for research mode - SAC 08/10/26 (dev #989)
+    CTRL, "PropPeakCoolBattCreditLimit", 2242, TDCT_Edit, 825, 470,  25,  50,    11, FNT_STD, "Peak Cool Battery Credit Limit:",  TA_RIGHT,  -4, 4,   1, TA_LEFT, 4, 4,  None,     SimulateBattery > 0 And BattCreditOption = 2 And EnableResearchMode > 0, -200, 40,  "fraction of proposed peak cooling electric energy that can be offset by battery energy (during peak cooling hours)"   ; SAC 07/08/26 (dev #989)
    ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2319,6 +2331,14 @@ MAINSCREEN,  3
 	 CTRL, "PeakCoolElecLabels[3]",    3523, TDCT_Label,  555, 248,  17,  70,  0, FNT_STD, "",                             TA_RIGHT,    0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1 And IncludePeakCooling > 0,       0,  0,  ""
 	 CTRL, "PeakCoolElecLabels[4]",    3524, TDCT_Label,  580, 248,  17,  70,  0, FNT_BOLD, "",                            TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1 And IncludePeakCooling > 0,       0,  0,  ""
 
+    ; SAC 07/07/26 (dev #983)   ; removed - SAC 07/28/26 (dev #983)
+	 ; CTRL, "",                              23264, TDCT_Label,   55, 270,  17,   0,  0, FNT_STD, "PropOrient Std Elec (kWh)",    TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1 And IncludePeakCooling > 0,       0,  0,  ""
+	 ; CTRL, "StdPropOrientPeakCoolElecLimit", 3525, TDCT_Label,  300, 270,  17,  70,  0, FNT_STD, "",                             TA_RIGHT,    0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1 And IncludePeakCooling > 0,       0,  0,  "" 
+
+    ; SAC 07/08/26 (dev #989)  ; hide except in research mode - SAC 08/11/26 (dev #989)
+	 CTRL, "",                              23265, TDCT_Label,   55, 270,  17,   0,  0, FNT_STD, "Battery Credit (kWh)",         TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1 And IncludePeakCooling > 0 And Proj:EnableResearchMode > 0,       0,  0,  ""
+	 CTRL, "PropPeakCoolBattElecCredit",     3526, TDCT_Label,  440, 268,  17,  70,  0, FNT_STD, "",                             TA_RIGHT,    0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1 And IncludePeakCooling > 0 And Proj:EnableResearchMode > 0,       0,  0,  "" 
+
   ; All Orientations results - SAC 11/28/22 (2025)
 	 ; CTRL, "",                        21241, TDCT_Label,   35,  57,  17,   0,  0, FNT_BOLD, "Systemwide Life Cycle Cost¹", TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations > 0,       0,  0,  ""
 	 CTRL, "",                        21241, TDCT_Label,   35,  57,  17,   0,  0, FNT_BOLD, "Long-term System Cost¹",      TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations > 0,       0,  0,  ""  ; SAC 01/29/23
@@ -2403,11 +2423,15 @@ MAINSCREEN,  3
 ;	 CTRL, "",    20308, TDCT_Label,   55, 465,  17,   0,  0, FNT_STD, "** Standard Design is based on 2022 Energy Code. Compliance result and margins do not represent a comparison to 2025 Energy Code requirements.", TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0,       0,  0,  ""
 ;	 CTRL, "",    20308, TDCT_Label,   55, 465,  17,   0,  0, FNT_STD, "** Standard Design is based on 2022 Energy Code. Compliance result and margins do not represent a comparison to 2025 Energy Code",               TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0,       0,  0,  ""
 ;	 CTRL, "",    20309, TDCT_Label,   70, 483,  17,   0,  0, FNT_STD, "requirements and are not usable for compliance.",  TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0,       0,  0,  ""
-	 CTRL, "",    20310, TDCT_Label,   55, 465,  17,   0,  0, FNT_STD, "** Peak cooling target represents 120% of the standard design building peak cooling energy use.",                                                TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0 And IncludePeakCooling > 0,       0,  0,  ""   ; SAC 04/12/24
+
+	 CTRL, "PeakCoolElecFtnote[1]", 20310, TDCT_Label,   55, 465,  17,   0,  0, FNT_STD, "",                                                                                                                             TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0 And IncludePeakCooling > 0,       0,  0,  ""   ; SAC 04/12/24  ; SAC 05/13/26 (dev #757)
+	 CTRL, "PeakCoolElecFtnote[2]", 20311, TDCT_Label,   55, 485,  17,   0,  0, FNT_STD, "",                                                                                                                             TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0 And IncludePeakCooling > 0,       0,  0,  ""   ; SAC 08/05/26 (dev #989)
+	; CTRL, "",    20310, TDCT_Label,   55, 465,  17,   0,  0, FNT_STD, "** Peak cooling target represents 120% of the standard design building peak cooling energy use.",                                                TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0 And IncludePeakCooling > 0,       0,  0,  ""   ; SAC 04/12/24
+
 	 ; CTRL, "",    20308, TDCT_Label,   55, 485,  17,   0,  0, FNT_STD, "*** This research version is used to study 2025 Energy Code heat pump baselines, solar photovoltaic system standards, and energy",               TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       HideCompSummary = 0,       0,  0,  ""   ; SAC 07/29/23
 	 ; CTRL, "",    20309, TDCT_Label,   73, 503,  17,   0,  0, FNT_STD, "storage system performance credits.",              TA_LEFT,     0,  0,     0, TA_LEFT,  0, 0,  None,       None,       0,  0,  ""
 
-	 CTRL, "ResultsNotes[5]",   20304, TDCT_Label,   70, 490,  17, 950,  0, FNT_STD, "",                                   TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And HaveResultsNotesPV[5] > 0,        0,  0,  ""  ; added from 2022 - SAC 10/20/25 (dev #240)
+	 CTRL, "ResultsNotes[5]",   20304, TDCT_Label,   70, 510,  17, 950,  0, FNT_STD, "",                                   TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And HaveResultsNotesPV[5] > 0,        0,  0,  ""  ; added from 2022 - SAC 10/20/25 (dev #240)
 
 	 CTRL, "",                   2011, TDCT_Line,   230,  48, 640,  48, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1,       0,  0,  ""
 	 CTRL, "",                   2012, TDCT_Line,   230, 152, 640, 152, -1, FNT_STD, "",                                   TA_CENTER,   0,  0,     0, TA_LEFT, -1, 0,  None,       HideCompSummary = 0 And AllOrientations < 1,       0,  0,  ""
@@ -3650,8 +3674,8 @@ MAINSCREEN,  3
    CTRL, "MarginkW[1]",              2008, TDCT_Label,   280, 330,  18,   0,   2, FNT_STD, "",                                 TA_RIGHT,    0, 0,     0, TA_LEFT, 0, 0,  None,              None,       0,  0,  ""
 
 
-	 CTRL, "ResultsNotes[1]",          920, TDCT_Label,    30, 390,  16, 760, 0, FNT_STD, "* ",                                 TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HaveResultsNotesPV[1] > 0,   0,  0,  ""
-	 CTRL, "ResultsNotes[6]",          921, TDCT_Label,    30, 413,  16, 750, 0, FNT_STD, "",                                   TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HaveResultsNotesPV[6] > 0,   0,  0,  ""
+	 CTRL, "ResultsNotes[1]",          920, TDCT_Label,    30, 390,  16, 1030, 0, FNT_STD, "* ",                                TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HaveResultsNotesPV[1] > 0,   0,  0,  ""
+	 CTRL, "ResultsNotes[6]",          921, TDCT_Label,    30, 413,  16, 1030, 0, FNT_STD, "",                                  TA_LEFT,     0,  0,     0, TA_LEFT, -1, 0,  None,       HaveResultsNotesPV[6] > 0,   0,  0,  ""
 
 
 ; moved from Energy Use tab
@@ -7151,8 +7175,8 @@ MAINSCREEN,  3
 	 CTRL, "UseEERinAnalysis", 30310, TDCT_Check,  300, 210,  22, 250,  2, FNT_STD, "Use this EER in compliance analysis",   TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ShowEER  > 0 And ShowSEER > 0 And Type != 14,       0,  0,  "Whether or not the EER value should be used in compliance analysis and reporting"  
 	 CTRL, "CEER",             30316, TDCT_Edit,   125, 240,  25,  75, 11, FNT_STD, "CEER:",                                 TA_LEFT,  -105, 4,     0, TA_LEFT, 4, 4,  None,       ShowCEER > 0,                     -107, 80,  "Combined Energy Efficiency Ratio" 
 	 CTRL, "CFMperTon",        30311, TDCT_Edit,   125, 270,  25,  75, 11, FNT_STD, "CFM per Ton:",                          TA_LEFT,  -105, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And Type != 5 And Type != 25,  -107, 80,  "Cooling air flow in CFM per nominal ton of AC capacity"           
-	 CTRL, "ACCharge",         30312, TDCT_Combo,  125, 300, 350, 155, 25, FNT_STD, "AC Charge:",                            TA_LEFT,  -105, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IsPackaged < 1 And Type != 5,  -107,  0,  ""   
-	 CTRL, "RefrigerantType",  30313, TDCT_Combo,  125, 330, 350, 155, 25, FNT_STD, "Refrigerant Type:",                     TA_LEFT,  -105, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IsPackaged < 1 And Type != 5,  -107,  0,  ""    
+	 CTRL, "ACCharge",         30312, TDCT_Combo,  125, 300, 350, 155, 25, FNT_STD, "Rfg. Charge:",                          TA_LEFT,  -105, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IsPackaged < 1 And Type != 5,  -107,  0,  ""    ; label 'AC Charge' to 'Rfg. Charge' - SAC 08/14/26 (dev #1008)
+	; CTRL, "RefrigerantType",  30313, TDCT_Combo,  125, 330, 350, 155, 25, FNT_STD, "Refrigerant Type:",                     TA_LEFT,  -105, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IsPackaged < 1 And Type != 5,  -107,  0,  ""   ; removed from UI - SAC 08/14/26 (dev #1007)
 
 ;	 CTRL, "EvapCondEff",      30314, TDCT_Edit,   175, 330, 25,   75, 11, FNT_STD, "Evaporative Effectiveness:",            TA_LEFT,  -155, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And Type = 14,   -157,  0,  "Effectiveness of the Evaporatively-cooled Condenser"                                                                 
 ;	 CTRL, "EERbAdjust",       30314, TDCT_Edit,   250, 330, 25,   75, 11, FNT_STD, "Convert EERb to SEER (air-cooled):",    TA_LEFT,  -230, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And Type = 14,   -237,  0,  "Used to convert EERb to air-cooled SEER"                                                                 
@@ -7264,8 +7288,8 @@ MAINSCREEN,  3
 ;    CTRL, "UseEERinAnalysis", 30311, TDCT_Check,  360, 380,  22, 225,  2, FNT_STD, "Use this EER in compl. analysis",       TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ShowUseEER > 0 And IncludesCooling > 0 And ShowCEER < 1,             0,  0,  "Whether or not the EER value should be used in compliance analysis and reporting"   ; removed starting 2025 - SAC 08/02/23
 	 CTRL, "Cap95",            30423, TDCT_Edit,   445, 380,  25,  75, 11, FNT_STD, "Cap @ 95°F:",                           TA_LEFT,   -85, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And UsePMModel > 0 And AutoSize = 0,               -87, 40,  "Cooling capacity @ 95°F and maximum speed"   ; SAC 05/16/24 (tic #1379)
 	 CTRL, "CFMperTon",        30308, TDCT_Edit,   445, 410,  25,  75, 11, FNT_STD, "CFM per Ton:",                          TA_LEFT,   -85, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IncludesCooling > 0 And ShowCFMperTon > 0,     -87, 80,  "Cooling air flow in CFM per nominal ton of AC capacity"           
-	 CTRL, "ACCharge",         30309, TDCT_Combo,  445, 440, 350, 135, 25, FNT_STD, "AC Charge:",                            TA_LEFT,   -85, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IncludesCooling > 0 And Type != 12 And Type != 7 And IsPackaged < 1 And Type != 34,  -87,  0,  ""       ; AWHP - SAC 12/04/22
-	 CTRL, "RefrigerantType",  30310, TDCT_Combo,  445, 472, 350, 135, 25, FNT_STD, "Refrigerant:",                          TA_LEFT,   -85, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And ShowRefrigerant > 0,   -87,  0,  ""                                                                 
+	 CTRL, "ACCharge",         30309, TDCT_Combo,  445, 440, 350, 135, 25, FNT_STD, "Rfg. Charge:",                          TA_LEFT,   -85, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And IncludesCooling > 0 And Type != 12 And Type != 7 And IsPackaged < 1 And Type != 34,  -87,  0,  ""     ; AWHP - SAC 12/04/22  ; label 'AC Charge' to 'Rfg. Charge' - SAC 08/14/26 (dev #1008)
+	; CTRL, "RefrigerantType",  30310, TDCT_Combo,  445, 472, 350, 135, 25, FNT_STD, "Refrigerant:",                          TA_LEFT,   -85, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And ShowRefrigerant > 0,   -87,  0,  ""      ; removed from UI - SAC 08/14/26 (dev #1007)
 
 	 CTRL, "IsMultiSpeed",     30322, TDCT_Check,  360, 502,  22, 180,  2, FNT_STD, "Multi-Speed Compressor",                TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ShowMultiSpeed > 0 And IncludesCooling > 0 And Show4717COPs < 1,   0,  0,  "Whether or not the compressor is multi/variable speed"  
 	 CTRL, "IsZonal",          30323, TDCT_Check,  360, 530,  22, 180,  2, FNT_STD, "Zonally Controlled",                	 TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       ShowIsZonal > 0 And Type != 35,              0,  0,  "Whether or not the cooling system is zonally controlled"  

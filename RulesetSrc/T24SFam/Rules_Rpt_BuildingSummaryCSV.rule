@@ -36,9 +36,17 @@
 ;*************************************************************************
 RULELIST  "Reporting_SummarizeModel" 1 0 0 0
 ;*************************************************************************
-;--------------------------------------------------------------------
+;       ;--------------------------------------------------------------------
+;       ; Building-wide window area multiplier rules - related to Res ACM section 2.3.5.5
+;       ;--------------------------------------------------------------------
+;         "sum glazing areas and misc related calcs"  Proj:Action = { EvalRulelist( "SummarizeModel_Glazing" ) }
+;       
+;       
+;       ;*************************************************************************
+;       RULELIST  "SummarizeModel_Glazing" 1 0 0 0
+;       ;*************************************************************************
 ; Building-wide window area multiplier rules - related to Res ACM section 2.3.5.5
-;--------------------------------------------------------------------
+
 ;MJB 12/19/13 - update to match E+A+A rules
 ; mjb	2/19/14 - add SkyLt area into WinArea totals; add area-weighted window U-factor pre-calc
 ; SAC 2/20/15 - modified to REMOVE E+A+A Additions window/skylight area from New (item 2) and added separate Additions array element
@@ -101,6 +109,9 @@ RULELIST  "Reporting_SummarizeModel" 1 0 0 0
 	"Sum window area into parent Zone objects[3] - existing"    			Zone:TotCondZoneWinArea[3]	= {	if (Type < 10) then  SumChildren( ExtWall:TotWinArea[3] ) + SumChildren( CathedralCeiling:ChildAreaSum[3] ) else  0  endif  }
 	"Sum window area into parent Zone objects[2] - new (not add)"			Zone:TotCondZoneWinArea[2]	= {	if (Type < 10) then  SumChildren( ExtWall:TotWinArea[2] ) + SumChildren( CathedralCeiling:ChildAreaSum[2] ) else  0  endif  }
 	"Sum window area into parent Zone objects[4] - additions"				Zone:TotCondZoneWinArea[4]	= {	if (Type < 10) then  SumChildren( ExtWall:TotWinArea[4] ) + SumChildren( CathedralCeiling:ChildAreaSum[4] ) else  0  endif  }
+  ; adjust total & new (not add) win areas to include deleted Skylts iff StdFenInclSkyltsAndWest > 0 - SAC 07/12/26 (dev #1004)
+	"adjust parent Zone window area for missing Skylts objects[1] - total"					Zone:TotCondZoneWinArea[1]	= {	if (Type < 10 .AND. IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )) then  TotCondZoneWinArea[1] + ValidOr( SkyltAreaDelByO[1], 0 ) + ValidOr( SkyltAreaDelByO[2], 0 ) else  UNCHANGED  endif  } 
+	"adjust parent Zone window area for missing Skylts objects[2] - new (not add)"	Zone:TotCondZoneWinArea[2]	= {	if (Type < 10 .AND. IfValidAnd( Proj:StdFenInclSkyltsAndWest > 0 )) then  TotCondZoneWinArea[2] + ValidOr( SkyltAreaDelByO[1], 0 ) + ValidOr( SkyltAreaDelByO[2], 0 ) else  UNCHANGED  endif  } 
 	"Sum window area into parent OtherZone objects[1] - total"				OtherZone:TotCondZoneWinArea[1]	= {	if (Type < 10) then  SumChildren( ExtWall:TotWinArea[1] ) + SumChildren( CathedralCeiling:ChildAreaSum[1] ) else  0  endif  }    ; SAC 9/20/19 - OtherZone (MFamProto)
 	"Sum window area into parent OtherZone objects[3] - existing"    		OtherZone:TotCondZoneWinArea[3]	= {	if (Type < 10) then  SumChildren( ExtWall:TotWinArea[3] ) + SumChildren( CathedralCeiling:ChildAreaSum[3] ) else  0  endif  }
 	"Sum window area into parent OtherZone objects[2] - new (not add)"	OtherZone:TotCondZoneWinArea[2]	= {	if (Type < 10) then  SumChildren( ExtWall:TotWinArea[2] ) + SumChildren( CathedralCeiling:ChildAreaSum[2] ) else  0  endif  }
@@ -255,10 +266,56 @@ RULELIST  "Reporting_SummarizeModel" 1 0 0 0
 	"Set CathedralCeiling:Azimuth"		CathedralCeiling:Azimuth	= {	CathedralCeiling:OrientationValue + Proj:FrontOrientation  }
 	"Correct Azimuth for radial deg"	CathedralCeiling:Azimuth	= {	if ( Azimuth >= 360 ) then Azimuth - 360
 												else UNCHANGED endif  }
+  "Set CathedralCeiling:WinOrientationIdx - (1-N, 2-E, 3-S, 4-W / any ceiling w/ pitch below 1:12 classified as 4-W)"  CathedralCeiling:WinOrientationIdx =     ; SAC 07/09/26 (dev #983)
+    { if (IfValidAnd( RoofRise < 1 ))              then  4
+      else if (Azimuth >  45 .AND. Azimuth <= 135) then  2
+      else if (Azimuth > 135 .AND. Azimuth <= 225) then  3
+      else if (Azimuth > 225 .AND. Azimuth <= 315) then  4
+      else  1  endif endif endif endif  }
 
 ;	mjb	2/19/14 added fenestration level Azimuth for CF1R reporting only
 	"Set Win:Azimuth"		Win:Azimuth		=	{	Parent( Azimuth )	}
 	"Set SkyLt:Azimuth"	Skylt:Azimuth	=	{	Parent( Azimuth )	}
+
+  "set Skylt:TotAreaInclMultByO[1] - West"      Skylt:TotAreaInclMultByO[1] =	    ; SAC 07/09/26 (dev #983)
+    { if( IfValidAnd( CathedralCeiling:ParentIsCond > 0 ) .AND.
+          IfValidAnd( CathedralCeiling:WinOrientationIdx = 4 ) .AND. Status == 3 )
+      then  ValidOr( Area, 0 ) * ValidOr( Multiplier, 1 )
+      else  0  endif  }
+  "set Skylt:TotAreaInclMultByO[2] - NotWest"   Skylt:TotAreaInclMultByO[2] =	
+    { if( IfValidAnd( CathedralCeiling:ParentIsCond > 0 ) .AND.
+          IfValidAnd( CathedralCeiling:WinOrientationIdx < 4 ) .AND. Status == 3 )
+      then  ValidOr( Area, 0 ) * ValidOr( Multiplier, 1 )
+      else  0  endif  }
+
+  "set Win:TotAreaInclMultByO[1] - West"      Win:TotAreaInclMultByO[1] =	        ; SAC 07/09/26 (dev #983)
+    { if( IfValidAnd( ExtWall:ParentIsCond > 0 ) .AND.
+          IfValidAnd( ExtWall:TrueOrientationIdx = 4 ) .AND. Status == 3 )
+      then  ValidOr( Area, 0 ) * ValidOr( Multiplier, 1 )
+      else  0  endif  }
+  "set Win:TotAreaInclMultByO[2] - NotWest"   Win:TotAreaInclMultByO[2] =	
+    { if( IfValidAnd( ExtWall:ParentIsCond > 0 ) .AND.
+          IfValidAnd( ExtWall:TrueOrientationIdx < 4 ) .AND. Status == 3 )
+      then  ValidOr( Area, 0 ) * ValidOr( Multiplier, 1 )
+      else  0  endif  }
+
+  "set Proj:FenAreaByOrient[1] - WestWins"              Proj:FenAreaByOrient[1]  = {  SumAcrossIf(   Win:TotAreaInclMultByO[1],   Win:IsEAAAddZoneGChild = 0 )  }   ; SAC 07/10/26 (dev #1004)
+  "set Proj:FenAreaByOrient[2] - NotWestWins"           Proj:FenAreaByOrient[2]  = {  SumAcrossIf(   Win:TotAreaInclMultByO[2],   Win:IsEAAAddZoneGChild = 0 )  }
+  "set Proj:FenAreaByOrient[3] - WestSkylts"            Proj:FenAreaByOrient[3]  = {  SumAcrossIf( Skylt:TotAreaInclMultByO[1], Skylt:IsEAAAddZoneGChild = 0 )  }   ; + SumAll( Zone:SkyltAreaDelByO[1] ) - prevent double-counting - SAC 07/15/26 (dev #1004)
+  "set Proj:FenAreaByOrient[4] - NotWestSkylts"         Proj:FenAreaByOrient[4]  = {  SumAcrossIf( Skylt:TotAreaInclMultByO[2], Skylt:IsEAAAddZoneGChild = 0 )  }   ; + SumAll( Zone:SkyltAreaDelByO[2] )
+  "set Proj:FenAreaByOrient[5] - WestWins+Skylts"       Proj:FenAreaByOrient[5]  = {  FenAreaByOrient[1] + FenAreaByOrient[3]  }
+  "set Proj:FenAreaByOrient[6] - NotWestWins+Skylts"    Proj:FenAreaByOrient[6]  = {  FenAreaByOrient[2] + FenAreaByOrient[4]  }
+  "set Proj:FenAreaByOrient[7] - AllGlazingAllOrients"  Proj:FenAreaByOrient[7]  = {  FenAreaByOrient[5] + FenAreaByOrient[6]  }
+    ;"dbg" Proj:Action = { if( RunScope == 2 .OR. (RunScope == 1 .AND. IfValidAnd( IsAddAlone > 0.5 )) ) then  UNCHANGED                          ; debugging - SAC 07/15/26 (dev #1004)
+    ;                      else if( RunAbbrev == "p" .OR. (RunAbbrev == "s" .AND. IfValidAnd( CondNewWinAreaMultByO[1] > 0.0001 )) )
+    ;                      then  PostMessageToLog( "    run '%s' reporting summary Glazing-SF/CFA ratios:  West %.2f%%  /  NotWest %.2f%%  /  Overall %.2f%", RunAbbrev,
+    ;                                  FenAreaByOrient[5] * 100 / (CondFloorArea - CondAdditionSize), FenAreaByOrient[6] * 100 / (CondFloorArea - CondAdditionSize), FenAreaByOrient[7] * 100 / (CondFloorArea - CondAdditionSize) )
+    ;                      else  UNCHANGED  endif endif }
+
+  "set Proj:MaxFenAreaCFAFrac"        Proj:MaxFenAreaCFAFrac =
+    { T24RClimateZoneCodeBase:WindowFrac(         "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  }
+  "set Proj:MaxFenAreaCFAFrac_West"   Proj:MaxFenAreaCFAFrac_West =
+    { T24RClimateZoneCodeBase:MaxWestWindowFrac(  "ClimateZone", Proj:ClimateZone, "CodeBase", Proj:StdDesignBase, "BldgType", Proj:BldgTypeTblStr )  }
 
 ;--------------------------------------------------------------------
 ; rules below this were picked out of HERS/Special features to perform misc model summarization
@@ -8475,15 +8532,15 @@ RULELIST  "HVACSys_Data_Report" 0 0 0 1
 																						else UNCHANGED endif 
 																					else UNCHANGED endif }
 
-   "Write column headings for CoolSystem Data"	HVACSys:Action =     ; SAC 09/16/22 (tic #1331)
+   "Write column headings for CoolSystem Data"	HVACSys:Action =     ; SAC 09/16/22 (tic #1331)  ; label 'AC Charge' to 'Rfg. Charge' - SAC 08/14/26 (dev #1008)
       {  if ( HaveCooling .AND. FloorAreaServed > 0.5  )
          then  if ( Type == 2 .AND. HaveHtPump )
                then  if (EffMetric < 2)
-                     then  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER, EER, CFM/Ton, AC Charge, Ducted,\n" )
-                     else  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER2, EER2, CFM/Ton, AC Charge, Ducted,\n" )  endif
+                     then  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER, EER, CFM/Ton, Rfg. Charge, Ducted,\n" )
+                     else  WriteToFile( "\n,,Heat Pump (Cooling):, Type, SEER2, EER2, CFM/Ton, Rfg. Charge, Ducted,\n" )  endif
 					else  if (EffMetric < 2)
-                     then  WriteToFile( "\n,,Cooling System:, Type, SEER, EER, CFM/Ton, AC Charge, Ducted,\n" )
-                     else  WriteToFile( "\n,,Cooling System:, Type, SEER2, EER2, CFM/Ton, AC Charge, Ducted,\n" )  endif
+                     then  WriteToFile( "\n,,Cooling System:, Type, SEER, EER, CFM/Ton, Rfg. Charge, Ducted,\n" )
+                     else  WriteToFile( "\n,,Cooling System:, Type, SEER2, EER2, CFM/Ton, Rfg. Charge, Ducted,\n" )  endif
 					endif
 			else UNCHANGED endif  }
 

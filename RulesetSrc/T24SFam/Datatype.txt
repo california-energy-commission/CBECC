@@ -407,8 +407,8 @@ Proj:FrontOrientation,       Default,   0,    1,   1,    1,  1,  1
 Proj:BuildingTypeRpt,       NotInput,   0,    0,   0,    1,  1,  1
 Proj:IsMultiFamily,          Default,   0,    1,   1,    1,  1,  1
 Proj:MultiFamilyType,     Prescribed,   0,    1,   1,    1,  1,  1		; SAC 4/28/15 - changed to Prescribed to avoid this being documented as a valid user input - pending final implementation plans/design
-Proj:IsMFamDuplex,          NotInput,   0,    0,   0,    1,  1,  1
-Proj:IsMFamTownhm,          NotInput,   0,    0,   0,    1,  1,  1
+; Proj:IsMFamDuplex,          NotInput,   0,    0,   0,    1,  1,  1
+; Proj:IsMFamTownhm,          NotInput,   0,    0,   0,    1,  1,  1
 Proj:IsMFamDupOrTownhm,     NotInput,   0,    0,   0,    1,  1,  1
 Proj:SFamDwellingType,    Prescribed,   0,    1,   1,    1,  1,  1      ; SAC 4/14/19 (tic #1071)
 Proj:SFamADUType,            Default,   0,    1,   1,    1,  1,  1      ; SAC 4/19/19 (tic #1010)
@@ -509,7 +509,7 @@ Proj:Appl_RefrigUsage[ALL],    Prescribed,   0,    1,   1,    1,  1,  1
 Proj:Appl_HaveDish[ALL],       Prescribed,   0,    1,   1,    1,  1,  1
 Proj:ApplDishZone[ALL],        Prescribed,   0,    1,   1,    1,  1,  1
 Proj:ApplDishUsageMethod[ALL], Prescribed,   0,    1,   1,    1,  1,  1
-Proj:UnitDishElecGain[ALL],    Prescribed,   0,    1,   1,    1,  1,  1
+;Proj:UnitDishElecGain[ALL],    Prescribed,   0,    1,   1,    1,  1,  1
 Proj:Appl_HaveWasher[ALL],     Prescribed,   0,    1,   1,    1,  1,  1
 Proj:ApplWasherZone[ALL],      Prescribed,   0,    1,   1,    1,  1,  1
 Proj:Appl_HaveDryer[ALL],      Prescribed,   0,    1,   1,    1,  1,  1
@@ -525,7 +525,7 @@ Proj:Appl_RefrigUsage[1],        Optional,   0,    1,   1,    1,  1,  1
 Proj:Appl_HaveDish[1],           Optional,   0,    1,   1,    1,  1,  1
 Proj:ApplDishZone[1],            Optional,   0,    1,   1,    1,  1,  1
 Proj:ApplDishUsageMethod[1],     Optional,   0,    1,   1,    1,  1,  1
-Proj:UnitDishElecGain[1],        Optional,   0,    1,   1,    1,  1,  1
+;Proj:UnitDishElecGain[1],        Optional,   0,    1,   1,    1,  1,  1
 Proj:Appl_HaveWasher[1],         Optional,   0,    1,   1,    1,  1,  1
 Proj:ApplWasherZone[1],          Optional,   0,    1,   1,    1,  1,  1
 Proj:Appl_HaveDryer[1],          Optional,   0,    1,   1,    1,  1,  1
@@ -742,12 +742,12 @@ Proj:SimulateCentralDHWBranches, Prescribed, 0,  1,   1,    1,  1,  1
 Proj:UnitLtgGain[ALL],         NotInput,   0,    0,   0,    1,  1,  1
 Proj:PeoplePerUnit[ALL],       NotInput,   0,    0,   0,    1,  1,  1
 Proj:UnitPeopleGain[ALL],      NotInput,   0,    0,   0,    1,  1,  1
-Proj:UnitMscElecGain[ALL],     NotInput,   0,    0,   0,    1,  1,  1
-Proj:UnitDishElecGain[ALL],    NotInput,   0,    0,   0,    1,  1,  1
-Proj:UnitCookElecGain[ALL],    NotInput,   0,    0,   0,    1,  1,  1
-Proj:UnitCookGasGain[ALL],     NotInput,   0,    0,   0,    1,  1,  1
-Proj:UnitClthWashGain[ALL],    NotInput,   0,    0,   0,    1,  1,  1
-Proj:UnitClthDryGain[ALL],     NotInput,   0,    0,   0,    1,  1,  1
+;Proj:UnitMscElecGain[ALL],     NotInput,   0,    0,   0,    1,  1,  1
+;Proj:UnitDishElecGain[ALL],    NotInput,   0,    0,   0,    1,  1,  1
+;Proj:UnitCookElecGain[ALL],    NotInput,   0,    0,   0,    1,  1,  1
+;Proj:UnitCookGasGain[ALL],     NotInput,   0,    0,   0,    1,  1,  1
+;Proj:UnitClthWashGain[ALL],    NotInput,   0,    0,   0,    1,  1,  1
+;Proj:UnitClthDryGain[ALL],     NotInput,   0,    0,   0,    1,  1,  1
 
 Proj:AvgLtgGainPerCFA,         NotInput,   0,    0,   0,    1,  1,  1
 Proj:AvgPplGainPerCFA,         NotInput,   0,    0,   0,    1,  1,  1
@@ -2662,7 +2662,7 @@ HVACHtPump:CEER,               Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:MinCEER,           NotInput,   0,    0,   0,    1,  1,  1
 HVACHtPump:CFMperTon,          Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:ACCharge,           Default,   0,    1,   1,    1,  1,  1
-HVACHtPump:RefrigerantType,    Default,   0,    1,   1,    1,  1,  1
+HVACHtPump:RefrigerantType, Prescribed,   0,    0,   0,    1,  1,  1    ; switched to Prescribed - SAC 08/14/26 (dev #1007)
 HVACHtPump:IsMultiSpeed,       Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:IsZonal,     	    Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:ClSizingFactor,     Default,   0,    1,   1,    1,  1,  1
@@ -2774,7 +2774,7 @@ HVACCool:CEER,               Default,   0,    1,   1,    1,  1,  1
 HVACCool:MinCEER,           NotInput,   0,    0,   0,    1,  1,  1
 HVACCool:CFMperTon,          Default,   0,    1,   1,    1,  1,  1
 HVACCool:ACCharge,           Default,   0,    1,   1,    1,  1,  1
-HVACCool:RefrigerantType,    Default,   0,    1,   1,    1,  1,  1
+HVACCool:RefrigerantType, Prescribed,   0,    0,   0,    1,  1,  1      ; switched to Prescribed - SAC 08/14/26 (dev #1007)
 
 HVACCool:IsMultiSpeed,       Default,   0,    1,   1,    1,  1,  1
 HVACCool:IsZonal,     	    Default,   0,    1,   1,    1,  1,  1

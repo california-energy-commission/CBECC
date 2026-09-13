@@ -87,9 +87,12 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
 ;															UnitTotCondFlrArea, CondFloorArea )  endif  }
 
 	; SAC 4/21/15 - added check to ensure at least one zone where Status = 'Existing' for EAA projects  ; SumChildrenIf -> SumAcrossIf - SAC 05/19/23 (tic #3479)
-	"Check to ensure at least one zone of Status = 'Existing' present when Run Scope = 'Addition and/or Alteration'"
-		ResProj:Action		= {	if (RunScope != 2 .OR. SumAcrossIf( ResZn:FloorArea, ResZn:Status = 1 ) > 0.1) then  UNCHANGED
-									else	PostError( "At least one 'Existing' zone must be specified when Run Scope = 'Addition and/or Alteration'.  If this model is of an addition alone, then change Run Scope to 'New Construction' and select 'Addition Alone project'." )  endif  }
+  ; fixed logic to include checks on ResOtherZn objects - SAC 08/17/26 (dev #958)
+  "Check to ensure at least one zone of Status = 'Existing' present when Run Scope = 'Addition and/or Alteration'"
+  ResProj:Action  =
+    { if( RunScope != 2 .OR. SumAcrossIf( ResZn:FloorArea, ResZn:Status = 1      ) > 0.1 .OR.
+                             SumAcrossIf( ResOtherZn:Area, ResOtherZn:Status = 1 ) > 0.1 ) then  UNCHANGED
+		  else	PostError( "At least one 'Existing' zone must be specified when Run Scope = 'Addition and/or Alteration'.  If this model is of an addition alone, then change Run Scope to 'New Construction' and select 'Addition Alone project'." )  endif  }
 
 	; SAC 6/6/13 - added check for conditioned/living/sleeping zones present in model
    ; revised logic to allow run where no res zones present as long as ResOtherZn(s) are - SAC 10/08/24 (tic #3630)
@@ -234,11 +237,11 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
   ; JP 8/27/25 (issue #199)   ; revise logic to only apply to New/Alt-assigned DUTs and to first check for IAQOption = 5 (Minimum Exhaust IAQ Fan (existing only)) - SAC 02/12/26 (dev #710)
   "Check for multifamily IAQ ventilation type valid"  DwellUnitType:Action =     ; add logic to prevent error when doing CUAC - SAC 03/10/26 (dev #741)
     { if( IfValidAnd( Proj:AnalysisVersion >= 250000 ) .AND. IfValidAnd( Proj:CUACReportID > 0 )==0 .AND.
-          ( IfValidAnd( ResProj:RunScope = 1 ) .OR. SumRevRef( DwellUnit:DwellUnitTypeRef, DwellUnit:NewOrAltHVACFlrAreaWithMult ) > 1 ) )
+          ( IfValidAnd( ResProj:RunScope = 1 ) .OR. SumRevRef( DwellUnit:DwellUnitTypeRef, DwellUnit:NewHVACFlrAreaWithMult ) > 1 ) )
       then  if( IAQOption == 5 )
-            then  PostError( "DwellUnitType '%s' IAQ type '%s' is not permitted for New or Altered dwellings. Please update the design to use a balanced or supply-only system to proceed.", Name, EnumString( IAQOption ) )
+            then  PostError( "DwellUnitType '%s' IAQ type '%s' is not permitted for New IAQ systems. Please update the design to use a balanced or supply-only system to proceed.", Name, EnumString( IAQOption ) )
             else if( IfValidAnd( IAQCFMIsBalanced > 0 ) = 0 .AND. IfValidAnd( MostIAQ_Exhaust > 0 ) )
-            then  PostError( "DwellUnitType '%s' IAQ type Exhaust is no longer permitted. Please update the design to use a balanced or supply-only system to proceed.", Name )
+            then  PostError( "DwellUnitType '%s' IAQ type Exhaust is no longer permitted for New IAQ systems. Please update the design to use a balanced or supply-only system to proceed.", Name )
             else  UNCHANGED
             endif endif
       else  UNCHANGED
@@ -248,7 +251,8 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
       {  if ( Proj:IsSFamResRuleset .OR. IfValidAnd( NumAssigningDUs > 0 )==0 .OR. IfValidAnd( Proj:CUACReportID > 0 )) then  UNCHANGED
          else if ( ( ResProj:MostDUIAQ_Balanced > 0 .AND. IAQCFMIsBalanced > 0) .OR.
                    ( ResProj:MostDUIAQ_Exhaust  > 0 .AND. IfValidAnd( MostIAQ_Exhaust > 0 )) .OR.
-                   ( ResProj:MostDUIAQ_Supply   > 0 .AND. IfValidAnd( MostIAQ_Supply  > 0 )) ) then  UNCHANGED
+                   ( ResProj:MostDUIAQ_Supply   > 0 .AND. IfValidAnd( MostIAQ_Supply  > 0 )) .OR.
+                   SumRevRef( DwellUnit:DwellUnitTypeRef, DwellUnit:NewHVACFlrAreaWithMult ) < 0.5 ) then  UNCHANGED
          else if (GlobalStatus( ResProj:MostDUIAQ_Type ) > 0)
          then  if (                 IAQCFMIsBalanced > 0 ) then  PostError( "DwellUnitType '%s' IAQ type Balanced must be consistent w/ predominant project IAQ type of %s", Name, ResProj:MostDUIAQ_Type )
                else if (IfValidAnd( MostIAQ_Exhaust > 0 )) then  PostError( "DwellUnitType '%s' IAQ type Exhaust must be consistent w/ predominant project IAQ type of %s" , Name, ResProj:MostDUIAQ_Type )
@@ -1057,19 +1061,21 @@ RULELIST "ProposedModelCodeCheck" 1 0 0 0
             else  UNCHANGED  endif endif endif
       else  UNCHANGED  endif endif endif  }
 
-  ; SAC 07/20/23  ; replaced check for Status w/ IsExisting, since Status not necessarily defined - SAC 12/10/25
-	"Check for HVACHtPump perf metrics via HSPF2/SEER2/EER2 for 2025+ analysis"	ResHtPumpSys:Action	= 
-      {  if ((FloorAreaServed < 0.1 .AND. NumAssigningDUs < 0.1) .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR.
-             EffMetric > 1 .OR. IfValidAnd( Proj:AnalysisVersion < 250002 ) .OR. IfValidAnd( Proj:CUACReportID > 0 ) .OR. 
-             (IfValidAnd( IsExisting > 0 ) .AND. (ResProj:RunScope > 1 .OR. ResProj:IsAddAlone > 0))) then  UNCHANGED
-         else if (IfValidAnd( Proj:EnableResearchMode > 0 ))
-         then  if (Type == 26 .OR. Type == 24 .OR. Type == 11 .OR. Type == 12 .OR. Type == 6)
-               then  PostWarning( "Heat pump '%s' efficiency metric must be switched to 'EER2' for compliance analysis in this code vintage.", Name )
-               else  PostWarning( "Heat pump '%s' efficiency metric must be switched to 'HSPF2/SEER2/EER2' for compliance analysis in this code vintage.", Name )  endif
-         else  if (Type == 26 .OR. Type == 24 .OR. Type == 11 .OR. Type == 12 .OR. Type == 6)
-               then  PostError( "Heat pump '%s' efficiency metric must be switched to 'EER2' for analysis in this code vintage.", Name )
-               else  PostError( "Heat pump '%s' efficiency metric must be switched to 'HSPF2/SEER2/EER2' for analysis in this code vintage.", Name )  endif
-         endif endif  }
+      ;"store BEMProc details" Proj:Action = {  StoreBEMProc( "b4 HP EffMetric chk", 0 )  }   ; debugging - SAC 04/23/26 (dev #855)
+  ; moved down into SimulationCheck to ensure that the IsExisting checks are set PRIOR to performing this check - SAC 04/23/26 (dev #855)
+  ;  ; SAC 07/20/23  ; replaced check for Status w/ IsExisting, since Status not necessarily defined - SAC 12/10/25
+  ;	"Check for HVACHtPump perf metrics via HSPF2/SEER2/EER2 for 2025+ analysis"	ResHtPumpSys:Action	= 
+  ;      {  if ((FloorAreaServed < 0.1 .AND. NumAssigningDUs < 0.1) .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR.
+  ;             EffMetric > 1 .OR. IfValidAnd( Proj:AnalysisVersion < 250002 ) .OR. IfValidAnd( Proj:CUACReportID > 0 ) .OR. 
+  ;             (IfValidAnd( IsExisting > 0 ) .AND. (ResProj:RunScope > 1 .OR. ResProj:IsAddAlone > 0))) then  UNCHANGED
+  ;         else if (IfValidAnd( Proj:EnableResearchMode > 0 ))
+  ;         then  if (Type == 26 .OR. Type == 24 .OR. Type == 11 .OR. Type == 12 .OR. Type == 6)
+  ;               then  PostWarning( "Heat pump '%s' efficiency metric must be switched to 'EER2' for compliance analysis in this code vintage.", Name )
+  ;               else  PostWarning( "Heat pump '%s' efficiency metric must be switched to 'HSPF2/SEER2/EER2' for compliance analysis in this code vintage.", Name )  endif
+  ;         else  if (Type == 26 .OR. Type == 24 .OR. Type == 11 .OR. Type == 12 .OR. Type == 6)
+  ;               then  PostError( "Heat pump '%s' efficiency metric must be switched to 'EER2' for analysis in this code vintage.", Name )
+  ;               else  PostError( "Heat pump '%s' efficiency metric must be switched to 'HSPF2/SEER2/EER2' for analysis in this code vintage.", Name )  endif
+  ;         endif endif  }
 
 	; SAC 11/14/13 - added check for heat pumps including valid capacities     ; SAC 9/22/17 - enable HP autosizing    ; VCHP2 - SAC 11/01/20
 ;	"debug HP CAP check"									ResHtPumpSys:Action	= {	PostWarning( "HVACHtPump '%s' Type = %g  Cap47 = %g  Cap47 = %g", Name, Type, Cap47, Cap17 )	}
@@ -2067,6 +2073,7 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 ;*************************************************************************
 ;"log status"   ResProj:Action = {  if (DevMode==0 .OR. LocalStatus(RunAbbrev) < 1 .OR. EnergyCodeYearNum < 2019) then  UNCHANGED  else
 ;   PostMessageToLog( "    evaluating 'ProposedModelSimulationCheck' rules on '%s' model...", RunAbbrev )  endif  }
+;"store BEMProc details" Proj:Action = {  StoreBEMProc( "b4 PropSimChks", 0 )  }   ; debugging - SAC 04/23/26 (dev #855)
 
   "RE-Default Construction properties to ensure correct/final WinterDesUValue"    ; SAC 01/25/26 (dev #696)
     ResProj:Action = {  EvalRulelist( "ProposedInput_Constructions" )  }
@@ -2083,7 +2090,6 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
                                  IfValidAnd( Proj:EnableResearchMode > 0 )==0 .AND. IfValidAnd( BypassRuleLimits > 0 )==0)
 								then  PostError( "OtherZone objects cannot be present in single family projects" )
 								else  UNCHANGED  endif endif endif  }
-
 
   ; SAC 6/24/14 - prevent selection of ZonalControl for Multifamily models (incompatible w/ new DwellUnitType & DwellUnit objects)
 	"Prevent selection of ZonalControl for Multifamily models"
@@ -2192,7 +2198,7 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 	"Prevent invalid ResAttic:exConstruction assignments"		ResAttic:Action	= {
 						if (IfValidAnd( FloorArea > 0.1 )==0 .OR. Status != 2 .OR. IfValidAnd( IsVerified == 1 )==0) then  UNCHANGED
 						else if (LocalCompAssigned( exConstruction ) < 0.5) then				PostError( "Attic '%s' missing its existing exConstruction reference.", Name )
-						else if (IfValidAnd( exConstruction:CanAssignTo ==  1 )==0) then	PostError( "Attic '%s' references incompatible construction object '%s' (CanAssignTo = '%s').", Name, Construction:Name, EnumString( Construction:CanAssignTo ) )
+						else if (IfValidAnd( exConstruction:CanAssignTo ==  1 )==0) then	PostError( "Attic '%s' references incompatible existing construction object '%s' (CanAssignTo = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CanAssignTo ) )
 						else if (IfValidAnd( exConstruction:DisplayInpErrMsg > 0 )) then  PostError( "Attic '%s' existing construction '%s':  %s", Name, exConstruction:Name, exConstruction:InputErrMsg )
 						else  UNCHANGED  endif endif endif endif  }
 
@@ -2242,10 +2248,40 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 ;	1,           "Construction assignments",      BEMP_Obj,  1,  0,  0, "",                 0,  1, "Cons",  20, "CanAssignTo",  6012, "Construction assembly" 
 ;	1,           "exConstruction assignments",    BEMP_Obj,  1,  0,  0, "",                 0,  1, "Cons",  20, "CanAssignTo",  3208, "existing construction for this (altered) wall object" 
 
+	"Prevent invalid ResUndgrWall:Construction assignments"			ResUndgrWall:Action	= {
+						if (LocalCompAssigned( Construction ) < 0.5) then						PostError( "UndgrWall '%s' missing its Construction reference.", Name )
+						else if (IfValidAnd(   Construction:CanAssignTo == 20 )==0) then	PostError( "UndgrWall '%s' references incompatible construction object '%s' (CanAssignTo = '%s').", Name, Construction:Name, EnumString( Construction:CanAssignTo ) )
+						else if (IfValidAnd(   Construction:DisplayInpErrMsg > 0 )) then  PostError( "UndgrWall '%s' construction '%s':  %s", Name, Construction:Name, Construction:InputErrMsg )
+						else  UNCHANGED  endif endif endif  }
+	"Prevent invalid ResUndgrWall:exConstruction assignments"		ResUndgrWall:Action	= {
+						if (IfValidAnd( Area > 0.1 )==0 .OR. Status != 2 .OR. IfValidAnd( IsVerified == 1 )==0) then  UNCHANGED
+						else if (LocalCompAssigned( exConstruction ) < 0.5) then				PostError( "UndgrWall '%s' missing its existing exConstruction reference.", Name )
+						else if (IfValidAnd( exConstruction:CanAssignTo == 20 )==0) then	PostError( "UndgrWall '%s' references incompatible existing construction object '%s' (CanAssignTo = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CanAssignTo ) )
+						else if (IfValidAnd( exConstruction:DisplayInpErrMsg > 0 )) then  PostError( "UndgrWall '%s' existing construction '%s':  %s", Name, exConstruction:Name, exConstruction:InputErrMsg )
+						else  UNCHANGED  endif endif endif endif  }
+
 ;		"Prevent invalid CathedralCeiling",  "Cathedral Ceiling",  "Cath Clg <pi>-<i>",      0,  0,  0, "Zone",   "Garage", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  0,   7000
 ;	1,           "Construction assignments",      BEMP_Obj,  1,  0,  0, "",                 0,  1, "Cons",   2, "CanAssignTo",  6012, "Construction assembly" 
 ;		 CTRL, "exConstruction",    8215, TDCT_Combo,  145, 400, 300, 180, 12, FNT_STD, "Construction:",                      TA_LEFT,   -95, 4,     0, TA_LEFT, 0, 0,  None, Status = 2 And IsVerified = 1,  -100, 100,  ""
 ;	1,           "exConstruction assignments",    BEMP_Obj,  1,  0,  0, "",                 0,  1, "Cons",   2, "CanAssignTo",  3208, "existing construction for this (altered) ceiling object" 
+
+	"Prevent invalid ResCathedralCeiling:Construction assignments"			ResCathedralCeiling:Action	= {
+						if (LocalCompAssigned( Construction ) < 0.5) then						PostError( "CathedralCeiling '%s' missing its Construction reference.", Name )
+                  else if (LocalCompAssigned( Construction ) == ComponentType( "ConsAssm" ))
+                  then  if (IfValidAnd(  Construction:CompatibleSurfType ==  2 )==0) then  PostError( "CathedralCeiling '%s' references incompatible construction object '%s' (CompatibleSurfType = '%s').", Name, Construction:Name, EnumString( Construction:CompatibleSurfType ) )
+                        else  UNCHANGED  endif
+						else if (IfValidAnd(   Construction:CanAssignTo ==  2 )==0) then	PostError( "CathedralCeiling '%s' references incompatible construction object '%s' (CanAssignTo = '%s').", Name, Construction:Name, EnumString( Construction:CanAssignTo ) )
+						else if (IfValidAnd(   Construction:DisplayInpErrMsg > 0 )) then  PostError( "CathedralCeiling '%s' construction '%s':  %s", Name, Construction:Name, Construction:InputErrMsg )
+						else  UNCHANGED  endif endif endif endif  }
+	"Prevent invalid ResCathedralCeiling:exConstruction assignments"		ResCathedralCeiling:Action	= {
+						if (IfValidAnd( Area > 0.1 )==0 .OR. Status != 2 .OR. IfValidAnd( IsVerified == 1 )==0) then  UNCHANGED
+						else if (LocalCompAssigned( exConstruction ) < 0.5) then				PostError( "CathedralCeiling '%s' missing its existing exConstruction reference.", Name )
+                  else if (LocalCompAssigned( exConstruction ) == ComponentType( "ConsAssm" ))
+                  then  if (IfValidAnd(  exConstruction:CompatibleSurfType ==  2 )==0) then  PostError( "CathedralCeiling '%s' references incompatible existing construction object '%s' (CompatibleSurfType = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CompatibleSurfType ) )
+                        else  UNCHANGED  endif
+						else if (IfValidAnd( exConstruction:CanAssignTo ==  2 )==0) then	PostError( "CathedralCeiling '%s' references incompatible existing construction object '%s' (CanAssignTo = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CanAssignTo ) )
+						else if (IfValidAnd( exConstruction:DisplayInpErrMsg > 0 )) then  PostError( "CathedralCeiling '%s' existing construction '%s':  %s", Name, exConstruction:Name, exConstruction:InputErrMsg )
+						else  UNCHANGED  endif endif endif endif endif  }
 
 	"Prevent invalid ResCeilingBelowAttic:Construction assignments"	ResCeilingBelowAttic:Action	= {
 						if (LocalCompAssigned( Construction ) < 0.5) then					PostError( "CeilingBelowAttic '%s' missing its Construction reference.", Name )
@@ -2269,6 +2305,24 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 ;	1,           "Construction assignments",      BEMP_Obj,  1,  0,  0, "",                 0,  1, "Cons",  5, "CanAssignTo",  6012, "Construction assembly" 
 ;		 CTRL, "exConstruction",    8610, TDCT_Combo,  145, 340, 300, 220, 12, FNT_STD, "Construction:",                      TA_LEFT,   -95, 4,     0, TA_LEFT, 0, 0,  None, Status = 2 And IsVerified = 1,  -100, 100,  ""
 ;	1,           "exConstruction assignments",    BEMP_Obj,  1,  0,  0, "",                 0,  1, "Cons",  5, "CanAssignTo",  3208, "existing construction for this (altered) floor object" 
+
+	"Prevent invalid ResExtFlr:Construction assignments"			ResExtFlr:Action	= {
+						if (LocalCompAssigned( Construction ) < 0.5) then						PostError( "ExtFlr '%s' missing its Construction reference.", Name )
+                  else if (LocalCompAssigned( Construction ) == ComponentType( "ConsAssm" ))
+                  then  if (IfValidAnd(  Construction:CompatibleSurfType ==  3 )==0) then  PostError( "ExtFlr '%s' references incompatible construction object '%s' (CompatibleSurfType = '%s').", Name, Construction:Name, EnumString( Construction:CompatibleSurfType ) )
+                        else  UNCHANGED  endif
+						else if (IfValidAnd(   Construction:CanAssignTo ==  5 )==0) then	PostError( "ExtFlr '%s' references incompatible construction object '%s' (CanAssignTo = '%s').", Name, Construction:Name, EnumString( Construction:CanAssignTo ) )
+						else if (IfValidAnd(   Construction:DisplayInpErrMsg > 0 )) then  PostError( "ExtFlr '%s' construction '%s':  %s", Name, Construction:Name, Construction:InputErrMsg )
+						else  UNCHANGED  endif endif endif endif  }
+	"Prevent invalid ResExtFlr:exConstruction assignments"		ResExtFlr:Action	= {
+						if (IfValidAnd( Area > 0.1 )==0 .OR. Status != 2 .OR. IfValidAnd( IsVerified == 1 )==0) then  UNCHANGED
+						else if (LocalCompAssigned( exConstruction ) < 0.5) then				PostError( "ExtFlr '%s' missing its existing exConstruction reference.", Name )
+                  else if (LocalCompAssigned( exConstruction ) == ComponentType( "ConsAssm" ))
+                  then  if (IfValidAnd(  exConstruction:CompatibleSurfType ==  3 )==0) then  PostError( "ExtFlr '%s' references incompatible existing construction object '%s' (CompatibleSurfType = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CompatibleSurfType ) )
+                        else  UNCHANGED  endif
+						else if (IfValidAnd( exConstruction:CanAssignTo ==  5 )==0) then	PostError( "ExtFlr '%s' references incompatible existing construction object '%s' (CanAssignTo = '%s').", Name, exConstruction:Name, EnumString( exConstruction:CanAssignTo ) )
+						else if (IfValidAnd( exConstruction:DisplayInpErrMsg > 0 )) then  PostError( "ExtFlr '%s' existing construction '%s':  %s", Name, exConstruction:Name, exConstruction:InputErrMsg )
+						else  UNCHANGED  endif endif endif endif endif  }
 
 	"Prevent invalid ResFlrOverCrawlSpc:Construction assignments"	ResFlrOverCrawlSpc:Action	= {
 						if (LocalCompAssigned( Construction ) < 0.5) then					PostError( "FloorOverCrawl '%s' missing its Construction reference.", Name )
@@ -2590,6 +2644,22 @@ RULELIST "ProposedModelSimulationCheck" 1 0 0 0
 												then  PostError( "Current combined hydronic system pipe (in uncond space) length limit is 10 ft (system '%s')", Name )
 												else  UNCHANGED  endif endif
 										else  UNCHANGED  endif  }
+
+  ; SAC 07/20/23  ; replaced check for Status w/ IsExisting, since Status not necessarily defined - SAC 12/10/25
+  ; moved down here from CodeCheck to ensure that IsExisting is set PRIOR to performing this check - SAC 04/23/26 (dev #855)
+  ; prevent this error for 'AirToWaterHeatPump' (Type = 11) - SAC 08/26/26 (dev #1075)
+  "Check for HVACHtPump perf metrics via HSPF2/SEER2/EER2 for 2025+ analysis"	ResHtPumpSys:Action	= 
+       {  if ((FloorAreaServed < 0.1 .AND. NumAssigningDUs < 0.1) .OR. IfValidAnd( ShowEffMetric > 0 )==0 .OR. IfValidAnd( Type = 11 ) .OR.
+              EffMetric > 1 .OR. IfValidAnd( Proj:AnalysisVersion < 250002 ) .OR. IfValidAnd( Proj:CUACReportID > 0 ) .OR. 
+              (IfValidAnd( IsExisting > 0 ) .AND. (ResProj:RunScope > 1 .OR. ResProj:IsAddAlone > 0))) then  UNCHANGED
+          else if (IfValidAnd( Proj:EnableResearchMode > 0 ))
+          then  if (Type == 26 .OR. Type == 24 .OR. Type == 11 .OR. Type == 12 .OR. Type == 6)
+                then  PostWarning( "Heat pump '%s' efficiency metric must be switched to 'EER2' for compliance analysis in this code vintage.", Name )
+                else  PostWarning( "Heat pump '%s' efficiency metric must be switched to 'HSPF2/SEER2/EER2' for compliance analysis in this code vintage.", Name )  endif
+          else  if (Type == 26 .OR. Type == 24 .OR. Type == 11 .OR. Type == 12 .OR. Type == 6)
+                then  PostError( "Heat pump '%s' efficiency metric must be switched to 'EER2' for analysis in this code vintage.", Name )
+                else  PostError( "Heat pump '%s' efficiency metric must be switched to 'HSPF2/SEER2/EER2' for analysis in this code vintage.", Name )  endif
+          endif endif  }
 
 	"Check for heat pump system type availability"
 		ResHtPumpSys:Action	= {	if (FloorAreaServed < 0.1 .OR. IsAvailable > 0.5) then  UNCHANGED
@@ -3328,6 +3398,14 @@ RULELIST "SetIndirectOutsideConnection"  1 0 0 0
 END
 ;*************************************************************************
 
+;*************************************************************************  SAC 06/10/22   ; moved from Multifam-BackwardCompatRuleLists.rule to here - SAC 06/15/26 (dev #903)  ; SAC 08/12/26 (dev #1039)
+RULELIST "ModelErrorCheck_SpcFunc_HighRiseRes"  1 0 0 0
+   "Post error for Spc w/ invalid highrise res SpcFunc"    Spc:Action =
+      {  if( EnumString( SpcFunc ) == "High-Rise Residential Living Spaces" )
+         then  PostError( "Space '%s' space function (SpcFunc): 'High-Rise Residential Living Spaces' is no longer supported. %cResidential dwellings now must be defined via DwellUnitType and residential zones (ResZn). Search for 'Creating a Dwelling Unit Type' in CBECC user manual.", Name, 13 )
+         else  UNCHANGED  endif  }
+END
+;*************************************************************************
 
 
 

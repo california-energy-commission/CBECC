@@ -43,14 +43,19 @@ RULE Proj:IsSFamResRuleset
 ENDRULE
 
 // SAC 10/19/21 (MFam)
+      ; switched from Default to Prescribed and now set based on FacilityType - SAC 06/15/26 (dev #903)
 RULE Proj:ResDwellUnits
   DESCRIPTION
     "whether this project includes residential dwelling units (other than hotel/motel guest rooms)"
   DEFAULT
-    if (ComponentCount( ResProj  ) > 0)
+    if( FacilityType == "Includes Residential Dwellings &/or Common Areas" )
     then  1
     else  0  endif
 ENDRULE
+  ; before 06/15/26 was:
+  ;  if (ComponentCount( ResProj  ) > 0)
+  ;  then  1
+  ;  else  0  endif
 
 // SAC 10/18/21 (MFam)
 RULE Proj:Action
@@ -801,7 +806,7 @@ RULE ResProj:IAQSupInletsAccessible
   DESCRIPTION
     "supply air filters, outside air inlets, and H/ERV recovery cores are readily accessible"
   INPUTCLASS 
-    Default
+    NotInput
   DEFAULT
     1
 ENDRULE
@@ -819,9 +824,12 @@ RULE ResProj:IAQHasFID
   DESCRIPTION
     "whether IAQ system has fault indication display (FID) in compliance with RACM Reference Manual"
   INPUTCLASS 
-    Default
+    NotInput
   DEFAULT
-    1
+    if( SumAll( DwellUnitType:IAQHasFID ) > 0 )
+    then  1
+    else  0 
+    endif
 ENDRULE
 
 RULE Proj:StdDesignBase
@@ -998,11 +1006,15 @@ RULE ResProj:CSEVentAvailZonal
   DEFAULT
      1
 ENDRULE
+; update NResLeakageRatio from 1.8 to 3 - SAC 07/30/26 (dev #679)
 RULE ResProj:NResLeakageRatio
   DESCRIPTION
     "ratio of NRes surface leakage (per ft2) / Res surface leakage (residential only)"
   DEFAULT
-     1.8
+    if( IfValidAnd( Proj:AnalysisVersion >= 250300 ) )
+    then  3.0
+    else  1.8
+    endif
 ENDRULE
 
 ; updated default interior surface hole size ratios from 0.0005 to 0.0000036 & 0.000026, consistent w/ original MFam proto development - SAC 10/09/23
@@ -1013,17 +1025,33 @@ RULE ResProj:Action
     then  EvalRulelist( "RemoveInput_ResProj_IntSurfHoleSzRatio", 1 )
     else  UNCHANGED  endif
 ENDRULE
+; add rule to ensure NResLeakageRatio not user-specified when EnableResearchMode not activated - SAC 07/30/26 (dev #679)
+RULE ResProj:Action
+  DEFAULT
+    if (Proj:DefaultingRounds = 1 .AND. IfValidAnd( EnableResearchMode > 0.5 )==0 .AND.
+        LocalStatus( NResLeakageRatio ) > 3)
+    then  EvalRulelist( "RemoveInput_ResProj_NResLeakageRatio", 1 )
+    else  UNCHANGED  endif
+ENDRULE
+; update IntSurfHoleSzRatio[1] from 0.0000036 to 0.000166 - SAC 07/30/26 (dev #679)
 RULE ResProj:IntSurfHoleSzRatio[1]
   DESCRIPTION
     "ratio of hole size / wall size for int surfaces (1-between Res units) (residential only)"
   DEFAULT
-     0.0000036
+    if( IfValidAnd( Proj:AnalysisVersion >= 250300 ) )
+    then  0.000166
+    else  0.0000036
+    endif
 ENDRULE
+; update IntSurfHoleSzRatio[2] from 0.000026 to 0.0005 - SAC 07/30/26 (dev #679)
 RULE ResProj:IntSurfHoleSzRatio[2]
   DESCRIPTION
     "ratio of hole size / wall size for int surfaces (2-other than between Res units) (residential only)"
   DEFAULT
-     0.000026
+    if( IfValidAnd( Proj:AnalysisVersion >= 250300 ) )
+    then  0.0005
+    else  0.000026
+    endif
 ENDRULE
 
 ; updated default natural ventilation wind pressure coeff.s from 1s to 0.25 & 0.5 for single and 2-window orientation MFam zones, consistent w/ original MFam proto development - SAC 10/09/23
@@ -1130,11 +1158,22 @@ RULE ResProj:Fuel_HaveElec
   DEFAULT
      1
 ENDRULE
+; add logic to following rules to ensure Std design models can track NatGas or Other fuel use - SAC 04/01/26 (dev #818)
 RULE ResProj:Fuel_HaveNatGas
   DESCRIPTION
     "flag indicating use of natural gas"
   DEFAULT
-     if (IfValidAnd( GasType = "NaturalGas" ))
+     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     then  1
+     else  0  endif
+  SIZING
+     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
      then  1
      else  0  endif
 ENDRULE
@@ -1142,7 +1181,17 @@ RULE ResProj:Fuel_HaveOther
   DESCRIPTION
     "flag indicating use of a fuel other than natural gas"
   DEFAULT
-     if (IfValidAnd( GasType = "Propane" ))
+     if( IfValidAnd( GasType = "Propane" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     then  1
+     else  0  endif
+  SIZING
+     if( IfValidAnd( GasType = "Propane" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
      then  1
      else  0  endif
 ENDRULE
@@ -1155,7 +1204,17 @@ RULE NEW Proj:Fuel_HaveNatGas
   DESCRIPTION
     "flag indicating use of natural gas"
   DEFAULT
-     if (IfValidAnd( GasType = "NaturalGas" ))
+     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     then  1
+     else  0  endif
+  SIZING
+     if( IfValidAnd( GasType = "NaturalGas" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 ) .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
      then  1
      else  0  endif
 ENDRULE
@@ -1167,7 +1226,17 @@ RULE NEW Proj:Fuel_HaveOther
   DESCRIPTION
     "flag indicating use of a fuel other than natural gas"
   DEFAULT
-     if (IfValidAnd( GasType = "Propane" ))
+     if( IfValidAnd( GasType = "Propane" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
+     then  1
+     else  0  endif
+  SIZING
+     if( IfValidAnd( GasType = "Propane" ) .OR.
+         ( IfValidAnd( GasType = "None" ) .AND. IfValidAnd( NatGasAvail > 0 )==0 .AND.
+           ( IfValidAnd( RunAbbrev = "s" ) .OR. IfValidAnd( RunAbbrev = "zb" ) .OR.
+             IfValidAnd( RunAbbrev = "ab" ) ) ) )
      then  1
      else  0  endif
 ENDRULE

@@ -1364,6 +1364,12 @@ RULE nrcctblRowHvacdwell:Hvacdwell10a_HeatPumpBackupFuel
     else UNDEFINED
     endif
 ENDRULE
+; RJH 8/27/26 2025-CBECC-Schema Issue 42
+RULE nrcctblRowHvacdwell:Hvacdwell10a_NotApplicableMessage
+  ANNUAL_PROPOSED
+    if (LocalStatus( Hvacdwell10a_HeatPumpBackupFuel ) > 0)
+    then  UNDEFINED  else  "NotApplicable"  endif
+ENDRULE
 
 RULE nrcctblRowHvacdwell:Hvacdwell11_NotApplicableMessage
   ANNUAL_PROPOSED
@@ -2689,7 +2695,8 @@ RULE nrcctblRowHvacCommonMF:HvacCommonMF07_HeatPumpHeatCapacity47F
               then UNDEFINED
               else if (noXMLoutput_ResHVACSysRef:Type == "Central Heating and Cooling System")
                    then if (noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:Type == "Variable refrigerant flow")
-                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HPSysCap47 ) )
+;                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HPSysCap47 ) )
+                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:HtgCapTotNetRtd ) )  ; RJH 8/28/26 2025-CBECC-Schema Issue 84
                         else if (noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:Type == "Water source heat pump")
                              then UNDEFINED
                              else UNDEFINED
@@ -5305,11 +5312,10 @@ RULE nrcctblRowVentNR:Vent04_VentSystemOA
   ANNUAL_PROPOSED
     if (LocalCompAssigned(noXMLoutput_ThrmlZnRef)) 
     then atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:VentFlow ) )
-    else if (LocalCompAssigned(noXMLoutput_ResOtherZnRef)) 
-         then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:TotalIAQCFM ) ) 
-         else UNDEFINED 
-         endif
-    endif
+    else if (LocalCompAssigned(noXMLoutput_ResOtherZnRef))   ; RJH 5/8/26 CBECC-user-support Issue 499
+    then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:TotalSupOACFM ) )
+    else UNDEFINED
+    endif endif
 ENDRULE
 RULE nrcctblRowVentNR:Vent05_ExhaustFlowRate
   ANNUAL_PROPOSED
@@ -5318,11 +5324,10 @@ RULE nrcctblRowVentNR:Vent05_ExhaustFlowRate
          then atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:MinExhFlow ) ) 
          else atof( Format( "%.2f", noXMLoutput_ThrmlZnRef:ExhFlow ) ) 
          endif
-    else if (LocalCompAssigned(noXMLoutput_ResOtherZnRef)) 
-         then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:TotalExhCFM ) ) 
-         else UNDEFINED 
-         endif
-    endif
+    else if (LocalCompAssigned(noXMLoutput_ResOtherZnRef))   ; RJH 5/8/26 CBECC-user-support Issue 499 
+    then atof( Format( "%.2f", noXMLoutput_ResOtherZnRef:TotalExhCFM ) )
+    else UNDEFINED
+    endif endif
 ENDRULE
 RULE nrcctblRowVentNR:Vent06_ThermalZoneFloorArea
   ANNUAL_PROPOSED
@@ -5525,10 +5530,10 @@ RULE nrcctblRowVentRes:VentRes04_FanFlowCapacity
             case "Default Minimum Balanced IAQ Fan"    : UNDEFINED
             case "Minimum Exhaust IAQ Fan"             : UNDEFINED
             case "Individual IAQ Fans"                 : UNDEFINED
-            case "Central Supply / Central Exhaust"    : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanCap ) )
-            case "Central Supply / Individual Exhaust" : UNDEFINED
-            case "Central Exhaust / Individual Supply" : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanCap ) )
-            case "Central Supply"                      : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanCap ) )
+            case "Central Supply / Central Exhaust"    : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralSupplyCFM ) )    ; RJH 5/8/26 CBECC-Dev Issue 890
+            case "Central Supply / Individual Exhaust" : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralSupplyCFM ) )    ; RJH 5/8/26 CBECC-Dev Issue 890
+            case "Central Exhaust / Individual Supply" : UNDEFINED    ; RJH 5/8/26 CBECC-Dev Issue 890
+            case "Central Supply"                      : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralSupplyCFM ) )    ; RJH 5/8/26 CBECC-Dev Issue 890
             case "Central Exhaust"                     : UNDEFINED
             default :  UNDEFINED
          endswitch
@@ -5548,8 +5553,8 @@ RULE nrcctblRowVentRes:VentRes05_FanPowerPerFlow
             case "Minimum Exhaust IAQ Fan"             : UNDEFINED
             case "Individual IAQ Fans"                 : UNDEFINED
             case "Central Supply / Central Exhaust"    : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanPwrIdx ) )
-            case "Central Supply / Individual Exhaust" : UNDEFINED
-            case "Central Exhaust / Individual Supply" : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanPwrIdx ) )
+            case "Central Supply / Individual Exhaust" : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanPwrIdx ) )    ; RJH 5/8/26 CBECC-Dev Issue 890
+            case "Central Exhaust / Individual Supply" : UNDEFINED    ; RJH 5/8/26 CBECC-Dev Issue 890
             case "Central Supply"                      : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:SupFanPwrIdx ) )
             case "Central Exhaust"                     : UNDEFINED
             default :  UNDEFINED
@@ -5569,9 +5574,9 @@ RULE nrcctblRowVentRes:VentRes06_ExhaustFlowRate
             case "Default Minimum Balanced IAQ Fan"    : UNDEFINED
             case "Minimum Exhaust IAQ Fan"             : UNDEFINED
             case "Individual IAQ Fans"                 : UNDEFINED
-            case "Central Supply / Central Exhaust"    : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:ExhFanCap ) )
+            case "Central Supply / Central Exhaust"    : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralExhaustCFM ) )    ; RJH 5/8/26 CBECC-Dev Issue 890
             case "Central Supply / Individual Exhaust" : UNDEFINED
-            case "Central Exhaust / Individual Supply" : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:ExhFanCap ) )
+            case "Central Exhaust / Individual Supply" : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralExhaustCFM ) )    ; RJH 5/8/26 CBECC-Dev Issue 890
             case "Central Supply"                      : UNDEFINED
             case "Central Exhaust"                     : atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:CentralVentSysRef:ExhFanCap ) )
             default :  UNDEFINED
@@ -5631,8 +5636,8 @@ RULE nrcctblRowVentRes:VentRes08_VentilationSystemType[1]
                                                          else UNDEFINED
                                                          endif
             case "Central Supply / Central Exhaust"    : UNDEFINED
-            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then switch (noXMLoutput_DwellUnitTypeRef:IAQFanRef[1]:IAQFanType)
+            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanRef ) > 0)    ; RJH 5/8/26 CBECC-Dev Issue 890 
+                                                         then switch (noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanRef:IAQFanType)
                                                                 case "Balanced" : "Balanced"
                                                                 case "Supply"   : "SupplyVent"
                                                                 case "Exhaust"  : "ExhaustVent"
@@ -5640,8 +5645,8 @@ RULE nrcctblRowVentRes:VentRes08_VentilationSystemType[1]
                                                               endswitch
                                                          else UNDEFINED
                                                          endif
-            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then switch (noXMLoutput_DwellUnitTypeRef:IAQFanRef[1]:IAQFanType)
+            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:SupplyIAQFanRef ) > 0)    ; RJH 5/8/26 CBECC-Dev Issue 890 
+                                                         then switch (noXMLoutput_DwellUnitTypeRef:SupplyIAQFanRef:IAQFanType)
                                                                 case "Balanced" : "Balanced"
                                                                 case "Supply"   : "SupplyVent"
                                                                 case "Exhaust"  : "ExhaustVent"
@@ -5819,14 +5824,8 @@ RULE nrcctblRowVentRes:VentRes09_FanCount[1]
                                                          else UNDEFINED
                                                          endif
             case "Central Supply / Central Exhaust"    : UNDEFINED
-            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then noXMLoutput_DwellUnitTypeRef:IAQFanCnt[1]
-                                                         else UNDEFINED
-                                                         endif
-            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then noXMLoutput_DwellUnitTypeRef:IAQFanCnt[1]
-                                                         else UNDEFINED
-                                                         endif
+            case "Central Supply / Individual Exhaust" : noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanCnt   ; RJH 5/8/26 CBECC-Dev Issue 890
+            case "Central Exhaust / Individual Supply" : noXMLoutput_DwellUnitTypeRef:SupplyIAQFanCnt   ; RJH 5/8/26 CBECC-Dev Issue 890
             case "Central Supply"                      : UNDEFINED
             case "Central Exhaust"                     : UNDEFINED
             default :  UNDEFINED
@@ -5928,12 +5927,12 @@ RULE nrcctblRowVentRes:VentRes10_FanFlowCapacity[1]
                                                          else UNDEFINED
                                                          endif
             case "Central Supply / Central Exhaust"    : UNDEFINED
-            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:IAQCFM[1] ) )
+            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanRef ) > 0)    ; RJH 5/8/26 CBECC-Dev Issue 890
+                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanRef:IAQCFM ) )
                                                          else UNDEFINED
                                                          endif
-            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:IAQCFM[1] ) )
+            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:SupplyIAQFanRef ) > 0)    ; RJH 5/8/26 CBECC-Dev Issue 890 
+                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:SupplyIAQFanRef:IAQCFM ) )
                                                          else UNDEFINED
                                                          endif
             case "Central Supply"                      : UNDEFINED
@@ -6037,12 +6036,12 @@ RULE nrcctblRowVentRes:VentRes11_FanPowerPerFlow[1]
                                                          else UNDEFINED
                                                          endif
             case "Central Supply / Central Exhaust"    : UNDEFINED
-            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:IAQWpCFM[1] ) )
+            case "Central Supply / Individual Exhaust" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanRef ) > 0)  ; RJH 5/8/26 CBECC-Dev Issue 890
+                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:ExhaustIAQFanRef:WperCFMIAQ ) )
                                                          else UNDEFINED
                                                          endif
-            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:IAQFanRef[1] ) > 0) 
-                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:IAQWpCFM[1] ) )
+            case "Central Exhaust / Individual Supply" : if (LocalCompAssigned( noXMLoutput_DwellUnitTypeRef:SupplyIAQFanRef ) > 0)  ; RJH 5/8/26 CBECC-Dev Issue 890
+                                                         then atof( Format( "%.2f", noXMLoutput_DwellUnitTypeRef:SupplyIAQFanRef:WperCFMIAQ ) )
                                                          else UNDEFINED
                                                          endif
             case "Central Supply"                      : UNDEFINED
@@ -6497,7 +6496,10 @@ ENDRULE
 
 RULE nrcctblRowZone:Zone08_AirFlowMinimum
   ANNUAL_PROPOSED
-    if (LocalCompAssigned(noXMLoutput_TrmlUnitRef)) then atof( Format( "%.2f", noXMLoutput_TrmlUnitRef:PriAirFlowMin ) ) 
+    if (LocalCompAssigned(noXMLoutput_TrmlUnitRef)) then  if (IfValidAnd(noXMLoutput_TrmlUnitRef:PriAirFlowMin_Rpt > 0))     ; RJH 8/6/26 CBECC-user-support Issue 626
+                                                          then atof( Format( "%.2f", noXMLoutput_TrmlUnitRef:PriAirFlowMin_Rpt ) ) 
+                                                          else UNDEFINED
+                                                          endif
     else if (LocalCompAssigned(noXMLoutput_ZnSysRef:RptFanRef)) then atof( Format( "%.2f", noXMLoutput_ZnSysRef:RptFanRef:FlowMin ) ) 
     else UNDEFINED
     endif endif

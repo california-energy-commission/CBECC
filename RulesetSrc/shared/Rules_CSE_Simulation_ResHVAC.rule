@@ -141,60 +141,66 @@ RULELIST "HVACSys_CSE_Defaulting" 0 0 0 1
 ; "store BEMProc details"		ResProj:Action = {  StoreBEMProc( Format( "Before RSYS setup-%s", RunAbbrev ), 0 )  }
 ; "debug"	ResProj:Action	= {	MessageBox( "inside HVACSys_CSE_Defaulting" )  }
 	"Set ResHVACSys:cseRSYS:rsType"		ResHVACSys:cseRSYS:rsType	=     ; SAC 03/17/22 (WSHP)  ; HeatPumpDHWCombo - SAC 04/02/23 (tic #1349)
-				{	if (Type < 1 .OR. Type > 4) then														0		; -- ERROR --
-               else if (Type == 4)     ; Central System
-               then  if (     CentralEqpType == 1) then 32 ; FPFC -->> FANCOIL - JP 11/03/22
-                     else if (CentralEqpType == 2) then 31 ; WSHP -->> WSHP - SAC 04/05/22
-                     else if (CentralEqpType == 4) then 15 ; VRF -->> VCHP3 - JP 10/08/24
-                     else 			                                                      0		; -- ERROR --
-                     endif endif endif
-					else if (Type == 2)
-					then	if (NumHtPumpSystemTypes > 0 .AND. IfValidAnd( HtPumpSystem[1]:Type == 11 ) .AND. 
-								 ResProj:RunAbbrev != "s"  .AND. ResProj:RunAbbrev != "zb" .AND. ResProj:RunAbbrev != "S" .AND. ResProj:RunAbbrev != "smf" .AND.
-								 ResProj:RunAbbrev != "dr" .AND. ResProj:RunAbbrev != "DR") then										7		; ASHPHydronic
-							else if (HaveHeating .AND. HaveCooling)
-							then  if (IfValidAnd( HtPumpSysType = 26 ) .OR. IfValidAnd( HtPumpSysType = 24 ))                     ; PkgTermHeatPump or SglPkgVertHeatPump - SAC 6/21/20 (tic #1226)
-							      then                                                                                      8     ; ASHPPkgRoom
-                           else if (IfValidAnd( HtPumpSysType = 33 ))
-                           then                                                                                     12     ; VCHP2 - SAC 11/09/20
-                           else if (IfValidAnd( HtPumpSystem[1]:UsePMModel > 0 ))
-                           then                                                                                     15     ; ASHPPM - SAC 05/16/24 (tic #1379)
-                           else if (IfValidAnd( HtPumpSysType = 35 ))
-                           then                                                                                     14     ; ACCOMBINEDHEATDHW
-							      else                                																		3		; ASHP
-							      endif endif endif endif
-							else	if (IfValidAnd( HtPumpSysType = 35 ))
-                           then                                                                                     13     ; COMBINEDHEATDHW
-                           else 																													0		; -- ERROR --
-                           endif
-							endif endif
-					else if (NumCoolSystemTypes > 0 .AND. LocalCompAssigned( CoolSystem[1] ) .AND. HaveHeating)
-					then	if (HaveCooling < 1)
-							then	if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5) then		6		; Resistance
-							      else																													5		; Furnace
-									endif
-							else	if (IfValidAnd( CoolSysType = 25 ) .OR. IfValidAnd( CoolSysType = 23 ))                         ; PkgTermAirCond or SglPkgVertAirCond - SAC 6/22/20 (tic #1226)
-							      then  if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5)
-							            then                                                                               11		; ACPkgRoomRes          - SAC 6/24/20 (tic #1226)
-							            else                                                                               10		; ACPkgRoomFurnace      - SAC 6/24/20 (tic #1226)
-							            endif
-                           else if (IfValidAnd( CoolSystem[1]:UsePMModel > 0 ))
-                           then                                                                                     16     ; ACPMFurnace           - SAC 03/05/25 (tic #1379)  ; ported to MF - SAC 04/15/25
-							      else if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5) then		2		; ACResistance
-									else																													1		; ACFurnace
-									endif endif endif
-							endif
-					else if (LocalCompAssigned( CoolSystem ))
-					then  if (IfValidAnd( CoolSysType = 25 ) .OR. IfValidAnd( CoolSysType = 23 ))                               ; PkgTermAirCond or SglPkgVertAirCond - SAC 6/22/20 (tic #1226)
-					      then                                                                                            9     ; ACPkgRoom
-					      else                                   																			4		; AC
-					      endif
-					else if (HaveHeating)
-					then	if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5) then		6		; Resistance
-							else																															5		; Furnace
-							endif
-					else																																	1		; ACFurnace
-					endif endif endif endif endif endif  }
+      {   if (Type < 1 .OR. Type > 4) then                                                0    ; -- ERROR --
+          else if (Type == 4)     ; Central System
+          then  if (     CentralEqpType == 1) then          32   ; FPFC -->> FANCOIL - JP 11/03/22
+                else if (CentralEqpType == 2) then          31   ; WSHP -->> WSHP - SAC 04/05/22
+                else if (CentralEqpType == 4) then          15   ; VRF -->> VCHP3 - JP 10/08/24
+                else 			                                                      0		; -- ERROR --
+                endif endif endif
+          else if (Type == 2)
+          then  if (NumHtPumpSystemTypes > 0 .AND. IfValidAnd( HtPumpSystem[1]:Type == 11 ) .AND. 
+                    ResProj:RunAbbrev != "s"  .AND. ResProj:RunAbbrev != "zb" .AND. ResProj:RunAbbrev != "S" .AND. ResProj:RunAbbrev != "smf" .AND.
+                    ResProj:RunAbbrev != "dr" .AND. ResProj:RunAbbrev != "DR") then                   7   ; ASHPHydronic
+                else if (HaveHeating .AND. HaveCooling)
+                then  if (IfValidAnd( HtPumpSysType = 26 ) .OR. IfValidAnd( HtPumpSysType = 24 ))               ; PkgTermHeatPump or SglPkgVertHeatPump - SAC 6/21/20 (tic #1226)
+                      then                                                                            8   ; ASHPPkgRoom
+                      else if (IfValidAnd( HtPumpSysType = 33 ))
+                      then                                                                           12   ; VCHP2 - SAC 11/09/20
+                      else if (IfValidAnd( HtPumpSystem[1]:UsePMModel > 0 ))
+                      then                                                                           15   ; ASHPPM (VCHP3) - SAC 05/16/24 (tic #1379)
+                      else if (IfValidAnd( HtPumpSysType = 35 ))
+                      then                                                                           14   ; ACCOMBINEDHEATDHW
+                      else                                                                            3   ; ASHP
+                      endif endif endif endif
+                else  if (IfValidAnd( HtPumpSysType = 35 ))
+                      then                                                                           13   ; COMBINEDHEATDHW
+                      else                                                                            0   ; -- ERROR --
+                      endif
+                endif endif
+          else if (NumCoolSystemTypes > 0 .AND. LocalCompAssigned( CoolSystem[1] ) .AND. HaveHeating)
+          then  if (HaveCooling < 1)
+                then  if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5)
+                      then                                                                              6   ; Resistance
+                      else                                                                              5   ; Furnace
+                      endif
+                else  if (IfValidAnd( CoolSysType = 25 ) .OR. IfValidAnd( CoolSysType = 23 ))                       ; PkgTermAirCond or SglPkgVertAirCond - SAC 6/22/20 (tic #1226)
+                      then  if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5)
+                            then                                                                       11   ; ACPkgRoomRes          - SAC 6/24/20 (tic #1226)
+                            else                                                                       10   ; ACPkgRoomFurnace      - SAC 6/24/20 (tic #1226)
+                            endif
+                      else if (IfValidAnd( CoolSystem[1]:UsePMModel > 0 ))
+                      then  if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5)
+                            then                                                                       17   ; ACPMResistance        - SAC 04/20/26 (support #548)
+                            else                                                                       16   ; ACPMFurnace           - SAC 03/05/25 (tic #1379)
+                            endif
+                      else if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5)
+                      then                                                                              2   ; ACResistance
+                      else                                                                              1   ; ACFurnace
+                      endif endif endif
+              endif
+          else if (LocalCompAssigned( CoolSystem ))
+          then  if (IfValidAnd( CoolSysType = 25 ) .OR. IfValidAnd( CoolSysType = 23 ))                             ; PkgTermAirCond or SglPkgVertAirCond - SAC 6/22/20 (tic #1226)
+                then                                                                            9   ; ACPkgRoom
+                else                                                                            4   ; AC
+                endif
+          else if (HaveHeating)
+          then  if (T24RHeatingEquipment:UseElec( "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5)
+                then                                                                            6   ; Resistance
+                else                                                                            5   ; Furnace
+                endif
+          else                                                                                  1   ; ACFurnace
+          endif endif endif endif endif endif  }
 			;		if (NumCoolSystemTypes > 0 .AND. LocalCompAssigned( CoolSystem[1] ) .AND. HaveHeating)
 			;		then	if (     T24RCoolingEquipment:IsHP(    "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", CoolSysTypeAbbrev ) > 0.5 .AND.
 			;					      T24RHeatingEquipment:IsHP(    "CodeBase", Proj:StdDesignBase, "StdVer", ResProj:StdsVersionYr, "SysType", HeatSysTypeAbbrev ) > 0.5) then  3		; ASHP
@@ -599,8 +605,9 @@ RULELIST "HVACSys_CSE_Defaulting" 0 0 0 1
 ;																										else  Global( ResProj:cseElecHVACMtr )  endif  }
 
 
-   "Set DwellUnitDHW:cseRSYSRef"             DwellUnitDHW:cseRSYSRef             =     ; DHWCombo setup - SAC 09/30/24 (tic #3629)   ; fix to handle DwellUnitDHW child of Story>Spc - SAC 02/28/25 (support gh #137)
-      {  if (ParentComponentType() == "ResZn")
+   ; DHWCombo setup - SAC 09/30/24 (tic #3629)   ; fix to handle DwellUnitDHW child of Story>Spc - SAC 02/28/25 (support gh #137)
+   "Set DwellUnitDHW:cseRSYSRef"             DwellUnitDHW:cseRSYSRef             =      ; fix logic from ParentComponentType to Parent2Comp... in checking for ResZn g-parent - SAC 05/01/26 (dev #867)
+      {  if (Parent2ComponentType() == "ResZn")
          then  Parent2Ref( ActiveHVACSystem:cseRSYS )
          else  UNCHANGED  endif  }     
    ; "Set DwellUnitDHW:cseRSYSRef"             DwellUnitDHW:cseRSYSRef             = {  Parent2Ref( CSE_ZONE:znRSys )  } 
@@ -2250,9 +2257,11 @@ RULELIST "Default_CSE_AirNet_ELA" 0 0 0 1
 ;   "Set ResProj:NResLeakageRatio - ratio of NRes surface leakage (per ft2) / Res surface leakage"     ResProj:NResLeakageRatio =    ; SAC 7/12/20
 
    ; SAC 7/12/20 - revised following rules for new Zonal vent control mechanism
-   "Set ResProj:BldgELA_CeilSF"        ResProj:BldgELA_CeilSF       =      ; fix divide by zero issue that can arise in Com - SAC 10/21/21 (MFam)
-      {  if ((  BldgClgBlwAtticArea +   BldgCathCeilingArea +   BldgExtFloorArea + BldgZnAdjUZnArea +   BldgExtWallArea +
-              BldgOZClgBlwAtticArea + BldgOZCathCeilingArea + BldgOZExtFloorArea + BldgOZAdjUZnArea + BldgOZExtWallArea) < 0.1) then  0
+   ; fix divide by zero issue that can arise in Com - SAC 10/21/21 (MFam)
+   "Set ResProj:BldgELA_CeilSF"        ResProj:BldgELA_CeilSF       =      ; revise logic for new MFam/NRes infiltration - SAC 07/30/26 (dev #679)
+      {  if( IfValidAnd( Proj:AnalysisVersion < 250300 )==0 ) then  0.000166
+         else if ((  BldgClgBlwAtticArea +   BldgCathCeilingArea +   BldgExtFloorArea + BldgZnAdjUZnArea +   BldgExtWallArea +
+                   BldgOZClgBlwAtticArea + BldgOZCathCeilingArea + BldgOZExtFloorArea + BldgOZAdjUZnArea + BldgOZExtWallArea) < 0.1) then  0
          else if (CSEVentAvailZonal)
          then  EffLeakageArea / (BldgClgBlwAtticArea + BldgCathCeilingArea + BldgExtFloorArea + BldgZnAdjUZnArea + BldgExtWallArea +
                                  (NResLeakageRatio * (BldgOZClgBlwAtticArea + BldgOZCathCeilingArea + BldgOZExtFloorArea + BldgOZAdjUZnArea + BldgOZExtWallArea)))
@@ -2260,7 +2269,7 @@ RULELIST "Default_CSE_AirNet_ELA" 0 0 0 1
                   BldgOZClgBlwAtticArea < 0.0001 .AND. BldgOZCathCeilingArea < 0.0001) then  0
          else  EffLeakageArea * (0.4 + (0.1 * SlabRatio)) /
                (BldgClgBlwAtticArea + BldgCathCeilingArea + BldgOZClgBlwAtticArea + BldgOZCathCeilingArea)
-         endif endif endif  }
+         endif endif endif endif  }
    "Set ResProj:BldgELA_RaisedFlrSF"   ResProj:BldgELA_RaisedFlrSF  =
       {  if (CSEVentAvailZonal) then  BldgELA_CeilSF
          else if (BldgExtFloorArea < 0.0001 .AND. BldgOZExtFloorArea < 0.0001) then  0
@@ -3227,12 +3236,11 @@ RULELIST "SimPrep_CSE_AirNet_ResOtherZone" 0 0 0 1
 ;	"Set ResOtherZn:GrgWallAirNetIZXFERs[2]:izZN2"			ResOtherZn:GrgWallAirNetIZXFERs[2]:izZN2  	=	{	Global( ResGarage:CSE_ZONE )  }
 
 	"Setup AirNet ResOtherZn IZXFER objects"		ResOtherZn:Action	=        ; added rule to call ...Conditioned rules only for cons zones - SAC 05/24/23
-      {  if (Local( Type ) == 10) then  UNCHANGED		; Unconditioned
-         else  EvalRulelist( "SimPrep_CSE_AirNet_ResOtherZone_Conditioned", 1 )  endif  }
+      {  EvalRulelist( "SimPrep_CSE_AirNet_ResOtherZone_VentSys", 1 )  }
 END
 
 ;************************************************************************* ; extracted from above to ensure above is run for Uncond zones - SAC 05/24/23
-RULELIST "SimPrep_CSE_AirNet_ResOtherZone_Conditioned" 0 0 0 1
+RULELIST "SimPrep_CSE_AirNet_ResOtherZone_VentSys" 0 0 0 1
 ;*************************************************************************
  ;-----------------------
  ; AirNet for IAQ Ventilation

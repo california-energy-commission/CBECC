@@ -1,0 +1,11 @@
+# Ignore all files
+*
+
+# Re-include directories so Git can traverse and apply negation rules
+!*/
+
+# Do not ignore this .gitignore file
+!.gitignore
+
+# keep all git keep files
+!.gitkeep

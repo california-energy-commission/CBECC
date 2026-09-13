@@ -2357,6 +2357,14 @@ END
 ;*************************************************************************
 RULELIST "Default_Attic"  0 0 0 0
 ;*************************************************************************
+  "Set Attic:PropTypeVentilated iff user or proposed model"     Attic:PropTypeVentilated =      ; SAC 06/09/26 (dev #956)
+    { if (Proj:RunAbbrev == "p" .OR. Proj:RunAbbrev == "p-N" .OR. Proj:RunAbbrev == "p-E" .OR. 
+          Proj:RunAbbrev == "u" .OR. Proj:RunAbbrev == "p-S" .OR. Proj:RunAbbrev == "p-W")
+      then  if (Type == 0)  ; Ventilated
+            then  1
+            else  0  endif
+      else  UNCHANGED  endif  }
+
 ; default rules that feed into attic edge defaults in the Cons object
 	"Default Attic:RoofRise"	Attic:RoofRise		= {	5 }
 	"Set Attic:RoofPitch"		Attic:RoofPitch	= {	if (IfValidAnd( RoofRise > 0 )) then  RoofRise / 12  else  0  endif  }

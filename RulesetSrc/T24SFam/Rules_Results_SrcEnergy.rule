@@ -1231,6 +1231,20 @@ RULELIST "CARes_StandardSrcEnergyResults_2025" 1 0 0 1
 	"Calculate Src - Other  - PV"			Proj:RunResults[13]:StdOtherSrc			= {	0  }
 	"Calculate Src - TOTAL  - PV"			Proj:RunResults[13]:StandardSrc			= {	LocalRef( RunResults[13]:StdElecSrc )   }
 
+  ; PV - copy Standard to Proposed PV Src for CommunitySolarProjID = 2 (PSREC) - SAC 07/27/26 (dev #859)
+  "Adjust Prop Src - Elec   - PV for PSREC CommunitySolar"      Proj:RunResults[13]:PropElecSrc[1]  =
+    { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecSrc != 0 )) then  RunResults[13]:StdElecSrc
+      else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - PV for PSREC CommunitySolar"      Proj:RunResults[13]:ProposedSrc[1]  =
+    {	if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecSrc != 0 )) then  RunResults[13]:ProposedSrc[1] + RunResults[13]:StdElecSrc
+      else  UNCHANGED  endif  }
+  "Adjust Prop Src - Elec   - Total for PSREC CommunitySolar"   Proj:RunResults[10]:PropElecSrc[1]  =
+    {	if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecSrc != 0 )) then  RunResults[10]:PropElecSrc[1] + RunResults[13]:StdElecSrc
+      else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - Total for PSREC CommunitySolar"   Proj:RunResults[10]:ProposedSrc[1]  =
+    {	if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResults[13]:StdElecSrc != 0 )) then  RunResults[10]:ProposedSrc[1] + RunResults[13]:StdElecSrc
+      else  UNCHANGED  endif  }
+
   ; Battery
    ; mods to calc NEM-adjusted Battery Src (StdElecSrc) for 2019 analysis
 	"Calculate Src - Elec   - Battery"	Proj:RunResults[14]:StdElecSrc			= {	if (Local( Fuel_HaveElec   ) < 0.5 .OR. CondFloorArea < 1) then  0  else if (HourlyResultSum( RunID, "MtrElec", "BT" ) == 0) then  0
@@ -1445,6 +1459,27 @@ RULELIST "CARes_StandardSrcEnergyResults_2025_NESW" 1 0 0 1
 	"Calculate Src - NatGas - Battery"	Proj:RunResultsN[14]:StdNatGasSrc		= {	0  }
 	"Calculate Src - Other  - Battery"	Proj:RunResultsN[14]:StdOtherSrc			= {	0  }
 	"Calculate Src - TOTAL  - Battery"	Proj:RunResultsN[14]:StandardSrc			= {	LocalRef( RunResultsN[14]:StdElecSrc )   }
+
+  ; PV - copy Standard to Proposed PV Src for CommunitySolarProjID = 2 (PSREC) - SAC 07/27/26 (dev #859)
+  "Adjust Prop Src - Elec   - N-PV for PSREC CommunitySolar"      Proj:RunResultsN[13]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecSrc != 0 )) then  RunResultsN[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - N-PV for PSREC CommunitySolar"      Proj:RunResultsN[13]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecSrc != 0 )) then  RunResultsN[13]:ProposedSrc[1] + RunResultsN[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - Elec   - N-Total for PSREC CommunitySolar"   Proj:RunResultsN[10]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecSrc != 0 )) then  RunResultsN[10]:PropElecSrc[1] + RunResultsN[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - N-Total for PSREC CommunitySolar"   Proj:RunResultsN[10]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsN[13]:StdElecSrc != 0 )) then  RunResultsN[10]:ProposedSrc[1] + RunResultsN[13]:StdElecSrc  else  UNCHANGED  endif  }
+
+  "Adjust Prop Src - Elec   - E-PV for PSREC CommunitySolar"      Proj:RunResultsE[13]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecSrc != 0 )) then  RunResultsE[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - E-PV for PSREC CommunitySolar"      Proj:RunResultsE[13]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecSrc != 0 )) then  RunResultsE[13]:ProposedSrc[1] + RunResultsE[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - Elec   - E-Total for PSREC CommunitySolar"   Proj:RunResultsE[10]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecSrc != 0 )) then  RunResultsE[10]:PropElecSrc[1] + RunResultsE[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - E-Total for PSREC CommunitySolar"   Proj:RunResultsE[10]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsE[13]:StdElecSrc != 0 )) then  RunResultsE[10]:ProposedSrc[1] + RunResultsE[13]:StdElecSrc  else  UNCHANGED  endif  }
+
+  "Adjust Prop Src - Elec   - S-PV for PSREC CommunitySolar"      Proj:RunResultsS[13]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecSrc != 0 )) then  RunResultsS[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - S-PV for PSREC CommunitySolar"      Proj:RunResultsS[13]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecSrc != 0 )) then  RunResultsS[13]:ProposedSrc[1] + RunResultsS[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - Elec   - S-Total for PSREC CommunitySolar"   Proj:RunResultsS[10]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecSrc != 0 )) then  RunResultsS[10]:PropElecSrc[1] + RunResultsS[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - S-Total for PSREC CommunitySolar"   Proj:RunResultsS[10]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsS[13]:StdElecSrc != 0 )) then  RunResultsS[10]:ProposedSrc[1] + RunResultsS[13]:StdElecSrc  else  UNCHANGED  endif  }
+
+  "Adjust Prop Src - Elec   - W-PV for PSREC CommunitySolar"      Proj:RunResultsW[13]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecSrc != 0 )) then  RunResultsW[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - W-PV for PSREC CommunitySolar"      Proj:RunResultsW[13]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecSrc != 0 )) then  RunResultsW[13]:ProposedSrc[1] + RunResultsW[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - Elec   - W-Total for PSREC CommunitySolar"   Proj:RunResultsW[10]:PropElecSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecSrc != 0 )) then  RunResultsW[10]:PropElecSrc[1] + RunResultsW[13]:StdElecSrc  else  UNCHANGED  endif  }
+  "Adjust Prop Src - TOTAL  - W-Total for PSREC CommunitySolar"   Proj:RunResultsW[10]:ProposedSrc[1]  = { if (CommunitySolarProjID == 2 .AND. IfValidAnd( RunResultsW[13]:StdElecSrc != 0 )) then  RunResultsW[10]:ProposedSrc[1] + RunResultsW[13]:StdElecSrc  else  UNCHANGED  endif  }
 
   ; Compliance Total
    ; SAC 1/14/13 - added in PVCredit to Std (elec) Src

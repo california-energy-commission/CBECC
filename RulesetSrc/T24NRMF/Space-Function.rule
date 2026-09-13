@@ -67,8 +67,15 @@ RULE Spc:CondgType
     if( PrkgGarArea > 0 .AND. CondgType != "Unconditioned" )
     then  PostError( "Space '%s' is a parking garage space, but has Conditioning Type =
                       '%s'. Revise to 'Unconditioned' for compliance analysis.", Name, CondgType )
+    else if( ( SpcFunc = "Unoccupied-Exclude from Gross Floor Area" .OR.
+               SpcFunc = "Unoccupied-Include in Gross Floor Area" ) .AND.
+             CondgType = "DirectlyConditioned" )
+    then  PostError( "Space '%s' is assigned the space function '%s' and is also specified as '%s'. 
+                      Unoccupied spaces cannot be directly conditioned. Change the conditioning type 
+                      to Indirectly Conditioned or Unconditioned, or select a different space 
+                      function.", Name, SpcFunc, CondgType )
     else  UNCHANGED
-    endif
+    endif endif
 ENDRULE
 // -----------------------------------------------------------------------------
 RULE NEW Spc:IsCond

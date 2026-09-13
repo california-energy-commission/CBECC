@@ -41,8 +41,11 @@ RULE Proj:CliZnNum
   INPUTCLASS
     Prescribed    
   DEFAULT 
-    if( LocalStatus( CliZn ) > 4 )    ; set number based on user-defined CliZn
-    then  if( CliZn == "ClimateZone1" ) then   1
+    if( CliZnGroupingActive > 0 .AND. EnumValue( CliZnGrouping ) > 0 .AND.
+                                      EnumValue( CliZnGrouping ) <= 16 )
+    then  EnumValue( CliZnGrouping )
+    else if( LocalStatus( CliZn ) > 4 )    ; set number based on user-defined CliZn
+    then  if(      CliZn == "ClimateZone1" ) then   1
           else if( CliZn == "ClimateZone2" ) then   2
           else if( CliZn == "ClimateZone3" ) then   3
           else if( CliZn == "ClimateZone4" ) then   4
@@ -69,7 +72,7 @@ RULE Proj:CliZnNum
           else  0
           endif
     else  0
-    endif endif
+    endif endif endif
   SIZING  
     u:CliZnNum
   ANNUAL
@@ -206,7 +209,28 @@ RULE Proj:WeatherStationNum
   INPUTCLASS
     Optional
   DEFAULT
-    if( LocalStatus( WeatherStation ) > 4 .AND. WeatherStationValid ) 
+    if( CliZnGroupingActive > 0 .AND. EnumValue( CliZnGrouping ) > 0 .AND.
+        EnumValue( CliZnGrouping ) <= 16 .AND. IfValidAnd( CliZnNum > 0 ) )
+    then  switch (CliZnNum)
+          case   1 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "CALIFORNIA REDWOOD COAST" )
+          case   2 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "SONOMA COUNTY AP" )
+          case   3 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "OAKLAND INTL" )
+          case   4 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "PASO ROBLES" )
+          case   5 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "SANTA MARIA" )
+          case   6 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "LOS ANGELES INTL" )
+          case   7 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "SAN DIEGO INTL" )
+          case   8 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "FULLERTON" )
+          case   9 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "HOLLYWOOD BURBANK" )
+          case  10 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "RIVERSIDE" )
+          case  11 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "RED BLUFF" )
+          case  12 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "SACRAMENTO EXECUTIVE" )
+          case  13 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "FRESNO YOSEMITE" )
+          case  14 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "PALMDALE" )
+          case  15 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "PALM SPRINGS" )
+          case  16 :  WeatherCliZnDsgnDay:WMO( "Station_Name", "BLUE CANYON" )
+          default  :  0 
+          endswitch
+    else if( LocalStatus( WeatherStation ) > 4 .AND. WeatherStationValid ) 
     then  // If weather station is user-defined, then station # is based on that
           WeatherCliZnDsgnDay:WMO( "Station_Name", WeatherStation )
     else if( LocalStatus( ZipCode ) = 0 .OR. LocalStatus( CliZnNum ) = 0 )
@@ -218,7 +242,7 @@ RULE Proj:WeatherStationNum
     then  // If weather station is defaulted, then station # is based on that
           WeatherCliZnDsgnDay:WMO( "Station_Name", WeatherStation )
     else  0
-    endif endif endif endif
+    endif endif endif endif endif
   CHECKCODE
     if( WeatherStationNum > 0 )
     then  UNCHANGED 
@@ -251,6 +275,7 @@ ENDRULE
    ;             default  :  0
    ;          endswitch
 
+; fix to WeatherStation for case where WeatherStationNum = 250001 + (CliZnNum * 100) (and not a WMO) - SAC 06/17/26 (dev #903)
 RULE Proj:WeatherStation
   DESCRIPTION
     "California weather station."
@@ -261,8 +286,10 @@ RULE Proj:WeatherStation
     then  if( IfValidAnd( AnalysisVersion > 250000 ) .AND. IfValidAnd( CliZnNum > 0 ) )
           then  250001 + (CliZnNum * 100)
           else  "- select -"  endif
-    else WeatherCliZnDsgnDay:Station_Name( "WMO", u:WeatherStationNum )
-    endif
+    else if( WeatherStationNum < 700000 )
+    then  WeatherStationNum
+    else  WeatherCliZnDsgnDay:Station_Name( "WMO", u:WeatherStationNum )
+    endif endif
   SIZING  
     u:WeatherStation
   ANNUAL

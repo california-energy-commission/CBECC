@@ -47,7 +47,7 @@ RULELIST "CF1RPRF01E_Proposed_2025SpecialFeatures"  1 0 0 1
          then  CreateChildren( cf1rSpecialFeatures, 1, "CF1R SecSpecialFeatures SclFtr",
                                "CF1RPRF01E_2025SpecialFeatures_ZonalHeatingControls" )
          else  UNCHANGED  endif  }
-   "Create cf1rSpecialFeatures object - PVCommunitySolar"          ; SAC 6/12/20
+   "Create cf1rSpecialFeatures object - PVCommunitySolar"          ; SAC 6/12/20    RJH 8/24/26 2025-CBECC-Res-Schema Issue 83 Reset PVCommunitySolar below after FINAL sims
       cf1rSection_Features:Action  = {
          if (IfValidAnd( Proj:CommunitySolarProjID > 0 ) .AND. IfValidAnd( Proj:LAFirePVBattExcpt > 0 )==0) ; RJH 8/1/25 added Proj:LAFirePVBattExcpt logic (2022-CBECC-Res-Schema Issue 73)  ; ported from Res - SAC 10/20/25 (dev #240)
          then  CreateChildren( cf1rSpecialFeatures, 1, "CF1R SecSpecialFeatures SclFtr",
@@ -1129,25 +1129,41 @@ RULELIST "CF1RPRF01E_Final_2025SpecialFeatures"  1 0 0 1
             endif  }
 
 
-   ; PVCommunitySolar
+   ; PVCommunitySolar - RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 83
      "Reset PVCommunitySolar Feat01b_SpecialFeatureCategoryString"  cf1rSpecialFeatures:Feat01b_SpecialFeatureCategoryString  = {
-           if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND.
-               IfValidAnd( Proj:SpeclFeatrs:PVSysCreditVal > 0 ))
-           then  Format( "Community Solar: %s kWdc of %s", FltToStr( Proj:SpeclFeatrs:PVSysCreditVal, 2, 0, 0, 1 ), EnumString( Proj:CommunitySolarProject ) )
-           else  UNCHANGED  endif  }
-     "Append additional text onto PVCommunitySolar Feat01b_SpecialFeatureCategoryString"  cf1rSpecialFeatures:Feat01b_SpecialFeatureCategoryString  =     ; SAC 6/25/20
-         {  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND.
-                IfValidAnd( Proj:SpeclFeatrs:PVSysCreditVal > 0 ))
-            then  switch (Proj:CommunitySolarProject)
-                     case  1 :  Feat01b_SpecialFeatureCategoryString + ". Require SMUD's Attestation of Premise Registration in Neighborhood Solarshares for final inspection"
-                     default :  UNCHANGED
-                  endswitch
-            else  UNCHANGED  endif  }
+            if (Proj:AnalysisVersion < 250300)
+            then  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. IfValidAnd( Proj:SpeclFeatrs:PVSysCreditVal > 0 ))
+                  then Format( "Community Solar: %s kWdc of %s", FltToStr( Proj:SpeclFeatrs:PVSysCreditVal, 2, 0, 0, 1 ), EnumString( Proj:CommunitySolarProject ) )
+                  else UNCHANGED
+                  endif
+            else  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. Proj:CommunitySolarProjID == 2 .AND. IfValidAnd( Proj:ResultSummary[1]:CmntySlrProjVal > 0 ))
+                  then Format( "%g blocks must be reserved from Community Solar project '%s'", Proj:ResultSummary[1]:CmntySlrProjVal, EnumString( Proj:CommunitySolarProject ) )
+                  else UNCHANGED
+                  endif
+            endif  }
+
+     "Append additional text onto PVCommunitySolar Feat01b_SpecialFeatureCategoryString"  cf1rSpecialFeatures:Feat01b_SpecialFeatureCategoryString  = {    ; SAC 6/25/20
+            if (Proj:AnalysisVersion < 250300)
+            then  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. IfValidAnd( Proj:SpeclFeatrs:PVSysCreditVal > 0 ))
+                  then  switch (Proj:CommunitySolarProject)
+                        case  1 :  Feat01b_SpecialFeatureCategoryString + ". Require SMUD's Attestation of Premise Registration in Neighborhood Solarshares for final inspection"
+                        default :  UNCHANGED
+                        endswitch
+                  else UNCHANGED
+                  endif
+            else  UNCHANGED
+            endif  }
      "Reset PVCommunitySolar Feat01c_SpecialFeatureCategoryData"  cf1rSpecialFeatures:Feat01c_SpecialFeatureCategoryData  = {
-           if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND.
-               IfValidAnd( Proj:SpeclFeatrs:PVSysCreditVal > 0 ))
-           then  FltToStr( Proj:SpeclFeatrs:PVSysCreditVal, 2, 0, 0, 1 )
-           else  UNCHANGED  endif  }
+            if (Proj:AnalysisVersion < 250300)
+            then  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. IfValidAnd( Proj:SpeclFeatrs:PVSysCreditVal > 0 ))
+                  then  FltToStr( Proj:SpeclFeatrs:PVSysCreditVal, 2, 0, 0, 1 )
+                  else UNCHANGED
+                  endif
+            else  if (IfValidAnd( Feat01_SpecialFeatureCategory = "PVCommunitySolar" ) .AND. Proj:CommunitySolarProjID == 2 .AND. IfValidAnd( Proj:ResultSummary[1]:CmntySlrProjVal > 0 ))
+                  then FltToStr( Proj:ResultSummary[1]:CmntySlrProjVal, 2, 0, 0, 1 )
+                  else UNCHANGED
+                  endif
+            endif  }
 END
 ;*************************************************************************
 

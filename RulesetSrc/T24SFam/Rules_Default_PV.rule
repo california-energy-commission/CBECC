@@ -51,6 +51,7 @@ RULELIST "ProposedInput_PVSystem" 0 0 0 0
          else  switch (ClimateZone)
                   case 11 :  1
                   case 12 :  1
+                  case 16 :  1   ; PSREC comm slr - SAC 07/24/26 (com tic #859)
                   default :  0
                endswitch   endif  }
    "Set Proj:CmntySlrProjsAvailMsg"    Proj:CmntySlrProjsAvailMsg =
@@ -61,6 +62,8 @@ RULELIST "ProposedInput_PVSystem" 0 0 0 0
          else  switch (CommunitySolarProject)
                   case  1 : ; SMUD Neighborhood SolarShares - Wildflower
                               if (ClimateZone == 11 .OR. ClimateZone == 12) then  1  else  0  endif
+                  case  2 : ; PSREC comm slr - SAC 07/24/26 (com tic #859)
+                              if (ClimateZone == 16) then  1  else  0  endif
                   default :  0
                endswitch   endif  }
    "hardwire UseCommunitySolar OFF if no CS projects available in selected CZ"   Proj:Action =
@@ -82,15 +85,17 @@ RULELIST "ProposedInput_PVSystem" 0 0 0 0
                ; CommSlr valid -AND- ( ( first time thru & NOT EnableResearchMode ) -OR- ( switching CommSlrProj ) )
          then  switch (CommunitySolarProject)
                   case  1 :  EvalRulelist( "CommunitySolar_SMUD_NSS_Wildflower" )
+                  case  2 :  EvalRulelist( "CommunitySolar_RedefaultPVInputs" )       ; PSREC comm slr - SAC 07/24/26 (com tic #859)
                   default :  UNCHANGED
                endswitch
          else  UNCHANGED  endif endif  }
    "Default Proj:InCmntySlrProjTerritory"    Proj:InCmntySlrProjTerritory  = {  0  }      ; SAC 7/3/20 (CommunitySolar)
 
-  "default Proj:SMUDSlrSharesReserved"      Proj:SMUDSlrSharesReserved     = {  0  }      ;  SAC 01/25/25 (tic #3651)
-  "set Proj:CommunitySolarWarnMsg[1]"       Proj:CommunitySolarWarnMsg[1]  =            ; SAC 10/22/25 (dev #492)
+  "default Proj:SMUDSlrSharesReserved"      Proj:SMUDSlrSharesReserved     = {  0  }      ; SAC 01/25/25 (tic #3651)
+  "default Proj:CmntySlrProjReserved"       Proj:CmntySlrProjReserved      = {  0  }      ; PSREC comm slr - SAC 07/24/26 (com tic #859)
+  "set Proj:CommunitySolarWarnMsg[1]"       Proj:CommunitySolarWarnMsg[1]  =            ; SAC 10/22/25 (dev #492)  ; PSREC comm slr - SAC 07/24/26 (com tic #859)
     { if (IfValidAnd( UseCommunitySolar > 0 ) .AND.
-          IfValidAnd( CommunitySolarProject > 0 ) .AND.
+          IfValidAnd( CommunitySolarProject = 1 ) .AND.
           IfValidAnd( AnalysisVersion >= 250200 ))
       then  "Warning: Community Solar not available for Code Compliance"
       else if (IfValidAnd( UseCommunitySolar > 0 ) .AND.
@@ -99,9 +104,9 @@ RULELIST "ProposedInput_PVSystem" 0 0 0 0
       then  "Warning: As of 11/13/2024 SMUD Neighborhood SolarShares"
       else  UNDEFINED
       endif endif  }
-  "set Proj:CommunitySolarWarnMsg[2]"       Proj:CommunitySolarWarnMsg[2]  =
+  "set Proj:CommunitySolarWarnMsg[2]"       Proj:CommunitySolarWarnMsg[2]  =    ; PSREC comm slr - SAC 07/24/26 (com tic #859)
     { if (IfValidAnd( UseCommunitySolar > 0 ) .AND.
-          IfValidAnd( CommunitySolarProject > 0 ) .AND.
+          IfValidAnd( CommunitySolarProject = 1 ) .AND.
           IfValidAnd( AnalysisVersion >= 250200 ))
       then  "(only enabled for CUAC analysis)"
       else if (IfValidAnd( UseCommunitySolar > 0 ) .AND.
@@ -128,28 +133,34 @@ RULELIST "ProposedInput_PVSystem" 0 0 0 0
    "Set Proj:CmntySlrProjInfo - flag to display dialog"     Proj:CmntySlrProjInfo    =             ; SAC 6/30/20 - added community solar project info (tic #1018)
       {  switch (CommunitySolarProjID)
             case  1 :  1      ; "SMUD Neighborhood SolarShares - Wildflower"
+            case  2 :  1      ; "PSREC T24 Community Solar Program - SIAD"  ; PSREC comm slr - SAC 07/24/26 (com tic #859)
             default :  UNDEFINED
          endswitch  }
    "Set Proj:CmntySlrProjInfoCap - info dialog caption"     Proj:CmntySlrProjInfoCap = 
       {  switch (CommunitySolarProjID)
             case  1 :  "SMUD Neighborhood SolarShares information"      ; "SMUD Neighborhood SolarShares - Wildflower"
+            case  2 :  "PSREC T24 Community Solar information"          ; "PSREC T24 Community Solar Program - SIAD"  ; PSREC comm slr - SAC 07/24/26 (com tic #859)
             default :  UNDEFINED
          endswitch  }
    "Set Proj:CmntySlrProjInfoMsg - info dialog message"     Proj:CmntySlrProjInfoMsg = 
       {  switch (CommunitySolarProjID)
             case  1 :         ; "SMUD Neighborhood SolarShares - Wildflower"
                        "<a><br></a><a href=https://www.smud.org/NSSbuilders>Click here for information about SMUD's Neighborhood SolarShares program.</a>"
+            case  2 :         ; "PSREC T24 Community Solar Program - SIAD"  ; PSREC comm slr - SAC 07/24/26 (com tic #859)
+                       "<a><br></a><a href=https://www.psrec.coop/energy-solutions/renewable-energy/community-solar>Click here for information about PSREC's Community Solar Program.</a>"
             default :  UNDEFINED
          endswitch  }
          ; prior link replaced SAC 08/28/20:  "<a><br></a><a href=https://www.smud.org/en/Business-Solutions-and-Rebates/Design-and-Construction-Services/Neighborhood-SolarShares-for-developers>Click here for information about SMUD's Neighborhood SolarShares program.</a>"
    "Set Proj:CmntySlrProjInfoDtl - info dialog details"     Proj:CmntySlrProjInfoDtl = 
       {  switch (CommunitySolarProjID)
             case  1 :  UNDEFINED      ; "SMUD Neighborhood SolarShares - Wildflower"
+            case  2 :  UNDEFINED      ; "PSREC T24 Community Solar Program - SIAD"  ; PSREC comm slr - SAC 07/24/26 (com tic #859)
             default :  UNDEFINED
          endswitch  }
    "Set Proj:CmntySlrProjInfoIcn - info dialog icon (0-none, 1-info, 2-warning, 3-error, 4-question)"    Proj:CmntySlrProjInfoIcn = 
       {  switch (CommunitySolarProjID)
             case  1 :  1      ; "SMUD Neighborhood SolarShares - Wildflower"
+            case  2 :  1      ; "PSREC T24 Community Solar Program - SIAD"  ; PSREC comm slr - SAC 07/24/26 (com tic #859)
             default :  UNDEFINED
          endswitch  }
 

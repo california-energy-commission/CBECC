@@ -921,7 +921,8 @@ RULE Bldg:BldgType
   INPUTCLASS
     NotInput
   OPTION
-    Relocatable Public School Building
+    Relocatable Pre-checked Public School Building
+    Permanent Pre-checked Public School Building
     Hotel-Motel
     High-Rise Residential
     Low-Rise Residential
@@ -930,7 +931,9 @@ RULE Bldg:BldgType
     Healthcare
   DEFAULT
     if( Bldg:RelocPubSchoolBldg = 1 )
-    then  "Relocatable Public School Building"
+    then  "Relocatable Pre-checked Public School Building"
+    else if( Proj:FacilityType == "Permanent Pre-checked Public School Building" )
+    then  Proj:FacilityType
     else if( IfValidAnd( Proj:HlthCareFacility = 1 ) )
     then  "Healthcare"
     else if( IfValidAnd( Bldg:HotelMotelGuestRmCnt > 5 ) )
@@ -945,8 +948,9 @@ RULE Bldg:BldgType
              ( ValidOr( ResFlrArea, 0 ) <= 0 ) )
     then  "Nonresidential" 
     else  "Mixed Occupancy"
-    endif endif endif endif endif endif
+    endif endif endif endif endif endif endif
 ENDRULE
+   ; "Relocatable Public School Building" replaced by 2 new Proj:FacilityType options (above) - SAC 08/04/26 (dev #903)
 
 // -----------------------------------------------------------------------------
 RULE NEW Proj:BldgTypeScreenVal

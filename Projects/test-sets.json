@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "sets": {
+    "pre-release-nr-mf": {
+      "description": "Pre-release check of regular non-residential and multi-family models for unexpected non-compliance.",
+      "content": [
+        "regular"
+      ],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential",
+          "destination": "non-res"
+        },
+        {
+          "source": "Projects/{year}/multi-family",
+          "destination": "multi-fam"
+        }
+      ]
+    },
+    "sensitivity": {
+      "description": "Non-residential and multi-family simplified- and detailed-geometry sensitivity models.",
+      "content": [
+        "regular"
+      ],
+      "options_csv": "AnalysisThruStep,7",
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential/sensitivity/simplified-geometry",
+          "destination": "simplified"
+        },
+        {
+          "source": "Projects/{year}/multi-family/sensitivity/simplified-geometry",
+          "destination": "simplified"
+        },
+        {
+          "source": "Projects/{year}/non-residential/sensitivity/detailed-geometry",
+          "destination": "detailed"
+        },
+        {
+          "source": "Projects/{year}/multi-family/sensitivity/detailed-geometry",
+          "destination": "detailed"
+        }
+      ]
+    },
+    "ruleset-implementation": {
+      "description": "All ruleset-implementation models from non-residential and multi-family, including intentional failures.",
+      "content": [
+        "regular",
+        "intentional-failures"
+      ],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential/ruleset-implementation",
+          "destination": "non-res"
+        },
+        {
+          "source": "Projects/{year}/multi-family/ruleset-implementation",
+          "destination": "multi-fam"
+        }
+      ]
+    },
+    "release-nr-mf": {
+      "description": "Regular non-residential, multi-family, and release-compliance models.",
+      "content": [
+        "regular"
+      ],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential",
+          "destination": "non-res"
+        },
+        {
+          "source": "Projects/{year}/multi-family",
+          "destination": "multi-fam"
+        },
+        {
+          "source": "Projects/{year}/release-compliance",
+          "destination": "release-compliance"
+        }
+      ]
+    },
+    "not-for-release-only": {
+      "description": "Only non-residential and multi-family models under ~not-for-release.",
+      "content": [
+        "not-for-release"
+      ],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential",
+          "destination": "non-res"
+        },
+        {
+          "source": "Projects/{year}/multi-family",
+          "destination": "multi-fam"
+        }
+      ]
+    },
+    "intentional-failures-only": {
+      "description": "Only non-residential and multi-family models under ~intentional-failures.",
+      "content": [
+        "intentional-failures"
+      ],
+      "mappings": [
+        {
+          "source": "Projects/{year}/non-residential",
+          "destination": "non-res"
+        },
+        {
+          "source": "Projects/{year}/multi-family",
+          "destination": "multi-fam"
+        }
+      ]
+    }
+  }
+}

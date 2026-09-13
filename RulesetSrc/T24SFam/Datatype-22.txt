@@ -407,8 +407,8 @@ Proj:FrontOrientation,       Default,   0,    1,   1,    1,  1,  1
 Proj:BuildingTypeRpt,       NotInput,   0,    0,   0,    1,  1,  1
 Proj:IsMultiFamily,          Default,   0,    1,   1,    1,  1,  1
 Proj:MultiFamilyType,     Prescribed,   0,    1,   1,    1,  1,  1		; SAC 4/28/15 - changed to Prescribed to avoid this being documented as a valid user input - pending final implementation plans/design
-Proj:IsMFamDuplex,          NotInput,   0,    0,   0,    1,  1,  1
-Proj:IsMFamTownhm,          NotInput,   0,    0,   0,    1,  1,  1
+; Proj:IsMFamDuplex,          NotInput,   0,    0,   0,    1,  1,  1
+; Proj:IsMFamTownhm,          NotInput,   0,    0,   0,    1,  1,  1
 Proj:IsMFamDupOrTownhm,     NotInput,   0,    0,   0,    1,  1,  1
 Proj:SFamDwellingType,    Prescribed,   0,    1,   1,    1,  1,  1      ; SAC 4/14/19 (tic #1071)
 Proj:SFamADUType,            Default,   0,    1,   1,    1,  1,  1      ; SAC 4/19/19 (tic #1010)

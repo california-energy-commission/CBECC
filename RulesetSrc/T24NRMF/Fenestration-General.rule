@@ -1324,6 +1324,44 @@ RULE NEW FenCons:UAVert
     endif
 ENDRULE
 
+RULE NEW FenCons:UAVertNew
+  DATATYPE
+    Float
+  DESCRIPTION
+    "The total (area * UFactor) of new (added) vertical fenestration.
+    Used for Section 141.0(b)1E-2 / 120.7(d) mandatory checks."
+  UNITS
+    ft2
+  INPUTCLASS
+    NotInput
+  REPORTPRECISION
+    0
+  DEFAULT
+    if( FenCons:Status = "New" )
+    then  AreaVertNew * ValidOr( UFactor, 0 )
+    else  0
+    endif
+ENDRULE
+
+RULE NEW FenCons:UAVertAlt
+  DATATYPE
+    Float
+  DESCRIPTION
+    "The total (area * UFactor) of altered vertical fenestration.
+    Used for Section 141.0(b)1E-1 mandatory checks."
+  UNITS
+    ft2
+  INPUTCLASS
+    NotInput
+  REPORTPRECISION
+    0
+  DEFAULT
+    if( FenCons:Status = "Altered" )
+    then  AreaVertAlt * ValidOr( UFactor, 0 )
+    else  0
+    endif
+ENDRULE
+
 
 //-----------------------------------------------------------------------------
 // ********** Fenestration Construction - Type ********************************

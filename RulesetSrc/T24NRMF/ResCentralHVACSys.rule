@@ -3206,6 +3206,15 @@ RULE DwellUnitType:CentralSupplyCFM
     then  SupplyIAQCFM ; Use CentralVentSys to model individual fans
     else  0
     endif endif
+  SIZING_PROPOSED
+    if( IAQOption = "Central Supply / Central Exhaust" .OR.
+        IAQOption = "Central Supply / Individual Exhaust" .OR.
+        IAQOption = "Central Supply" )
+    then  UNCHANGED
+    else if( IAQOption = "Central Exhaust / Individual Supply" )
+    then  SupplyIAQCFM ; Use CentralVentSys to model individual fans
+    else  0
+    endif endif
   SIZING_BASELINE
     min( MinIAQCFM * 1.25, CentralSupplyCFM )
 ENDRULE
@@ -3218,6 +3227,15 @@ RULE DwellUnitType:CentralExhaustCFM
         IAQOption = "Central Exhaust / Individual Supply" .OR.
         IAQOption = "Central Exhaust" )
     then  MinIAQCFM
+    else if( IAQOption = "Central Supply / Individual Exhaust" )
+    then  ExhaustIAQCFM
+    else  0
+    endif endif
+  SIZING_PROPOSED
+    if( IAQOption = "Central Supply / Central Exhaust" .OR.
+        IAQOption = "Central Exhaust / Individual Supply" .OR.
+        IAQOption = "Central Exhaust" )
+    then  UNCHANGED
     else if( IAQOption = "Central Supply / Individual Exhaust" )
     then  ExhaustIAQCFM
     else  0
@@ -3238,7 +3256,7 @@ RULE NEW DwellUnit:CentralSupplyCFMWithMult
     then  DwellUnitTypeRef:CentralSupplyCFM * Count
     else  0
     endif
-  SIZING_BASELINE
+  SIZING
     DwellUnitTypeRef:CentralSupplyCFM * Count
 ENDRULE
 
@@ -3254,7 +3272,7 @@ RULE NEW DwellUnit:CentralExhaustCFMWithMult
     then  DwellUnitTypeRef:CentralExhaustCFM * Count
     else  0
     endif
-  SIZING_BASELINE
+  SIZING
     DwellUnitTypeRef:CentralExhaustCFM * Count
 ENDRULE
 
@@ -3279,7 +3297,7 @@ RULE NEW ResZn:CentralSupplyCFM
     NotInput
   DEFAULT
     SumChildren( DwellUnit:CentralSupplyCFMWithMult )
-  SIZING_BASELINE
+  SIZING
     SumChildren( DwellUnit:CentralSupplyCFMWithMult )
 ENDRULE
 
@@ -3292,7 +3310,7 @@ RULE NEW ResZn:CentralExhaustCFM
     NotInput
   DEFAULT
     SumChildren( DwellUnit:CentralExhaustCFMWithMult )
-  SIZING_BASELINE
+  SIZING
     SumChildren( DwellUnit:CentralExhaustCFMWithMult )
 ENDRULE
 
@@ -3305,7 +3323,7 @@ RULE NEW ResZn:CentralSupplyCFMWithMult
     NotInput
   DEFAULT
     CentralSupplyCFM * Mult
-  SIZING_BASELINE
+  SIZING
     CentralSupplyCFM * Mult
 ENDRULE
 
@@ -3318,7 +3336,7 @@ RULE NEW ResZn:CentralExhaustCFMWithMult
     NotInput
   DEFAULT
     CentralExhaustCFM * Mult
-  SIZING_BASELINE
+  SIZING
     CentralExhaustCFM * Mult
 ENDRULE
 
@@ -3341,7 +3359,7 @@ RULE ResCentralVentSys:SupFanCap
   DEFAULT
     SumRevRef( ResZn:CentralVentSysRef, ResZn:CentralSupplyCFMWithMult ) +
     SumRevRef( ResOtherZn:CentralVentSysRef, ResOtherZn:CentralSupplyCFMWithMult )
-  SIZING_BASELINE
+  SIZING
     SumRevRef( ResZn:CentralVentSysRef, ResZn:CentralSupplyCFMWithMult ) +
     SumRevRef( ResOtherZn:CentralVentSysRef, ResOtherZn:CentralSupplyCFMWithMult )
 ENDRULE
@@ -3350,7 +3368,7 @@ RULE ResCentralVentSys:ExhFanCap
   DEFAULT
     SumRevRef( ResZn:CentralVentSysRef, ResZn:CentralExhaustCFMWithMult ) +
     SumRevRef( ResOtherZn:CentralVentSysRef, ResOtherZn:CentralExhaustCFMWithMult )
-  SIZING_BASELINE
+  SIZING
     SumRevRef( ResZn:CentralVentSysRef, ResZn:CentralExhaustCFMWithMult ) +
     SumRevRef( ResOtherZn:CentralVentSysRef, ResOtherZn:CentralExhaustCFMWithMult )
 ENDRULE

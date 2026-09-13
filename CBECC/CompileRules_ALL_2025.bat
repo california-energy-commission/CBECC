@@ -1,6 +1,8 @@
 if not exist "Data\Rulesets" mkdir "Data\Rulesets"
 if not exist "Data\Rulesets\T24_2025" mkdir "Data\Rulesets\T24_2025"
+if not exist "Data\Rulesets\T24_2025\RTF" mkdir "Data\Rulesets\T24_2025\RTF"
 if not exist "Data\Rulesets\CA Res 2025" mkdir "Data\Rulesets\CA Res 2025"
+if not exist "Data\Rulesets\CA Res 2025\RTF" mkdir "Data\Rulesets\CA Res 2025\RTF"
 if exist BEMCompiler25.exe BEMCompiler25.exe --sharedPath1="../RulesetSrc/shared/" --bemBaseTxt="../RulesetSrc/BEMBase.txt" --bemEnumsTxt="../RulesetSrc/T24NRMF/T24N_2025 BEMEnums.txt" --bemBaseBin="Data/Rulesets/T24_2025/T24_2025 BEMBase.bin" --rulesTxt="../RulesetSrc/T24NRMF/T24N_2025.txt" --rulesBin="Data/Rulesets/T24_2025.bin" --rulesLog="_T24-2025 Rules Log.out" --compileDM --compileRules
 echo OFF
 echo BEMCompiler25.exe returned (%ERRORLEVEL%) for T24N_2025

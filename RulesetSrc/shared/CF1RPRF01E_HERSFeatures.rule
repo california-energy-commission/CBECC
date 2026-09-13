@@ -65,12 +65,22 @@ RULELIST "CF1RPRF01E_Proposed_HERSFeatures"  1 0 0 1
          then  CreateChildren( cf1rBuildingHERS, 1, "CF1R SecEa HERSBldgFtr",
                                "CF1RPRF01E_HERSFeature_Building_CentralFanIAQVentilationHERS" )
          else  UNCHANGED  endif  }
-   "Create cf1rBuildingHERS object - DwellingUnitEnclosureLeakageHERS"        ; SAC 02/09/21 (tic #1257)
+   "Create cf1rBuildingHERS object - DwellingUnitEnclosureLeakageHERS"        ; SAC 02/09/21 (tic #1257) RJH 7/13/26 2025-CBECC-Schema Issue 62
       cf1rSection_HersSum:Action  = {
-         if (IfValidAnd( ResProj:IsMultiFamily > 0 ) .AND. IfValidAnd( ResProj:MostDUIAQ_Balanced > 0 )==0)
-         then  CreateChildren( cf1rBuildingHERS, 1, "CF1R SecEa HERSBldgFtr",
-                               "CF1RPRF01E_HERSFeature_Building_DwellingUnitEnclosureLeakageHERS" )
-         else  UNCHANGED  endif  }
+            if (IfValidAnd( ResProj:IsMultiFamily > 0 ))
+            then  if (Proj:ResCompOpt == 3)     ; "Addition and/or Alteration"
+                  then  if (IfValidAnd( ResProj:MostDUIAQ_Balanced == 1 ) .OR. IfValidAnd( ResProj:MostDUIAQ_Supply == 1 ))
+                        then  CreateChildren( cf1rBuildingHERS, 1, "CF1R SecEa HERSBldgFtr",
+                                              "CF1RPRF01E_HERSFeature_Building_DwellingUnitEnclosureLeakageHERS" )
+                        else UNCHANGED
+                        endif
+                  else  if (IfValidAnd( ResProj:MostDUIAQ_Balanced == 1 ) .OR. IfValidAnd( ResProj:MostDUIAQ_Supply == 1 ))
+                        then  CreateChildren( cf1rBuildingHERS, 1, "CF1R SecEa HERSBldgFtr",
+                                              "CF1RPRF01E_HERSFeature_Building_DwellingUnitEnclosureLeakageHERS" )
+                        else UNCHANGED
+                        endif
+                  endif
+            else  UNCHANGED  endif  }
    "Create cf1rBuildingHERS object - KitchenRangeHoodHERS"     ; SAC 3/8/19 (tic #1085)
       cf1rSection_HersSum:Action  = {
          if (IfValidAnd( ResProj:HERSProj:KitRangeHood != 0 ))

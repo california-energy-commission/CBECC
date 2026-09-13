@@ -665,10 +665,18 @@
 2,				3,	"CFI (Central Fan Integrated) Cool Vent"
 1,    Proj:Ruleset,   -1002,  1   ; Backward compatibility
 2,				2,	"Whole House Fan exhausting to outside"
+1,    Proj:StdWHFan,      0,  0   ; SAC 06/23/26 (dev #926)
+1,    Proj:LimitedClVent, 1,  0   ; added to enable new 'Whole House Fan exhausting to outside' option (tic #1040)
+2,				0,	"- none -"
+2,				2,	"Specify Individual Whole House Fans"
 1,    Proj:LimitedClVent, 1,  0   ; added to enable new 'Whole House Fan exhausting to outside' option (tic #1040)
 2,				0,	"- none -"
 2,				5,	"Default WHF Exhausting to Outside"
 2,				2,	"Specify Individual Whole House Fans"
+1,    Proj:StdWHFan,      0,  0   ; SAC 06/23/26 (dev #926)
+2,				0,	"- none -"
+2,				2,	"Specify Individual Whole House Fans"
+2,				3,	"Central Fan Ventilation Cooling System"
 1,    Proj:Ruleset,    -999,  1   ; Current selections
 2,				0,	"- none -"
 2,				1,	"Default Prescriptive Whole House Fan"
@@ -719,6 +727,10 @@
 2,              2,    "anisotropic"
 
 0, cseTOP:dt,  2
+2,              1,    "NO"
+2,              2,    "YES"
+
+0, cseTOP:ucFileName,  2      ; SAC 08/03/26 (dev #607)
 2,              1,    "NO"
 2,              2,    "YES"
 
@@ -796,6 +808,9 @@
 1,     Proj:ClimateZone,    12,  0     ; CommunitySolarProject's available in CZ 12
 2,              0,    "- select CS project -"
 2,              1,    "SMUD Neighborhood SolarShares - Wildflower"
+1,     Proj:ClimateZone,    16,  0     ; CommunitySolarProject's available in CZ 16 - SAC 07/23/26 (dev #859)
+2,              0,    "- select CS project -"
+2,              2,    "PSREC T24 Community Solar Program - SIAD"
 1,     Proj:ClimateZone,  -999,  0     ; CommunitySolarProject's available in all other CZs
 2,              0,    "- select CS project -"
 
@@ -927,6 +942,18 @@
 2,           2203,    "(3) Excessive snow load"
 2,           2204,    "(4) Bldgs approved by local planning dept prior to 1/1/20"
 2,           2206,    "(5) PV size limited by Solar Access Roof Area (SARA)"
+
+; SAC 08/05/26 (dev #989)
+0, Proj:BattCreditOption,  1
+1,    Proj:BattCreditOptAvail,    0,  0   ; neither PkClg or SelfUtil available
+2,              0,    "n/a"
+1,    Proj:BattCreditOptAvail,    1,  1   ; SelfUtil available, PkClg not
+2,              1,    "Self Utilization"
+1,    Proj:BattCreditOptAvail,    2,  2   ; PkClg available, SelfUtil not
+2,              2,    "Peak Cooling"
+1,    Proj:BattCreditOptAvail, -999,  1   ; both PkClg & SelfUtil available
+2,              1,    "Self Utilization"
+2,              2,    "Peak Cooling"
 
 ; map any/all Adv DR control options to TOU for 2025 (at least for now) - SAC 03/23/25
 0, Proj:BatteryControl,  1
@@ -3539,7 +3566,7 @@
 1,    HVACHtPump:Type,     24,  2   ; "SglPkgVertHeatPump - Single package vertical heat pump"
 2,              1,    "EER"
 2,              2,    "EER2"
-1,    HVACHtPump:Type,     11,  2   ; "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
+1,    HVACHtPump:Type,     34,  2   ; "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
 2,              1,    "EER"
 2,              2,    "EER2"
 1,    HVACHtPump:Type,     12,  2   ; "GroundSourceHeatPump - Ground source heat pump (able to heat DHW)"
@@ -3843,20 +3870,19 @@
 0, HVACCool:ACCharge,  2    ; SAC 4/1/13 - switched default enum to 'Verified' (issue #59)
 1,    Proj:Ruleset,   -1001,  0   ; Backward compatibility
 2,              3,    "CID (charge indicator)"
+2,              3,    "FID (fault indicator)"     ; retired GH #991 - legacy only
 1,    Proj:Ruleset,    -999,  2   ; Current selections
 2,              1,    "Not Verified"
 2,              2,    "Verified"
-2,              3,    "FID (fault indicator)"
 0, HVACHtPump:ACCharge,  2
 1,    Proj:Ruleset,   -1001,  0   ; Backward compatibility
 2,              3,    "CID (charge indicator)"
+2,              3,    "FID (fault indicator)"     ; retired GH #991 - legacy only
 1,    HVACHtPump:Type,   22,  2   ; VCHP - SAC 11/13/18
 2,              2,    "Verified"
-2,              3,    "FID (fault indicator)"
 1,    Proj:Ruleset,    -999,  2   ; Current selections
 2,              1,    "Not Verified"
 2,              2,    "Verified"
-2,              3,    "FID (fault indicator)"
 0, HERSCool:ACChargRptMsg,  0
 0, HERSHtPump:ACChargRptMsg,  0
 2,              0,    "n/a"
@@ -4985,8 +5011,12 @@
    ; revised all demand response enums strings to include 'JA13' - SAC 01/31/21
    ; 6 AOSmith and 3 American, Lochinvar, Reliance & State NEEA HPWHs added - SAC 01/19/23
    ; added generic tier 4 options - SAC 04/24/24 (tic #1369)
+   ; added new AOSmith, Friedrich, Rheem, Ruud & LG models (no new presets) - SAC 08/02/26
 1,    DHWHeater:HPWHBrand,   11,  1  ; "A. O. Smith"    
 2,          1, "- select Model -"
+2,     1103883,   "HPSN10-50H45DV 2**  (50 gal)"
+2,     1103984,   "HPSN10-66H45DV 2**  (66 gal)"
+2,     1104085,   "HPSN10-80H45DV 2**  (80 gal)"
 2,     1102513,   "HP1050H45DVCTA-130  (50 gal)"
 2,     1102615,   "HP1080H45DVCTA-130  (80 gal)"
 2,     1102720,   "HPA10-40H45DV 2**  (40 gal)"  ; RJH 12/18/24 added for new CSE preset (tic #1384)
@@ -5102,6 +5132,14 @@
 2,     1400121,   "HB50ES  (50 gal)"
 1,    DHWHeater:HPWHBrand,   31,  1  ; "Friedrich"             
 2,          1, "- select Model -"
+2,     3101763,   "PROH40 T2 FD350BM  (40 gal)"
+2,     3101863,   "PROH40 T2 FD350UM  (40 gal)"
+2,     3101964,   "PROH50 T2 FD350BM  (50 gal)"
+2,     3102064,   "PROH50 T2 FD350UM  (50 gal)"
+2,     3102165,   "PROH65 T2 FD350BM  (65 gal)"
+2,     3102265,   "PROH65 T2 FD350UM  (65 gal)"
+2,     3102366,   "PROH80 T2 FD350BM  (80 gal)"
+2,     3102466,   "PROH80 T2 FD350UM  (80 gal)"
 2,     3100163,   "PRO H40 T2 FD310UM  (40 gal)"
 2,     3100264,   "PRO H50 T2 FD310UM  (50 gal)"
 2,     3100365,   "PRO H65 T2 FD310UM  (65 gal)"
@@ -5138,6 +5176,12 @@
 2,     1600515,   "153.5928  (80 gal)"
 1,    DHWHeater:HPWHBrand,   32,  1  ; "LG"  ; RJH 12/18/24 added for new CSE preset  (tic #1384)     
 2,          1, "- select Model -"
+2,     3200824,   "APHWC502D  (58 gal)"
+2,     3200924,   "APHWC502L  (58 gal)"
+2,     3201024,   "APHWC502M  (58 gal)"
+2,     3201130,   "APHWC802D  (80 gal)"
+2,     3201230,   "APHWC802L  (80 gal)"
+2,     3201330,   "APHWC802M  (80 gal)"
 2,     3200124,   "APHWC501D  (58 gal)"
 2,     3200224,   "APHWC501L  (58 gal)"
 2,     3200324,   "APHWC501M  (58 gal)"
@@ -5190,6 +5234,23 @@
 2,     1801215,   "6 80 DHPT 102  (80 gal)"
 1,    DHWHeater:HPWHBrand,   19,  1  ; "Rheem"          
 2,          1, "- select Model -"
+2,     1914863,   "CPROPH40 T2 RH350BM  (40 gal)"
+2,     1914964,   "CPROPH50 T2 RH350BM  (50 gal)"
+2,     1915065,   "CPROPH65 T2 RH350BM  (65 gal)"
+2,     1915166,   "CPROPH80 T2 RH350BM  (80 gal)"
+2,     1915263,   "ECEPH40 T2 RH350BM  (40 gal)"
+2,     1915364,   "ECEPH50 T2 RH350BM  (50 gal)"
+2,     1915465,   "ECEPH65 T2 RH350BM  (65 gal)"
+2,     1915566,   "ECEPH80 T2 RH350BM  (80 gal)"
+2,     1915663,   "PROUH40 T2 RH350BM  (40 gal)"
+2,     1915763,   "PROUH40 T2 RH350UM  (40 gal)"
+2,     1915864,   "PROUH50 T2 RH350BM  (50 gal)"
+2,     1915964,   "PROUH50 T2 RH350UM  (50 gal)"
+2,     1916065,   "PROUH65 T2 RH350BM  (65 gal)"
+2,     1916165,   "PROUH65 T2 RH350UM  (65 gal)"
+2,     1916266,   "PROUH80 T2 RH350BM  (80 gal)"
+2,     1916366,   "PROUH80 T2 RH350UM  (80 gal)"
+2,     1916482,   "XE50T10HD00U0  (50 gal)"
 2,     1908859,   "CPROPH40 T2 RH400-15  (40 gal)"
 2,     1908959,   "CPROPH40 T2 RH400-30  (40 gal)"
 2,     1909059,   "CPROPH40 T2 RH400-SO  (40 gal)"
@@ -5414,6 +5475,14 @@
 2,     2000944,   "10E80-HP4D15  (80 gal)"
 1,    DHWHeater:HPWHBrand,   21,  1  ; "Ruud"           
 2,          1, "- select Model -"
+2,     2105963,   "PROUH40 T2 RU350BM  (40 gal)"
+2,     2106063,   "PROUH40 T2 RU350UM  (40 gal)"
+2,     2106164,   "PROUH50 T2 RU350BM  (50 gal)"
+2,     2106264,   "PROUH50 T2 RU350UM  (50 gal)"
+2,     2106365,   "PROUH65 T2 RU350BM  (65 gal)"
+2,     2106465,   "PROUH65 T2 RU350UM  (65 gal)"
+2,     2106566,   "PROUH80 T2 RU350BM  (80 gal)"
+2,     2106666,   "PROUH80 T2 RU350UM  (80 gal)"
 2,     2104759,   "PROUH40 T2 RU400-15  (40 gal)"
 2,     2104859,   "PROUH40 T2 RU400-30  (40 gal)"
 2,     2104959,   "PROUH40 T2 RU400-SO  (40 gal)"
@@ -5786,8 +5855,12 @@
    ; SAC 11/16/17 - updated w/ new NEEA list (tic #927)
    ; revised all demand response enums strings to include 'JA13' - SAC 01/31/21
    ; added generic tier 4 options - SAC 04/24/24 (tic #1369)
+   ; added new AOSmith, Friedrich, Rheem, Ruud & LG models (no new presets) - SAC 08/02/26
 1,    DHWSys:CHPWHNEEABrand,   11,  1  ; "A. O. Smith"    
 2,          1, "- select Model -"
+2,     1103883,   "HPSN10-50H45DV 2**  (50 gal)"
+2,     1103984,   "HPSN10-66H45DV 2**  (66 gal)"
+2,     1104085,   "HPSN10-80H45DV 2**  (80 gal)"
 2,     1102513,   "HP1050H45DVCTA-130  (50 gal)"
 2,     1102615,   "HP1080H45DVCTA-130  (80 gal)"
 2,     1102720,   "HPA10-40H45DV 2**  (40 gal)"  ; RJH 12/18/24 added for new CSE preset (tic #1384)
@@ -5903,6 +5976,14 @@
 2,     1400121,   "HB50ES  (50 gal)"
 1,    DHWSys:CHPWHNEEABrand,   31,  1  ; "Friedrich"             
 2,          1, "- select Model -"
+2,     3101763,   "PROH40 T2 FD350BM  (40 gal)"
+2,     3101863,   "PROH40 T2 FD350UM  (40 gal)"
+2,     3101964,   "PROH50 T2 FD350BM  (50 gal)"
+2,     3102064,   "PROH50 T2 FD350UM  (50 gal)"
+2,     3102165,   "PROH65 T2 FD350BM  (65 gal)"
+2,     3102265,   "PROH65 T2 FD350UM  (65 gal)"
+2,     3102366,   "PROH80 T2 FD350BM  (80 gal)"
+2,     3102466,   "PROH80 T2 FD350UM  (80 gal)"
 2,     3100163,   "PRO H40 T2 FD310UM  (40 gal)"
 2,     3100264,   "PRO H50 T2 FD310UM  (50 gal)"
 2,     3100365,   "PRO H65 T2 FD310UM  (65 gal)"
@@ -5939,6 +6020,12 @@
 2,     1600515,   "153.5928  (80 gal)"
 1,    DHWSys:CHPWHNEEABrand,   32,  1  ; "LG"  ; RJH 12/18/24 added for new CSE preset (tic #1384)      
 2,          1, "- select Model -"
+2,     3200824,   "APHWC502D  (58 gal)"
+2,     3200924,   "APHWC502L  (58 gal)"
+2,     3201024,   "APHWC502M  (58 gal)"
+2,     3201130,   "APHWC802D  (80 gal)"
+2,     3201230,   "APHWC802L  (80 gal)"
+2,     3201330,   "APHWC802M  (80 gal)"
 2,     3200124,   "APHWC501D  (58 gal)"
 2,     3200224,   "APHWC501L  (58 gal)"
 2,     3200324,   "APHWC501M  (58 gal)"
@@ -5991,6 +6078,23 @@
 2,     1801215,   "6 80 DHPT 102  (80 gal)"
 1,    DHWSys:CHPWHNEEABrand,   19,  1  ; "Rheem"          
 2,          1, "- select Model -"
+2,     1914863,   "CPROPH40 T2 RH350BM  (40 gal)"
+2,     1914964,   "CPROPH50 T2 RH350BM  (50 gal)"
+2,     1915065,   "CPROPH65 T2 RH350BM  (65 gal)"
+2,     1915166,   "CPROPH80 T2 RH350BM  (80 gal)"
+2,     1915263,   "ECEPH40 T2 RH350BM  (40 gal)"
+2,     1915364,   "ECEPH50 T2 RH350BM  (50 gal)"
+2,     1915465,   "ECEPH65 T2 RH350BM  (65 gal)"
+2,     1915566,   "ECEPH80 T2 RH350BM  (80 gal)"
+2,     1915663,   "PROUH40 T2 RH350BM  (40 gal)"
+2,     1915763,   "PROUH40 T2 RH350UM  (40 gal)"
+2,     1915864,   "PROUH50 T2 RH350BM  (50 gal)"
+2,     1915964,   "PROUH50 T2 RH350UM  (50 gal)"
+2,     1916065,   "PROUH65 T2 RH350BM  (65 gal)"
+2,     1916165,   "PROUH65 T2 RH350UM  (65 gal)"
+2,     1916266,   "PROUH80 T2 RH350BM  (80 gal)"
+2,     1916366,   "PROUH80 T2 RH350UM  (80 gal)"
+2,     1916482,   "XE50T10HD00U0  (50 gal)"
 2,     1908859,   "CPROPH40 T2 RH400-15  (40 gal)"
 2,     1908959,   "CPROPH40 T2 RH400-30  (40 gal)"
 2,     1909059,   "CPROPH40 T2 RH400-SO  (40 gal)"
@@ -6215,6 +6319,14 @@
 2,     2000944,   "10E80-HP4D15  (80 gal)"
 1,    DHWSys:CHPWHNEEABrand,   21,  1  ; "Ruud"           
 2,          1, "- select Model -"
+2,     2105963,   "PROUH40 T2 RU350BM  (40 gal)"
+2,     2106063,   "PROUH40 T2 RU350UM  (40 gal)"
+2,     2106164,   "PROUH50 T2 RU350BM  (50 gal)"
+2,     2106264,   "PROUH50 T2 RU350UM  (50 gal)"
+2,     2106365,   "PROUH65 T2 RU350BM  (65 gal)"
+2,     2106465,   "PROUH65 T2 RU350UM  (65 gal)"
+2,     2106566,   "PROUH80 T2 RU350BM  (80 gal)"
+2,     2106666,   "PROUH80 T2 RU350UM  (80 gal)"
 2,     2104759,   "PROUH40 T2 RU400-15  (40 gal)"
 2,     2104859,   "PROUH40 T2 RU400-30  (40 gal)"
 2,     2104959,   "PROUH40 T2 RU400-SO  (40 gal)"
@@ -6587,8 +6699,12 @@
    ; SAC 11/16/17 - updated w/ new NEEA list (tic #927)
    ; revised all demand response enums strings to include 'JA13' - SAC 01/31/21
    ; added generic tier 4 options - SAC 04/24/24 (tic #1369)
+   ; added new AOSmith, Friedrich, Rheem, Ruud & LG models (no new presets) - SAC 08/02/26
 1,    DHWSys:CHPWHLoopTankNEEABrand,   11,  1  ; "A. O. Smith"    
 2,          1, "- select Model -"
+2,     1103883,   "HPSN10-50H45DV 2**  (50 gal)"
+2,     1103984,   "HPSN10-66H45DV 2**  (66 gal)"
+2,     1104085,   "HPSN10-80H45DV 2**  (80 gal)"
 2,     1102513,   "HP1050H45DVCTA-130  (50 gal)"
 2,     1102615,   "HP1080H45DVCTA-130  (80 gal)"
 2,     1102720,   "HPA10-40H45DV 2**  (40 gal)"  ; RJH 12/18/24 added for new CSE preset (tic #1384)
@@ -6704,6 +6820,14 @@
 2,     1400121,   "HB50ES  (50 gal)"
 1,    DHWSys:CHPWHLoopTankNEEABrand,   31,  1  ; "Friedrich"             
 2,          1, "- select Model -"
+2,     3101763,   "PROH40 T2 FD350BM  (40 gal)"
+2,     3101863,   "PROH40 T2 FD350UM  (40 gal)"
+2,     3101964,   "PROH50 T2 FD350BM  (50 gal)"
+2,     3102064,   "PROH50 T2 FD350UM  (50 gal)"
+2,     3102165,   "PROH65 T2 FD350BM  (65 gal)"
+2,     3102265,   "PROH65 T2 FD350UM  (65 gal)"
+2,     3102366,   "PROH80 T2 FD350BM  (80 gal)"
+2,     3102466,   "PROH80 T2 FD350UM  (80 gal)"
 2,     3100163,   "PRO H40 T2 FD310UM  (40 gal)"
 2,     3100264,   "PRO H50 T2 FD310UM  (50 gal)"
 2,     3100365,   "PRO H65 T2 FD310UM  (65 gal)"
@@ -6740,6 +6864,12 @@
 2,     1600515,   "153.5928  (80 gal)"
 1,    DHWSys:CHPWHLoopTankNEEABrand,   32,  1  ; "LG"  ; RJH 12/18/24 added for new CSE preset (tic #1384)      
 2,          1, "- select Model -"
+2,     3200824,   "APHWC502D  (58 gal)"
+2,     3200924,   "APHWC502L  (58 gal)"
+2,     3201024,   "APHWC502M  (58 gal)"
+2,     3201130,   "APHWC802D  (80 gal)"
+2,     3201230,   "APHWC802L  (80 gal)"
+2,     3201330,   "APHWC802M  (80 gal)"
 2,     3200124,   "APHWC501D  (58 gal)"
 2,     3200224,   "APHWC501L  (58 gal)"
 2,     3200324,   "APHWC501M  (58 gal)"
@@ -6792,6 +6922,23 @@
 2,     1801215,   "6 80 DHPT 102  (80 gal)"
 1,    DHWSys:CHPWHLoopTankNEEABrand,   19,  1  ; "Rheem"          
 2,          1, "- select Model -"
+2,     1914863,   "CPROPH40 T2 RH350BM  (40 gal)"
+2,     1914964,   "CPROPH50 T2 RH350BM  (50 gal)"
+2,     1915065,   "CPROPH65 T2 RH350BM  (65 gal)"
+2,     1915166,   "CPROPH80 T2 RH350BM  (80 gal)"
+2,     1915263,   "ECEPH40 T2 RH350BM  (40 gal)"
+2,     1915364,   "ECEPH50 T2 RH350BM  (50 gal)"
+2,     1915465,   "ECEPH65 T2 RH350BM  (65 gal)"
+2,     1915566,   "ECEPH80 T2 RH350BM  (80 gal)"
+2,     1915663,   "PROUH40 T2 RH350BM  (40 gal)"
+2,     1915763,   "PROUH40 T2 RH350UM  (40 gal)"
+2,     1915864,   "PROUH50 T2 RH350BM  (50 gal)"
+2,     1915964,   "PROUH50 T2 RH350UM  (50 gal)"
+2,     1916065,   "PROUH65 T2 RH350BM  (65 gal)"
+2,     1916165,   "PROUH65 T2 RH350UM  (65 gal)"
+2,     1916266,   "PROUH80 T2 RH350BM  (80 gal)"
+2,     1916366,   "PROUH80 T2 RH350UM  (80 gal)"
+2,     1916482,   "XE50T10HD00U0  (50 gal)"
 2,     1908859,   "CPROPH40 T2 RH400-15  (40 gal)"
 2,     1908959,   "CPROPH40 T2 RH400-30  (40 gal)"
 2,     1909059,   "CPROPH40 T2 RH400-SO  (40 gal)"
@@ -7016,6 +7163,14 @@
 2,     2000944,   "10E80-HP4D15  (80 gal)"
 1,    DHWSys:CHPWHLoopTankNEEABrand,   21,  1  ; "Ruud"           
 2,          1, "- select Model -"
+2,     2105963,   "PROUH40 T2 RU350BM  (40 gal)"
+2,     2106063,   "PROUH40 T2 RU350UM  (40 gal)"
+2,     2106164,   "PROUH50 T2 RU350BM  (50 gal)"
+2,     2106264,   "PROUH50 T2 RU350UM  (50 gal)"
+2,     2106365,   "PROUH65 T2 RU350BM  (65 gal)"
+2,     2106465,   "PROUH65 T2 RU350UM  (65 gal)"
+2,     2106566,   "PROUH80 T2 RU350BM  (80 gal)"
+2,     2106666,   "PROUH80 T2 RU350UM  (80 gal)"
 2,     2104759,   "PROUH40 T2 RU400-15  (40 gal)"
 2,     2104859,   "PROUH40 T2 RU400-30  (40 gal)"
 2,     2104959,   "PROUH40 T2 RU400-SO  (40 gal)"
@@ -9318,6 +9473,7 @@
 2,             13,    "COMBINEDHEATDHW"      ; HeatPumpDHWCombo - SAC 04/02/23
 2,             14,    "ACCOMBINEDHEATDHW" 
 2,             16,    "ACPMFurnace"          ; SAC 03/05/25 (tic #1379)
+2,             17,    "ACPMResistance"       ; SAC 04/16/25 (support #548)
 
 0, cseRSYS:rsDefrostModel,  -1
 2,              0,    "None"
@@ -9421,6 +9577,9 @@
 1,     Proj:ClimateZone,    12,  0     ; CommunitySolarProject's available in CZ 12
 2,              0,    "- select CS project -"
 2,              1,    "SMUD Neighborhood SolarShares - Wildflower"
+; 1,     Proj:ClimateZone,    16,  0     ; CommunitySolarProject's available in CZ 16 - SAC 07/24/26 (dev #859)
+; 2,              0,    "- select CS project -"
+; 2,              2,    "PSREC T24 Community Solar Program - SIAD"
 1,     Proj:ClimateZone,  -999,  0     ; CommunitySolarProject's available in all other CZs
 2,              0,    "- select CS project -"
 ;--------------------------------------------
@@ -9439,8 +9598,11 @@
 2,          1, "Central Fan IAQ ventilation"                  
 
 0, HERSOther:KitRangeHoodMsg,  0       ; SAC 3/8/19 (tic #1085)
-2,	    0,	" n/a "
+1,    Proj:Ruleset,   -1001,  0   ; Backward compatibility
 2,          1, "Kitchen range hood" 
+1,    Proj:Ruleset,    -999,  0   ; Current selections      ; RJH 8/21/26 - revised for latest HERS messages ResSchema Issue #84  ; restore 0-n/a - SAC 08/23/26
+2,	    0,	" n/a "
+2,          1, "Kitchen Exhaust" 
 
 ;0, HERSOther:CoolVentRptMsg,  0
 ;2,	    0,	" n/a "

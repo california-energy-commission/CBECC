@@ -106,6 +106,12 @@ RULELIST "HtPumpPerfMap_Defaulting_Single" 1 0 0 0
   "set HVACHtPump:MaxPerfMapEER2"     HVACHtPump:MaxPerfMapEER2   = 
     { if( IfValidAnd( SEER2 > 0 ) .AND. IfValidAnd( EffMetric = 2 ) ) then  SEER2 * 0.975  else  UNDEFINED  endif  }
 
+   ; reset limits possibly set from prior Variable speed setting - SAC 05/19/26 (support #591)
+   "Set HVACHtPump:HP3_SEER2Min"          HVACHtPump:HP3_SEER2Min          = {  UNDEFINED  }
+   "Set HVACHtPump:HP3_SEER2Max"          HVACHtPump:HP3_SEER2Max          = {  UNDEFINED  }
+   "Set HVACHtPump:HP3_SEER2EER2Ratio"    HVACHtPump:HP3_SEER2EER2Ratio    = {  UNDEFINED  }
+   "Set HVACHtPump:HP3_SEER2EER2RatioMin" HVACHtPump:HP3_SEER2EER2RatioMin = {  UNDEFINED  }
+   "Set HVACHtPump:HP3_SEER2EER2RatioMax" HVACHtPump:HP3_SEER2EER2RatioMax = {  UNDEFINED  }
    ; HtPumpV3 2D interpolation - SAC 09/05/24 (VCHP3)
    "Set HVACHtPump:HP3_HSPF2Min"          HVACHtPump:HP3_HSPF2Min          = {  HtPump3_Interp_Single_Full_HeatCapRatio_COP:HSPF2Limit( "2DInterpolate", "Min", "HSPF2", -999 )  }
    "Set HVACHtPump:HP3_HSPF2Max"          HVACHtPump:HP3_HSPF2Max          = {  HtPump3_Interp_Single_Full_HeatCapRatio_COP:HSPF2Limit( "2DInterpolate", "Max", "HSPF2", -999 )  }
