@@ -5355,6 +5355,8 @@
 1,           "FluidFlowRtDsgnSim",      BEMP_Flt,  1,  0,  1,  NInp,  "gpm",             0,  0,                           3008, "FluidFlowRateDesignSimulated",  "" 
 ;1,          "SteamFlowRtDsgn",         BEMP_Flt,  1,  0,  1,   Opt,  "cfm",             0,  0,                           3008, "SteamFlowRateDesign",  "" 
 1,           "CoilHdDsgn",              BEMP_Flt,  1,  0,  0,   Opt,  "ft H20",          0,  0,                           3008, "CoilHeadDesign",  ""    
+1,           "RtdInletAirTemp",         BEMP_Flt,  1,  0,  1,  NInp,  "°F",              0,  0,                           3008, "RatedInletAirTemperature",  "" 
+1,           "RtdOutletAirTemp",        BEMP_Flt,  1,  0,  1,  NInp,  "°F",              0,  0,                           3008, "RatedOutletAirTemperature",  "" 
 
 1,           "NumHtgStages",            BEMP_Int,  1,  0,  1,   Opt,  "",                0,  0,                           3008, "NumberHeatingStages",  "" 
 1,           "CapTotGrossRtd",          BEMP_Flt,  1,  0,  0,   Opt,  "Btu/h",           0,  0,                           3008, "CapacityTotalGrossRated",  ""             
