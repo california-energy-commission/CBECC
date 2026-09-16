@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-PassiveBeams-DOASCV+HtRcvry"  
    BldgEngyModelVersion = 17
    CreateDate = 1503601800
-   ModDate = 1778188805
-   RunDate = 1778188806
+   ModDate = 1787732845
+   RunDate = 1787732846
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    CompType = "NewComplete"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    DebugScreen = 0
    ..
 
@@ -2426,6 +2426,7 @@ clg: 1  htg: 0  'PerimZn3-4'" )
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

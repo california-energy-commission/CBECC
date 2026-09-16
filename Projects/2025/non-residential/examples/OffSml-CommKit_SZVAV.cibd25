@@ -3,14 +3,14 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-CommKit_SZVAV"  
    BldgEngyModelVersion = 17
    CreateDate = 1448131298
-   ModDate = 1778187390
-   RunDate = 1778187391
+   ModDate = 1787732141
+   RunDate = 1787732142
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ..
 
 ProjVar   "OffSml-CommKit_SZVAV - ProjVar"  
@@ -2391,6 +2391,7 @@ clg: 2  htg: 0  'Core_ZN Thermal Zone'" )
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

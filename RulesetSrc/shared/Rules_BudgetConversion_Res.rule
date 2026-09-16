@@ -1384,7 +1384,8 @@ RULELIST  "BudgetConversion" 1 0 1 0
 														default :	PostError( "Unexpected standard design heating system type (%g) encountered for ResHVACSys '%s'", StdHeatingType, Name )
 													endswitch  endif  }
 
-   "force setup of HVACHtPump for New PerfMap HtPumps in 2025+"   HVACSys:Action =     ; SAC 03/12/25 (tic #1379)  ; ported to MF - SAC 04/15/25
+  "store count of ResHtPumpSys:AutoSize as ResProj:AutoSzHPCount"   ResProj:AutoSzHPCount   = {  SumAll( ResHtPumpSys:AutoSize )  }
+  "force setup of HVACHtPump for New PerfMap HtPumps in 2025+"   HVACSys:Action =     ; SAC 03/12/25 (tic #1379)  ; ported to MF - SAC 04/15/25
       {  if ((Status != 2 .OR. IsVerified < 0.5) .AND.
              (FloorAreaServed < 0.1 .OR.
                (SumRevRef( ResOtherZn:ActiveHVACSystem, ResOtherZn:CondFloorArea ) < 1 .AND.
@@ -1393,6 +1394,10 @@ RULELIST  "BudgetConversion" 1 0 1 0
          else if (StdHeatingType == 4 .AND. ResProj:EnergyCodeYearNum >= 2025)
          then  EvalRulelist( "Setup_HVACSys_SplitHeatPumpPM", 1 )
          else  UNCHANGED  endif endif  }
+  "default HVAC properties to make sure necessary properties are defined (if new HtPump objects imported from library)"  ResProj:Action =   ; added eval of defaulting rules if HtPump object(s) imported from library - SAC 09/11/26 (dev #1086)
+    { if( ResProj:AutoSzHPCount < SumAll( ResHtPumpSys:AutoSize ) )
+      then  EvalRulelist( "ProposedInput_HVAC" )
+      else  UNCHANGED  endif  }
 
 	"Setup Standard heat pump system properties"		; SAC 12/26/14 - added logic to ensure that Altered/Verified systems get processed via Setup_HVACSys_HtPump_*   ; SAC 9/19/19 - OtherZone (MFamProto)
 			HVACSys:Action		= {	if ((Status != 2 .OR. IsVerified < 0.5) .AND.
@@ -1413,7 +1418,7 @@ RULELIST  "BudgetConversion" 1 0 1 0
 														default :	PostError( "Unexpected standard design heat pump system type (%g) encountered for ResHVACSys '%s'", StdHeatingType, Name )
 													endswitch  endif  }
 ; DEBUGGING
-;	"store BEMProc details"		ResProj:Action = {  StoreBEMProc( "following budg HtPump setup", 0 )  }
+;"store BEMProc details"		ResProj:Action = {  StoreBEMProc( "1-following budg HtPump setup", 0 )  }
 
 ;	"debug HVAC"			HVACSys:Action = { PostWarning( "BudgetConversion-HVACSys  StdCoolingType: %g",  StdCoolingType )  }
 	"Setup Standard cooling system properties"		; SAC 12/26/14 - added logic to ensure that Altered/Verified systems get processed via Setup_HVACSys_Cool_*   ; SAC 9/19/19 - OtherZone (MFamProto)
@@ -1442,7 +1447,7 @@ RULELIST  "BudgetConversion" 1 0 1 0
       ResProj:Action = {  EvalRulelist( "BudgetConversion_SetupDuctsAndFan" )  }
 ;"store BEMProc details" ResProj:Action = {  if (RunAbbrev == "s") then  StoreBEMProc( "frc HVACDist-type", 0 ) else  UNCHANGED  endif  }
 ;"debugging" ResProj:Action = { if (RunAbbrev == "s") then  MessageBox( "Model stored for %s:%g run", RunID, StdsVersionYr )  else  UNCHANGED  endif }
-;"store BEMProc details"	Proj:Action = {  StoreBEMProc( Format( "b4 HVAC rnd2 setup %s", RunAbbrev ), 0 ) }
+;"store BEMProc details"	Proj:Action = {  StoreBEMProc( Format( "2-b4 HVAC rnd2 setup %s", RunAbbrev ), 0 ) }
 
 ; mjb	10/24/14	- mods to keep existing HVAC in Std Design for Additions Alone
 ;	mjb	10/27/14 - mods to keep existing HVAC in Std Design for E+A+A
@@ -1451,7 +1456,7 @@ RULELIST  "BudgetConversion" 1 0 1 0
 		         ( (ResProj:IsAddAlone > 0.5 .AND. MinRevRef( ResZn:ActiveHVACSystem, ResZn:HVACSysStatus ) < 2) .OR.
                  (ResProj:RunScope == 2 .AND. MinRevRef( ResZn:ActiveHVACSystem, ResZn:HVACSysStatus ) < 2) ) ) then  UNCHANGED
          else EvalRulelist( "SetupHVACSys_Round2_common", 1 ) endif  }
-; "store BEMProc details"		HVACSys:Action = {  StoreBEMProc( "aftr Budget DistSys creation", 0 )  }
+;"store BEMProc details"		HVACSys:Action = {  StoreBEMProc( "3-aftr Budget DistSys creation", 0 )  }
 
 ;	mjb	7/29/14	added std design setting for EvapCond params
 	"Reset HVACSys:HaveEvapCond"			HVACSys:HaveEvapCond		= {	0  }		

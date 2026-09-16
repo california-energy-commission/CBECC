@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750728508
-   ModDate = 1778147865
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787718591
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -563,7 +565,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -908,14 +910,15 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "3.1"
    PctSavCmpTDVLbl = "7.8"
    PctSavSrcLbl = "39.9"
-   PropElecDemand[1] = 0.70564
-   StdElecDemand = 0.748432
+   PropElecDemand[1] = 0.705641
+   StdElecDemand = 0.748438
    IncludePeakCooling = 1
    PropPeakCoolElec = 209.017
    StdPeakCoolElec = 266.201
-   StdPeakCoolElecLimit = 319.441
-   PeakCoolElecMargin = 110
-   PeakCoolElecLabels = ( "209", "319", "110", "Pass" )
+   StdPeakCoolElecLimit = 332.751
+   PeakCoolElecMargin = 124
+   PeakCoolElecLabels = ( "209", "333", "124", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 125% of the standard design building peak energy use for Climate Zone 10."
    PropDesignPVInp[1] = 2.45
    PropDesignPVInp[6] = 2.45
    PropDesignPVSize[1] = 2.7267

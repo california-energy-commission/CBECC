@@ -185,7 +185,7 @@ RULE HX:Status
    SIZING
     if( Proj:IsNewMech )
     then  "New"
-    else  u:Status
+    else  UNCHANGED
     endif
   ANNUAL
     if( Proj:IsNewMech )

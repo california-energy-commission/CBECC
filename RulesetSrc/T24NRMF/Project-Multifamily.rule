@@ -806,7 +806,7 @@ RULE ResProj:IAQSupInletsAccessible
   DESCRIPTION
     "supply air filters, outside air inlets, and H/ERV recovery cores are readily accessible"
   INPUTCLASS 
-    Default
+    NotInput
   DEFAULT
     1
 ENDRULE
@@ -824,9 +824,12 @@ RULE ResProj:IAQHasFID
   DESCRIPTION
     "whether IAQ system has fault indication display (FID) in compliance with RACM Reference Manual"
   INPUTCLASS 
-    Default
+    NotInput
   DEFAULT
-    1
+    if( SumAll( DwellUnitType:IAQHasFID ) > 0 )
+    then  1
+    else  0 
+    endif
 ENDRULE
 
 RULE Proj:StdDesignBase

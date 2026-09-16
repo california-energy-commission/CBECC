@@ -8861,6 +8861,8 @@
 1,           "afterchildren_LscFootnote3b",                                BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 10/27/25 - 2025-CBECC-Res-Schema Issue 56
 1,           "afterchildren_LscEndNote1",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 1,           "afterchildren_LscEndNote2",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
+1,           "LscEndNote2_PeakCoolingTargetString",                        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
+1,           "afterchildren_LscEndNote3",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
 1,           "afterchildren_LscResultNotes_LSC_ComplianceNotes",           BEMP_Str, 10,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 ;------------------------------------------------------------------------------------------------
 
@@ -8882,6 +8884,8 @@
 1,           "afterchildren_LscFootnote3b",                                BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 10/30/25 - 2025-CBECC-Res-Schema Issue 13
 1,           "afterchildren_LscEndNote1",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 1,           "afterchildren_LscEndNote2",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
+1,           "LscEndNote2_PeakCoolingTargetString",                        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
+1,           "afterchildren_LscEndNote3",                                  BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""	; RJH 8/24/26 - 2025-CBECC-Res-Schema Issue 86
 1,           "afterchildren_LscResultNotes_LSC_ComplianceNotes",           BEMP_Str, 10,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: token ",  ""
 ;------------------------------------------------------------------------------------------------
 
@@ -9434,6 +9438,7 @@
 ;                                                 VType     NV  WA  SP   US    UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                               -------------------------------------------------------------------------------------------
 1,           "Da01_PV_SystemTotalRatedPowerDC",  BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""
+1,           "Da01_PV_100kWhmBlockCount",  		 BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""		; RJH 8/24/26 2025-CBECC-Res-Schema Issue 83
 1,           "Da01b_PV_StandardDesignPowerDC",   BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""   ; SAC 01/19/23
 1,           "Da02_PhotoVoltaicExceptionRes",    BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: EnumerationConstant ->  BatteryStorage  CZ15ReducedSize  HabitableStories2  HabitableStories3  NoExceptionsNA  LimitedSolarAccess  PlansBefore2020  CommunitySolar",  ""
 1,           "Da02_PVExceptionString",           BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: string ",  ""     ; SAC 6/12/20 (CommunitySolar)

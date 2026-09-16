@@ -4,7 +4,7 @@
     "folders": [
       { "path": "standard", "display_name": "Standard Models" },
       { "path": "examples", "display_name": "Examples" },
-      { "path": "EAA", "display_name": "Existing Additions and Alterations (EAA)" },
+      { "path": "EAA", "display_name": "Existing Additions and Alterations (EAA)" }
     ]
   },
   "multi-family": {
@@ -24,6 +24,12 @@
       { "path": "standard", "display_name": "Standard Models" },
       { "path": "cuac", "display_name": "CUAC" },
       { "path": "EAA", "display_name": "Existing Additions and Alterations (EAA)" }
+    ]
+  },
+  "batch-run-sets": {
+    "display_name": "Batch Run Sets",
+    "folders": [
+      { "path": ".", "display_name": "Climate Zone Weather" }
     ]
   }
 }

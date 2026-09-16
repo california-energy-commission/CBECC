@@ -1364,6 +1364,12 @@ RULE nrcctblRowHvacdwell:Hvacdwell10a_HeatPumpBackupFuel
     else UNDEFINED
     endif
 ENDRULE
+; RJH 8/27/26 2025-CBECC-Schema Issue 42
+RULE nrcctblRowHvacdwell:Hvacdwell10a_NotApplicableMessage
+  ANNUAL_PROPOSED
+    if (LocalStatus( Hvacdwell10a_HeatPumpBackupFuel ) > 0)
+    then  UNDEFINED  else  "NotApplicable"  endif
+ENDRULE
 
 RULE nrcctblRowHvacdwell:Hvacdwell11_NotApplicableMessage
   ANNUAL_PROPOSED
@@ -2689,7 +2695,8 @@ RULE nrcctblRowHvacCommonMF:HvacCommonMF07_HeatPumpHeatCapacity47F
               then UNDEFINED
               else if (noXMLoutput_ResHVACSysRef:Type == "Central Heating and Cooling System")
                    then if (noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:Type == "Variable refrigerant flow")
-                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HPSysCap47 ) )
+;                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HPSysCap47 ) )
+                        then atof( Format( "%.2f", noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:HtgCapTotNetRtd ) )  ; RJH 8/28/26 2025-CBECC-Schema Issue 84
                         else if (noXMLoutput_ResHVACSysRef:HVACCentralRef[1]:Type == "Water source heat pump")
                              then UNDEFINED
                              else UNDEFINED

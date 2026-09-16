@@ -2191,6 +2191,18 @@ RULELIST "LoadModelAdjustments" 1 0 0 0
          then  EvalRulelist( "ForceUpdate_Attic_Status_AlteredRoofSurface", 1 )
          else  UNCHANGED  endif  }
 
+   ; 08-05-2026 (GH #991) - retire FID (fault indicator) ACCharge selection
+   "Check for FID no longer a valid HVACCool:ACCharge selection"   HVACCool:Action =
+      { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
+        else if( EnumValue( ACCharge ) == 3 )
+        then  EvalRulelist( "ForceUpdate_HVACCool_ACCharge_NotVerified", 1 )
+        else  UNCHANGED  endif endif  }
+   "Check for FID no longer a valid HVACHtPump:ACCharge selection"   HVACHtPump:Action =
+      { if( LocalStatus( ACCharge ) < 1 ) then  UNCHANGED
+        else if( EnumValue( ACCharge ) == 3 )
+        then  EvalRulelist( "ForceUpdate_HVACHtPump_ACCharge_NotVerified", 1 )
+        else  UNCHANGED  endif endif  }
+
    "Delete Mat objects with invalid ConductivityQII (=0)"   ; SAC 10/11/17 - prune invalid Mat objects related to addition of compressed insulation Cons layers (tic #902)
       Mat:Action  = {
          if (IfValidAnd( ConductivityQII = 0 )) then  DeleteComp()
@@ -2355,6 +2367,24 @@ RULELIST "ForceUpdate_Attic_Status_AlteredRoofSurface" 1 0 1 0
 END
 ;*************************************************************************
 
+
+;************************************************************************* 08-05-2026 (GH #991)
+RULELIST "ForceUpdate_HVACCool_ACCharge_NotVerified" 1 0 1 1
+   "post warning that FID is no longer valid"   HVACCool:Action =
+      {  PostWarning( "Cooling system '%s': the 'FID (fault indicator)' AC Charge selection is no
+                       longer allowed and has been reset to 'Not Verified'.", Name )  }
+   "force ACCharge to Not Verified"   HVACCool:ACCharge = {  "Not Verified"  }
+END
+;*************************************************************************
+
+;************************************************************************* 08-05-2026 (GH #991)
+RULELIST "ForceUpdate_HVACHtPump_ACCharge_NotVerified" 1 0 1 1
+   "post warning that FID is no longer valid"   HVACHtPump:Action =
+      {  PostWarning( "Heat pump system '%s': the 'FID (fault indicator)' AC Charge selection is no
+                       longer allowed and has been reset to 'Not Verified'.", Name )  }
+   "force ACCharge to Not Verified"   HVACHtPump:ACCharge = {  "Not Verified"  }
+END
+;*************************************************************************
 
 ;*************************************************************************
 RULELIST "ForceDefault_TDVType_Std" 1 0 0 0

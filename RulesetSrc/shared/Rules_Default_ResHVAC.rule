@@ -1970,17 +1970,14 @@ RULELIST "Default_HVAC_IAQFan" 0 0 0 0
    ; revised logic to set to 1 for EAA Existing fans - SAC 04/05/24 (tic #1304)
    "Set ResIAQFan:FanPowerMult"        ResIAQFan:FanPowerMult =         ; postponed further (past 2028 code) 'future' fan power mults - SAC 04/20/25
       {  if (IfValidAnd( HardwireStdFanPower > 0 ) .OR.
-             (ResProj:RunScope == 2 .AND. Status == 1)) then  1
+             (ResProj:RunScope == 2 .AND. Status == 1))
+		 then  1
          else if ( IfValidAnd( Proj:AnalysisVersion >= 190200 ) .AND. ResProj:RunAbbrev != "dr" .AND.
                    ( (ResProj:RunAbbrev != "s" .AND. ResProj:RunAbbrev != "zb" .AND. ResProj:RunAbbrev != "smf") .OR.
                      (ResProj:IAQSupInletsAccessible < 1 .AND. IAQFanType > 1) ) )
-         then  if (IAQFanType > 1 .AND. IfValidAnd( ResProj:IAQHasFID > 0 )==0)  ; not Exhaust & not FID
-               then  if (HERSVerified == 0 .AND. IfValidAnd( Proj:AnalysisVersion >= 290000 ))
-                     then  1.15
-                     else  1.10  endif
-               else  if (HERSVerified == 0 .AND. IfValidAnd( Proj:AnalysisVersion >= 290000 ))
-                     then  1.05
-                     else  1     endif endif
+         then  if (HERSVerified == 0 .AND. IfValidAnd( Proj:AnalysisVersion >= 290000 ))
+                  then  1.05
+                  else  1  endif
          else  1  endif endif  }
    ; removed limit to MFam fans, added separate mults by y/n HtRecov and revised multipliers - SAC 01/20/21 (tic #1243)
    ; added logic to retain settings for 's' & 'smf' runs when NOT ResProj:IAQSupInletsAccessible - SAC 01/26/21 (tic #1243)
@@ -1989,14 +1986,9 @@ RULELIST "Default_HVAC_IAQFan" 0 0 0 0
    "Set ResIAQFan:FanHeatRecovMult"    ResIAQFan:FanHeatRecovMult =     ; postponed HERS verified mods further to 2029 (placeholder) - SAC 10/24/21
       {  if ( IfValidAnd( Proj:AnalysisVersion >= 190200 ) .AND. IfValidAnd( IncludesRecov > 0 ) .AND. ResProj:RunAbbrev != "dr" .AND.
               ((ResProj:RunAbbrev != "s" .AND. ResProj:RunAbbrev != "zb" .AND. ResProj:RunAbbrev != "smf") .OR. ResProj:IAQSupInletsAccessible < 1) )
-         then  if (IfValidAnd( ResProj:IAQHasFID > 0 ))
-               then  if (HERSVerified == 0 .AND. IfValidAnd( Proj:AnalysisVersion >= 290000 ))
-                     then  0.95
-                     else  1     endif
-               else  if (HERSVerified == 0 .AND. IfValidAnd( Proj:AnalysisVersion >= 290000 ))
-                     then  0.85
-                     else  0.9   endif
-               endif
+         then  if (HERSVerified == 0 .AND. IfValidAnd( Proj:AnalysisVersion >= 290000 ))
+                  then  0.95
+                  else  1     endif
          else  1  endif  }
 
    ; SAC 2/7/20 (tic #1174)      ; added check for WperCFMIAQ > 0 - SAC 7/21/20 (tic #1174)
@@ -10798,10 +10790,13 @@ END
 ; add rulelist to force setup of HtPump system even if current system HP - for 2025 PM model equipment - SAC 03/12/25 (tic #1379)  ; ported to MF - SAC 04/14/25
 ;*************************************************************************
 RULELIST "Setup_HVACSys_SplitHeatPumpPM"       1 0 1 1
-   "set HVACSys:Type to HP"                     HVACSys:Type                  = {  2  }
-   "set HVACSys:NumHtPumpSystemTypes to 1"      HVACSys:NumHtPumpSystemTypes  = {  1  }
-   "set HVACSys:HtPumpSystemCount to 1"         HVACSys:HtPumpSystemCount     = {  NumDUsServed  }    ; switched from 1 to NumDUsServed (which also includes # ResOtherZns served) - SAC 04/29/25
-   "set HVACSys:HtPumpSystem[1] from library"   HVACSys:HtPumpSystem[1]       = {  RuleLibrary( HVACHtPump, "t24-SplitHeatPumpPM", 1 )  }
+  "set ResHVACSys:Type to HP"                    ResHVACSys:Type                  = {  2  }
+  "set ResHVACSys:NumHtPumpSystemTypes to 1"     ResHVACSys:NumHtPumpSystemTypes  = {  1  }
+  "set ResHVACSys:HtPumpSystemCount to 1"        ResHVACSys:HtPumpSystemCount     = {  NumDUsServed  }    ; switched from 1 to NumDUsServed (which also includes # ResOtherZns served) - SAC 04/29/25
+  "set ResHVACSys:HtPumpSystem[1] from library"  ResHVACSys:HtPumpSystem[1]       = {  RuleLibrary( HVACHtPump, "t24-SplitHeatPumpPM", 1 )  }
+  ;"set ResHVACSys:HtPumpSysType"                 ResHVACSys:HtPumpSysType         = {  HtPumpSystem[1]:Type  }    ; added setting of HtPumpSysType & HtPumpSysTypeAbbrev to prevent rule eval errors during defaulting - SAC 09/10/26 (dev #1086)
+  ;"set ResHVACSys:HtPumpSysTypeAbbrev"           ResHVACSys:HtPumpSysTypeAbbrev   = {  "SplitHeatPump"  }
+  ;"default ResHVACSys HtPump properties"         ResHVACSys:Action		            = {  EvalRulelist( "SetupHVACSys_Round1_HeatPump", 1 )  }   ; replaced setting of HtPumpSysType w/ eval of defaulting rules - SAC 09/11/26 (dev #1086)
 END
 
 ; SAC 12/5/13 - replaced individual equipment-based HVACHtPump budget conversion mechanism (above) w/ following that sets data directly to the HVACSys object(s)

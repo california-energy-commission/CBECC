@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2 Story 2 Zone PV, Battery, Self-Utilization"  
    BEMVersion = 12
    CreateDate = 1547587885
-   ModDate = 1778152404
+   ModDate = 1787717411
    RunDate = 1472838507
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 RC (1379)"
    ProjFileName = "2storyZonalExample.ribd25"
    RunTitle = "2 Zone Top/Bot, 2 HVAC Systems"
@@ -19,6 +19,7 @@ Proj   "2 Story 2 Zone PV, Battery, Self-Utilization"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -57,6 +58,7 @@ Proj   "2 Story 2 Zone PV, Battery, Self-Utilization"
    BattMaxCap = 5
    BatteryControl = "Time of Use"
    BattJA12Compliant = 1
+   BattCreditOption = "Self Utilization"
    BattGridHarmCredit = 1
    BattDRNumRankedDays = 20
    BattChgEff = 0.95
@@ -803,7 +805,7 @@ Attic   "Attic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -1156,14 +1158,15 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "14.6"
    PctSavCmpTDVLbl = "-4.7"
    PctSavSrcLbl = "33.2"
-   PropElecDemand[1] = 0.606927
+   PropElecDemand[1] = 0.606925
    StdElecDemand = 0.884568
    IncludePeakCooling = 1
    PropPeakCoolElec = 270.859
-   StdPeakCoolElec = 258.769
-   StdPeakCoolElecLimit = 310.523
-   PeakCoolElecMargin = 40
-   PeakCoolElecLabels = ( "271", "311", "40", "Pass" )
+   StdPeakCoolElec = 258.77
+   StdPeakCoolElecLimit = 336.4
+   PeakCoolElecMargin = 65
+   PeakCoolElecLabels = ( "271", "336", "65", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 130% of the standard design building peak energy use for Climate Zone 9."
    PropDesignPVInp[1] = 3
    PropDesignPVInp[6] = 3
    PropDesignPVSize[1] = 3.0151
@@ -1173,12 +1176,12 @@ EUseSummary   "EUSummary"
    PropDesignBattCtl = "Time of Use"
    StdDesignPVSize = 3.0151
    PrelimPropkWh = 6678.13
-   PrelimPropCompTDV = 8.63801
+   PrelimPropCompTDV = 8.63799
    PrelimPropPV = -5056.1
    PrelimPropPVTDV = -9.99
    UnscaledPropPVRatio = 0.760899
    PropPV_Total = 5081.55
-   PropPV_Export = 1181.47
+   PropPV_Export = 1181.48
    PropPV_PctExport = 23.2503
    StdPV_Total = 5081.55
    StdPV_Export = 2594.89
@@ -1200,7 +1203,7 @@ EUseSummary   "EUSummary"
    MeetsTier1 = 0
    MeetsTier2 = 0
    PropElecCarbon[1] = 0.340941
-   PropFuelCarbon[1] = 0.619523
+   PropFuelCarbon[1] = 0.619522
    PropFinalCarbon[1] = 0.96
    PropExclExpCarbon[1] = 0.98
    PropExclExpCO2Str[1] = "0.98"

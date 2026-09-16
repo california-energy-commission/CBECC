@@ -580,7 +580,7 @@
 1,           "MinCEER",           BEMP_Flt,  1,  0,  0,  NInp,  "kBtuh/kW",         0,  0,                        8003, "Minimum CEER",  ""                           ; SAC 08/19/20 (tic #1003)
 1,           "CFMperTon",         BEMP_Flt,  1,  0,  0,   Def,  "CFM/ton",          0,  0,                        8005, "Cooling air flow in CFM per nominal ton of AC capacity",  "" 
 1,           "ACCharge",          BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                        8006, "",  "" 
-1,           "RefrigerantType",   BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                        8007, "",  "" 
+1,           "RefrigerantType",   BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                        8007, "",  ""        ; switched to Prescribed - SAC 08/14/26 (dev #1007)
 1,           "AutoSize",          BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                        8004, "Flag indicating whether or not cooling capacity is to be auto-sized by the simulation engine",  "" 
 1,           "SizingFactor",      BEMP_Flt,  1,  0,  0,  Pres,  "ratio",            0,  0,                        8005, "Cooling capacity sizing factor",  "" 
 
@@ -820,7 +820,7 @@
 1,           "MinCEER",           BEMP_Flt,  1,  0,  0,  NInp,  "kBtuh/kW",         0,  0,                        8003, "Minimum CEER",  ""                           ; SAC 08/19/20 (tic #1003)
 1,           "CFMperTon",         BEMP_Flt,  1,  0,  0,   Def,  "CFM/ton",          0,  0,                        8005, "Cooling air flow in CFM per nominal ton of AC capacity",  "" 
 1,           "ACCharge",          BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                        8006, "",  "" 
-1,           "RefrigerantType",   BEMP_Sym,  1,  0,  0,   Def,  "",                 0,  0,                        8007, "",  "" 
+1,           "RefrigerantType",   BEMP_Sym,  1,  0,  0,  Pres,  "",                 0,  0,                        8007, "",  ""    ; switched to Prescribed - SAC 08/14/26 (dev #1007)
 1,           "RefrigChgAdjFctr",  BEMP_Flt,  1,  0,  0,  Pres,  "",                 0,  0,                        8007, "",  "" 
 1,           "HtgRefrigChgAdjFctr", BEMP_Flt,  1,  0,  0,  Pres,  "",               0,  0,                        8007, "",  ""     ; enable separate Clg & Htg RefrigChgAdjFctr - SAC 01/24/26 (dev #684)
 1,           "ClSizingFactor",    BEMP_Flt,  1,  0,  0,   Def,  "ratio",            0,  0,                        8005, "Cooling capacity sizing factor",  "" 

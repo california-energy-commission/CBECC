@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-MultiHVACSys"  
    BldgEngyModelVersion = 17
    CreateDate = 1632954347
-   ModDate = 1778188672
-   RunDate = 1778188673
+   ModDate = 1787732770
+   RunDate = 1787732771
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -16,7 +16,7 @@ Proj   "OffSml-MultiHVACSys"
    SimVarsHVACZnTempFlow = 1
    CompOptLtg = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
    ..
@@ -2447,6 +2447,7 @@ clg: 2  htg: 0  'PerimZn_4'" )
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

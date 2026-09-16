@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "020012-OffSml-CECStd22"  
    BldgEngyModelVersion = 17
    CreateDate = 1732907423
-   ModDate = 1778187485
-   RunDate = 1778187486
+   ModDate = 1787732201
+   RunDate = 1787732202
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    CompOptPartMech = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    CompReportPDF = 1
    ResultsCurrentMessage = "(not current)"
    ..
@@ -2008,7 +2008,7 @@ clg: 0  htg: 0  'Perimeter_ZN_4 Thermal Zone'" )
    ZoneUMLHsMsg = "Warning:  3 zone(s) in Proposed model exceed maximum cooling unmet load hours.
 
 All thermal zones exceeding unmet load hour limits will be reported on PRF-1, which will be watermarked 'not for compliance'."
-   ZoneUMLHsLink = "https://bees.noresco.com/faq_hvac.html#umlh"
+   ZoneUMLHsLink = "https://github.com/california-energy-commission/CBECC/wiki/Unmet-Load-Hours-%28UMLH%29"
    SimSummary[1] = "CSE Successful, E+ Successful (152 warnings)"
    SimSummary[3] = "CSE Successful, E+ Successful (127 warnings)"
    PassFail = "FAIL"
@@ -2048,8 +2048,9 @@ All thermal zones exceeding unmet load hour limits will be reported on PRF-1, wh
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
-   NRCCPRFPayldTransID = "f0033490-602d-41aa-be4f-94ceea97accb"
-   NRCCPRFPayldProcDate = "2026-05-07T13:57:48"
+   NRCCPRFPayldTransID = "2e9f7321-d527-4d96-a42e-dfb264b4d69b"
+   NRCCPRFPayldProcDate = "2026-08-26T01:16:28"
+   NumUIDialogTabs = 5
    ..
 
 

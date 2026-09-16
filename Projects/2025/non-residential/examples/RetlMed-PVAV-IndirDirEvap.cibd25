@@ -3,14 +3,14 @@ RulesetFilename   "T24_2025.bin"
 Proj   "RetlMed-PVAV-IndirDirEvap"  
    BldgEngyModelVersion = 17
    CreateDate = 1448129694
-   ModDate = 1778189239
-   RunDate = 1778189240
+   ModDate = 1787733052
+   RunDate = 1787733053
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ..
 
 ProjVar   "RetlMed-PVAV-IndirDirEvap - ProjVar"  
@@ -3257,6 +3257,7 @@ clg: 0  htg: 0  'Point_Of_Sale Thermal Zone'" )
    StdBatt_Size = 43.8
    StdBatt_Pwr = 10.95
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

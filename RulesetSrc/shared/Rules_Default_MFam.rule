@@ -1376,7 +1376,8 @@ RULELIST "Set_ResProj_DefaultIAQFanPwr" 0 0 0 0
 
    "Default ResProj:IAQHasFID - system has FID"       ; SAC 08/22/21 (tic #1243)
       ResProj:IAQHasFID = { 
-        if( IfValidAnd( Proj:IsComRuleset > 0 ) ) then 1 else 0 endif } ; Set to 1 so no adjustment at project level for MFam - JP 11/23/22 (tic #3425)
+        if( IfValidAnd( Proj:IsComRuleset > 0 ) .AND. SumAcrossIf( DwellUnitType:IAQHasFID, DwellUnitType:DUFloorAreaServed > 1 ) > 0 ) 
+        then 1 else 0 endif } ; Set to 1 so no adjustment at project level for MFam - JP 11/23/22 (tic #3425)  ; ensure DUT assigned to a DwellUnit before taking into account IAQHasFID - SAC 08/18/26 (dev #962)
 
    "Set ResProj:MaxStdIAQCFMRatio"     ResProj:MaxStdIAQCFMRatio = 
       {  if (IfValidAnd( AnalysisVersion >= 190200 ))

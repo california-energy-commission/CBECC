@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffLrg-PlenumsFPBsData"  
    BldgEngyModelVersion = 17
    CreateDate = 1448133343
-   ModDate = 1778179473
-   RunDate = 1778179474
+   ModDate = 1787726898
+   RunDate = 1787726899
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    AnalysisType = "Title24Compliance"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ..
 
 ProjVar   "OffLrg-PlenumsFPBsData - ProjVar"  
@@ -5761,6 +5761,7 @@ clg: 0  htg: 0  'TopFloor_Plenum Thermal Zone'" )
    StdBatt_Size = 949.8
    StdBatt_Pwr = 237.455
    StdBatt_Ctrl = "Time of Use"
+   NumUIDialogTabs = 5
    ..
 
 

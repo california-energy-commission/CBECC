@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750729128
-   ModDate = 1778149146
-   SoftwareVersion = "CBECC 2025.2.1 (1408)"
+   ModDate = 1787719172
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -16,6 +16,7 @@ Proj   "2025 Prototype"
    CommunitySolarProject = "- select CS project -"
    InCmntySlrProjTerritory = 0
    SMUDSlrSharesReserved = 0
+   CmntySlrProjReserved = 0
    PVCompCredit = 0
    PVWInputs = "Simplified"
    PVSizeOption = "Standard Design PV"
@@ -43,6 +44,7 @@ Proj   "2025 Prototype"
    BattMaxCap = 0
    BatteryControl = "Basic"
    BattJA12Compliant = 0
+   BattCreditOption = "Peak Cooling"
    BattDRNumRankedDays = 20
    BattRoundTripEff = 0.9025
    SimSpeedOption = "Compliance"
@@ -584,7 +586,7 @@ Attic   "GarageAttic"
    ..
 
 EUseSummary   "EUSummary"  
-   ResultsAnalysisVer = 250201
+   ResultsAnalysisVer = 250300
    AllOrientations = 0
    Title1[2] = "Proposed Design"
    Title1[5] = "Standard Design"
@@ -930,19 +932,20 @@ EUseSummary   "EUSummary"
    PctSavCmpTDVLbl = "7.6"
    PctSavSrcLbl = "32.0"
    PropElecDemand[1] = 1.38555
-   StdElecDemand = 1.49245
+   StdElecDemand = 1.49246
    IncludePeakCooling = 1
    PropPeakCoolElec = 394.714
    StdPeakCoolElec = 460.565
-   StdPeakCoolElecLimit = 552.678
-   PeakCoolElecMargin = 158
-   PeakCoolElecLabels = ( "395", "553", "158", "Pass" )
+   StdPeakCoolElecLimit = 575.706
+   PeakCoolElecMargin = 181
+   PeakCoolElecLabels = ( "395", "576", "181", "Pass" )
+   PeakCoolElecFtnote[1] = "** Peak cooling represents 125% of the standard design building peak energy use for Climate Zone 14."
    PropDesignPVInp[1] = 2.49
    PropDesignPVInp[6] = 2.49
    PropDesignPVSize[1] = 3.2607
    PropDesignPVTot = 3.2607
    StdDesignPVSize = 3.2607
-   PrelimPropkWh = 9100.17
+   PrelimPropkWh = 9100.18
    PrelimPropCompTDV = 13.0781
    PrelimPropPV = -4523.43
    PrelimPropPVTDV = -8.97
