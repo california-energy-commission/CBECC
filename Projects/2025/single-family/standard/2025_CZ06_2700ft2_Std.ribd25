@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1743206542
-   ModDate = 1790697956
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   ModDate = 1787720173
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.9 RV (1371)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -982,7 +982,7 @@ EUseSummary   "EUSummary"
    SummaryColFinDR[2] = "Total²"
    SummaryColFinDR[3] = "(EDR)"
    MarginkW[1] = 0
-   MarginkWh = 0
+   MarginkWh = 0.1
    MarginTherms = 0
    PctSavingskW = 0
    PctSavingskWh = 0
@@ -996,10 +996,10 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "-"
    PctSavCmpTDVLbl = "-"
    PctSavSrcLbl = "40.6"
-   PropElecDemand[1] = 0.741257
+   PropElecDemand[1] = 0.741222
    StdElecDemand = 0.741256
    IncludePeakCooling = 1
-   PropPeakCoolElec = 28.9882
+   PropPeakCoolElec = 28.9805
    StdPeakCoolElec = 28.9883
    StdPeakCoolElecLimit = 28.9883
    PeakCoolElecMargin = 0
@@ -1012,11 +1012,11 @@ EUseSummary   "EUSummary"
    PropDesignPVSize[1] = 2.8338
    PropDesignPVTot = 2.8338
    StdDesignPVSize = 2.8338
-   PrelimPropkWh = 6197.33
-   PrelimPropCompTDV = 5.17941
+   PrelimPropkWh = 6197.21
+   PrelimPropCompTDV = 5.17904
    PrelimPropPV = -3730.47
    PrelimPropPVTDV = -7.4
-   UnscaledPropPVRatio = 0.76838
+   UnscaledPropPVRatio = 0.768395
    PropPV_Total = 4761.9
    PropPV_Export = 2531.9
    PropPV_PctExport = 53.1699
@@ -1039,7 +1039,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.486149
+   PropElecCarbon[1] = 0.486126
    PropFuelCarbon[1] = 0.276306
    PropFinalCarbon[1] = 0.76
    PropExclExpCarbon[1] = 0.82
@@ -1813,8 +1813,8 @@ HVACHtPump   "HeatpumpSystem"
    Speeds = "Single"
    HSPF = 8.8
    HSPF2 = 7.5
-   Cap47 = 33951
-   Cap17 = 21254
+   Cap47 = 34059
+   Cap17 = 21321
    IncludesCooling = 1
    SEER = 14
    SEER2 = 14.3
@@ -1828,8 +1828,9 @@ HVACHtPump   "HeatpumpSystem"
    UseEERinAnalysis = 1
    BackupOption = "Electric Resistance"
    HasHPLockout = 1
+   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
-   Cap95 = 34461
+   Cap95 = 34570
    HtgSizingFactor = 1.2
    ..
 

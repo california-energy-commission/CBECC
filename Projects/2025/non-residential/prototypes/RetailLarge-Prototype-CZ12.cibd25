@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "090012-RetlLrg-CECStd22"  
    BldgEngyModelVersion = 17
    CreateDate = 1414704334
-   ModDate = 1790673317
-   RunDate = 1790673318
+   ModDate = 1787735802
+   RunDate = 1787735803
    ZipCode = 95814
    HVACAutoSizing = 0
    AutoHardSize = 1
@@ -12,7 +12,7 @@ Proj   "090012-RetlLrg-CECStd22"
    DefaultDayltgCtrls = 1
    CompType = "NewComplete"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ResultsCurrentMessage = "(not current)"
    ..
 

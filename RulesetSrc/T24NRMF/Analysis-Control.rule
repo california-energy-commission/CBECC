@@ -1007,20 +1007,6 @@ RULE ThrmlZn:BypassClgUMLHLimit
     endif endif
 ENDRULE
 
-RULE NEW ThrmlZn:BypassClgUMLHLimit_Prop
-  DESCRIPTION
-    "A flag that indicates the limit on cooling unmet load hours
-     for the zone is bypassed. (for Proposed Model)"
-  DATATYPE
-    Integer
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    0
-  SIZING_PROPOSED
-    BypassClgUMLHLimit
-ENDRULE
-
 RULE ThrmlZn:BypassHtgUMLHLimit
   DESCRIPTION
     "A flag that indicates the limit on heating unmet load hours
@@ -1038,20 +1024,6 @@ RULE ThrmlZn:BypassHtgUMLHLimit
     then  1
     else  BypassHtgUMLHLimit
     endif endif
-ENDRULE
-
-RULE NEW ThrmlZn:BypassHtgUMLHLimit_Prop
-  DESCRIPTION
-    "A flag that indicates the limit on heating unmet load hours
-     for the zone is bypassed. (for Proposed Model)"
-  DATATYPE
-    Integer
-  INPUTCLASS
-    NotInput
-  DEFAULT
-    0
-  SIZING_PROPOSED
-    BypassHtgUMLHLimit
 ENDRULE
 
 

@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "010012-SchSml-CECStd22"  
    BldgEngyModelVersion = 17
    CreateDate = 1414609068
-   ModDate = 1790668228
-   RunDate = 1790668229
+   ModDate = 1787792905
+   RunDate = 1787792906
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -12,7 +12,7 @@ Proj   "010012-SchSml-CECStd22"
    CompOptExist = 1
    CompOptAlt = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ProjFileName = "010012-SchSml-CECStd22.cibd"
    CompReportPDF = 1
    ResultsCurrentMessage = "(not current)"
@@ -5004,59 +5004,59 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Title3[22] = "(tonnes of CO2)"
    Title3[23] = "(tonnes of CO2)"
    Enduse1[1] = "Space Heating"
-   Enduse1[2] = "18.5"
+   Enduse1[2] = "18.4"
    Enduse1[3] = "--"
-   Enduse1[4] = "4.92"
-   Enduse1[5] = "17.4"
+   Enduse1[4] = "4.88"
+   Enduse1[5] = "17.2"
    Enduse1[6] = "--"
-   Enduse1[7] = "4.63"
+   Enduse1[7] = "4.59"
    Enduse1[8] = "-0.29"
    Enduse1[9] = "3.4"
    Enduse1[10] = "3.3"
-   Enduse1[11] = "2.23"
-   Enduse1[12] = "2.10"
-   Enduse1[13] = "-0.13"
-   Enduse1[17] = "2.88"
-   Enduse1[19] = "2.88"
-   Enduse1[20] = "2.71"
-   Enduse1[22] = "2.71"
-   Enduse1[23] = "-0.17"
+   Enduse1[11] = "2.21"
+   Enduse1[12] = "2.09"
+   Enduse1[13] = "-0.12"
+   Enduse1[17] = "2.86"
+   Enduse1[19] = "2.86"
+   Enduse1[20] = "2.70"
+   Enduse1[22] = "2.70"
+   Enduse1[23] = "-0.16"
    Enduse2[1] = "Space Cooling"
-   Enduse2[2] = "29.7"
+   Enduse2[2] = "30.0"
    Enduse2[3] = "--"
-   Enduse2[4] = "5.42"
-   Enduse2[5] = "31.8"
+   Enduse2[4] = "5.47"
+   Enduse2[5] = "32.2"
    Enduse2[6] = "--"
-   Enduse2[7] = "5.81"
-   Enduse2[8] = "0.39"
+   Enduse2[7] = "5.87"
+   Enduse2[8] = "0.40"
    Enduse2[9] = "0.1"
    Enduse2[10] = "0.1"
-   Enduse2[11] = "0.59"
-   Enduse2[12] = "0.64"
+   Enduse2[11] = "0.60"
+   Enduse2[12] = "0.65"
    Enduse2[13] = "0.05"
-   Enduse2[17] = "0.76"
-   Enduse2[19] = "0.76"
-   Enduse2[20] = "0.83"
-   Enduse2[22] = "0.83"
+   Enduse2[17] = "0.77"
+   Enduse2[19] = "0.77"
+   Enduse2[20] = "0.84"
+   Enduse2[22] = "0.84"
    Enduse2[23] = "0.07"
    Enduse3[1] = "Indoor Fans"
-   Enduse3[2] = "70.9"
+   Enduse3[2] = "70.8"
    Enduse3[3] = "--"
-   Enduse3[4] = "14.68"
-   Enduse3[5] = "84.8"
+   Enduse3[4] = "14.67"
+   Enduse3[5] = "85.2"
    Enduse3[6] = "--"
-   Enduse3[7] = "17.56"
-   Enduse3[8] = "2.88"
-   Enduse3[9] = "3.0"
-   Enduse3[10] = "3.5"
+   Enduse3[7] = "17.63"
+   Enduse3[8] = "2.96"
+   Enduse3[9] = "2.9"
+   Enduse3[10] = "3.4"
    Enduse3[11] = "3.65"
-   Enduse3[12] = "4.34"
-   Enduse3[13] = "0.69"
-   Enduse3[17] = "4.72"
-   Enduse3[19] = "4.72"
-   Enduse3[20] = "5.61"
-   Enduse3[22] = "5.61"
-   Enduse3[23] = "0.89"
+   Enduse3[12] = "4.36"
+   Enduse3[13] = "0.71"
+   Enduse3[17] = "4.71"
+   Enduse3[19] = "4.71"
+   Enduse3[20] = "5.63"
+   Enduse3[22] = "5.63"
+   Enduse3[23] = "0.92"
    Enduse4[1] = "Heat Rejection"
    Enduse4[2] = "--"
    Enduse4[3] = "--"
@@ -5122,23 +5122,23 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse7[22] = "1.59"
    Enduse7[23] = "0.00"
    Enduse8[1] = "Total Compliance"
-   Enduse8[2] = "167.3"
+   Enduse8[2] = "167.4"
    Enduse8[3] = "0.0"
    Enduse8[4] = "34.74"
-   Enduse8[5] = "182.2"
+   Enduse8[5] = "182.8"
    Enduse8[6] = "0.0"
-   Enduse8[7] = "37.72"
-   Enduse8[8] = "2.98"
-   Enduse8[9] = "8.4"
+   Enduse8[7] = "37.81"
+   Enduse8[8] = "3.07"
+   Enduse8[9] = "8.3"
    Enduse8[10] = "8.7"
-   Enduse8[11] = "8.77"
-   Enduse8[12] = "9.38"
-   Enduse8[13] = "0.61"
-   Enduse8[17] = "11.33"
-   Enduse8[19] = "11.33"
-   Enduse8[20] = "12.12"
-   Enduse8[22] = "12.12"
-   Enduse8[23] = "0.79"
+   Enduse8[11] = "8.76"
+   Enduse8[12] = "9.40"
+   Enduse8[13] = "0.64"
+   Enduse8[17] = "11.31"
+   Enduse8[19] = "11.31"
+   Enduse8[20] = "12.14"
+   Enduse8[22] = "12.14"
+   Enduse8[23] = "0.83"
    Enduse9[1] = "Receptacle"
    Enduse9[2] = "48.0"
    Enduse9[3] = "--"
@@ -5236,41 +5236,41 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse14[13] = "--"
    Enduse14[23] = "0.00"
    Enduse15[1] = "Project Total"
-   Enduse15[2] = "221.3"
+   Enduse15[2] = "221.4"
    Enduse15[3] = "0.0"
    Enduse15[4] = "45.46"
-   Enduse15[5] = "236.2"
+   Enduse15[5] = "236.8"
    Enduse15[6] = "0.0"
-   Enduse15[7] = "48.44"
-   Enduse15[8] = "2.98"
-   Enduse15[9] = "10.3"
-   Enduse15[10] = "10.7"
-   Enduse15[11] = "11.18"
-   Enduse15[12] = "11.79"
-   Enduse15[13] = "0.61"
-   Enduse15[17] = "14.46"
-   Enduse15[19] = "14.46"
-   Enduse15[20] = "15.25"
-   Enduse15[22] = "15.25"
-   Enduse15[23] = "0.79"
+   Enduse15[7] = "48.53"
+   Enduse15[8] = "3.07"
+   Enduse15[9] = "10.2"
+   Enduse15[10] = "10.6"
+   Enduse15[11] = "11.17"
+   Enduse15[12] = "11.81"
+   Enduse15[13] = "0.64"
+   Enduse15[17] = "14.44"
+   Enduse15[19] = "14.44"
+   Enduse15[20] = "15.27"
+   Enduse15[22] = "15.27"
+   Enduse15[23] = "0.83"
    Enduse16[1] = "Efficiency Compliance"
-   Enduse16[2] = "167.3"
+   Enduse16[2] = "167.4"
    Enduse16[3] = "0.0"
    Enduse16[4] = "34.74"
-   Enduse16[5] = "182.2"
+   Enduse16[5] = "182.8"
    Enduse16[6] = "0.0"
-   Enduse16[7] = "37.72"
-   Enduse16[8] = "2.98"
-   Enduse16[9] = "8.4"
+   Enduse16[7] = "37.81"
+   Enduse16[8] = "3.07"
+   Enduse16[9] = "8.3"
    Enduse16[10] = "8.7"
-   Enduse16[11] = "8.77"
-   Enduse16[12] = "9.38"
-   Enduse16[13] = "0.61"
-   Enduse16[17] = "11.33"
-   Enduse16[19] = "11.33"
-   Enduse16[20] = "12.12"
-   Enduse16[22] = "12.12"
-   Enduse16[23] = "0.79"
+   Enduse16[11] = "8.76"
+   Enduse16[12] = "9.40"
+   Enduse16[13] = "0.64"
+   Enduse16[17] = "11.31"
+   Enduse16[19] = "11.31"
+   Enduse16[20] = "12.14"
+   Enduse16[22] = "12.14"
+   Enduse16[23] = "0.83"
    ZoneUMLHsLoaded = ( 0, 1 )
    ZoneUMLHs = ( 
                  "clg: 0  htg: 0  'Common_Restroom_Zn'
@@ -5282,23 +5282,23 @@ clg: 0  htg: 0  'Common_Lobby_Zn'
 clg: 0  htg: 0  'Common_Corridor_Zn'
 clg: 0  htg: 3  'Wing2_Side1_Zn'
 clg: 0  htg: 0  'Wing2_Corridor_Zn'
-clg: 0  htg: 10  'Wing2_Side2_Zn'
+clg: 0  htg: 9  'Wing2_Side2_Zn'
 clg: 0  htg: 0  'Common_Office_Zn'
 clg: 0  htg: 0  'Common_Cafeteria_Zn'", 
                  "clg: 0  htg: 0  'Common_Restroom_Zn'
 clg: 0  htg: 0  'Common_Mech/Elec_Zn'
 clg: 0  htg: 0  'Wing1_Side1_Zn'
 clg: 0  htg: 4  'Wing1_Corridor_Zn'
-clg: 0  htg: 11  'Wing1_Side2_Zn'
+clg: 0  htg: 10  'Wing1_Side2_Zn'
 clg: 0  htg: 0  'Common_Lobby_Zn'
 clg: 0  htg: 1  'Common_Corridor_Zn'
 clg: 0  htg: 0  'Wing2_Side1_Zn'
-clg: 0  htg: 5  'Wing2_Corridor_Zn'
-clg: 0  htg: 9  'Wing2_Side2_Zn'
+clg: 0  htg: 4  'Wing2_Corridor_Zn'
+clg: 0  htg: 8  'Wing2_Side2_Zn'
 clg: 0  htg: 0  'Common_Office_Zn'
 clg: 0  htg: 0  'Common_Cafeteria_Zn'" )
-   SimSummary[1] = "CSE Successful, E+ Successful (235 warnings)"
-   SimSummary[3] = "E+ Successful (234 warnings)"
+   SimSummary[1] = "CSE Successful, E+ Successful (237 warnings)"
+   SimSummary[3] = "E+ Successful (5 severe errors, 236 warnings)"
    PassFail = "PASS"
    MetricPassFail[1] = "Pass"
    MetricPassFail[2] = "Pass"
@@ -5308,18 +5308,18 @@ clg: 0  htg: 0  'Common_Cafeteria_Zn'" )
    AnalysisValid = 0
    HideCompSmrySrc = 1
    HideCompSmryTot = 1
-   PctSavingsSLCC = 6.15194
-   PctSavingsEffSLCC = 7.90032
-   PctSavingsCmpSLCC = 7.90032
-   PctSavSLCCLbl = "6.2"
-   PctSavEffSLCCLbl = "7.9"
-   PctSavCmpSLCCLbl = "7.9"
-   PctSavingsSrc = 5.17388
-   PctSavingsEffSrc = 6.5032
-   PctSavingsCmpSrc = 6.5032
-   PctSavSrcLbl = "5.2"
-   PctSavEffSrcLbl = "6.5"
-   PctSavCmpSrcLbl = "6.5"
+   PctSavingsSLCC = 6.32598
+   PctSavingsEffSLCC = 8.11955
+   PctSavingsCmpSLCC = 8.11955
+   PctSavSLCCLbl = "6.3"
+   PctSavEffSLCCLbl = "8.1"
+   PctSavCmpSLCCLbl = "8.1"
+   PctSavingsSrc = 5.41914
+   PctSavingsEffSrc = 6.80851
+   PctSavingsCmpSrc = 6.80851
+   PctSavSrcLbl = "5.4"
+   PctSavEffSrcLbl = "6.8"
+   PctSavCmpSrcLbl = "6.8"
    MarginkW = 0.4
    PVBattResultsValid = 0
    PropPV_Size = 0
@@ -5335,8 +5335,8 @@ clg: 0  htg: 0  'Common_Cafeteria_Zn'" )
    StdPV_PctExport = 0
    StdBatt_Size = 0
    StdBatt_Pwr = 0
-   NRCCPRFPayldTransID = "9019a291-86d0-484d-aa60-b8743989f871"
-   NRCCPRFPayldProcDate = "2026-09-29T00:50:15"
+   NRCCPRFPayldTransID = "90e3f926-110b-46bb-b934-eb5b21395c01"
+   NRCCPRFPayldProcDate = "2026-08-26T18:08:09"
    NumUIDialogTabs = 5
    ..
 

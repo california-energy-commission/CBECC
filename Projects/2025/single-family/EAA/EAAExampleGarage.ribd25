@@ -3,9 +3,9 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "EAA Example 3"  
    BEMVersion = 12
    CreateDate = 1556730321
-   ModDate = 1790662463
+   ModDate = 1787715225
    RunDate = 1474307407
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2022.2.0 RV (1263)"
    ProjFileName = "EAAExampleGarage.ribd22"
    RunTitle = "Ex HVAC Altered DHW"

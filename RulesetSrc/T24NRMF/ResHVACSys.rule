@@ -159,12 +159,6 @@ RULE ResHtPumpSys:Type
     Speeds
 ENDRULE
 
-; SAC 09/24/26 (dev #1141)
-RULE ResHtPumpSys:BackupOption
-  RESETS
-    HPLockoutTemp
-ENDRULE
-
 RULE ResHtPumpSys:IsMultiSpeed
   RESETS
     CFMperTon

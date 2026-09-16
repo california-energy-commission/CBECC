@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750728402
-   ModDate = 1790698033
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   ModDate = 1787720439
+   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -837,7 +837,7 @@ EUseSummary   "EUSummary"
    Enduse9[33] = "0.00"
    Enduse9[34] = "0.12"
    Enduse10[1] = "TOTAL"
-   Enduse10[2] = "1,325"
+   Enduse10[2] = "1,324"
    Enduse10[3] = "43.1"
    Enduse10[4] = "15.84"
    Enduse10[5] = "1,325"
@@ -956,7 +956,7 @@ EUseSummary   "EUSummary"
    SummaryColFinDR[2] = "Total²"
    SummaryColFinDR[3] = "(EDR)"
    MarginkW[1] = 0
-   MarginkWh = 0
+   MarginkWh = 0.1
    MarginTherms = 0
    PctSavingskW = 0
    PctSavingskWh = 0
@@ -970,10 +970,10 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "-"
    PctSavCmpTDVLbl = "-"
    PctSavSrcLbl = "38.8"
-   PropElecDemand[1] = 0.717157
+   PropElecDemand[1] = 0.717131
    StdElecDemand = 0.717158
    IncludePeakCooling = 1
-   PropPeakCoolElec = 173.77
+   PropPeakCoolElec = 173.738
    StdPeakCoolElec = 173.77
    StdPeakCoolElecLimit = 225.901
    PeakCoolElecMargin = 52
@@ -984,14 +984,14 @@ EUseSummary   "EUSummary"
    PropDesignPVSize[1] = 2.6473
    PropDesignPVTot = 2.6473
    StdDesignPVSize = 2.6473
-   PrelimPropkWh = 5786.6
-   PrelimPropCompTDV = 7.34781
+   PrelimPropkWh = 5786.49
+   PrelimPropCompTDV = 7.34741
    PrelimPropPV = -4011.17
    PrelimPropPVTDV = -10.19
-   UnscaledPropPVRatio = 0.771035
+   UnscaledPropPVRatio = 0.771049
    PropPV_Total = 4461.67
-   PropPV_Export = 2381.96
-   PropPV_PctExport = 53.3872
+   PropPV_Export = 2381.97
+   PropPV_PctExport = 53.3875
    StdPV_Total = 4461.67
    StdPV_Export = 2381.96
    StdPV_PctExport = 53.3872
@@ -1011,7 +1011,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.456864
+   PropElecCarbon[1] = 0.45685
    PropFuelCarbon[1] = 0.252315
    PropFinalCarbon[1] = 0.71
    PropExclExpCarbon[1] = 0.76
@@ -1800,8 +1800,8 @@ HVACHtPump   "HeatpumpSystem"
    Speeds = "Single"
    HSPF = 8.8
    HSPF2 = 7.5
-   Cap47 = 24044
-   Cap17 = 15051
+   Cap47 = 24103
+   Cap17 = 15089
    IncludesCooling = 1
    SEER = 14
    SEER2 = 14.3
@@ -1815,8 +1815,9 @@ HVACHtPump   "HeatpumpSystem"
    UseEERinAnalysis = 1
    BackupOption = "Electric Resistance"
    HasHPLockout = 1
+   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
-   Cap95 = 24351
+   Cap95 = 24411
    HtgSizingFactor = 1.2
    ..
 

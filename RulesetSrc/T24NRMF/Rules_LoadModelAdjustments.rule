@@ -465,14 +465,6 @@ RULELIST "ForceReset_Proj_WeatherStation" 1 0 0 0
 END
 ;*************************************************************************
 
-; blast res HP HPLockoutTemp in 2025 analysis when user-defined (unless in research mode) - SAC 09/24/26 (dev #1141)
-;*************************************************************************
-RULELIST "ForceReset_ResHtPumpSys_HPLockoutTemp" 1 0 0 0
-   "post warning to log"  ResHtPumpSys:Action = { PostMessageToLog( "Warning:  removing ResHtPumpSys '%s' HPLockoutTemp of %g (now prescribed in rules)", Name, HPLockoutTemp )  }
-   "blast ResHtPumpSys:HPLockoutTemp"   ResHtPumpSys:HPLockoutTemp  = {  UNDEFINED  }
-END
-;*************************************************************************
-
 ;*************************************************************************
 RULELIST "ForceDefault_CodeVersion_RptGenUI" 1 0 0 0
 	"Blast Proj:RptGenUIVer"     	Proj:RptGenUIVer     	= {	UNDEFINED  }

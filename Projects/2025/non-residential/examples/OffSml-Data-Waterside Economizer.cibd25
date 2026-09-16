@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-Data-Waterside Economizer"  
    BldgEngyModelVersion = 17
    CreateDate = 1774042902
-   ModDate = 1790671288
-   RunDate = 1790671289
+   ModDate = 1787732233
+   RunDate = 1787732234
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -17,7 +17,7 @@ Proj   "OffSml-Data-Waterside Economizer"
    SimVarsHVACZn = 0
    SimVarsHVACZnTempFlow = 0
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ..
 
 ProjVar   "OffSml-Data_SZVAV - ProjVar"  

@@ -3,7 +3,7 @@ RulesetFilename   "T24_2025.bin"
 Proj   "School-Relocatable-CEC2025"  
    BldgEngyModelVersion = 17
    CreateDate = 1788378469
-   ModDate = 1790708581
+   ModDate = 1788381734
    RunDate = 1788378478
    ZipCode = 95814
    HVACAutoSizing = 0
@@ -20,7 +20,7 @@ Proj   "School-Relocatable-CEC2025"
    CompOptLtg = 1
    CompOptMech = 1
    CompOptDHW = 1
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1416)"
    CompReportPDF = 1
    CompReportXML = 1
    ResultsCurrentMessage = "(not current)"

@@ -418,17 +418,6 @@ RULE Proj:Action
     else  UNCHANGED  endif
 ENDRULE
 
-; blast res HP HPLockoutTemp in 2025 analysis if user-defined (unless in research mode) - SAC 09/24/26 (dev #1141)
-RULE ResHtPumpSys:Action
-  DEFAULT
-    if ( IfValidAnd( Proj:DefaultingRounds = 1 ) .AND.
-         IfValidAnd( Proj:EnableResearchMode > 0 )==0 .AND.
-         IfValidAnd( Proj:AnalysisVersion > 250000 ) .AND.
-         LocalStatus( HPLockoutTemp ) > 4 )
-    then  EvalRulelist( "ForceReset_ResHtPumpSys_HPLockoutTemp", 1 )
-    else  UNCHANGED  endif
-ENDRULE
-
 ; post warning & prevent analysis (when not in research mode) for incompatible VCHP systems - SAC 01/20/25
 RULE ResHtPumpSys:Action
   CHECKCODE

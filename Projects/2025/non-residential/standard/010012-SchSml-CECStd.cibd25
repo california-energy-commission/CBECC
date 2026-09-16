@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "010012-SchSml-CECStd25"  
    BldgEngyModelVersion = 17
    CreateDate = 1414609068
-   ModDate = 1790673699
-   RunDate = 1790673700
+   ModDate = 1787736515
+   RunDate = 1787736516
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -14,7 +14,7 @@ Proj   "010012-SchSml-CECStd25"
    SimVarsHVACSecTempFlow = 0
    CompOptNew = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 (1418)"
+   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
    ProjFileName = "010012-SchSml-CECStd25.cibd"
    CompReportPDF = 1
    ResultsCurrentMessage = "(not current)"
@@ -4974,59 +4974,59 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Title3[22] = "(tonnes of CO2)"
    Title3[23] = "(tonnes of CO2)"
    Enduse1[1] = "Space Heating"
-   Enduse1[2] = "19.0"
+   Enduse1[2] = "18.9"
    Enduse1[3] = "--"
-   Enduse1[4] = "5.02"
+   Enduse1[4] = "4.99"
    Enduse1[5] = "18.9"
    Enduse1[6] = "--"
    Enduse1[7] = "4.99"
-   Enduse1[8] = "-0.03"
+   Enduse1[8] = "--"
    Enduse1[9] = "3.4"
    Enduse1[10] = "3.4"
-   Enduse1[11] = "2.26"
+   Enduse1[11] = "2.24"
    Enduse1[12] = "2.24"
-   Enduse1[13] = "-0.02"
-   Enduse1[17] = "2.91"
-   Enduse1[19] = "2.91"
+   Enduse1[13] = "--"
+   Enduse1[17] = "2.90"
+   Enduse1[19] = "2.90"
    Enduse1[20] = "2.90"
    Enduse1[22] = "2.90"
-   Enduse1[23] = "-0.01"
+   Enduse1[23] = "0.00"
    Enduse2[1] = "Space Cooling"
-   Enduse2[2] = "28.1"
+   Enduse2[2] = "28.3"
    Enduse2[3] = "--"
-   Enduse2[4] = "5.13"
+   Enduse2[4] = "5.17"
    Enduse2[5] = "28.3"
    Enduse2[6] = "--"
    Enduse2[7] = "5.17"
-   Enduse2[8] = "0.04"
+   Enduse2[8] = "--"
    Enduse2[9] = "0.1"
    Enduse2[10] = "0.1"
-   Enduse2[11] = "0.56"
+   Enduse2[11] = "0.57"
    Enduse2[12] = "0.57"
-   Enduse2[13] = "0.01"
+   Enduse2[13] = "--"
    Enduse2[17] = "0.73"
    Enduse2[19] = "0.73"
    Enduse2[20] = "0.73"
    Enduse2[22] = "0.73"
    Enduse2[23] = "0.00"
    Enduse3[1] = "Indoor Fans"
-   Enduse3[2] = "66.2"
+   Enduse3[2] = "66.1"
    Enduse3[3] = "--"
-   Enduse3[4] = "13.70"
+   Enduse3[4] = "13.69"
    Enduse3[5] = "66.1"
    Enduse3[6] = "--"
    Enduse3[7] = "13.68"
-   Enduse3[8] = "-0.02"
-   Enduse3[9] = "2.8"
+   Enduse3[8] = "-0.01"
+   Enduse3[9] = "2.7"
    Enduse3[10] = "2.7"
    Enduse3[11] = "3.40"
    Enduse3[12] = "3.40"
    Enduse3[13] = "--"
-   Enduse3[17] = "4.40"
-   Enduse3[19] = "4.40"
+   Enduse3[17] = "4.39"
+   Enduse3[19] = "4.39"
    Enduse3[20] = "4.39"
    Enduse3[22] = "4.39"
-   Enduse3[23] = "-0.01"
+   Enduse3[23] = "0.00"
    Enduse4[1] = "Heat Rejection"
    Enduse4[2] = "--"
    Enduse4[3] = "--"
@@ -5101,14 +5101,14 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse8[8] = "--"
    Enduse8[9] = "6.9"
    Enduse8[10] = "6.9"
-   Enduse8[11] = "6.19"
+   Enduse8[11] = "6.18"
    Enduse8[12] = "6.18"
-   Enduse8[13] = "-0.01"
-   Enduse8[17] = "8.00"
-   Enduse8[19] = "8.00"
+   Enduse8[13] = "--"
+   Enduse8[17] = "7.98"
+   Enduse8[19] = "7.98"
    Enduse8[20] = "8.00"
    Enduse8[22] = "8.00"
-   Enduse8[23] = "0.00"
+   Enduse8[23] = "0.02"
    Enduse9[1] = "Receptacle"
    Enduse9[2] = "48.0"
    Enduse9[3] = "--"
@@ -5223,14 +5223,14 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse15[8] = "--"
    Enduse15[9] = "8.8"
    Enduse15[10] = "8.8"
-   Enduse15[11] = "8.60"
+   Enduse15[11] = "8.59"
    Enduse15[12] = "8.59"
-   Enduse15[13] = "-0.01"
-   Enduse15[17] = "11.13"
-   Enduse15[19] = "11.13"
+   Enduse15[13] = "--"
+   Enduse15[17] = "11.11"
+   Enduse15[19] = "11.11"
    Enduse15[20] = "11.13"
    Enduse15[22] = "11.13"
-   Enduse15[23] = "0.00"
+   Enduse15[23] = "0.02"
    Enduse16[1] = "Efficiency Compliance"
    Enduse16[2] = "154.5"
    Enduse16[3] = "0.0"
@@ -5241,14 +5241,14 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse16[8] = "--"
    Enduse16[9] = "8.2"
    Enduse16[10] = "8.2"
-   Enduse16[11] = "8.41"
+   Enduse16[11] = "8.40"
    Enduse16[12] = "8.40"
-   Enduse16[13] = "-0.01"
-   Enduse16[17] = "10.86"
-   Enduse16[19] = "10.86"
+   Enduse16[13] = "--"
+   Enduse16[17] = "10.84"
+   Enduse16[19] = "10.84"
    Enduse16[20] = "10.85"
    Enduse16[22] = "10.85"
-   Enduse16[23] = "-0.01"
+   Enduse16[23] = "0.01"
    ZoneUMLHsLoaded = ( 0, 1 )
    ZoneUMLHs = ( 
                  "clg: 0  htg: 0  'Common_Restroom_Zn'
@@ -5259,7 +5259,7 @@ clg: 0  htg: 13  'Wing1_Side2_Zn'
 clg: 0  htg: 0  'Common_Lobby_Zn'
 clg: 0  htg: 1  'Common_Corridor_Zn'
 clg: 0  htg: 0  'Wing2_Side1_Zn'
-clg: 0  htg: 6  'Wing2_Corridor_Zn'
+clg: 0  htg: 5  'Wing2_Corridor_Zn'
 clg: 0  htg: 11  'Wing2_Side2_Zn'
 clg: 0  htg: 0  'Common_Office_Zn'
 clg: 0  htg: 0  'Common_Cafeteria_Zn'", 
@@ -5275,35 +5275,35 @@ clg: 0  htg: 5  'Wing2_Corridor_Zn'
 clg: 0  htg: 11  'Wing2_Side2_Zn'
 clg: 0  htg: 0  'Common_Office_Zn'
 clg: 0  htg: 0  'Common_Cafeteria_Zn'" )
-   SimSummary[1] = "CSE Successful, E+ Successful (236 warnings)"
+   SimSummary[1] = "CSE Successful, E+ Successful (234 warnings)"
    SimSummary[3] = "CSE Successful, E+ Successful (224 warnings)"
-   PassFail = "FAIL"
+   PassFail = "PASS"
    MetricPassFail[1] = "Pass"
    MetricPassFail[2] = "Pass"
-   MetricPassFail[3] = "Fail"
-   ComplyMessage = "DOES NOT COMPLY"
+   MetricPassFail[3] = "Pass"
+   ComplyMessage = "COMPLIES"
    StdPVBatteryMsg = "Standard Design PV Capacity: 66.3 kWdc  /  Battery System Capacity: 87.7 kWh  (power 21.91 kW)"
    AnalysisValid = 0
    HideCompSmrySrc = 0
    HideCompSmryTot = 0
-   PctSavingsSLCC = 0
-   PctSavingsEffSLCC = 0
-   PctSavingsCmpSLCC = 0
+   PctSavingsSLCC = -2.52144e-14
+   PctSavingsEffSLCC = -2.18965e-14
+   PctSavingsCmpSLCC = -4.06955e-14
    PctSavSLCCLbl = "-"
    PctSavEffSLCCLbl = "-"
    PctSavCmpSLCCLbl = "-"
-   PctSavingsSrc = -0.116414
-   PctSavingsEffSrc = -0.119048
-   PctSavingsCmpSrc = -0.161812
-   PctSavSrcLbl = "-0.1"
-   PctSavEffSrcLbl = "-0.1"
-   PctSavCmpSrcLbl = "-0.2"
+   PctSavingsSrc = 0
+   PctSavingsEffSrc = 0
+   PctSavingsCmpSrc = 0
+   PctSavSrcLbl = "-"
+   PctSavEffSrcLbl = "-"
+   PctSavCmpSrcLbl = "-"
    MarginkW = 0
    PVBattResultsValid = 1
    PropPV_Size = 66.26
    PropPV_Total = 104102
-   PropPV_Export = 16402.7
-   PropPV_PctExport = 15.7564
+   PropPV_Export = 16393.5
+   PropPV_PctExport = 15.7475
    PropBatt_Size = 87.7
    PropBatt_Pwr = 21.915
    PropBatt_Ctrl = "Time of Use"
@@ -5314,8 +5314,8 @@ clg: 0  htg: 0  'Common_Cafeteria_Zn'" )
    StdBatt_Size = 87.7
    StdBatt_Pwr = 21.915
    StdBatt_Ctrl = "Time of Use"
-   NRCCPRFPayldTransID = "ff380b22-937f-44d9-bf5b-b99875ed864c"
-   NRCCPRFPayldProcDate = "2026-09-29T02:21:24"
+   NRCCPRFPayldTransID = "0ca47e15-c781-45c3-8418-719841d7107d"
+   NRCCPRFPayldProcDate = "2026-08-26T02:28:19"
    NumUIDialogTabs = 5
    ..
 
