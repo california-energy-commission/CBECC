@@ -631,11 +631,13 @@ RULELIST "HVACSys_CSE_Defaulting" 0 0 0 1
          then  Local( Name )
          else  UNCHANGED  endif  }
 
-	"Set HeatPumpDHWCombo-related cseDHWSYS properties"      cseDHWSYS:Action =                     ; HeatPumpDHWCombo - SAC 04/02/23 (tic #1349)  ; expand for DUT - SAC 09/30/24 (tic #3629)
+  ; HeatPumpDHWCombo - SAC 04/02/23 (tic #1349)  ; expand for DUT - SAC 09/30/24 (tic #3629)
+	"Set HeatPumpDHWCombo-related cseDHWSYS properties"      cseDHWSYS:Action =                     ; add logic to ensure setup of HeatPumpDHWCombo for Existing systems in std design model - SAC 09/17/26
       {  if (IfValidAnd( SourceDwellUnitType:HVACSysType = 2 ) .AND.
              IfValidAnd( SourceDwellUnitType:HVACHtPumpRef[1]:Type = 35 ) .AND.
              ( Proj:RunAbbrev = "u" .OR. Proj:RunAbbrev = "zp" .OR. Proj:RunAbbrev = "ap" .OR.
-               IfValidAnd( SourceDwellUnitType:HVACHtPumpRef[1]:Status = 1 ) ) )
+               IfValidAnd( SourceDwellUnitType:HVACHtPumpRef[1]:Status = 1 ) .OR.
+               IfValidAnd( SourceDwellUnitType:HVACHtPumpRef[1]:IsExisting > 0 ) ) )
          then  EvalRulelist( "DHWSys_SetupDHWSYS_HeatPumpDHWCombo", 1 )
          else if (LocalCompAssigned( SourceDHWSys:DHWHeater[1] ) == ComponentType( "HVACSys" ))
          then  if (IfValidAnd( SourceDHWSys:DHWHeater[1]:HtPumpSysType == 35 ))
