@@ -438,9 +438,12 @@ RULE Proj:ResCompOptLtg
     if( IfValidAnd( SumChildren( ResZnGrp:ResOtherZnCondFlrAreaWithMult ) > 0 ) )
     then
       1
+    else if( IfValidAnd( Proj:ResDwellUnits > 0 ) )
+    then  
+      2
     else
       0
-    endif
+    endif endif
 ENDRULE
 
 
@@ -739,7 +742,7 @@ RULE Proj:ResCompType
   INPUTCLASS
     NotInput
   DEFAULT : T24N_2022 T24N_2025 T24N_2028
-    if( ResCompOptNew = 1 .AND. ResCompOptEnve = 1 .AND. ResCompOptLtg = 1 .AND. ResCompOptMech = 1 .AND. ResCompOptDHW = 1 )
+    if( ResCompOptNew = 1 .AND. ResCompOptEnve = 1 .AND. ResCompOptLtg > 0 .AND. ResCompOptMech = 1 .AND. ResCompOptDHW = 1 )
     then
      "NewComplete"
     else if ( ResCompOptNew = 2 )

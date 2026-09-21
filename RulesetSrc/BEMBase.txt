@@ -2183,6 +2183,8 @@
 1,           "CSE_UMLHsExport",        BEMP_Obj,  1,  0,  0,  Pres,  "",          0,  1, "cseEXPORT", 0, "",          3006, "Export UMLH (unmet load hrs) results are written to",  "" 
 1,           "CSE_UMLHsExportCol",     BEMP_Obj,  1,  0,  0,  Pres,  "",          0,  1, "cseEXPORTCOL", 0, "",       3006, "runDateTime column of UMLH (unmet load hrs) results export",  "" 
 
+1,           "AutoSzHPCount",                     BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                          8008, "count of HP autosize flags",  ""      ; SAC 09/11/26 (dev #1086)
+
 ; SAC 5/12/18 - removed HPXML object types to enable CF1R-XML
 ;			; SAC 1/22/16 - object assignments facilitating HPXML export
 ; 1,           "HPBuilding",                        BEMP_Obj,  1,  0,  0,  Pres,  "",                 0,  1, "hpxBuilding",        1, "",  8006, "HPXML Building object",  ""    
@@ -5353,6 +5355,8 @@
 1,           "FluidFlowRtDsgnSim",      BEMP_Flt,  1,  0,  1,  NInp,  "gpm",             0,  0,                           3008, "FluidFlowRateDesignSimulated",  "" 
 ;1,          "SteamFlowRtDsgn",         BEMP_Flt,  1,  0,  1,   Opt,  "cfm",             0,  0,                           3008, "SteamFlowRateDesign",  "" 
 1,           "CoilHdDsgn",              BEMP_Flt,  1,  0,  0,   Opt,  "ft H20",          0,  0,                           3008, "CoilHeadDesign",  ""    
+1,           "RtdInletAirTemp",         BEMP_Flt,  1,  0,  1,  NInp,  "°F",              0,  0,                           3008, "RatedInletAirTemperature",  "" 
+1,           "RtdOutletAirTemp",        BEMP_Flt,  1,  0,  1,  NInp,  "°F",              0,  0,                           3008, "RatedOutletAirTemperature",  "" 
 
 1,           "NumHtgStages",            BEMP_Int,  1,  0,  1,   Opt,  "",                0,  0,                           3008, "NumberHeatingStages",  "" 
 1,           "CapTotGrossRtd",          BEMP_Flt,  1,  0,  0,   Opt,  "Btu/h",           0,  0,                           3008, "CapacityTotalGrossRated",  ""             
@@ -8722,7 +8726,7 @@
 ;------------------------------------------------------------------------------------------------
 ;                                         LName                               Template                             MD  MR  AC   Parent1                   P2  P3  P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
 ;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0,  "nrccC22Result9_SingleOrientation", "nrccC22Result9_SingleOrientation",   "C22Result9_SingleOrientation <i>",   0,  0,  0, "nrccSection_C22Result9",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+0,  "nrccC22Result9_SingleOrientation", "nrccC22Result9_SingleOrientation",   "C22Result9_SingleOrientation <i>",   1,  0,  0, "nrccSection_C22Result9",  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
 ;
 ;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                                 -------------------------------------------------------------------------------------------
@@ -8738,15 +8742,14 @@
 ;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                                 -------------------------------------------------------------------------------------------
 1,           "attrib_UmlhAttribute1",                      BEMP_Str,  1,  0,  1,  Pres,  "",                    0,  0,                             555, "attrib_UmlhAttribute1",  ""
+
 ;------------------------------------------------------------------------------------------------
-
-
 
 
 ;------------------------------------------------------------------------------------------------
 ;                             LName              Template           MD  MR  AC   Parent1                    P2                                  P3                                      P4  P5  P6  P7  P8  P9  P10 P11 P12 P13 P14 P15 P16 P17 P18 P19 P20  MC  MS  bP  CF  SR  IN     HI 
 ;                    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0,  "nrccTableUMLHC22", "nrccTableUMLHC22",   "TableUMLHC22 <i>",   1,  0,  0, "nrccSection_C22Result9",  "nrccC22Result9_SingleOrientation", "nrccC22Result9_MultipleOrientationUmlh", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
+0,  "nrccTableUMLHC22", "nrccTableUMLHC22",   "TableUMLHC22 <i>",   4,  0,  0, "nrccSection_C22Result9",  "nrccC22Result9_SingleOrientation", "nrccC22Result9_MultipleOrientationUmlh", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  -1,  1,  0,  0,  0,  1,   1000
 ;
 ;                                                  VType     NV  WA  SP  UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                                 -------------------------------------------------------------------------------------------
