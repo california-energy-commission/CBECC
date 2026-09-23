@@ -4771,6 +4771,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : "DuctlessMiniSplitHP"
                     case "DuctlessMultiSplitHeatPump" : "DuctlessMultiSplitHP"
                     case "DuctlessVRFHeatPump"        : "DuctlessVRF_HP" 
+				        case "DuctlessPkgHeatPump"        : "DuctlessPkgHeatPump"   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : "CentralPackagedHP" 
                     case "LrgPkgHeatPump"             : "CentralLargePackagedHP"
                     case "RoomHeatPump"               : "RoomHP"
@@ -4842,6 +4843,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : UNDEFINED
                     case "DuctlessMultiSplitHeatPump" : UNDEFINED
                     case "DuctlessVRFHeatPump"        : UNDEFINED 
+				        case "DuctlessPkgHeatPump"        : UNDEFINED   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : UNDEFINED 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : if (IfValidAnd( HtPumpSystem:CAP47 > 0 ) .AND. IfValidAnd( HtPumpSystem:HeatPower > 0 ))
@@ -4879,6 +4881,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", HtPumpCap17 ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", HtPumpCap17 ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", HtPumpCap17 ) ) 
+				        case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", HtPumpCap17 ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", HtPumpCap17 ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -4929,6 +4932,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", MinCoolSEER ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", MinCoolSEER ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", MinCoolSEER ) ) 
+				        case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", MinCoolSEER ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", MinCoolSEER ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -4953,6 +4957,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", MinCoolSEER2 ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", MinCoolSEER2 ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", MinCoolSEER2 ) ) 
+				        case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", MinCoolSEER2 ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", MinCoolSEER2 ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -4980,6 +4985,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", MinCoolEER ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", MinCoolEER ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", MinCoolEER ) ) 
+				        case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", MinCoolEER ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", MinCoolEER ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   ; atof( Format( "%.2f", HtPumpSystem:CEER ) )   
@@ -5005,6 +5011,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", MinCoolEER2 ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", MinCoolEER2 ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", MinCoolEER2 ) ) 
+				        case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", MinCoolEER2 ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", MinCoolEER2 ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   ; atof( Format( "%.2f", HtPumpSystem:CEER ) )   
@@ -5134,6 +5141,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
 				case "DuctlessMiniSplitHeatPump"  : "DuctlessMiniSplitHP"
 				case "DuctlessMultiSplitHeatPump" : "DuctlessMultiSplitHP"
 				case "DuctlessVRFHeatPump"        : "DuctlessVRF_HP" 
+				case "DuctlessPkgHeatPump"        : "DuctlessPkgHeatPump"   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
 				case "PkgHeatPump"                : "CentralPackagedHP" 
 				case "LrgPkgHeatPump"             : "CentralLargePackagedHP"
 				case "RoomHeatPump"               : "RoomHP"
@@ -5222,6 +5230,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", Cap17 ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", Cap17 ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", Cap17 ) ) 
+                    case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", Cap17 ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", Cap17 ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -5278,6 +5287,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", SEER ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", SEER ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", SEER ) ) 
+                    case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", SEER ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", SEER ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -5302,6 +5312,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", SEER2 ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", SEER2 ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", SEER2 ) ) 
+                    case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", SEER2 ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", SEER2 ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -5328,6 +5339,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", EER ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", EER ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", EER ) ) 
+                    case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", EER ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", EER ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
@@ -5352,6 +5364,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     case "DuctlessMiniSplitHeatPump"  : atof( Format( "%.2f", EER2 ) )
                     case "DuctlessMultiSplitHeatPump" : atof( Format( "%.2f", EER2 ) )
                     case "DuctlessVRFHeatPump"        : atof( Format( "%.2f", EER2 ) ) 
+                    case "DuctlessPkgHeatPump"        : atof( Format( "%.2f", EER2 ) )   ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 93 
                     case "PkgHeatPump"                : atof( Format( "%.2f", EER2 ) ) 
                     case "LrgPkgHeatPump"             : UNDEFINED
                     case "RoomHeatPump"               : UNDEFINED   
