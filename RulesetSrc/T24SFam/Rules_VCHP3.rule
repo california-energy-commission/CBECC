@@ -95,7 +95,9 @@ RULELIST "HtPumpPerfMap_Defaulting_Single" 1 0 0 0
    "Set HVACHtPump:VCHP3_Tmin"      HVACHtPump:VCHP3_Tmin      = {  0  }
    "Set HVACHtPump:HP3_Cd"          HVACHtPump:HP3_Cd          = {  0.08  }      ; 0.15->0.08 - SAC 09/18/24
    "Set HVACHtPump:HasHPLockout - has lockout temp for HP"        HVACHtPump:HasHPLockout  = {  1  }
-   "Set HVACHtPump:HPLockoutTemp - lockout temperature for HP"    HVACHtPump:HPLockoutTemp = {  VCHP3_Tmin  }
+   "Set HVACHtPump:HPLockoutTemp - lockout temperature for HP"    HVACHtPump:HPLockoutTemp =    ; add logic to set ACM lockout of 40 for gas backup - SAC 09/23/26 (dev #1141)
+    { if( IfValidAnd( BackupOption = 2 ) ) then  40    ; lockout for gas backup
+      else  VCHP3_Tmin  endif  }
 
   "set HVACHtPump:MinPerfMapSEER"     HVACHtPump:MinPerfMapSEER   =         ; SAC 12/08/25 (dev #633)
     { if( IfValidAnd(  EER  > 0 ) .AND. IfValidAnd( EffMetric = 1 ) ) then   EER  / 0.975  else  UNDEFINED  endif  }
@@ -171,7 +173,9 @@ RULELIST "HtPumpPerfMap_Defaulting_Two" 1 0 0 0
    "Set HVACHtPump:VCHP3_Tmin"      HVACHtPump:VCHP3_Tmin      = {  0  }
    "Set HVACHtPump:HP3_Cd"          HVACHtPump:HP3_Cd          = {  0.08  }      ; SAC 09/18/24
    "Set HVACHtPump:HasHPLockout - has lockout temp for HP"        HVACHtPump:HasHPLockout  = {  1  }
-   "Set HVACHtPump:HPLockoutTemp - lockout temperature for HP"    HVACHtPump:HPLockoutTemp = {  VCHP3_Tmin  }
+   "Set HVACHtPump:HPLockoutTemp - lockout temperature for HP"    HVACHtPump:HPLockoutTemp =    ; add logic to set ACM lockout of 40 for gas backup - SAC 09/23/26 (dev #1141)
+    { if( IfValidAnd( BackupOption = 2 ) ) then  40    ; lockout for gas backup
+      else  VCHP3_Tmin  endif  }
 
 END
 ;*************************************************************************
@@ -183,7 +187,9 @@ RULELIST "HtPumpPerfMap_Defaulting_Variable" 1 0 0 0
    "Set HVACHtPump:VCHP3_Tmin"      HVACHtPump:VCHP3_Tmin      = { -30 }
    "Set HVACHtPump:HP3_Cd"          HVACHtPump:HP3_Cd          = {  0.40  }      ; SAC 09/18/24
    "Set HVACHtPump:HasHPLockout - has lockout temp for HP"        HVACHtPump:HasHPLockout  = {  1  }
-   "Set HVACHtPump:HPLockoutTemp - lockout temperature for HP"    HVACHtPump:HPLockoutTemp = {  VCHP3_Tmin  }
+   "Set HVACHtPump:HPLockoutTemp - lockout temperature for HP"    HVACHtPump:HPLockoutTemp =    ; add logic to set ACM lockout of 40 for gas backup - SAC 09/23/26 (dev #1141)
+    { if( IfValidAnd( BackupOption = 2 ) ) then  40    ; lockout for gas backup
+      else  VCHP3_Tmin  endif  }
 
   "set HVACHtPump:MinPerfMapSEER"     HVACHtPump:MinPerfMapSEER   =         ; SAC 12/08/25 (dev #633)
     { if( IfValidAnd(  EER  > 0 ) .AND. IfValidAnd( EffMetric = 1 ) ) then   EER  + 0.01  else  UNDEFINED  endif  }
