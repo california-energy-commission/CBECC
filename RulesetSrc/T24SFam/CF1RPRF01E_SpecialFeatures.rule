@@ -687,7 +687,7 @@ RULELIST "CF1RPRF01E_2025SpecialFeatures_PVException"  1 0 0 1
               case 2204 :  Format( "PV exception 4: Building approved by planning dept prior to 1/1/20 (%g kW)", ValidOr( Proj:ReducedPVReqValue, 0 ) ) 
               case 2206 :  if (Proj:AnalysisVersion < 250300)
                            then Format( "PV exception 5: PV size limited by Solar Access Roof Area (>= 80 ft2) (%g kW)", ValidOr( Proj:ReducedPVReqValue, 0 ) )  ; new - SAC 12/15/22
-                           else Format( "PV exception 5: Standard design PV size limited by solar access roof area (SARA) (%g kW). SARA must be determined using CEC-approved solar assessment tools: https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/solar-assessment-tools. Provide the solar assessment report and supporting roof plan.", ValidOr( Proj:ReducedPVReqValue, 0 ) )  ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 95
+                           else Format( "Standard design PV size limited by solar access roof area (SARA) (%g kW). SARA must be determined using CEC-approved solar assessment tools: https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/solar-assessment-tools. Provide the solar assessment report and supporting roof plan.", ValidOr( Proj:ReducedPVReqValue, 0 ) )  ; RJH 9/23/26 - 2025-CBECC-Res-Schema Issue 95
                            endif
               Default   :  UNDEFINED
            endswitch  }
