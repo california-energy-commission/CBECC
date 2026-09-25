@@ -1245,9 +1245,10 @@
 2,            205,    "(Exc. 5) Multi-tenant bldgs w/ no VNEM or community solar"
 1,    Proj:Ruleset,  -1002,  0   ; Backward compatibility
 2,            102,    "(R Exc.2) No PV required when prescribed system < 1.8 kWdc"
+2,            100,    "Limited by SARA provided"            ; updated string from this to 'PV size limited by Solar Access Roof Area (SARA)' - SAC 09/24/26 (dev #1144)
 1,    Proj:ReducedPVReqExcptLowRiseRes,     1,  0   ; LowRiseRes
 2,              0,    "- select applicable reason for PV reduction -"
-2,            100,    "Limited by SARA provided"
+2,            100,    "PV size limited by Solar Access Roof Area (SARA)"
 2,            101,    "(R Exc.1) Limited SARA for steep sloped roofs"
 2,            102,    "(R Exc.2) No PV required when prescribed system < 4 kWdc"
 2,            103,    "(R Exc.3) Excessive snow load"
@@ -1255,7 +1256,7 @@
 ; 2,            105,    "(R Exc.5) 25% PV power reduction with battery storage"   - not an exception pertinent to performance compl. - SAC 05/26/22
 1,    Proj:ReducedPVReqExcptLowRiseRes,     2,  0   ; LowRiseRes/MixedUse  - SAC 01/12/23
 2,              0,    "- select applicable reason for PV reduction -"
-2,            100,    "Limited by SARA provided"
+2,            100,    "PV size limited by Solar Access Roof Area (SARA)"
 2,            101,    "(R Exc.1) Limited SARA for steep sloped roofs"
 2,            102,    "(R Exc.2) No PV required when prescribed system < 4 kWdc"
 2,            103,    "(R Exc.3) Excessive snow load"
@@ -1268,7 +1269,7 @@
 2,            205,    "(NR Exc.5) Multi-tenant bldgs w/ no VNEM or community solar"
 1,    Proj:ReducedPVReqExcptLowRiseRes,  -999,  0   ; not LowRiseRes
 2,              0,    "- select applicable reason for PV reduction -"
-2,            100,    "Limited by SARA provided"
+2,            100,    "PV size limited by Solar Access Roof Area (SARA)"
 2,            201,    "(NR Exc.1) No PV required when SARA < 3% cond floor area"
 2,            202,    "(NR Exc.2) No PV required when prescribed system < 4 kWdc"
 2,            203,    "(NR Exc.3) No PV required when SARA < 80 contiguous SF"

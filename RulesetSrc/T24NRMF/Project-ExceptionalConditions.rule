@@ -1051,6 +1051,7 @@ ENDRULE
 
 // ********** Exceptional Conditions - PV Exceptions Nonres/HRMF **********
       ; added check for Proj:UseReducedPVReqVal >= 0 to prevent reporting of ANY red. PV req. when a lower PrscrpPVSize dictates std design PV size - SAC 02/02/23
+      ; updated 'Limited by SARA provided' to 'PV size limited by Solar Access Roof Area (SARA)' - SAC 09/24/26 (dev #1144)
 RULE ProjVar:ExcptSARAReducedPVReq
   RULESETS
     T24N
@@ -1065,7 +1066,7 @@ RULE ProjVar:ExcptSARAReducedPVReq
       if ( IfValidAnd ( Proj:ReducedPVReqExcptLowRiseRes < 0.5 ) .AND. IfValidAnd( Proj:ReducedPVReq > 0.5 ) .AND.
            IfValidAnd( Proj:UseReducedPVReqVal >= 0 ) )
       then
-       if ( Proj:ReducedPVReqExcpt = "Limited by SARA provided" )
+       if ( Proj:ReducedPVReqExcpt = "PV size limited by Solar Access Roof Area (SARA)" )
        then "Yes"
        else "No"
        endif
@@ -1080,7 +1081,7 @@ RULE ProjVar:ExcptSARAReducedPVReq
       if ( IfValidAnd ( Proj:ReducedPVReqExcptLowRiseRes < 0.5 ) .AND. IfValidAnd( Proj:ReducedPVReq > 0.5 ) .AND.
            IfValidAnd( Proj:UseReducedPVReqVal >= 0 ) )
       then
-       if ( Proj:ReducedPVReqExcpt = "Limited by SARA provided" )
+       if ( Proj:ReducedPVReqExcpt = "PV size limited by Solar Access Roof Area (SARA)" )
        then "Yes"
        else "No"
        endif
@@ -1288,6 +1289,7 @@ ENDRULE
 
 
 // ********** Exceptional Conditions - PV Exceptions LRMF **********
+      ; updated 'Limited by SARA provided' to 'PV size limited by Solar Access Roof Area (SARA)' - SAC 09/24/26 (dev #1144)
 RULE ProjVar:ExcptSARAResReducedPVReq
   RULESETS
     T24N
@@ -1300,7 +1302,7 @@ RULE ProjVar:ExcptSARAResReducedPVReq
     then  
       if ( IfValidAnd ( Proj:ReducedPVReqExcptLowRiseRes > 0.5 ) .AND. IfValidAnd( Proj:UseReducedPVReqVal >= 0 ) )
       then
-       if ( Proj:ReducedPVReqExcpt = "Limited by SARA provided" )
+       if ( Proj:ReducedPVReqExcpt = "PV size limited by Solar Access Roof Area (SARA)" )
        then "Yes"
        else "No"
        endif
@@ -1313,7 +1315,7 @@ RULE ProjVar:ExcptSARAResReducedPVReq
     then  
       if ( IfValidAnd ( Proj:ReducedPVReqExcptLowRiseRes > 0.5 ) .AND. IfValidAnd( Proj:UseReducedPVReqVal >= 0 ) )
       then
-       if ( Proj:ReducedPVReqExcpt = "Limited by SARA provided" )
+       if ( Proj:ReducedPVReqExcpt = "PV size limited by Solar Access Roof Area (SARA)" )
        then "Yes"
        else "No"
        endif
