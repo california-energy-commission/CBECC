@@ -270,11 +270,11 @@ RULELIST "ProposedInput_PVSystem" 0 0 0 0
                         IfValidAnd( T24RPrescribedPV > SolAccessRfAreaPVPwr )) then  2206
                else  0  endif endif endif
          else  0  endif  }
+        ;           2206,    "PV size limited by Solar Access Roof Area (SARA)"
         ;           2201,    "(1) Solar Access Roof Area (SARA) < 80 ft2"
         ;           2202,    "(2) No PV Req'd when less than 1.8 kWdc"
         ;           2203,    "(3) Excessive snow load"
         ;           2204,    "(4) Bldgs approved by local planning dept prior to 1/1/20"
-        ;           2206,    "(5) PV size limited by Solar Access Roof Area (SARA)"
 
    ; reduced PV requirement exception inputs - SAC 12/10/17
    "Default Proj:DefaultReducedPVReq - whether or not reduced PV requirement inputs are to be hardwired to their Default settings"    ; SAC 04/30/24 (tic #1352)

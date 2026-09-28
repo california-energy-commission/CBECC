@@ -1711,12 +1711,10 @@ RULE ConsAssm:CRRCInitialEmit
   REPORTPRECISION
     2
   DEFAULT
-    if( BuiltUpRoof = 1 )
-    then  0.85
-    else if( BallastedRoof = 1 )
-    then  0.85
-    else  0.75
-    endif endif
+    if( BallastedRoof = 1 )
+    then  0.75
+    else  0.85
+    endif
   CHECKCODE
     if( HasCRRCProdID = 0 )
     then  if( LocalStatus(CRRCInitialEmit) > 4 )
@@ -1731,8 +1729,10 @@ RULE ConsAssm:CRRCInitialEmit
     if( CompatibleSurfType = "Roof" )
     then  if( HasCRRCProdID = 1 )
           then  u:CRRCInitialEmit
-          else  0.75
-          endif
+          else if( BallastedRoof = 1 )
+          then  0.75
+          else  0.85
+          endif endif
     else  UNDEFINED
     endif
 ENDRULE
@@ -1833,12 +1833,10 @@ RULE ConsAssm:CRRCAgedEmit
   REPORTPRECISION
     2
   DEFAULT
-    if( BuiltUpRoof = 1 )
-    then  0.85
-    else if( BallastedRoof = 1 )
-    then  0.85
-    else  0.75
-    endif endif
+    if( BallastedRoof = 1 )
+    then  0.75
+    else  0.85
+    endif
   CHECKCODE
     if( HasCRRCProdID = 0 )
     then  if( LocalStatus( CRRCAgedEmit ) > 4 )
@@ -1853,12 +1851,10 @@ RULE ConsAssm:CRRCAgedEmit
     if( CompatibleSurfType = "Roof" )
     then  if( HasCRRCProdID = 1 )
           then  u:CRRCAgedEmit
-          else if( BuiltUpRoof = 1 )
-          then  0.85
           else if( BallastedRoof = 1 )
-          then  0.85
-          else  0.75
-          endif endif endif
+          then  0.75
+          else  0.85
+          endif endif
     else  UNDEFINED
     endif
   ANNUAL_PROPOSED
