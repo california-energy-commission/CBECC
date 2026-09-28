@@ -2027,6 +2027,7 @@ RULE Proj:ReducedPVReqExcptLowRiseRes
 ENDRULE
 
 ; updated for 2022 vs. 2025 LowriseMFam PrscrpPVSize exception limits - SAC 06/03/25 (tic #3619)
+; updated 'Limited by SARA provided' to 'PV size limited by Solar Access Roof Area (SARA)' - SAC 09/24/26 (dev #1144)
 RULE Proj:ReducedPVReqExcpt
   DESCRIPTION
     "Exception describing why standard PV requirements don't apply to this project"
@@ -2044,7 +2045,7 @@ RULE Proj:ReducedPVReqExcpt
          else if (IfValidAnd( Proj:AnalysisVersion >= 250000 ) .AND. IfValidAnd( PrscrpPVSize < 4 ))
          then  "(R Exc.2) No PV required when prescribed system < 4 kWdc"
          else if (IfValidAnd( PrscrpPVSize > TotSolAccessRfAreaPVPwr ))
-         then  "Limited by SARA provided"
+         then  "PV size limited by Solar Access Roof Area (SARA)"
          else  "- select applicable reason for PV reduction -"
          endif endif endif
     else if (IfValidAnd( PrscrpPVSize < 4 ))
@@ -2054,7 +2055,7 @@ RULE Proj:ReducedPVReqExcpt
          else if (IfValidAnd( TotSolAccessRfArea < 80 ))
          then  "(NR Exc.3) No PV required when SARA < 80 contiguous SF"
          else if (IfValidAnd( PrscrpPVSize > TotSolAccessRfAreaPVPwr ))
-         then  "Limited by SARA provided"
+         then  "PV size limited by Solar Access Roof Area (SARA)"
          else  "- select applicable reason for PV reduction -"
          endif endif endif endif
     endif endif
@@ -2080,7 +2081,14 @@ RULE Proj:ReducedPVReqExcptDesc
     NotInput
   DEFAULT 
     switch (EnumValue( ReducedPVReqExcpt ))
-       case 100 :  "RTF\ReducedPVExcept100.rtf"
+       case 100 :  if( PrscrpPVBattClass == "HiRiseRes/MixedUse" .OR.
+                       PrscrpPVBattClass == "HiRiseRes_NoPVBatt" )
+                   then  "RTF\ReducedPVExcept100_hrmf.rtf"
+                   else if( PrscrpPVBattClass == "LowRiseRes/MixedUse" .OR.
+                            PrscrpPVBattClass == "LowRiseRes" )
+                   then  "RTF\ReducedPVExcept100_lrmf.rtf"
+                   else  "RTF\ReducedPVExcept100.rtf"
+                   endif endif    ; diff RTF for LRMF, HRMF & NR - SAC 09/24/26 (dev #1144)
        case 101 :  "RTF\ReducedPVExcept101.rtf"
        case 102 :  if( EngyCodeYearNum >= 2025 )
                    then  "RTF\ReducedPVExcept102.rtf"
@@ -2153,7 +2161,7 @@ ENDRULE
 ; prior logic - SAC 05-26-22
 ;        if (EnumValue( ReducedPVReqExcpt = 1 )) ; .OR. EnumValue( ReducedPVReqExcpt >= 6 ))) ; APB 05/18/22 - Res enums were 1-8, new enums are 100+
 ;        then  0
-;        else if (EnumValue( ReducedPVReqExcpt = 100 ) .AND. SumAll( PVArray:DCSysSize ) > SolAccessRfAreaPVPwr) ; "Limited by SARA provided"
+;        else if (EnumValue( ReducedPVReqExcpt = 100 ) .AND. SumAll( PVArray:DCSysSize ) > SolAccessRfAreaPVPwr) ; "PV size limited by Solar Access Roof Area (SARA)"
 ;        then SolAccessRfAreaPVPwr
 
       ; added logic to prevent setting UseReducedPVReqVal to a value above PrscrpPVSize (so that reduced req exception not reported) - SAC 02/02/23
@@ -3190,7 +3198,7 @@ RULE Proj:ReducedPVReqMsg2
     then  ""
     else if (IfValidAnd( SumAll( PVArray:DCSysSize ) > TotSolAccessRfAreaPVPwr ))
     then  if (ReducedPVReq = 1)
-          then  if (EnumValue(ReducedPVReqExcpt) = 100)  ; "Limited by SARA provided"
+          then  if (EnumValue(ReducedPVReqExcpt) = 100)  ; "PV size limited by Solar Access Roof Area (SARA)"
                 then  if (ValidOr( UseReducedPVReqVal, 99999 ) >= SumAll( PVArray:DCSysSize ))
                       then  "Proposed kW will NOT be adjusted (SARA-based cap. >= Prescriptive)"
                       else  "Proposed kW will be adjusted to match the capacity based on SARA."  endif 
