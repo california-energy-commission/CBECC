@@ -6353,8 +6353,11 @@ RULELIST "Default_HVACHeatPump" 0 0 0 0
                                                                               then  1  else  0  endif endif endif  }
 	"Default ResHtPumpSys:IsMultiSpeed"		ResHtPumpSys:IsMultiSpeed			= {	if (UsePMModel .AND. Speeds > 1) then  1  else  0  endif  }    ; revised for VCHP3 - SAC 07/21/24
 
-	"Set ResHtPumpSys:ShowIsZonal"		ResHtPumpSys:ShowIsZonal	= {	if (CountRefs( ResHVACSys:HtPumpSystem, ResHVACSys:NumHtPumpSystemTypes ) < 1) then  0
-																						else if (SumRevRef( ResHVACSys:HtPumpSystem, ResHVACSys:HtPumpDucted ) < 1) then  0  else	1  endif endif  }		; SAC 11/19/15 - CoolDucted -> HtPumpDucted
+	"Set ResHtPumpSys:ShowIsZonal"		ResHtPumpSys:ShowIsZonal	=        ; revise logic to prevent ShowIsZonal for Single speed PerfMap HPs - SAC 09/23/26 (dev #1140)
+      {  if( CountRefs( ResHVACSys:HtPumpSystem, ResHVACSys:NumHtPumpSystemTypes ) < 1 ) then  0
+         else if( SumRevRef( ResHVACSys:HtPumpSystem, ResHVACSys:HtPumpDucted ) < 1 ) then  0
+         else if( IfValidAnd( UsePMModel > 0 ) .AND. EnumValue( Speeds ) < 2 ) then  0
+         else	1  endif endif endif  }		; SAC 11/19/15 - CoolDucted -> HtPumpDucted
 	"Default ResHtPumpSys:IsZonal"		ResHtPumpSys:IsZonal		= {	0  }
 ;	"debug HVACHtPump"			ResHtPumpSys:Action = { if (FloorAreaServed > 0.5) then PostWarning( "Default HVACHtPump  Name:  '%s'  Type: %g  TypeAbbrevStr: '%s'",  Name, Type, TypeAbbrevStr ) else UNCHANGED endif  }
 

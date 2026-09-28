@@ -261,6 +261,9 @@
 1,           "CPR_ElecUtilityRateRef",            BEMP_Obj,  1,  0,  0,  NInp,  "",                 0,  1, "CPR_UtilityRate",  1, "RateType",  1001, "CPR_ElectricityUtilityRateReference",    ""     ; SAC 08/22/23 (CUAC)
 1,           "CPR_GasUtilityRateRef",             BEMP_Obj,  1,  0,  0,  NInp,  "",                 0,  1, "CPR_UtilityRate",  0, "RateType",  1001, "CPR_GasUtilityRateReference",    ""             ; SAC 08/30/23 (CUAC)
 
+1,           "CPR_ElecUtilityRateExpMsg",         BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           3208, "CPR_ElectricityUtilityRateExpirationMessage",  ""      ; SAC 09/10/26 (dev #713)
+1,           "CPR_GasUtilityRateExpMsg",          BEMP_Str,  1,  0,  0,  Pres,  "",                 0,  0,                           3208, "CPR_GasUtilityRateExpirationMessage",  ""    
+
 1,           "IncludeDHWInUtilityBills",          BEMP_Int,  1,  0,  0,   Def,  "",                 0,  0,                           1001, "IncludeDHWInUtilityBills",  ""    ; SAC 09/25/23  ; switched to Prescribed - SAC 09/27/23  ; restored to Def - SAC 09/03/24
 1,           "PerformJA13DHWBillAdj",             BEMP_Int,  1,  0,  0,  Pres,  "",                 0,  0,                           1001, "PerformJA13DHWBillAdj",  ""       ; SAC 01/15/25
 1,           "JA13DHWBillAdjPctUseIncrease",      BEMP_Flt,  1,  0,  0,  Pres,  "%",                0,  0,                           1001, "JA13DHWBillAdjustmentPercentUseIncrease",  ""       ; SAC 01/17/25
