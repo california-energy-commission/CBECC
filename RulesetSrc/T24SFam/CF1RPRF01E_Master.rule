@@ -4871,7 +4871,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                  endswitch
            else  UNCHANGED
            endif  }
-    "Set SCSysRpt:CF1R_HeatPumpRow:Y05a_NotApplicableMessage" SCSysRpt:CF1R_HeatPumpRow:Y05a_NotApplicableMessage  = { if ( Proj:AnalysisVersion < 250000 .AND. LocalStatus ( CF1R_HeatPumpRow:Y05a_EfficiencyCOP ) < 1 ) then "n/a" else UNDEFINED endif  }   ; SAC 06/19/23 (tic #1349) - RJH 9/28/26 remove for Proj:AnalysisVersion >= 250000 to avoid schema validation error
+    "Set SCSysRpt:CF1R_HeatPumpRow:Y05a_NotApplicableMessage" SCSysRpt:CF1R_HeatPumpRow:Y05a_NotApplicableMessage  = { if ( LocalStatus ( CF1R_HeatPumpRow:Y05a_EfficiencyCOP ) < 1 ) then "n/a" else UNDEFINED endif  }   ; SAC 06/19/23 (tic #1349)
 
     "Set SCSysRpt:CF1R_HeatPumpRow:Y06_HeatPumpHeatCapacity17F" SCSysRpt:CF1R_HeatPumpRow:Y06_HeatPumpHeatCapacity17F  = {  
            if ( RefCountByType[3] > 0 )
@@ -5227,7 +5227,7 @@ RULELIST "CF1RPRF01E_Proposed"  1 0 0 1
                     default : UNDEFINED
                  endswitch
            endif  }
-    "Set HVACHtPump:CF1R_HeatPumpRow:Y05a_NotApplicableMessage" HVACHtPump:CF1R_HeatPumpRow:Y05a_NotApplicableMessage  = { if ( Proj:AnalysisVersion < 250000 .AND. LocalStatus ( CF1R_HeatPumpRow:Y05a_EfficiencyCOP ) < 1 ) then "n/a" else UNDEFINED endif  }   ; SAC 06/19/23 (tic #1349) - RJH 9/28/26 remove for Proj:AnalysisVersion >= 250000 to avoid schema validation error
+    "Set HVACHtPump:CF1R_HeatPumpRow:Y05a_NotApplicableMessage" HVACHtPump:CF1R_HeatPumpRow:Y05a_NotApplicableMessage  = { if ( LocalStatus ( CF1R_HeatPumpRow:Y05a_EfficiencyCOP ) < 1 ) then "n/a" else UNDEFINED endif  }   ; SAC 06/19/23 (tic #1349)
 
     "Set HVACHtPump:CF1R_HeatPumpRow:Y06_HeatPumpHeatCapacity17F" HVACHtPump:CF1R_HeatPumpRow:Y06_HeatPumpHeatCapacity17F  = {  
            if ( LocalStatus(Cap17) < 1 ) then UNDEFINED

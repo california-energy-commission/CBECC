@@ -776,7 +776,7 @@ RULELIST "Default_AllHVAC" 0 0 0 0
    "Set ResHtPumpSys:ShowAFUE"        ResHtPumpSys:ShowAFUE =      ; SAC 02/22/25 (tic #1379)  ; ported to MF - SAC 04/14/25
       {  if ((AllowDualFuel  > 0 .AND. IfValidAnd( IsDualFuel > 0 )) .OR.
              (AllowBackupOpt > 0 .AND. BackupOption == 2)) then  1  else  0  endif  }
-   "Set ResHtPumpSys:ShowLockout"     ResHtPumpSys:ShowLockout =         ; retain setting of ShowLockout to ensure other lockout temp-related data consistent - SAC 09/24/26 (dev #1141)
+   "Set ResHtPumpSys:ShowLockout"     ResHtPumpSys:ShowLockout =
       {  if (UsePMModel) then  0
          else if ((AllowDualFuel  > 0 .AND. IfValidAnd( IsDualFuel > 0 )) .OR.
                   (AllowBackupOpt > 0 .AND. BackupOption >  0)) then  1  else  0  endif endif  }
@@ -787,9 +787,9 @@ RULELIST "Default_AllHVAC" 0 0 0 0
    "Default ResHtPumpSys:HasHPLockout - has lockout temp for HP"          ResHtPumpSys:HasHPLockout =     ; revised to leave UNCHANGED for type = 36 (HeatPumpV3) - SAC 09/05/24
       {  if (UsePMModel) then  UNCHANGED
          else if (ShowLockout < 1) then  UNDEFINED  else  1  endif endif  }
-   "Default ResHtPumpSys:HPLockoutTemp - lockout temperature for HP"      ResHtPumpSys:HPLockoutTemp =    ; update HPLockoutTemp from 35 to new ACM value of 40 - SAC 09/23/26 (dev #1141)
+   "Default ResHtPumpSys:HPLockoutTemp - lockout temperature for HP"      ResHtPumpSys:HPLockoutTemp =
       {  if (UsePMModel) then  UNCHANGED
-         else if (ShowLockout < 1) then  UNDEFINED  else  40  endif endif  }
+         else if (ShowLockout < 1) then  UNDEFINED  else  35  endif endif  }
    "set ResHtPumpSys:HPLockoutTempActive"      ResHtPumpSys:HPLockoutTempActive =          ; SAC 01/24/25 (tic #1390)  ; revised for BackupOption - SAC 02/22/25 (tic #1379)  ; port to MF - SAC 04/14/25
       {  if (ShowLockout > 0 .AND. IfValidAnd( HasHPLockout > 0 ) .AND. IfValidAnd( Proj:EnableResearchMode > 0 )==0)
          then  1  else  UNDEFINED  endif  }

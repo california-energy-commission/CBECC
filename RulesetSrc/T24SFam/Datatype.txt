@@ -2671,7 +2671,7 @@ HVACHtPump:AllowDualFuel,     NotInput,   0,    0,   0,    1,  1,  1
 HVACHtPump:IsDualFuel,         Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:AFUE,               Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:HasHPLockout,       Default,   0,    1,   1,    1,  1,  1
-HVACHtPump:HPLockoutTemp,   Prescribed,   0,    1,   1,    1,  1,  1   ; default -> prescribed - SAC 09/24/26 (dev #1141)
+HVACHtPump:HPLockoutTemp,      Default,   0,    1,   1,    1,  1,  1
 HVACHtPump:ModelDualFuel,     NotInput,   0,    0,   0,    1,  1,  1
 
 ; SAC 11/4/18 - added for VCHP
