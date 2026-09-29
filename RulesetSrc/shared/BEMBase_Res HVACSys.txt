@@ -848,7 +848,7 @@
 1,           "AFUE",              BEMP_Flt,  1,  0,  0,   Def,  "%",                0,  0,                        8004, "Annual Fuel Use Efficiency from DOE test procedure for backup gas heat source",  ""  
 1,           "ShowLockout",       BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                        8008, "Flag (0/1) indicating whether or not to display lockout temp fields",  ""       ; SAC 02/22/25 (tic #1379)  ; port to MFam  - SAC 04/13/25
 1,           "HasHPLockout",      BEMP_Int,  1,  0,  0,   Def,  "",                 0,  0,                        7010, "whether or not this equipment has HP lockout temperature",  ""
-1,           "HPLockoutTemp",     BEMP_Flt,  1,  0,  0,   Def,  "°F",               0,  0,                        7010, "lockout temperature for HP",  ""
+1,           "HPLockoutTemp",     BEMP_Flt,  1,  0,  0,  Pres,  "°F",               0,  0,                        7010, "lockout temperature for HP",  ""      ; default -> prescribed - SAC 09/24/26 (dev #1141)
 1,           "HPLockoutTempActive", BEMP_Int,  1,  0,  0,  NInp,  "",               0,  0,                        7010, "HPLockoutTempActive",  ""    ; SAC 01/24/25 (tic #1390)  ; port to MFam  - SAC 04/13/25
 1,           "ModelDualFuel",     BEMP_Int,  1,  0,  0,  NInp,  "",                 0,  0,                        8008, "Flag (0/1) indicating whether dual fuel is compatible, selected & includes valid inputs",  ""  
 1,           "TempLabels",        BEMP_Str,  6,  1,  0,  Pres,  "",                 0,  0,                        8008, "labels for temperature-based inputs",  ""   ; VCHP2 - SAC 07/24/21
