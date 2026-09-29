@@ -812,6 +812,10 @@
 1,    HVACHtPump:IncludesCooling
 1,    HVACHtPump:Speeds
 
+; SAC 09/23/26 (dev #1141)
+0, HVACHtPump:BackupOption
+1,    HVACHtPump:HPLockoutTemp
+
 ; SAC 5/14/19 - remove Cap* resets following AutoSize change to better enable toggling w/out loosing Cap settings
 ;; SAC 9/22/17 - added new auto-size option, initially for 2019 research
 ;0, HVACHtPump:AutoSize

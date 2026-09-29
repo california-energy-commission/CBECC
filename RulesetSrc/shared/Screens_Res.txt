@@ -3370,7 +3370,8 @@ TAB, "ResOtherZn",  308,      15,    "  Process Loads  "
 	 CTRL, "IsDualFuel",       30240, TDCT_Check,   30, 562,  22, 113,  2, FNT_STD, "Dual Fuel HP",                          TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       IsAvailable > 0 And AllowDualFuel > 0,    0,  0,  "Whether or not this system is dual fuel (fuel backup heat)" 
 	 CTRL, "AFUE",             30241, TDCT_Edit,   195, 560,  25,  40, 11, FNT_STD, "AFUE:",                                 TA_LEFT,   -50, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And AllowDualFuel > 0 And IsDualFuel > 0,  -51, 20,  "Annual Fuel Use Efficiency from DOE test procedure for backup gas heat source"
 	 CTRL, "HasHPLockout",     30242, TDCT_Check,   50, 592,  22, 143,  2, FNT_STD, "Has Lockout Temp.",                     TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       IsAvailable > 0 And AllowDualFuel > 0 And IsDualFuel > 0,    0,  0,  "Whether or not this HP has a lockout temperature" 
-	 CTRL, "HPLockoutTemp",    30243, TDCT_Edit,   195, 590,  25,  40, 11, FNT_STD, "",                                      TA_LEFT,    -1, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And AllowDualFuel > 0 And IsDualFuel > 0 And HasHPLockout > 0,  0, 30,  "HP lockout temperature"
+   ; remove the HP lockout temp input - SAC 09/24/26 (dev #1141)
+	; CTRL, "HPLockoutTemp",    30243, TDCT_Edit,   195, 590,  25,  40, 11, FNT_STD, "",                                      TA_LEFT,    -1, 4,     1, TA_LEFT, 4, 4,  None,       IsAvailable > 0 And AllowDualFuel > 0 And IsDualFuel > 0 And HasHPLockout > 0,  0, 30,  "HP lockout temperature"
 
 
     CTRL, "IncludesCooling",  30415, TDCT_Check,  350, 267,  22, 180,  0, FNT_STD, "System Includes Cooling",               TA_LEFT,     0, 4,     0, TA_LEFT, 0, 0,  None,       Type = 35,         0,  0,  "whether the DHW-combo system includes a supplemental cooling device"    ; SAC 04/05/23 (tic #1349) - SAC 09/96/24 (tic #3629)
