@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF88 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1665096111
-   ModDate = 1774419190
-   RunDate = 1774419191
+   ModDate = 1790636782
+   RunDate = 1774420514
    RunDateFmt = "18:13, Wed, Mar 23, 2022"
    RunDateISO = "2022-03-23T18:13:41Z"
    GasType = "NaturalGas"
@@ -21,9 +21,9 @@ Proj   "MF88 Restructure Prototype"
    SimVarsHVACSecTempFlow = 0
    RunTitle = "MF88 Restructure Prototype"
    AnalysisType = "Title24Compliance"
+   FacilityType = "Includes Residential Dwellings &/or Common Areas"
    CompOptDHW = 1
-   ResDwellUnits = 1
-   SoftwareVersion = "CBECC-CLI 2025.2.1 (1408)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ProjFileName = "MF88Unit_5Story_ELEC-CZ12.cibd22"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
@@ -60,8 +60,6 @@ ResProj   "2022 Prototype 113100ft2 Prop Elec"
    AllOrientations = 0
    HasGarage = 0
    TakeCntrlElecDHWSlrPVCred = 0
-   IAQSupInletsAccessible = 1
-   IAQHasFID = 1
    UnitClVentOption = "- none -"
    ApplRefrigZone[1] = "F2 Res Zn E Court"
    ApplWasherZone[1] = "F2 Res Zn E Court"
@@ -16293,6 +16291,7 @@ ResDHWSys   "DHW Heat Pump"
    HeaterMult[1] = 1
    LoopPipeInsulThk[1] = 1.5
    RecircPipeLoc[1] = "Conditioned"
+   MasterMixingValve = "Mechanical"
    LoopHeater = "LoopTank2"
    TotShowersServed = 1
    TotBathsServed = 1
@@ -16358,6 +16357,7 @@ ResWtrHtr   "Heat Pump"
    HPWHCategory = "Residential (NEEA rated) Product"
    HPWHBrand = "SANCO2"
    HPWHModel = "GS3-45HPA-US & SAN-83SSAQA  (83 gal)"
+   JA13UICompliance = 1
    HPWHComModel = "n/a"
    TankOutside = 1
    ASHPTSrcOutside = 1

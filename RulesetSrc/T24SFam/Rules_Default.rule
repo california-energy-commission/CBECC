@@ -1501,14 +1501,6 @@ RULELIST "ProposedInput" 0 0 0 0
          else  UNCHANGED
          endif  }
 
-   "blast res HP HPLockoutTemp in 2025 analysis if user-defined (unless in research mode)"   HVACHtPump:Action =      ; SAC 09/24/26 (dev #1141)
-      {  if ( IfValidAnd( Proj:AnalysisVersion >= 250000 ) .AND.
-              IfValidAnd( Proj:DefaultingRounds = 1 ) .AND.
-              IfValidAnd( Proj:EnableResearchMode > 0 )==0 .AND.
-              LocalStatus( HPLockoutTemp ) > 4 )
-         then  EvalRulelist( "ForceReset_HVACHtPump_HPLockoutTemp", 1 )
-         else  UNCHANGED  endif  }
-
    "Temporarily remove SimStandaloneBatt Battery for 2025 research versions"     Proj:Action =     ; SAC 10/10/23
       {  if (EnergyCodeYearNum >= 2025 .AND. IfValidAnd( BattMaxCap > 0 ) .AND.
              LocalStatus( SimStandaloneBatt ) > 4 .AND. IfValidAnd( SimStandaloneBatt > 0 ) .AND.
@@ -2756,14 +2748,6 @@ RULELIST  "Force_DRtgDesignFuel_2022Final"  1 0 0 1
       {  if (IsMultiFamily) then  "Proposed"  else  "Gas"  endif  }
    "Set Proj:DRtgDesignFuel_DHW"    Proj:DRtgDesignFuel_DHW  =
       {  if (IsMultiFamily) then  "Proposed"  else  "Gas"  endif  }
-END
-;*************************************************************************
-
-; blast res HP HPLockoutTemp in 2025 analysis when user-defined (unless in research mode) - SAC 09/24/26 (dev #1141)
-;*************************************************************************
-RULELIST "ForceReset_HVACHtPump_HPLockoutTemp" 1 0 0 0
-   "post warning to log"  HVACHtPump:Action = { PostMessageToLog( "Warning:  removing HVACHtPump '%s' HPLockoutTemp of %g (now prescribed in rules)", Name, HPLockoutTemp )  }
-   "blast HVACHtPump:HPLockoutTemp"   HVACHtPump:HPLockoutTemp  = {  UNDEFINED  }
 END
 ;*************************************************************************
 
