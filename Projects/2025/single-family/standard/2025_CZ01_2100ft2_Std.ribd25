@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1743206297
-   ModDate = 1790642726
+   ModDate = 1790697783
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 (1381)"
    ProjFileName = "2025_CZ01_2100ft2_Std.ribd25"
@@ -1805,7 +1805,6 @@ HVACHtPump   "HeatpumpSystem"
    UseEERinAnalysis = 1
    BackupOption = "Electric Resistance"
    HasHPLockout = 1
-   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
    Cap95 = 33624
    HtgSizingFactor = 1.2

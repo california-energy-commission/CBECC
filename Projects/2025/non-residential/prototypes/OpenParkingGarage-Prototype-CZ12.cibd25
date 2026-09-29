@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "Open Parking Garage Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1665777558
-   ModDate = 1787735632
-   RunDate = 1787735633
+   ModDate = 1790673222
+   RunDate = 1790673223
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -13,7 +13,7 @@ Proj   "Open Parking Garage Prototype"
    CompOptEnve = 0
    CompOptMech = 1
    CompOptDHW = 0
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ..
 
 ProjVar   "Open Parking Garage Prototype - ProjVar"  
@@ -1334,36 +1334,40 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse8[22] = "0.04"
    Enduse8[23] = "0.00"
    Enduse9[1] = "Receptacle"
-   Enduse9[2] = "2.8"
+   Enduse9[2] = "0.1"
    Enduse9[3] = "--"
-   Enduse9[4] = "453.08"
-   Enduse9[5] = "2.8"
+   Enduse9[4] = "17.43"
+   Enduse9[5] = "0.1"
    Enduse9[6] = "--"
-   Enduse9[7] = "453.08"
+   Enduse9[7] = "17.43"
    Enduse9[8] = "--"
-   Enduse9[9] = "0.5"
-   Enduse9[10] = "0.5"
-   Enduse9[11] = "157.49"
-   Enduse9[12] = "157.49"
+   Enduse9[9] = "0.0"
+   Enduse9[10] = "0.0"
+   Enduse9[11] = "4.02"
+   Enduse9[12] = "4.02"
    Enduse9[13] = "--"
-   Enduse9[17] = "0.33"
-   Enduse9[19] = "0.33"
-   Enduse9[20] = "0.33"
-   Enduse9[22] = "0.33"
+   Enduse9[17] = "0.01"
+   Enduse9[19] = "0.01"
+   Enduse9[20] = "0.01"
+   Enduse9[22] = "0.01"
    Enduse9[23] = "0.00"
    Enduse10[1] = "Process"
-   Enduse10[2] = "--"
+   Enduse10[2] = "2.7"
    Enduse10[3] = "--"
-   Enduse10[4] = "--"
-   Enduse10[5] = "--"
+   Enduse10[4] = "435.65"
+   Enduse10[5] = "2.7"
    Enduse10[6] = "--"
-   Enduse10[7] = "--"
+   Enduse10[7] = "435.65"
    Enduse10[8] = "--"
-   Enduse10[9] = "--"
-   Enduse10[10] = "--"
-   Enduse10[11] = "--"
-   Enduse10[12] = "--"
+   Enduse10[9] = "0.5"
+   Enduse10[10] = "0.5"
+   Enduse10[11] = "153.47"
+   Enduse10[12] = "153.47"
    Enduse10[13] = "--"
+   Enduse10[17] = "0.32"
+   Enduse10[19] = "0.32"
+   Enduse10[20] = "0.32"
+   Enduse10[22] = "0.32"
    Enduse10[23] = "0.00"
    Enduse11[1] = "Other Lighting"
    Enduse11[2] = "42.3"
@@ -1479,8 +1483,8 @@ clg: 0  htg: 0  'West Perimeter Zone'
 clg: 0  htg: 0  'Parking Attendant Zone'
 clg: 0  htg: 0  'Daylight Adaption Zone'
 clg: 0  htg: 0  'Roof Exterior Lights - Process Loads Zone'" )
-   SimSummary[1] = "E+ Successful (11 severe errors, 147 warnings)"
-   SimSummary[3] = "E+ Successful (11 severe errors, 146 warnings)"
+   SimSummary[1] = "E+ Successful (11 severe errors, 146 warnings)"
+   SimSummary[3] = "E+ Successful (11 severe errors, 145 warnings)"
    PassFail = "PASS"
    MetricPassFail[1] = "Pass"
    MetricPassFail[2] = "Pass"

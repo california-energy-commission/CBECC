@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF8 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1603224267
-   ModDate = 1788860317
-   RunDate = 1788860318
+   ModDate = 1790668158
+   RunDate = 1790668159
    GasType = "None"
    NatGasAvail = 0
    CliZn = "ClimateZone12"
@@ -21,7 +21,7 @@ Proj   "MF8 Restructure Prototype"
    AnalysisType = "Title24Compliance"
    FacilityType = "Includes Residential Dwellings &/or Common Areas"
    CompOptDHW = 1
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
    ..
@@ -1058,7 +1058,7 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    MetricPassFail[3] = "Pass"
    ComplyMessage = "COMPLIES"
    StdPVBatteryMsg = "Standard Design PV Capacity: 15.7 kWdc  /  (no battery)"
-   AnalysisValid = 1
+   AnalysisValid = 0
    HideCompSmrySrc = 0
    HideCompSmryTot = 0
    PctSavingsSLCC = 5.22635

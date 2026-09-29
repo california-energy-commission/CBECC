@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF8 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1788376870
-   ModDate = 1788376952
-   RunDate = 1788376953
+   ModDate = 1790707997
+   RunDate = 1790707998
    GasType = "NaturalGas"
    CliZn = "ClimateZone12"
    ZipCode = 95814
@@ -20,7 +20,7 @@ Proj   "MF8 Restructure Prototype"
    AnalysisType = "Title24Compliance"
    FacilityType = "Includes Residential Dwellings &/or Common Areas"
    CompOptDHW = 1
-   SoftwareVersion = "CBECC 2025.3.0 RC (1416)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    CompReportPDF = 1
    CompReportXML = 1
    ResultsCurrentMessage = "(not current)"
@@ -1065,7 +1065,7 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    MetricPassFail[3] = "Pass"
    ComplyMessage = "COMPLIES"
    StdPVBatteryMsg = "Standard Design PV Capacity: 15.7 kWdc  /  (no battery)"
-   AnalysisValid = 0
+   AnalysisValid = 1
    HideCompSmrySrc = 0
    HideCompSmryTot = 0
    PctSavingsSLCC = 7.20029
@@ -1094,8 +1094,8 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    StdPV_PctExport = 50.7559
    StdBatt_Size = 0
    StdBatt_Pwr = 0
-   NRCCPRFPayldTransID = "a656d6d6-7698-468d-be1a-1e9ed5e9e8cf"
-   NRCCPRFPayldProcDate = "2026-09-02T12:22:53"
+   NRCCPRFPayldTransID = "44bed0b2-57fd-4785-a490-7fd6e278c86f"
+   NRCCPRFPayldProcDate = "2026-09-29T11:53:29"
    NumUIDialogTabs = 5
    ..
 

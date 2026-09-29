@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF36 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1647925402
-   ModDate = 1788858040
-   RunDate = 1788858041
+   ModDate = 1790667326
+   RunDate = 1790667327
    RunDateFmt = "18:39, Thu, Mar 17, 2022"
    RunDateISO = "2022-03-17T18:39:29-06:00"
    GasType = "NaturalGas"
@@ -22,7 +22,7 @@ Proj   "MF36 Restructure Prototype"
    AnalysisType = "Title24Compliance"
    FacilityType = "Includes Residential Dwellings &/or Common Areas"
    CompOptDHW = 1
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ProjFileName = "MF36_Prop_NGAS-CZ12_Restructure - Zoned - Latest.cibd22"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
@@ -5100,7 +5100,7 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    MetricPassFail[3] = "Pass"
    ComplyMessage = "COMPLIES"
    StdPVBatteryMsg = "Standard Design PV Capacity: 79.4 kWdc  /  (no battery)"
-   AnalysisValid = 1
+   AnalysisValid = 0
    HideCompSmrySrc = 0
    HideCompSmryTot = 0
    PctSavingsSLCC = 1.27748

@@ -3,14 +3,14 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-PSZ-Evap"  
    BldgEngyModelVersion = 17
    CreateDate = 1448130563
-   ModDate = 1787732956
-   RunDate = 1787732957
+   ModDate = 1790671704
+   RunDate = 1790671705
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ..
 
 ProjVar   "OffSml-PSZ-Evap - ProjVar"  
