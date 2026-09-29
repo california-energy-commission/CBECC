@@ -3,9 +3,10 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750727471
-   ModDate = 1787719683
-   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
-   SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
+   ModDate = 1790692927
+   SoftwareVersion = "CBECC 2025.3.0"
+   SoftwareVersionDetail = "CBECC 2025.3.0 (1418)"
+   ProjFileName = "2025_CZ02_2700ft2_Std.ribd25"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
    AnalysisReport = "Building Summary (csv)"
@@ -858,13 +859,13 @@ EUseSummary   "EUSummary"
    Enduse9[33] = "0.00"
    Enduse9[34] = "0.12"
    Enduse10[1] = "TOTAL"
-   Enduse10[2] = "3,995"
+   Enduse10[2] = "3,994"
    Enduse10[3] = "47.3"
-   Enduse10[4] = "20.13"
+   Enduse10[4] = "20.12"
    Enduse10[5] = "3,994"
    Enduse10[6] = "47.3"
    Enduse10[7] = "20.13"
-   Enduse10[8] = "0.00"
+   Enduse10[8] = "0.01"
    Enduse10[10] = "1.32"
    Enduse10[11] = "1.32"
    Enduse10[23] = "850"
@@ -897,10 +898,10 @@ EUseSummary   "EUSummary"
    Enduse11[34] = "3.90"
    Enduse13[1] = "Photovoltaics"
    Enduse13[2] = "-4,392"
-   Enduse13[4] = "-4.48"
+   Enduse13[4] = "-4.49"
    Enduse13[5] = "-4,392"
    Enduse13[7] = "-4.48"
-   Enduse13[8] = "0.00"
+   Enduse13[8] = "0.01"
    Enduse13[10] = "-0.01"
    Enduse13[23] = "-106"
    Enduse13[25] = "-106"
@@ -941,10 +942,10 @@ EUseSummary   "EUSummary"
    Enduse99[33] = "0.00"
    EndusePVB[1] = "PV & Battery"
    EndusePVB[2] = "-4,392"
-   EndusePVB[4] = "-4.48"
+   EndusePVB[4] = "-4.49"
    EndusePVB[5] = "-4,392"
    EndusePVB[7] = "-4.48"
-   EndusePVB[8] = "0.00"
+   EndusePVB[8] = "0.01"
    EndusePVB[10] = "-0.01"
    EndusePVB[11] = "0.00"
    EndusePVB[23] = "-106"
@@ -977,7 +978,7 @@ EUseSummary   "EUSummary"
    SummaryColFinDR[2] = "Total²"
    SummaryColFinDR[3] = "(EDR)"
    MarginkW[1] = 0
-   MarginkWh = -0.6
+   MarginkWh = 0
    MarginTherms = 0
    PctSavingskW = 0
    PctSavingskWh = 0
@@ -991,10 +992,10 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "-"
    PctSavCmpTDVLbl = "-"
    PctSavSrcLbl = "31.9"
-   PropElecDemand[1] = 1.32428
+   PropElecDemand[1] = 1.3239
    StdElecDemand = 1.3239
    IncludePeakCooling = 1
-   PropPeakCoolElec = 5.33224
+   PropPeakCoolElec = 5.32114
    StdPeakCoolElec = 5.32114
    StdPeakCoolElecLimit = 5.32114
    PeakCoolElecMargin = 0
@@ -1007,14 +1008,14 @@ EUseSummary   "EUSummary"
    PropDesignPVSize[1] = 2.8967
    PropDesignPVTot = 2.8967
    StdDesignPVSize = 2.8967
-   PrelimPropkWh = 8389.15
-   PrelimPropCompTDV = 11.8288
+   PrelimPropkWh = 8388.51
+   PrelimPropCompTDV = 11.8266
    PrelimPropPV = -3412.35
    PrelimPropPVTDV = -6.49
-   UnscaledPropPVRatio = 0.523669
+   UnscaledPropPVRatio = 0.523709
    PropPV_Total = 4393.14
-   PropPV_Export = 2204.26
-   PropPV_PctExport = 50.1752
+   PropPV_Export = 2204.22
+   PropPV_PctExport = 50.1741
    StdPV_Total = 4393.14
    StdPV_Export = 2204.22
    StdPV_PctExport = 50.1741
@@ -1034,7 +1035,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.850591
+   PropElecCarbon[1] = 0.850446
    PropFuelCarbon[1] = 0.276306
    PropFinalCarbon[1] = 1.13
    PropExclExpCarbon[1] = 1.16
@@ -1808,8 +1809,8 @@ HVACHtPump   "HeatpumpSystem"
    Speeds = "Single"
    HSPF = 8.8
    HSPF2 = 7.5
-   Cap47 = 39475
-   Cap17 = 24711
+   Cap47 = 40054
+   Cap17 = 25074
    IncludesCooling = 1
    SEER = 14
    SEER2 = 14.3
@@ -1825,7 +1826,7 @@ HVACHtPump   "HeatpumpSystem"
    HasHPLockout = 1
    HPLockoutTemp = 0
    VCHPDucts = "Unducted"
-   Cap95 = 40097
+   Cap95 = 40687
    HtgSizingFactor = 1.2
    ..
 

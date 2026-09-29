@@ -3,8 +3,8 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750728262
-   ModDate = 1787720332
-   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
+   ModDate = 1790643887
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC-Res 2025.0.1 RV (1280)"
    AnalysisType = "Proposed and Standard"
    StandardsVersion = "Compliance 2026"
@@ -956,7 +956,7 @@ EUseSummary   "EUSummary"
    SummaryColFinDR[2] = "Total²"
    SummaryColFinDR[3] = "(EDR)"
    MarginkW[1] = 0
-   MarginkWh = 0.2
+   MarginkWh = 0
    MarginTherms = 0
    PctSavingskW = 0
    PctSavingskWh = 0
@@ -970,10 +970,10 @@ EUseSummary   "EUSummary"
    PctSavTDVLbl = "-"
    PctSavCmpTDVLbl = "-"
    PctSavSrcLbl = "39.8"
-   PropElecDemand[1] = 0.664118
+   PropElecDemand[1] = 0.664152
    StdElecDemand = 0.664152
    IncludePeakCooling = 1
-   PropPeakCoolElec = 174.837
+   PropPeakCoolElec = 174.893
    StdPeakCoolElec = 174.893
    StdPeakCoolElecLimit = 227.361
    PeakCoolElecMargin = 52
@@ -984,14 +984,14 @@ EUseSummary   "EUSummary"
    PropDesignPVSize[1] = 2.6006
    PropDesignPVTot = 2.6006
    StdDesignPVSize = 2.6006
-   PrelimPropkWh = 5605.96
-   PrelimPropCompTDV = 6.59888
+   PrelimPropkWh = 5606.14
+   PrelimPropCompTDV = 6.59952
    PrelimPropPV = -3810.9
    PrelimPropPVTDV = -9.68
-   UnscaledPropPVRatio = 0.752286
+   UnscaledPropPVRatio = 0.752262
    PropPV_Total = 4217.29
-   PropPV_Export = 2214.48
-   PropPV_PctExport = 52.5095
+   PropPV_Export = 2214.46
+   PropPV_PctExport = 52.5091
    StdPV_Total = 4217.29
    StdPV_Export = 2214.46
    StdPV_PctExport = 52.5091
@@ -1011,7 +1011,7 @@ EUseSummary   "EUSummary"
    GHCEnergyEffCO2 = 0
    MeetsTier1 = 0
    MeetsTier2 = 0
-   PropElecCarbon[1] = 0.428907
+   PropElecCarbon[1] = 0.42893
    PropFuelCarbon[1] = 0.252315
    PropFinalCarbon[1] = 0.68
    PropExclExpCarbon[1] = 0.73
@@ -1800,8 +1800,8 @@ HVACHtPump   "HeatpumpSystem"
    Speeds = "Single"
    HSPF = 8.8
    HSPF2 = 7.5
-   Cap47 = 24353
-   Cap17 = 15245
+   Cap47 = 24241
+   Cap17 = 15175
    IncludesCooling = 1
    SEER = 14
    SEER2 = 14.3
@@ -1817,7 +1817,7 @@ HVACHtPump   "HeatpumpSystem"
    HasHPLockout = 1
    HPLockoutTemp = 0
    VCHPDucts = "Unducted"
-   Cap95 = 24666
+   Cap95 = 24552
    HtgSizingFactor = 1.2
    ..
 
