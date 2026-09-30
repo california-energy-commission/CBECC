@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "050012-RetlMed-CECStd22"  
    BldgEngyModelVersion = 17
    CreateDate = 1414952024
-   ModDate = 1787793028
-   RunDate = 1787793029
+   ModDate = 1790668294
+   RunDate = 1790668295
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -12,7 +12,7 @@ Proj   "050012-RetlMed-CECStd22"
    CompOptExist = 1
    CompOptAlt = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    CompReportPDF = 1
    ResultsCurrentMessage = "(not current)"
    ..
@@ -2420,8 +2420,8 @@ clg: 0  htg: 0  'Point_Of_Sale Thermal Zone'" )
    StdPV_PctExport = 0
    StdBatt_Size = 0
    StdBatt_Pwr = 0
-   NRCCPRFPayldTransID = "3e9388d8-c377-4aa8-8538-88a2eb79c731"
-   NRCCPRFPayldProcDate = "2026-08-26T18:10:20"
+   NRCCPRFPayldTransID = "e14225e7-54b9-4ca4-8a5e-27bdd40746b4"
+   NRCCPRFPayldProcDate = "2026-09-29T00:51:26"
    NumUIDialogTabs = 5
    ..
 

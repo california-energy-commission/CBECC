@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-EvapClg"  
    BldgEngyModelVersion = 17
    CreateDate = 1753484213
-   ModDate = 1787732574
-   RunDate = 1787732575
+   ModDate = 1790671489
+   RunDate = 1790671490
    ZipCode = 95814
    DDWeatherFile = "D:/AEC Ruleset/branches/CBECC-Com13-BZ/Data/EPW/SACRAMENTO-EXECUTIVE_724830_CZ2010.ddy"
    AnnualWeatherFile = "D:/AEC Ruleset/branches/CBECC-Com13-BZ/Data/EPW/SACRAMENTO-EXECUTIVE_724830_CZ2010.epw"
@@ -17,7 +17,7 @@ Proj   "OffSml-EvapClg"
    SimVarsHVACPri = 1
    SimVarsHVACZn = 1
    CompOptLtg = 1
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    CompReportPDF = 0
    CompReportXML = 0
    ResultsCurrentMessage = "(not current)"

@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "080012-Whse-CECStd25"  
    BldgEngyModelVersion = 17
    CreateDate = 1415238845
-   ModDate = 1787737644
-   RunDate = 1787737645
+   ModDate = 1790674327
+   RunDate = 1790674328
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    CompType = "NewComplete"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ..
 
 ProjVar   "080012-Whse-CECStd25 - ProjVar"  

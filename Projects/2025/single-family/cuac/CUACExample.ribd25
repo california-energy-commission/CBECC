@@ -3,10 +3,10 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "CUAC Example Model"  
    BEMVersion = 12
    CreateDate = 1748562935
-   ModDate = 1787714826
+   ModDate = 1790705698
    RunDate = 1472838107
-   SoftwareVersion = "CBECC 2025.3.0 RV (1415)"
-   SoftwareVersionDetail = "CBECC 2025.2.1.1 (1409)"
+   SoftwareVersion = "CBECC 2025.3.0"
+   SoftwareVersionDetail = "CBECC 2025.3.0 (1418)"
    ProjFileName = "CUACExample.ribd25"
    RunTitle = "CUAC Example"
    AnalysisType = "Proposed and Standard"

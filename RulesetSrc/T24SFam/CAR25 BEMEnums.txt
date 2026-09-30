@@ -935,13 +935,14 @@
 2,           2201,    "(1) Effective solar access < 80 ft2"
 2,           2203,    "(8) Excessive snow load"
 2,           2204,    "(5) 80-200 ft2 solar ready zone approved before 1/1/20"
+2,           2206,    "(5) PV size limited by Solar Access Roof Area (SARA)"   ; removed leading '(5)' and moved to top of list - SAC 09/24/26 (dev #1144)
 1,    Proj:ClimateZone,  -999,  0   ; list for remaining CZs
 2,              0,    "- select applicable required PV exception -"
+2,           2206,    "PV size limited by Solar Access Roof Area (SARA)"
 2,           2201,    "(1) Solar Access Roof Area (SARA) < 80 ft2"
 2,           2202,    "(2) No PV Req'd when less than 1.8 kWdc"
 2,           2203,    "(3) Excessive snow load"
 2,           2204,    "(4) Bldgs approved by local planning dept prior to 1/1/20"
-2,           2206,    "(5) PV size limited by Solar Access Roof Area (SARA)"
 
 ; SAC 08/05/26 (dev #989)
 0, Proj:BattCreditOption,  1

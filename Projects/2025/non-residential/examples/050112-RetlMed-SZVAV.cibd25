@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "050112-RetlMed-SZVAV"  
    BldgEngyModelVersion = 17
    CreateDate = 1448129223
-   ModDate = 1787726201
-   RunDate = 1787726202
+   ModDate = 1790669143
+   RunDate = 1790669144
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -13,7 +13,7 @@ Proj   "050112-RetlMed-SZVAV"
    DefaultDayltgCtrls = 1
    AnalysisType = "Title24Compliance"
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ..
 
 ProjVar   "050112-RetlMed-SZVAV - ProjVar"  
@@ -2968,7 +2968,7 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Title3[23] = "(tonnes of CO2)"
    Enduse1[1] = "Space Heating"
    Enduse1[2] = "0.0"
-   Enduse1[3] = "193.0"
+   Enduse1[3] = "193.1"
    Enduse1[4] = "4.74"
    Enduse1[5] = "21.0"
    Enduse1[6] = "--"
@@ -2986,7 +2986,7 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse1[22] = "3.07"
    Enduse1[23] = "-7.48"
    Enduse2[1] = "Space Cooling"
-   Enduse2[2] = "42.9"
+   Enduse2[2] = "43.0"
    Enduse2[3] = "--"
    Enduse2[4] = "8.09"
    Enduse2[5] = "34.7"
@@ -3004,13 +3004,13 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse2[22] = "1.03"
    Enduse2[23] = "-0.48"
    Enduse3[1] = "Indoor Fans"
-   Enduse3[2] = "28.2"
+   Enduse3[2] = "28.1"
    Enduse3[3] = "--"
-   Enduse3[4] = "5.76"
+   Enduse3[4] = "5.75"
    Enduse3[5] = "17.4"
    Enduse3[6] = "--"
    Enduse3[7] = "3.54"
-   Enduse3[8] = "-2.22"
+   Enduse3[8] = "-2.21"
    Enduse3[9] = "0.6"
    Enduse3[10] = "0.4"
    Enduse3[11] = "1.28"
@@ -3089,12 +3089,12 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse7[23] = "0.10"
    Enduse8[1] = "Total Compliance"
    Enduse8[2] = "119.0"
-   Enduse8[3] = "326.7"
-   Enduse8[4] = "31.66"
+   Enduse8[3] = "326.8"
+   Enduse8[4] = "31.65"
    Enduse8[5] = "31.8"
    Enduse8[6] = "0.0"
    Enduse8[7] = "12.95"
-   Enduse8[8] = "-18.71"
+   Enduse8[8] = "-18.70"
    Enduse8[9] = "2.7"
    Enduse8[10] = "6.3"
    Enduse8[11] = "17.31"
@@ -3204,12 +3204,12 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse14[23] = "-0.39"
    Enduse15[1] = "Project Total"
    Enduse15[2] = "196.8"
-   Enduse15[3] = "326.7"
-   Enduse15[4] = "46.84"
+   Enduse15[3] = "326.8"
+   Enduse15[4] = "46.83"
    Enduse15[5] = "109.6"
    Enduse15[6] = "0.0"
    Enduse15[7] = "28.13"
-   Enduse15[8] = "-18.71"
+   Enduse15[8] = "-18.70"
    Enduse15[9] = "4.3"
    Enduse15[10] = "7.8"
    Enduse15[11] = "20.81"
@@ -3223,12 +3223,12 @@ EUseSummary   "Metrics 2025 (Oct 2022)"
    Enduse15[23] = "-17.10"
    Enduse16[1] = "Efficiency Compliance"
    Enduse16[2] = "119.0"
-   Enduse16[3] = "326.7"
-   Enduse16[4] = "31.66"
+   Enduse16[3] = "326.8"
+   Enduse16[4] = "31.65"
    Enduse16[5] = "151.2"
    Enduse16[6] = "0.0"
    Enduse16[7] = "31.67"
-   Enduse16[8] = "0.01"
+   Enduse16[8] = "0.02"
    Enduse16[9] = "2.7"
    Enduse16[10] = "6.6"
    Enduse16[11] = "17.31"
@@ -3263,12 +3263,12 @@ clg: 0  htg: 0  'Point_Of_Sale Thermal Zone'" )
    AnalysisValid = 0
    HideCompSmrySrc = 0
    HideCompSmryTot = 0
-   PctSavingsSLCC = -66.5126
-   PctSavingsEffSLCC = 0.0315756
-   PctSavingsCmpSLCC = -144.479
+   PctSavingsSLCC = -66.4771
+   PctSavingsEffSLCC = 0.0631512
+   PctSavingsCmpSLCC = -144.402
    PctSavSLCCLbl = "-66.5"
-   PctSavEffSLCCLbl = "0.0"
-   PctSavCmpSLCCLbl = "-144.5"
+   PctSavEffSLCCLbl = "0.1"
+   PctSavCmpSLCCLbl = "-144.4"
    PctSavingsSrc = -122.567
    PctSavingsEffSrc = -109.818
    PctSavingsCmpSrc = -195.897

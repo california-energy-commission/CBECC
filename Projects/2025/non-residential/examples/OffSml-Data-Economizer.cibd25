@@ -3,15 +3,15 @@ RulesetFilename   "T24_2025.bin"
 Proj   "020012-OffSml-CECStd22"  
    BldgEngyModelVersion = 17
    CreateDate = 1732907423
-   ModDate = 1787732201
-   RunDate = 1787732202
+   ModDate = 1790671268
+   RunDate = 1790671269
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
    DefaultDayltgCtrls = 1
    CompOptPartMech = 1
    AirBarrier = "Air barrier - not verified"
-   SoftwareVersion = "CBECC 2025.3.0 RC (1415)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    CompReportPDF = 1
    ResultsCurrentMessage = "(not current)"
    ..
@@ -2048,8 +2048,8 @@ All thermal zones exceeding unmet load hour limits will be reported on PRF-1, wh
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
-   NRCCPRFPayldTransID = "2e9f7321-d527-4d96-a42e-dfb264b4d69b"
-   NRCCPRFPayldProcDate = "2026-08-26T01:16:28"
+   NRCCPRFPayldTransID = "c57ad403-7fa6-4728-9d64-23d9aad9305a"
+   NRCCPRFPayldProcDate = "2026-09-29T01:40:57"
    NumUIDialogTabs = 5
    ..
 

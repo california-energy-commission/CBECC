@@ -3,7 +3,7 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF36 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1733796461
-   ModDate = 1774301931
+   ModDate = 1790627613
    RunDate = 1774300010
    RunDateFmt = "18:39, Thu, Mar 17, 2022"
    RunDateISO = "2022-03-17T18:39:29-06:00"
@@ -25,9 +25,9 @@ Proj   "MF36 Restructure Prototype"
    SimVarsHVACSecTempFlow = 0
    RunTitle = "MF36 Restructure Prototype"
    AnalysisType = "Title24Compliance"
+   FacilityType = "Includes Residential Dwellings &/or Common Areas"
    CompOptDHW = 1
-   ResDwellUnits = 1
-   SoftwareVersion = "CBECC 2025.2.1 (1407)"
+   SoftwareVersion = "CBECC 2025.3.0 (1418)"
    ProjFileName = "MF36_Prop_NGAS-CZ12_Restructure - Zoned - Latest.cibd22"
    ResultsCurrentMessage = "(not current)"
    DebugScreen = 1
@@ -63,8 +63,6 @@ ResProj   "2019 Prototype 39372ft2 Prop Mixed"
    InsulConsQuality = "Yes"
    AllOrientations = 0
    HasGarage = 0
-   IAQSupInletsAccessible = 1
-   IAQHasFID = 1
    UnitClVentOption = "- none -"
    ApplRefrigZone[1] = "- none -"
    ApplWasherZone[1] = "- none -"
@@ -6063,6 +6061,7 @@ ResDHWSys   "DHW Heat Pump"
    HeaterMult[1] = 1
    LoopPipeInsulThk[1] = 1.5
    RecircPipeLoc[1] = "Conditioned"
+   MasterMixingValve = "Mechanical"
    LoopHeater = "LoopTank2"
    TotShowersServed = 1
    TotBathsServed = 1
@@ -6176,9 +6175,11 @@ ResWtrHtr   "Electric"
 ResWtrHtr   "Heat Pump"  
    HeaterElementType = "Heat Pump"
    HPWHBrand = "(generic)"
-   HPWHModel = "Standard Design 50 gal HPWH"
+   HPWHModel = "tier 3  (50+ gal)"
+   JA13UICompliance = 1
    HPWHComModel = "n/a"
-   TankOutside = 1
+   TankOutside = 0
+   TankZone = "F1 Mech Rm"
    AmbientCond = "Unconditioned"
    HasElecMiniTank = 0
    ElecMiniTankPower = 0
