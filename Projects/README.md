@@ -27,7 +27,7 @@ Not mirrored to public repo. This directory is used to store models used for mem
 - `TDS`
 
 ### `~not-for-release` Directories
-This sub-directory should exist in directories that are typically packaged within a release. Please reference the `Projects/release-package.json` for detail. **TODO:** Create and note the workflow noted in #772
+This sub-directory should exist in directories that are typically packaged within a release. Those directories are listed in `Projects/release-package.json`. Moving a model here keeps it in git and omits it from the Shared Example Files catalog. Workflow: [Excluding models from a release](https://github.com/NOR-Codes-Stds/CBECC-Dev/wiki/Not-For-Release-Models).
 
 **NOTE:** the `.gitkeep` files in these directories are used to ensure the directories are tracked by Git even if they are empty. Do not remove these `.gitkeep` files.
 
@@ -55,7 +55,7 @@ Add README files as needed to any directory if there is specific information to 
 
 # Other Key Files for Automated Workflows
 ## `release-package.json`
-This file is used to track the files that are typically packaged within a release. Please reference the `Projects/release-package.json` for detail. **TODO:** Create and note the workflow noted in #772
+This file lists the `Projects/<year>/` folders scanned for the Shared Example Files catalog. When that set of folders changes, edit this file and regenerate the catalog and PDF. Tool steps: `scripts/release/example-files/README.md`. Release timing: [Example Files](https://github.com/NOR-Codes-Stds/CBECC-Dev/wiki/Example-Files).
 
 ## `pr-checks.json`
 This file defines the sample models exercised by the **Test Small Sample Models** PR check (`.github/workflows/test_select_models.yml`).
