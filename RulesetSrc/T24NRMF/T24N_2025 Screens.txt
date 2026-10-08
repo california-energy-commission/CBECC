@@ -7288,7 +7288,7 @@ TAB, "ThrmlZn",  1804,      15,    "  Daylighting  "
    CTRL, "NRCAMch13A",           3323, TDCT_Check,  420, 220,  22, 380,  0, FNT_STD, "NRCA-MCH-13-A Auto. FDD for AHUs and Zone Terminal Units", TA_LEFT, 0, 4, 0, TA_LEFT, 0, 0, None, None,      0,  0,  ""
    CTRL, "NRCAMch14A",           3324, TDCT_Check,  420, 240,  22, 380,  0, FNT_STD, "NRCA-MCH-14-A Dist. Energy Storage DX AC Systems", TA_LEFT, 0, 4, 0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch16A",           3326, TDCT_Check,  420, 260,  22, 380,  0, FNT_STD, "NRCA-MCH-16-A Supply Air Temp. Reset Controls", TA_LEFT, 0, 4,    0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
-   CTRL, "NRCAMch18A",           3328, TDCT_Check,  420, 280,  22, 380,  0, FNT_STD, "NRCA-MCH-18-A ECMS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "NRCAMch18A",           3328, TDCT_Check,  420, 280,  22, 380,  0, FNT_STD, "NRCA-MCH-18-A EMCS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch19A",           3329, TDCT_Check,  420, 300,  22, 380,  0, FNT_STD, "NRCA-MCH-19-A - Occupancy Sensor Controls", TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""   
 
 ;----------------------------------------------------------------
@@ -7670,7 +7670,7 @@ TAB, "ThrmlZn",  1804,      15,    "  Daylighting  "
    CTRL, "NRCAMch13A",           3323, TDCT_Check,  420, 200,  22, 350,  0, FNT_STD, "NRCA-MCH-13-A Auto. FDD for Air & Zone",    TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch14A",           3324, TDCT_Check,  420, 220,  22, 350,  0, FNT_STD, "NRCA-MCH-14-A Dist. Energy Storage DX AC",  TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch16A",           3326, TDCT_Check,  420, 240,  22, 350,  0, FNT_STD, "NRCA-MCH-16-A Supply Air Temp. Reset",      TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
-   CTRL, "NRCAMch18A",           3328, TDCT_Check,  420, 260,  22, 350,  0, FNT_STD, "NRCA-MCH-18-A ECMS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "NRCAMch18A",           3328, TDCT_Check,  420, 260,  22, 350,  0, FNT_STD, "NRCA-MCH-18-A EMCS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch19A",           3329, TDCT_Check,  420, 280,  22, 350,  0, FNT_STD, "NRCA-MCH-19-A - Occupancy Sensor Controls", TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""   
 
    ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -7908,7 +7908,7 @@ TAB, "ThrmlZn",  1804,      15,    "  Daylighting  "
    CTRL, "NRCAMch13A",           3323, TDCT_Check,  420, 220,  22, 380,  0, FNT_STD, "NRCA-MCH-13-A Auto. FDD for AHUs and Zone Terminal Units", TA_LEFT, 0, 4, 0, TA_LEFT, 0, 0, None, None,      0,  0,  ""
    CTRL, "NRCAMch14A",           3324, TDCT_Check,  420, 240,  22, 380,  0, FNT_STD, "NRCA-MCH-14-A Dist. Energy Storage DX AC Systems", TA_LEFT, 0, 4, 0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch16A",           3326, TDCT_Check,  420, 260,  22, 380,  0, FNT_STD, "NRCA-MCH-16-A Supply Air Temp. Reset Controls", TA_LEFT, 0, 4,    0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
-   CTRL, "NRCAMch18A",           3328, TDCT_Check,  420, 280,  22, 380,  0, FNT_STD, "NRCA-MCH-18-A ECMS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "NRCAMch18A",           3328, TDCT_Check,  420, 280,  22, 380,  0, FNT_STD, "NRCA-MCH-18-A EMCS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch19A",           3329, TDCT_Check,  420, 300,  22, 380,  0, FNT_STD, "NRCA-MCH-19-A - Occupancy Sensor Controls", TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""   
 
 
@@ -8951,7 +8951,7 @@ TAB, "FluidSys",  3202,      15,    "  Plant Staging  "
    CTRL, "NRCAMch11A",           3321, TDCT_Check,   20, 240,  22, 350,  0, FNT_STD, "NRCA-MCH-11-A  Auto. Demand Shed Controls",  TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch15A",           3325, TDCT_Check,   20, 260,  22, 350,  0, FNT_STD, "NRCA-MCH-15-A  Thermal Energy Storage",      TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch17A",           3327, TDCT_Check,   20, 280,  22, 350,  0, FNT_STD, "NRCA-MCH-17-A  Condenser Water Reset Ctrl.", TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
-   CTRL, "NRCAMch18A",           3328, TDCT_Check,   20, 300,  22, 350,  0, FNT_STD, "NRCA-MCH-18-A  ECMS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
+   CTRL, "NRCAMch18A",           3328, TDCT_Check,   20, 300,  22, 350,  0, FNT_STD, "NRCA-MCH-18-A  EMCS",                        TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""
    CTRL, "NRCAMch24A",           3329, TDCT_Check,   20, 320,  22, 350,  0, FNT_STD, "NRCA-MCH-24-A - Cooling Tower Conductivity Controls",     TA_LEFT,    0, 4,     0, TA_LEFT, 0, 0,  None,       None,       0,  0,  ""   
 
    ;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
