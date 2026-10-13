@@ -829,6 +829,9 @@
 0, HVACHtPump:IsZonal
 1,    HVACHtPump:CFMperTon
 
+; RJH 10/8/26 - reset HVACHtPump:IsZonal whenever HVACHtPump:Speeds is modified
+0, HVACHtPump:Speeds
+1,    HVACHtPump:IsZonal
 
 ;0, HVACDist:Type
 ;1,    HVACDist:IsZonal

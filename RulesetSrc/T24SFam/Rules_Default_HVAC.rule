@@ -5481,12 +5481,20 @@ RULELIST "Default_HVACHeatPump" 0 0 0 0
                                                                               else if (Type == 34 .OR. (Type != 10 .AND. Type < 20))
                                                                               then  1  else  0  endif endif endif  }
 	"Default HVACHtPump:IsMultiSpeed"		HVACHtPump:IsMultiSpeed			= {	if (UsePMModel .AND. Speeds > 1) then  1  else  0  endif  }    ; revised for VCHP3 - SAC 07/21/24
-
 	"Set HVACHtPump:ShowIsZonal"		HVACHtPump:ShowIsZonal	=        ; revise logic to prevent ShowIsZonal for Single speed PerfMap HPs - SAC 09/23/26 (dev #1140)
       {  if( CountRefs( HVACSys:HtPumpSystem, HVACSys:NumHtPumpSystemTypes ) < 1 ) then  0
          else if( SumRevRef( HVACSys:HtPumpSystem, HVACSys:HtPumpDucted ) < 1 ) then  0
          else if( IfValidAnd( UsePMModel > 0 ) .AND. EnumValue( Speeds ) < 2 ) then  0
          else	1  endif endif endif  }		; SAC 11/19/15 - CoolDucted -> HtPumpDucted
+
+; RJH 10/9/26 CBECC-Dev Issue 1170 - force the reset of HVACHtPump:IsZonal if > 0 and Speeds is a valid (displayed) input and = Single speed
+   "Blast HVACHtPump:IsZonal"	HVACHtPump:Action	= {	if ( IfValidAnd( UsePMModel > 0 ) .AND. 
+    															EnumValue( Speeds ) < 2 .AND. 
+																IfValidAnd( IsZonal > 0 ) .AND. 
+																LocalStatus( IsZonal ) > 3 ) 
+														then  EvalRulelist( "Blast_HVACHtPump_IsZonal", 1 )  
+														else  UNCHANGED  endif  } 
+
 	"Default HVACHtPump:IsZonal"		HVACHtPump:IsZonal		= {	0  }
 ;	"debug HVACHtPump"			HVACHtPump:Action = { if (FloorAreaServed > 0.5) then PostWarning( "Default HVACHtPump  Name:  '%s'  Type: %g  TypeAbbrevStr: '%s'",  Name, Type, TypeAbbrevStr ) else UNCHANGED endif  }
 
@@ -10684,6 +10692,12 @@ RULELIST "ForceDefault_Zone_HVAC" 1 0 0 0
 END
 ;*************************************************************************
 
+
+;*************************************************************************  ; added to ensure *:IsZonal is defaulted for equipment where it is not editable - RJH 10/9/26 CBECC-Dev Issue 1170
+RULELIST "Blast_HVACHtPump_IsZonal" 1 0 0 0
+   "Blast HVACHtPump:IsZonal"  HVACHtPump:IsZonal = {  UNDEFINED  }
+END
+;*************************************************************************
 
 ;*************************************************************************  ; added to ensure *:CFMperTon is defaulted for equipment where it is not editable - SAC 08/20/20 (tic #1003)
 RULELIST "Blast_HVACHtPump_CFMperTon" 1 0 0 0
