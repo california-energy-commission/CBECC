@@ -331,7 +331,8 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
       nrccNRCCPRF:Action    = {  if ( IfValidAnd( Proj:AnalysisVersion > 220000 ) .AND.
                                       IfValidAnd( Proj:LAFirePVBattExcptApplies == 0 ) .AND.  ; RJH 8/2/25 added Proj:LAFirePVBattExcptApplies logic (2022-CBECC-Res-Schema Issue 73) (tic #3695)  ; ported from '22 - SAC 10/20/25 (dev #240)'
                                       ( IfValidAnd( Proj:CommunitySolarProjID > 0 ) .OR.
-                                        IfValidAnd( Proj:DCSizeMultiplier > 0 ) ) ) 
+                                        IfValidAnd( Proj:DCSizeMultiplier > 0 ) ) .OR. 
+                                      IfValidAnd( Proj:IsPVinStd > 1 ) ) ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
                                  then   if (Proj:PVComp = "Performance") then CreateChildren( cf1rSection_PV, 1, "CF1R SecDa" ) else UNCHANGED endif
                                  else  UNCHANGED  endif  }
    "Create cf1rTablePV object"
@@ -340,11 +341,16 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
       {  if (ComponentCount( cf1rSection_PV ) > 0 .AND. IfValidAnd( Proj:CommunitySolarProjID > 0 ))
          then  CreateChildren( cf1rtblRowPV, 1, "NRCC CommSlrPVRow", "CF1RPRF01E_Section_Da_Row1_CommunitySolar" )
          else  UNCHANGED  endif  }
+   "Populate cf1rTablePV NRCC/LMCC PV table row for new condition via rulelist"   cf1rTablePV:Action =     ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171 - condition where no PV is modeled however the Standard Design is still simulated
+      {  if (ComponentCount( cf1rSection_PV ) > 0 .AND. IfValidAnd( Proj:IsPVinStd > 1 ))
+         then  CreateChildren( cf1rtblRowPV, 1, "NRCC IsPVinStdPVRow", "CF1RPRF01E_Section_Da_Row1_IsPVinStd" )
+         else  UNCHANGED  endif  }
    "Populate PVArray NRCC/LMCC PV table row via rulelist"      PVArray:Action =              ; logic to NOT create row if no cf1rSection_PV present - SAC 10/13/22
       {  if (ComponentCount( cf1rSection_PV ) < 1 .OR. 
              IfValidAnd( Proj:CommunitySolarProjID > 0 ) .OR. IfValidAnd( DCSysSize > 0 ) == 0 .OR.
              IfValidAnd( Az >= 0 )==0 .OR. IfValidAnd( Az <= 360 )==0 .OR.
-             IfValidAnd( TiltAngle >= 0 )==0 .OR. IfValidAnd( TiltAngle <= 90 )==0) then  UNDEFINED
+             IfValidAnd( TiltAngle >= 0 )==0 .OR. IfValidAnd( TiltAngle <= 90 )==0 .OR.
+             IfValidAnd( Proj:IsPVinStd > 1 )) then  UNDEFINED                            ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
          else  EvalRulelist( "CF1RPRF01E_Section_Da_PVArray", 1 )  endif  }
 
 
@@ -565,8 +571,24 @@ RULELIST "NRCCPRF_Proposed"  1 0 0 1
    "Create cf1rTableBat object"
       cf1rSection_Bat:Action = {  if (ComponentCount( cf1rSection_Bat ) > 0) then  CreateChildren( cf1rTableBat, 1, "EDR_Bat" )  else  UNCHANGED  endif  }  
    "Populate Batt NRCC/LMCC table row via rulelist"      Batt:Action = 
-      {  if (ComponentCount( cf1rSection_Bat ) < 1) then  UNDEFINED
+      {  if (ComponentCount( cf1rSection_Bat ) < 1 .OR. IfValidAnd( Proj:IsBattinStd > 1 )) then  UNDEFINED
          else  EvalRulelist( "CF1RPRF01E_Section_Db_Batt", 1 )  endif  }
+
+
+
+
+
+
+   "Populate cf1rTableBat NRCC/LMCC Battery table row for new condition via rulelist"   cf1rTableBat:Action =     ; RJH 10/12/26 - 2025-CBECC-Schema Issue 32 - Dev Issue 1171
+      {  if (ComponentCount( cf1rSection_Bat ) > 0 .AND. IfValidAnd( Proj:IsBattinStd > 1 ))
+         then  CreateChildren( cf1rtblRowBat, 1, "NRCC IsBattinStdBatRow", "CF1RPRF01E_Section_Db_Batt_IsBattinStd" )
+         else  UNCHANGED  endif  }
+
+
+
+
+
+
 
 
    "Create nrccSection_BatExcept object"                               nrccNRCCPRF:Action       =
@@ -5326,11 +5348,31 @@ RULELIST "CF1RPRF01E_Section_Da_Row1_CommunitySolar"  1 0 0 1
      "Set cf1rtblRowPV:Pv01_PV_SystemTotalRatedPowerDC"    cf1rtblRowPV:Pv01_PV_SystemTotalRatedPowerDC  = {
             int((ValidOr( Proj:PrscrpPVSize, 0 ) * 100) + 0.5) / 100  }
 
+     "Set cf1rtblRowPV:Pv01b_NotApplicableMessage" cf1rtblRowPV:Pv01b_NotApplicableMessage   = { "n/a"  }      ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
+
      "Set cf1rtblRowPV:Pv02_PhotoVoltaicExceptionRes"    cf1rtblRowPV:Pv02_PhotoVoltaicExceptionRes  = { 
             "CommunitySolar"  }
      "Set cf1rtblRowPV:Pv02_PVExceptionString"    cf1rtblRowPV:Pv02_PVExceptionString  = { 
             EnumString( Proj:CommunitySolarProject )  }
 
+     "Set cf1rtblRowPV:Pv03_NotApplicableMessage" cf1rtblRowPV:Pv03_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv04_NotApplicableMessage" cf1rtblRowPV:Pv04_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv05_NotApplicableMessage" cf1rtblRowPV:Pv05_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv06_NotApplicableMessage" cf1rtblRowPV:Pv06_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv07_NotApplicableMessage" cf1rtblRowPV:Pv07_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv08_NotApplicableMessage" cf1rtblRowPV:Pv08_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv09_NotApplicableMessage" cf1rtblRowPV:Pv09_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv10_NotApplicableMessage" cf1rtblRowPV:Pv10_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv11_NotApplicableMessage" cf1rtblRowPV:Pv11_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv12_NotApplicableMessage" cf1rtblRowPV:Pv12_NotApplicableMessage  = { "n/a"  }
+END
+
+;************************************************************************* RJH 10/12/26 (IsPVinStd) - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
+RULELIST "CF1RPRF01E_Section_Da_Row1_IsPVinStd"  1 0 0 1
+     "Set cf1rtblRowPV:Pv01_NotApplicableMessage"  cf1rtblRowPV:Pv01_NotApplicableMessage    = { "n/a"  }
+     "Set cf1rtblRowPV:Pv01b_NotApplicableMessage" cf1rtblRowPV:Pv01b_NotApplicableMessage   = { "n/a"  }
+     "Set cf1rtblRowPV:Pv02_NotApplicableMessage"  cf1rtblRowPV:Pv02_NotApplicableMessage    = { "n/a"  }
+     "Set cf1rtblRowPV:Pv02_PVNotRequiredMessage"  cf1rtblRowPV:Pv02_PVNotRequiredMessage    = { "PV included in project scope, but is not required (solar readiness may apply, see NRCC-SAB-E)" }
      "Set cf1rtblRowPV:Pv03_NotApplicableMessage" cf1rtblRowPV:Pv03_NotApplicableMessage  = { "n/a"  }
      "Set cf1rtblRowPV:Pv04_NotApplicableMessage" cf1rtblRowPV:Pv04_NotApplicableMessage  = { "n/a"  }
      "Set cf1rtblRowPV:Pv05_NotApplicableMessage" cf1rtblRowPV:Pv05_NotApplicableMessage  = { "n/a"  }
@@ -5369,6 +5411,7 @@ END
 RULELIST "CF1RPRF01E_Section_Da_Row1_0ReqPVException"  1 0 0 1
      "Set cf1rtblRowPV:Pv01_PV_SystemTotalRatedPowerDC"    cf1rtblRowPV:Pv01_PV_SystemTotalRatedPowerDC  = {  0  }
      "Set cf1rtblRowPV:Pv02_PhotoVoltaicExceptionRes"      cf1rtblRowPV:Action = {  EvalRulelist( "CF1RPRF01E_Set_Pv02_PhotoVoltaicExceptionRes", 1 )  }     ; SAC 03/01/21
+     "Set cf1rtblRowPV:Pv02_NotApplicableMessage" cf1rtblRowPV:Pv02_NotApplicableMessage  = { if ( LocalStatus ( Pv02_PhotoVoltaicExceptionRes ) < 1 ) then "n/a" else UNDEFINED endif  }
      "Set cf1rtblRowPV:Pv03_ArrayModuleType"    cf1rtblRowPV:Pv03_ArrayModuleType  = { "Standard" }
      "Set cf1rtblRowPV:Pv04_ArrayType"    cf1rtblRowPV:Pv04_ArrayType  = { "FixedArray" }
      "Set cf1rtblRowPV:Pv05_PowerElectronics"    cf1rtblRowPV:Pv05_PowerElectronics  = { "NoPowerElectronics" }
@@ -5378,6 +5421,7 @@ RULELIST "CF1RPRF01E_Section_Da_Row1_0ReqPVException"  1 0 0 1
      "Set cf1rtblRowPV:Pv09_NotApplicableMessage" cf1rtblRowPV:Pv09_NotApplicableMessage  = { "n/a"  }
      "Set cf1rtblRowPV:Pv10_NotApplicableMessage" cf1rtblRowPV:Pv10_NotApplicableMessage  = { "n/a"  }
      "Set cf1rtblRowPV:Pv11_NotApplicableMessage" cf1rtblRowPV:Pv11_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowPV:Pv12_NotApplicableMessage" cf1rtblRowPV:Pv12_NotApplicableMessage  = { "n/a"  }
 
      "Set cf1rtblRowPV:Parent" cf1rtblRowPV:Parent  = {  cf1rTablePV:Name  }
 END
@@ -5389,8 +5433,11 @@ RULELIST "CF1RPRF01E_Section_Da_PVArray"  1 0 0 1
   ; Rules to populate EDR_PV table row from PVArray
      "Set PVArray:CF1R_PVRow:Pv01_PV_SystemTotalRatedPowerDC"    PVArray:CF1R_PVRow:Pv01_PV_SystemTotalRatedPowerDC  = {
              int((ValidOr( Proj:DCSizeMultiplier, 1 ) * DCSysSize * 100) + 0.5) / 100  }
+     "Set cf1rtblRowPV:Pv01b_NotApplicableMessage" cf1rtblRowPV:Pv01b_NotApplicableMessage   = { "n/a"  }      ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
 ; TO DO - CBECC-22 PV exceptions
 ;     "Set PVArray:CF1R_PVRow:Pv02_PhotoVoltaicExceptionRes"      PVArray:CF1R_PVRow:Action = {  EvalRulelist( "CF1RPRF01E_Set_Pv02_PhotoVoltaicExceptionRes", 1 )  }     ; SAC 03/01/21
+     "Set cf1rtblRowPV:Pv02_NotApplicableMessage" cf1rtblRowPV:Pv02_NotApplicableMessage   = { "n/a"  }      ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
+
      "Set PVArray:CF1R_PVRow:Pv03_ArrayModuleType"    PVArray:CF1R_PVRow:Pv03_ArrayModuleType  = { 
 																									switch( EnumString( ModuleType ) )
 																										case "Standard"  :  "Standard"
@@ -5471,6 +5518,17 @@ END
 ;  END
 ;  ;*************************************************************************
 
+
+;************************************************************************* RJH 10/12/26 (IsPVinStd) - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
+RULELIST "CF1RPRF01E_Section_Db_Batt_IsBattinStd"  1 0 0 1
+     "Set cf1rtblRowBat:Bat01_NotApplicableMessage"   cf1rtblRowBat:Bat01_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowBat:Bat02_NotApplicableMessage"   cf1rtblRowBat:Bat02_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowBat:Bat02_BatNotRequiredMessage"  cf1rtblRowBat:Bat02_BatNotRequiredMessage = { "Battery included in project scope, but is not required." }
+     "Set cf1rtblRowBat:Bat03_NotApplicableMessage"   cf1rtblRowBat:Bat03_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowBat:Bat04_NotApplicableMessage"   cf1rtblRowBat:Bat04_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowBat:Bat05_NotApplicableMessage"   cf1rtblRowBat:Bat05_NotApplicableMessage  = { "n/a"  }
+     "Set cf1rtblRowBat:Bat06_NotApplicableMessage"   cf1rtblRowBat:Bat06_NotApplicableMessage  = { "n/a"  }
+END
 
 
 ;*************************************************************************

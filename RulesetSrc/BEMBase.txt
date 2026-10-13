@@ -9411,9 +9411,13 @@
 ;                                                 VType     NV  WA  SP   US    UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                               -------------------------------------------------------------------------------------------
 1,           "Pv01_PV_SystemTotalRatedPowerDC",  BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""
+1,           "Pv01_NotApplicableMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "N/A",  ""               ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
 1,           "Pv01b_PV_StandardDesignPowerDC",   BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: DecimalNonnegative ->  FractionDigits: 2",  ""    ; SAC 01/19/23
+1,           "Pv01b_NotApplicableMessage",       BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "N/A",  ""               ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
 1,           "Pv02_PhotoVoltaicExceptionRes",    BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: EnumerationConstant ->  BatteryStorage  CZ15ReducedSize  HabitableStories2  HabitableStories3  NoExceptionsNA  LimitedSolarAccess  PlansBefore2020  CommunitySolar",  ""
+1,           "Pv02_NotApplicableMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "N/A",  ""               ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
 1,           "Pv02_PVExceptionString",           BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: string ",  ""     ; SAC 6/12/20 (CommunitySolar)
+1,           "Pv02_PVNotRequiredMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: string ",  ""     ; RJH 10/12/26 - 2025-CBECC-Schema Issue 14 - Dev Issue 1171
 1,           "Pv03_ArrayModuleType",             BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: EnumerationConstant ->  Custom  Premium  Standard  ThinFilm",  ""
 1,           "Pv03_NotApplicableMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "N/A",  ""               ; SAC 6/12/20 (CommunitySolar)
 1,           "Pv04_ArrayType",                   BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: EnumerationConstant ->  FixedArray  Tracking1Axis  Tracking2Axis",  ""
@@ -9495,7 +9499,10 @@
 ;                                                 VType     NV  WA  SP   US    UL                 UT  NO  OC            CV  CP         HI    LName                  
 ;                                               -------------------------------------------------------------------------------------------
 1,           "Bat01_BatteryControl",              BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: EnumerationConstant ->  AdvancedDR  Basic  TOU",  ""
+1,           "Bat01_NotApplicableMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "NotApplicable",  ""   ; RJH 10/12/26 - 2025-CBECC-Schema Issue 32 - Dev Issue 1171
 1,           "Bat02_BatteryCapacity",             BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: Decimal -> FractionDigits: 2",  ""
+1,           "Bat02_NotApplicableMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "NotApplicable",  ""   ; RJH 10/12/26 - 2025-CBECC-Schema Issue 32 - Dev Issue 1171
+1,           "Bat02_BatNotRequiredMessage",       BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: string ",  ""     ; RJH 10/12/26 - 2025-CBECC-Schema Issue 32 - Dev Issue 1171
 1,           "Bat03_ChargingEfficiency",          BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: Decimal -> FractionDigits: 2",  ""
 1,           "Bat03_NotApplicableMessage",        BEMP_Str,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "NotApplicable",  ""
 1,           "Bat04_ChargingRate",                BEMP_Flt,  1,  0,  1,  Pres,  "",                 0,  0,                            555, "Base: Decimal -> FractionDigits: 2",  ""

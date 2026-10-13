@@ -406,12 +406,12 @@ RULE Proj:PVComp
   DEFAULT
    if ( IfValidAnd( CommunitySolarProjID > 0 ) )
    then "Performance"
-//   else if ( DisableAllPVBattRequirements == 0 .AND. IfValidAnd( T24PVSize > 0.1 ) )
-//   then "Performance"
+   else if ( DisableAllPVBattRequirements == 0 .AND. IfValidAnd( T24PVSize > 0.1 ) )
+   then "Performance"
    else if ( IfValidAnd( DCSizeMultiplier > 0 ) .AND. IfValidAnd( PVSizeSum > 0 ) )
    then "Performance"
    else "NA"
-   endif endif // endif
+   endif endif endif
 
 ENDRULE
 
@@ -422,12 +422,60 @@ RULE Proj:BattComp
     T24N_2022 T24N_2025 T24N_2028
   INPUTCLASS
     NotInput
-  DEFAULT
+  DEFAULT : T24N_2022
    if ( IfValidAnd( AnalysisVersion > 220000 ) .AND.
         IfValidAnd( BattCapMult > 0 ) .AND. IfValidAnd( BattSizeSum > 0 ) )
    then  "Performance"
    else  "NA"  endif
+  DEFAULT 
+   if ( DisableAllPVBattRequirements == 0 .AND. IfValidAnd( T24PVSize > 0.1 ) .AND.
+        IfValidAnd( T24BattEngyCap > 0.1 ) )
+   then "Performance"
+   else if ( IfValidAnd( BattCapMult > 0 ) .AND. IfValidAnd( BattSizeSum > 0 ) )
+   then  "Performance"
+   else  "NA"  
+   endif  endif
 ENDRULE
+
+// -----------------------------------------------------------------------------
+
+RULE NEW Proj:IsPVinStd
+  DESCRIPTION
+    "Check to see if PV is triggered in Standard Design"
+  DATATYPE
+    Integer
+  LONGFORM
+    IsPVinStandard
+  INPUTCLASS
+    NotInput
+  DEFAULT
+    if ( IfValidAnd( CommunitySolarProjID > 0 ) .OR. 
+    ( IfValidAnd( DCSizeMultiplier > 0 ) .AND. IfValidAnd( PVSizeSum > 0 ) ) )
+    then 1
+    else if ( DisableAllPVBattRequirements == 0 .AND. IfValidAnd( T24PVSize > 0.1 ) )
+    then 2
+    else 0
+    endif endif
+ENDRULE 
+
+RULE NEW Proj:IsBattinStd
+  DESCRIPTION
+    "Check to see if Batt is triggered in Standard Design"
+  DATATYPE
+    Integer
+  LONGFORM
+    IsBatteyinStandard
+  INPUTCLASS
+    NotInput
+  DEFAULT
+    if ( IfValidAnd( BattCapMult > 0 ) .AND. IfValidAnd( BattSizeSum > 0 )  )
+    then 1
+    else if ( DisableAllPVBattRequirements == 0 .AND. IfValidAnd( T24PVSize > 0.1 ) .AND.
+         IfValidAnd( T24BattEngyCap > 0.1 ) )
+    then 2
+    else 0
+    endif endif
+ENDRULE 
 
 // **************** Form 2 Defaults ***************
 
