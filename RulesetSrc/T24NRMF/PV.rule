@@ -2105,6 +2105,7 @@ RULE Proj:ReducedPVReqExcptDesc
     endswitch
 ENDRULE
 
+; revised logic for new 'PV size limited by Solar Access Roof Area (SARA)' enum wording - SAC 10/06/26 (dev #1165)
 RULE Proj:ReducedPVReqMinVal
   DESCRIPTION
     "Minimum reduced PV requirement capacity (depending on selected exception)"
@@ -2112,7 +2113,8 @@ RULE Proj:ReducedPVReqMinVal
     NotInput
   DEFAULT 
     if (IfValidAnd( ReducedPVReq > 0 )==0) then  0
-    else if (FindInString( ReducedPVReqExcpt, "Limited by SARA" ) >= 0)
+    else if (FindInString( ReducedPVReqExcpt, "Limited by SARA" ) >= 0 .OR.
+             FindInString( ReducedPVReqExcpt, "limited by Solar Access" ) >= 0)
     then  TotSolAccessRfAreaPVPwr
     else  0
     endif endif
@@ -2137,6 +2139,7 @@ RULE Proj:EnforceReducedPVReqMin
     else  0  endif
 ENDRULE
 
+; revised logic for new 'PV size limited by Solar Access Roof Area (SARA)' enum wording - SAC 10/06/26 (dev #1165)
 RULE Proj:ReducedPVReqVal
   DESCRIPTION
     "Reduced PV requirement capacity"
@@ -2149,7 +2152,8 @@ RULE Proj:ReducedPVReqVal
     then if (FindInString( ReducedPVReqExcpt, "No PV" ) > 0 .OR.
              FindInString( ReducedPVReqExcpt, "snow load" ) > 0)
         then  0
-        else if (FindInString( ReducedPVReqExcpt, "Limited by SARA" ) >= 0)
+        else if (FindInString( ReducedPVReqExcpt, "Limited by SARA" ) >= 0 .OR.
+                 FindInString( ReducedPVReqExcpt, "limited by Solar Access" ) >= 0)
         then  TotSolAccessRfAreaPVPwr
         else UNDEFINED
         endif endif
