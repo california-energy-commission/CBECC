@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-DOASCV+RadiantCeiling"  
    BldgEngyModelVersion = 17
    CreateDate = 1612893093
-   ModDate = 1790671328
-   RunDate = 1790671329
+   ModDate = 1792014423
+   RunDate = 1792014424
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

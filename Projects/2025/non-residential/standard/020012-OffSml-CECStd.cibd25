@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "020012-OffSml-CECStd25"  
    BldgEngyModelVersion = 17
    CreateDate = 1414951358
-   ModDate = 1790673736
-   RunDate = 1790673737
+   ModDate = 1792016849
+   RunDate = 1792016850
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -2154,8 +2154,8 @@ clg: 2  htg: 0  'Perimeter_ZN_4 Thermal Zone'" )
    StdBatt_Size = 30.5
    StdBatt_Pwr = 7.615
    StdBatt_Ctrl = "Time of Use"
-   NRCCPRFPayldTransID = "52cd2297-6a0d-47df-8abe-cdc64f1b76fe"
-   NRCCPRFPayldProcDate = "2026-09-29T02:22:03"
+   NRCCPRFPayldTransID = "5a57d92f-a788-46df-8df4-3605aa4388fa"
+   NRCCPRFPayldProcDate = "2026-10-14T15:27:11"
    NumUIDialogTabs = 5
    ..
 

@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffMed-FanPowerAdj"  
    BldgEngyModelVersion = 17
    CreateDate = 1447794955
-   ModDate = 1790671195
-   RunDate = 1790671196
+   ModDate = 1792014283
+   RunDate = 1792014284
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF8 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1603224267
-   ModDate = 1790668173
-   RunDate = 1790668174
+   ModDate = 1792011260
+   RunDate = 1792011261
    GasType = "NaturalGas"
    CliZn = "ClimateZone12"
    ZipCode = 95814

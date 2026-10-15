@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-EvapClg"  
    BldgEngyModelVersion = 17
    CreateDate = 1753484213
-   ModDate = 1790671489
-   RunDate = 1790671490
+   ModDate = 1792014582
+   RunDate = 1792014583
    ZipCode = 95814
    DDWeatherFile = "D:/AEC Ruleset/branches/CBECC-Com13-BZ/Data/EPW/SACRAMENTO-EXECUTIVE_724830_CZ2010.ddy"
    AnnualWeatherFile = "D:/AEC Ruleset/branches/CBECC-Com13-BZ/Data/EPW/SACRAMENTO-EXECUTIVE_724830_CZ2010.epw"

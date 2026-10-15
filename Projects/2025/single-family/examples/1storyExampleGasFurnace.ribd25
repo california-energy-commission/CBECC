@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Example PV+Battery"  
    BEMVersion = 12
    CreateDate = 1555707964
-   ModDate = 1790663011
+   ModDate = 1791996457
    RunDate = 1472838107
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 RC (1379)"
@@ -2610,7 +2610,6 @@ HVACHtPump   "HeatpumpSystem"
    UseEERinAnalysis = 1
    BackupOption = "Electric Resistance"
    HasHPLockout = 1
-   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
    Cap95 = 36551
    HtgSizingFactor = 1.2

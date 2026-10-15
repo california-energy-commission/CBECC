@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-HtRcvryFromExh_AllZn19"  
    BldgEngyModelVersion = 17
    CreateDate = 1633122311
-   ModDate = 1790671429
-   RunDate = 1790671430
+   ModDate = 1792014524
+   RunDate = 1792014525
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

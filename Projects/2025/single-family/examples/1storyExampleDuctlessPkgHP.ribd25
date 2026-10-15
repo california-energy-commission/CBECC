@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Example"  
    BEMVersion = 12
    CreateDate = 1761082228
-   ModDate = 1790662894
+   ModDate = 1791996335
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC 2025.2.0 RC (1390)"
    ProjFileName = "1storyExampleDuctlessMSHP.ribd25"
@@ -1735,7 +1735,6 @@ HVACHtPump   "HeatpumpSystem"
    IsZonal = 0
    BackupOption = "- none -"
    HasHPLockout = 1
-   HPLockoutTemp = -30
    VCHPDucts = "Unducted"
    VCHPCertAutoFan = 0
    Cap95 = 29253

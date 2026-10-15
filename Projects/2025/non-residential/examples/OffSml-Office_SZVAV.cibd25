@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-Office_SZVAV"  
    BldgEngyModelVersion = 17
    CreateDate = 1448130837
-   ModDate = 1790671618
-   RunDate = 1790671619
+   ModDate = 1792014711
+   RunDate = 1792014712
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

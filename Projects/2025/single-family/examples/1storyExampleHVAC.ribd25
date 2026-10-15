@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "1 Story Multiple HVAC types"  
    BEMVersion = 12
    CreateDate = 1555708263
-   ModDate = 1790663055
+   ModDate = 1791996500
    RunDate = 1472838107
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC-Res 2025.1.0 RC (1379)"
@@ -2652,7 +2652,6 @@ HVACHtPump   "MiniSplit"
    IsZonal = 0
    UseEERinAnalysis = 1
    HasHPLockout = 1
-   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
    Cap95 = 36551
    ..

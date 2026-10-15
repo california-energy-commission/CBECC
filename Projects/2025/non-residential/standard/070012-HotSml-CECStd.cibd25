@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "070012-HotSml-CECStd25"  
    BldgEngyModelVersion = 17
    CreateDate = 1466465847
-   ModDate = 1790674283
-   RunDate = 1790674284
+   ModDate = 1792017426
+   RunDate = 1792017427
    ZipCode = 95814
    HVACAutoSizing = 0
    AutoHardSize = 1

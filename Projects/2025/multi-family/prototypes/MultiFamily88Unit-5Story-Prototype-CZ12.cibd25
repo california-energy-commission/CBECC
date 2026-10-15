@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF88 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1665096111
-   ModDate = 1790663584
-   RunDate = 1790663585
+   ModDate = 1792006684
+   RunDate = 1792006685
    RunDateFmt = "18:13, Wed, Mar 23, 2022"
    RunDateISO = "2022-03-23T18:13:41Z"
    GasType = "NaturalGas"

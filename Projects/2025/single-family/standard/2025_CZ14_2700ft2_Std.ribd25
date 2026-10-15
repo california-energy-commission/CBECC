@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2025 Prototype"  
    BEMVersion = 12
    CreateDate = 1750729162
-   ModDate = 1790698207
+   ModDate = 1791997901
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC 2025.3.0 (1418)"
    AnalysisType = "Proposed and Standard"

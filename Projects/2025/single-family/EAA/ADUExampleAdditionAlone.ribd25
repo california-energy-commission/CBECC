@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "Example ADU"  
    BEMVersion = 12
    CreateDate = 1652387341
-   ModDate = 1790662377
+   ModDate = 1791995824
    RunDate = 1474306815
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC 2025.2.0 RC (1390)"
@@ -2007,7 +2007,6 @@ HVACHtPump   "Minisplit"
    UseEERinAnalysis = 1
    BackupOption = "Electric Resistance"
    HasHPLockout = 1
-   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
    Cap95 = 36551
    ..

@@ -1,5 +1,5 @@
 ;,CEC Title-24 2025 Single-Family Residential Compliance Ruleset,,,,,
-;,File Hash Look-up Table  --  for CBECC-Res version 2025.3.0 (VS19 exe 1418 / CSE 1.0.0.0 / GitHub ~1156) release,,,,,
+;,File Hash Look-up Table  --  for CBECC (SFam) version 2025.3.0.1 (VS19 exe 1418 / CSE 1.0.0.0 / GitHub ~1180) release,,,,,
 ;,,,,,,
 ,TABLE CAResFileHashes,,,,,
 ,,HashID,HaveHash1,Hash1,HaveHash2,Hash2

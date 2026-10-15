@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "010012-SchSml-CECStd22"  
    BldgEngyModelVersion = 17
    CreateDate = 1414609068
-   ModDate = 1790668228
-   RunDate = 1790668229
+   ModDate = 1792011327
+   RunDate = 1792011328
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1
@@ -5335,8 +5335,8 @@ clg: 0  htg: 0  'Common_Cafeteria_Zn'" )
    StdPV_PctExport = 0
    StdBatt_Size = 0
    StdBatt_Pwr = 0
-   NRCCPRFPayldTransID = "9019a291-86d0-484d-aa60-b8743989f871"
-   NRCCPRFPayldProcDate = "2026-09-29T00:50:15"
+   NRCCPRFPayldTransID = "79303f49-df93-42e0-a32e-59279fd35ebd"
+   NRCCPRFPayldProcDate = "2026-10-14T13:55:08"
    NumUIDialogTabs = 5
    ..
 

@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "060012-RstntSml-CECStd25"  
    BldgEngyModelVersion = 17
    CreateDate = 1414691411
-   ModDate = 1790674106
-   RunDate = 1790674107
+   ModDate = 1792017248
+   RunDate = 1792017249
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

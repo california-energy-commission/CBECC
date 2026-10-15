@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffSml-ActiveBeams"  
    BldgEngyModelVersion = 17
    CreateDate = 1477610557
-   ModDate = 1790671217
-   RunDate = 1790671218
+   ModDate = 1792014305
+   RunDate = 1792014306
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "MF88 Restructure Prototype"  
    BldgEngyModelVersion = 17
    CreateDate = 1744830179
-   ModDate = 1790661858
-   RunDate = 1790661859
+   ModDate = 1792004965
+   RunDate = 1792004966
    RunDateFmt = "18:13, Wed, Mar 23, 2022"
    RunDateISO = "2022-03-23T18:13:41Z"
    GasType = "NaturalGas"
@@ -15002,8 +15002,8 @@ clg: 0  htg: 0  'Thermal Zone: F1 Retail SW'" )
    StdBatt_Size = 260.2
    StdBatt_Pwr = 65.045
    StdBatt_Ctrl = "Time of Use"
-   NRCCPRFPayldTransID = "4c275a1c-cfa9-4b88-b22f-f2e599d8e3ff"
-   NRCCPRFPayldProcDate = "2026-09-28T23:03:44"
+   NRCCPRFPayldTransID = "2fc8c0e8-2cc6-4bca-9fb6-31cbafb7c5a3"
+   NRCCPRFPayldProcDate = "2026-10-14T12:08:44"
    NumUIDialogTabs = 5
    ..
 

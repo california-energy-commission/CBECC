@@ -3,8 +3,8 @@ RulesetFilename   "T24_2025.bin"
 Proj   "OffMed-CoreAndShell19"  
    BldgEngyModelVersion = 17
    CreateDate = 1414971507
-   ModDate = 1790670989
-   RunDate = 1790670990
+   ModDate = 1792014079
+   RunDate = 1792014080
    ZipCode = 95814
    AutoHardSize = 1
    AutoEffInput = 1

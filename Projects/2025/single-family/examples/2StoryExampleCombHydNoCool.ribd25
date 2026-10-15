@@ -3,7 +3,7 @@ RulesetFilename   "CA Res 2025.bin"
 Proj   "2 Story Comb Hydronic No Cool CZ 3 Rev 3"  
    BEMVersion = 12
    CreateDate = 1548284154
-   ModDate = 1790663396
+   ModDate = 1791996838
    RunDate = 1472838572
    SoftwareVersion = "CBECC 2025.3.0 (1418)"
    SoftwareVersionDetail = "CBECC-Res 2022.2.0 RV (1263)"
@@ -2655,7 +2655,6 @@ HVACHtPump   "HeatpumpSystem"
    UseEERinAnalysis = 1
    BackupOption = "Electric Resistance"
    HasHPLockout = 1
-   HPLockoutTemp = 0
    VCHPDucts = "Unducted"
    Cap95 = 36551
    HtgSizingFactor = 1.2
