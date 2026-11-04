@@ -563,7 +563,7 @@ Attic   "Attic"
    RoofRise = 5
    Construction = "Attic Roof Cons"
    RoofSolReflect = 0.2
-   RoofEmiss = 0.85
+   RoofEmiss = 0.75
    ..
 
 Attic   "GarageAttic"  
@@ -573,7 +573,7 @@ Attic   "GarageAttic"
    RoofRise = 5
    Construction = "Garage Attic Roof Cons"
    RoofSolReflect = 0.2
-   RoofEmiss = 0.85
+   RoofEmiss = 0.75
    ..
 
 SchDay   "CARes2013 InsLighting Hrly"  

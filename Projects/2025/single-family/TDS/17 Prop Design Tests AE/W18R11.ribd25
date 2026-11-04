@@ -410,7 +410,7 @@ Attic   "Attic"
    Type = "Ventilated"  
    Construction = "Attic Roof Cons"
    RoofSolReflect = 0.2
-   RoofEmiss = 0.85
+   RoofEmiss = 0.75
    ;FractionHigh = 0
    ..
 
@@ -499,7 +499,7 @@ EnergyUse   "EU-Total"
   Attic   "GarageAttic"  
      Construction = "Garage Attic Roof Cons"
      RoofSolReflect = 0.2
-     RoofEmiss = 0.85
+     RoofEmiss = 0.75
      ..
 
 SchDay   "CARes2013 InsLighting Hrly"  
