@@ -185,7 +185,7 @@ TABLELIST
   T24RClimateZoneCodeBaseTable( "Tables\T24RClimateZoneCodeBaselines.csv", 0, 0 )	; mjb 1/12/15 - added table to calc Design Ratings using one of several code baselines - Proj:StdDesignBase specifies which code to look up in this table
   PrescriptiveAdditionsTables( "Tables\PrescriptiveAdditionsTables.csv", 0, 0 )	; EM 2/19/15
   T24RClimateZoneInletMainsTempTable( "Tables\T24RClimateZoneInletMainsTemp.csv", 0, 0, )	; SAC 7/17/15
-;  T24RClimateZoneDHWASHPAdjTable( "T24RClimateZoneDHWASHPAdj.csv", 0, 0, )	; SAC 8/21/15  - removed since used only to set cseDHWHEATER:whHPAF which was removed from CSE by CB - SAC 1/22/20
+  ; T24RClimateZoneDHWASHPAdjTable( "T24RClimateZoneDHWASHPAdj.csv", 0, 0, )	; SAC 8/21/15  - removed since used only to set cseDHWHEATER:whHPAF which was removed from CSE by CB - SAC 1/22/20
   DHWTankAreaCoefsTable( "Tables\DHWTankAreaCoefs.csv", 0, 0, )		; SAC 8/21/15
   T24RDHWTables( "Tables\T24R_DHWTables.csv", 0, 0, )		; SAC 10/22/15
   ; CAHP2017ZGTable( "CAHP2017ZoneGroup.csv", 0, 0, )		; EW-TRC 6/30/17   ; remove old CAHP2017* tables - SAC 05/03/25
@@ -323,7 +323,7 @@ ENDRULESUBSET
 ;*************************************************************************
 RULELIST "Default_CodeVersion_RptGenUI" 0 0 0 0
 ;*************************************************************************
-	"Set Proj:RptGenUIVer"     	Proj:RptGenUIVer     	= {	"21"  }				; <<<<----  MODIFY FOR EACH RELEASE  -----  (to reflect release version)
+	"Set Proj:RptGenUIVer"     	Proj:RptGenUIVer     	= {	"3"  }				; <<<<----  MODIFY FOR EACH RELEASE  -----  (to reflect release version)
 	"Set Proj:RptGenUIApp"     	Proj:RptGenUIApp     	= {	"CBECC-Res"  }
 END
 ;*************************************************************************
@@ -331,9 +331,10 @@ RULELIST "Default_CodeVersion" 1 0 0 0
 ;*************************************************************************
 																															; ************************************************************************************
    "Set Proj:DevMode"				Proj:DevMode				= {	1  }									; <<<<----  MODIFY FOR EACH RELEASE  -----  (1 if NON-release version, otherwise 0)
-   "Set Proj:CompMgrVersion"		Proj:CompMgrVersion		= {	Format( "BEMCmpMgr 2025.2.1 (%g)", RuleRepoRev )  }	; <<<<----  MODIFY FOR EACH RELEASE  -----  (to reflect release version/build)
+   "Set Proj:CompMgrVersion"		Proj:CompMgrVersion		= {	Format( "BEMCmpMgr 2025.3.0.1 (%g)", RuleRepoRev )  }	; <<<<----  MODIFY FOR EACH RELEASE  -----  (to reflect release version/build)
                                                                ; NOTE: above needs to be < 43 chars or CSE can throw TDV CSV reading errors
 																															; ************************************************************************************
+   "Set Proj:ReleaseNotesURL"		Proj:ReleaseNotesURL		= {	"https://github.com/california-energy-commission/CBECC/releases/tag/2025.3.0-RC"  }	      ; SAC 04/30/26 (dev #847)
 
 	"Set Proj:RptGenCompReport"	Proj:RptGenCompReport	= {	if (RunScope == 1) then  "CF1R_NCB_PRF19"  else  "CF1R_ALT_PRF19"  endif  }
 	"Set Proj:RptGenCompRptID"		Proj:RptGenCompRptID		= {	"BEES"  }	; string inserted into report filename prior to file extension
@@ -341,17 +342,17 @@ RULELIST "Default_CodeVersion" 1 0 0 0
 ;	"Set Proj:RptGenApp"       	Proj:RptGenApp       	= {	"ReportGeneratorRes2"  }
 ;	"Set Proj:RptGenService"   	Proj:RptGenService   	= {	"ReportingService.svc"  }
 	"Set Proj:SecKeyRLName"   		Proj:SecKeyRLName   		= {	"SetReportKeys"  }
-	"Set Proj:RptGenCheckURL"   	Proj:RptGenCheckURL   	= {	"https://t24docs.com/RGServiceStatus/RGServiceStatus.svc/IsResServiceActive"  }   ; "https://cf6r.com/RGServiceStatus/RGServiceStatus.svc/IsResServiceActive"  }
+	"Set Proj:RptGenCheckURL"   	Proj:RptGenCheckURL   	= {	"https://t24docs.com/RGServiceStatus/RGServiceStatus.svc/IsResServiceActive"  }   ; "https://cf6r.com/RGServiceStatus/RGServiceStatus.svc/IsResServiceActive" / "https://t24docs.com/RGServiceStatus/RGServiceStatus.svc/IsResServiceActive" 
 	"Set Proj:RptGenStatusURL"   	Proj:RptGenStatusURL   	= {	"http://title24docs.com/t24docs/CBECCResStatus/"  }
   ; SAC 11/20/18 - to facilitate CF1R XML schema-based report gen
-	"Set Proj:RptGenSchemaApp"   	Proj:RptGenSchemaApp   	= {	"ReportGeneratorRes2025.2.1"  }   ; ReportGeneratorRes2025_git  ReportGeneratorRes2025.2.0
+	"Set Proj:RptGenSchemaApp"   	Proj:RptGenSchemaApp   	= {	"ReportGeneratorRes2025.3.0"  }   ; ReportGeneratorRes2025_git  ReportGeneratorRes2025.3.0
 	"Set Proj:RptGenSchemaSvc"   	Proj:RptGenSchemaSvc   	= {	"ReportGeneratorService.svc"  }
 	"Set Proj:RptGenSchemaRpt"   	Proj:RptGenSchemaRpt   	= {	"CF1RPRF01E"  }
 
   ; SAC 9/23/14 - add certain labels that vary by code version
 	"Set Proj:EnergyCodeYearNum"	Proj:EnergyCodeYearNum	= {	 2025   }
 	"Set Proj:EnergyCodeYear"		Proj:EnergyCodeYear		= {	"2025"  }
-	"Set Proj:AnalysisVersion"		Proj:AnalysisVersion		= {	 250201  }  ; YYMMmm (codeYear-Major-minor)
+	"Set Proj:AnalysisVersion"		Proj:AnalysisVersion		= {	 250301  }  ; YYMMmm (codeYear-Major-minor)
    "Set Proj:CSEName"            Proj:CSEName            = {   "CSE"  }
 	"Set Proj:SimReportHeader"   	Proj:SimReportHeader   	= {	"CA Res " + EnergyCodeYear + " Simulation"  }
 	"Set Proj:BldgSmryCSVHeader"	Proj:BldgSmryCSVHeader	= {	EnergyCodeYear + " Building Energy Efficiency Standards\n"  }
@@ -374,7 +375,7 @@ RULELIST "Default_CodeVersion" 1 0 0 0
 
    ; REMOVE following rule to enable report gen for 2025 analysis - SAC 12/01/22  ; compliance reporting re-enabled - SAC 02/26/25
    ;"Set Proj:BypassCompRptMsg"   Proj:BypassCompRptMsg   = {   "compliance report generation not yet available for 2025 analysis"   }
-   "Set Proj:UtilRateDownloadSector"      Proj:UtilRateDownloadSector    = {  "SFam"  }      ; SAC 01/02/25
+   "Set Proj:UtilRateDownloadSector"      Proj:UtilRateDownloadSector    = {  "SFam"  }      ; SAC 01/02/25   ; "Expire" - SAC 09/09/26 (dev #713)
 
 END;*************************************************************************
 

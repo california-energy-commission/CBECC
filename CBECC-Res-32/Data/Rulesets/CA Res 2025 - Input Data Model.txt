@@ -1,7 +1,7 @@
-2026-Mar-27 13:32:41
+2026-Nov-06 13:05:16
 
 --------------------
-Proj              Project                           #Props:186/987  MaxDefinable:    1
+Proj              Project                           #Props:188/997  MaxDefinable:    1
                                Children:  CUAC  /  OldCUAC  /  OldCUACApt  /  CUACCombine  /  CUACResults  /  UtilityRate  /  Model  /  EUseSummary  /  EnergyUse  /  Zone  /  OtherZone  /  Garage  /  Attic  /  CrawlSpace  /  cseZONE  /  PVArrayGeom  /  Shade  /  PolyLp  /  SCSysRpt
 
       BEMVersion                Version ID of building energy model database                  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
@@ -86,11 +86,16 @@ Proj              Project                           #Props:186/987  MaxDefinable
                                       default:  0
                                             0:  "- select CS project -"
                                             1:  "SMUD Neighborhood SolarShares - Wildflower"
+                               When:  Proj:ClimateZone = "CZ16  (Blue Canyon)"
+                                      default:  0
+                                            0:  "- select CS project -"
+                                            2:  "PSREC T24 Community Solar Program - SIAD"
                                else:
                                       default:  0
                                             0:  "- select CS project -"
       InCmntySlrProjTerritory   Whether this home is within the Community Solar project s...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     
       SMUDSlrSharesReserved     Whether this home is within SMUD's territory and Neighbor...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     
+      CmntySlrProjReserved      Whether this home has been reserved with the selected com...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     
       PVCompCredit              Whether or not to incorporate a PV system compliance cred...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     
       PVWInputs                 Simplified vs. detailed design rating PV inputs               Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
                                       default:  0
@@ -168,11 +173,11 @@ Proj              Project                           #Props:186/987  MaxDefinable
       ReducedPVReqExcept        Exception describing why standard PV requirements don't a...  Enumeration   -  -  -    -  -  -  -  -  -  -  -   CondRequired input 
                                       default:  0
                                             0:  "- select applicable required PV exception -"
+                                         2206:  "PV size limited by Solar Access Roof Area (SARA)"
                                          2201:  "(1) Solar Access Roof Area (SARA) < 80 ft2"
                                          2202:  "(2) No PV Req'd when less than 1.8 kWdc"
                                          2203:  "(3) Excessive snow load"
                                          2204:  "(4) Bldgs approved by local planning dept prior to 1/1/20"
-                                         2206:  "(5) PV size limited by Solar Access Roof Area (SARA)"
       ReducedPVReqValue         Reduced PV requirement capacity                               Float         -  -  -   Units: kW                 CondRequired input Error if not:  Value >= 0
       SimStandaloneBatt         Whether or not a standalone Battery (without PV) is to be...  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
       BattMaxCap                The maximum amount of energy that can be stored in the BA...  Float         -  -  -   Units: kWh                Optional input     Error if not:  Value >= 0
@@ -196,6 +201,20 @@ Proj              Project                           #Props:186/987  MaxDefinable
                                             1:  "Basic"
                                            10:  "Time of Use"
       BattJA12Compliant         Whether or not battery is joint appendix JA12 compliant -...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     
+      BattCreditOption          Which battery credit option is desired (peak clg and/or s...  Enumeration   -  -  -    -  -  -  -  -  -  -  -   Optional input     
+                               When:  Proj:BattCreditOptAvail = 0
+                                      default:  0
+                                            0:  "n/a"
+                               When:  Proj:BattCreditOptAvail = 1
+                                      default:  1
+                                            1:  "Self Utilization"
+                               When:  Proj:BattCreditOptAvail = 2
+                                      default:  2
+                                            2:  "Peak Cooling"
+                               else:
+                                      default:  1
+                                            1:  "Self Utilization"
+                                            2:  "Peak Cooling"
       BattDRNumRankedDays       Number of ranked (TDV) days to operate in TDVPeakSave mod...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     Error if not:  1 <= Value <= 365
       BattChgEff                The charging efficiency of storing electricity into the B...  Float         -  -  -    -  -  -  -  -  -  -  -   Defaulted input    Error if not:  0 <= Value <= 1
       BattDschgEff              The discharge efficiency for when the BATTERY system is d...  Float         -  -  -    -  -  -  -  -  -  -  -   Defaulted input    Error if not:  0 <= Value <= 1
@@ -374,11 +393,21 @@ Proj              Project                           #Props:186/987  MaxDefinable
                                Zone  (Zone:Type = "Living")
                                Zone  (Zone:Type = "Sleeping")
       UnitClVentOption                                                                        Enumeration   -  -  -    -  -  -  -  -  -  -  -   Optional input     
+                               When:  Proj:StdWHFan = 0
+                                and:  Proj:LimitedClVent = 1
+                                      default:  0
+                                            0:  "- none -"
+                                            2:  "Specify Individual Whole House Fans"
                                When:  Proj:LimitedClVent = 1
                                       default:  0
                                             0:  "- none -"
                                             5:  "Default WHF Exhausting to Outside"
                                             2:  "Specify Individual Whole House Fans"
+                               When:  Proj:StdWHFan = 0
+                                      default:  0
+                                            0:  "- none -"
+                                            2:  "Specify Individual Whole House Fans"
+                                            3:  "Central Fan Ventilation Cooling System"
                                else:
                                       default:  1
                                             0:  "- none -"
@@ -473,7 +502,7 @@ Proj              Project                           #Props:186/987  MaxDefinable
       CSERpt_Battery            toggle to output CSV echoing all CSE Battery control-rela...  Integer       -  -  -    -  -  -  -  -  -  -  -   Optional input     
 
 --------------------
-CUAC              CalUtilityAllowanceCalc           #Props: 41/199  MaxDefinable:    1
+CUAC              CalUtilityAllowanceCalc           #Props: 41/201  MaxDefinable:    1
 
       RptOption                 ReportOption                                                  Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
                                       default:  1
@@ -4855,7 +4884,7 @@ DwellUnitType     DwellingUnitType                  #Props: 65/234  MaxDefinable
                                            -1:  "Conditioned"
 
 --------------------
-Zone              Zone                              #Props: 18/274  MaxDefinable: 5000
+Zone              Zone                              #Props: 18/277  MaxDefinable: 5000
                                Children:  DwellUnit  /  ExtWall  /  IntWall  /  UndWall  /  CathedralCeiling  /  CeilingBelowAttic  /  InteriorCeiling  /  SlabFloor  /  ExteriorFloor  /  FloorOverCrawl  /  InteriorFloor  /  UndFloor  /  Opening
 
       Type                      Zone type                                                     Enumeration   -  -  -    -  -  -  -  -  -  -  -   Compulsory input   
@@ -4933,7 +4962,7 @@ Garage            Garage                            #Props:  3/ 24  MaxDefinable
       Bottom                    Height of the top of the garage floor (used for Airnet)       Float         -  -  -   Units: ft                 Defaulted input    
 
 --------------------
-Attic             Attic                             #Props: 10/ 76  MaxDefinable:  500
+Attic             Attic                             #Props: 10/ 77  MaxDefinable:  500
 
       Type                      Attic type                                                    Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
                                       default:  0
@@ -4983,7 +5012,7 @@ DwellUnit         DwellingUnit                      #Props:  5/ 59  MaxDefinable
                                OtherZone  (OtherZone:SpcFunc = "Laundry Area")
 
 --------------------
-ExtWall           Exterior Wall                     #Props:  9/ 52  MaxDefinable:    0
+ExtWall           Exterior Wall                     #Props:  9/ 54  MaxDefinable:    0
                                Parent(s):  Zone  /  Garage  /  OtherZone
                                Children:  Win  /  Door
 
@@ -5055,7 +5084,7 @@ UndWall           Underground Wall                  #Props:  6/ 18  MaxDefinable
                                Cons  (Cons:CanAssignTo = "Underground Walls")
 
 --------------------
-CathedralCeiling  Cathedral Ceiling                 #Props: 10/ 49  MaxDefinable:    0
+CathedralCeiling  Cathedral Ceiling                 #Props: 10/ 51  MaxDefinable:    0
                                Parent(s):  Zone  /  Garage  /  OtherZone
                                Children:  Skylt
 
@@ -5262,7 +5291,7 @@ UndFloor          Underground Floor                 #Props:  5/ 22  MaxDefinable
                                             2:  "Exposed"
 
 --------------------
-Win               Window                            #Props: 47/ 80  MaxDefinable:    0
+Win               Window                            #Props: 47/ 83  MaxDefinable:    0
                                Parent(s):  ExtWall
 
       Status                    Status - New, Altered or Existing                             Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
@@ -5336,7 +5365,7 @@ Win               Window                            #Props: 47/ 80  MaxDefinable
       exRightFinBotUp           existing window Right fin BotUp                               Float         -  -  -   Units: ft                 Defaulted input    
 
 --------------------
-Skylt             Skylight                          #Props: 10/ 29  MaxDefinable:    0
+Skylt             Skylight                          #Props: 10/ 30  MaxDefinable:    0
                                Parent(s):  CathedralCeiling
 
       Status                    Status - New, Altered or Existing                             Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
@@ -5493,7 +5522,7 @@ HVACHeat          Heating System                    #Props:  5/ 37  MaxDefinable
                                             2:  "(2) Ducted elec. res. space heating system replacement w/ no ducts replaced/altered"
 
 --------------------
-HVACCool          Cooling System                    #Props: 20/131  MaxDefinable:    0
+HVACCool          Cooling System                    #Props: 19/131  MaxDefinable:    0
 
       Type                      Cooling equipment type                                        Enumeration   -  -  -    -  -  -  -  -  -  -  -   Compulsory input   
                                       default:  2
@@ -5542,10 +5571,6 @@ HVACCool          Cooling System                    #Props: 20/131  MaxDefinable
                                       default:  2
                                             1:  "Not Verified"
                                             2:  "Verified"
-                                            3:  "FID (fault indicator)"
-      RefrigerantType                                                                         Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
-                                      default:  1
-                                            1:  "R410A"
       UseEERinAnalysis          Use EER value in compliance analysis and reporting            Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
       IsMultiSpeed              Flag (0/1) indicating whether or not this system includes...  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
       Speeds                    Number of distinct speeds (or variable)                       Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
@@ -5559,7 +5584,7 @@ HVACCool          Cooling System                    #Props: 20/131  MaxDefinable
       IsZonal                   Flag (0/1) indicating whether or not this system is zonal...  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
 
 --------------------
-HVACHtPump        Heat Pump System                  #Props: 54/269  MaxDefinable:    0
+HVACHtPump        Heat Pump System                  #Props: 52/269  MaxDefinable:    0
 
       Type                      Heating equipment type                                        Enumeration   -  -  -    -  -  -  -  -  -  -  -   Compulsory input   
                                       default:  1
@@ -5591,7 +5616,7 @@ HVACHtPump        Heat Pump System                  #Props: 54/269  MaxDefinable
                                       default:  2
                                             1:  "EER"
                                             2:  "EER2"
-                               When:  HVACHtPump:Type = 11
+                               When:  HVACHtPump:Type = "AirToWaterHeatPump - Air to water heat pump (able to heat DHW)"
                                       default:  2
                                             1:  "EER"
                                             2:  "EER2"
@@ -5633,15 +5658,10 @@ HVACHtPump        Heat Pump System                  #Props: 54/269  MaxDefinable
                                When:  HVACHtPump:Type = "VCHP - Meets requirements of the VCHP compliance option - Not Available"
                                       default:  2
                                             2:  "Verified"
-                                            3:  "FID (fault indicator)"
                                else:
                                       default:  2
                                             1:  "Not Verified"
                                             2:  "Verified"
-                                            3:  "FID (fault indicator)"
-      RefrigerantType                                                                         Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
-                                      default:  1
-                                            1:  "R410A"
       ClSizingFactor            Cooling capacity sizing factor                                Float         -  -  -   Units: ratio              Defaulted input    
       IsMultiSpeed              Flag (0/1) indicating whether or not this system includes...  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
       IsZonal                   Flag (0/1) indicating whether or not this system is zonal...  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
@@ -5661,7 +5681,6 @@ HVACHtPump        Heat Pump System                  #Props: 54/269  MaxDefinable
       IsDualFuel                Flag (0/1) indicating whether or not this system includes...  Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
       AFUE                      Annual Fuel Use Efficiency from DOE test procedure for ba...  Float         -  -  -   Units: %                  Defaulted input    
       HasHPLockout              whether or not this equipment has HP lockout temperature      Integer       -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
-      HPLockoutTemp             lockout temperature for HP                                    Float         -  -  -   Units: °F                 Defaulted input    
       VCHPDucts                 Whether VCHP is Unducted, Ducted or Partially Ducted          Enumeration   -  -  -    -  -  -  -  -  -  -  -   Defaulted input    
                                       default:  0
                                             0:  "Unducted"
@@ -6166,6 +6185,9 @@ DHWHeater         Water Heater                      #Props: 27/122  MaxDefinable
                                When:  DHWHeater:HPWHBrand = 11
                                       default:  1
                                             1:  "- select Model -"
+                                       1103883:  "HPSN10-50H45DV 2**  (50 gal)"
+                                       1103984:  "HPSN10-66H45DV 2**  (66 gal)"
+                                       1104085:  "HPSN10-80H45DV 2**  (80 gal)"
                                        1102513:  "HP1050H45DVCTA-130  (50 gal)"
                                        1102615:  "HP1080H45DVCTA-130  (80 gal)"
                                        1102720:  "HPA10-40H45DV 2**  (40 gal)"
@@ -6287,6 +6309,14 @@ DHWHeater         Water Heater                      #Props: 27/122  MaxDefinable
                                When:  DHWHeater:HPWHBrand = 31
                                       default:  1
                                             1:  "- select Model -"
+                                       3101763:  "PROH40 T2 FD350BM  (40 gal)"
+                                       3101863:  "PROH40 T2 FD350UM  (40 gal)"
+                                       3101964:  "PROH50 T2 FD350BM  (50 gal)"
+                                       3102064:  "PROH50 T2 FD350UM  (50 gal)"
+                                       3102165:  "PROH65 T2 FD350BM  (65 gal)"
+                                       3102265:  "PROH65 T2 FD350UM  (65 gal)"
+                                       3102366:  "PROH80 T2 FD350BM  (80 gal)"
+                                       3102466:  "PROH80 T2 FD350UM  (80 gal)"
                                        3100163:  "PRO H40 T2 FD310UM  (40 gal)"
                                        3100264:  "PRO H50 T2 FD310UM  (50 gal)"
                                        3100365:  "PRO H65 T2 FD310UM  (65 gal)"
@@ -6326,6 +6356,12 @@ DHWHeater         Water Heater                      #Props: 27/122  MaxDefinable
                                When:  DHWHeater:HPWHBrand = 32
                                       default:  1
                                             1:  "- select Model -"
+                                       3200824:  "APHWC502D  (58 gal)"
+                                       3200924:  "APHWC502L  (58 gal)"
+                                       3201024:  "APHWC502M  (58 gal)"
+                                       3201130:  "APHWC802D  (80 gal)"
+                                       3201230:  "APHWC802L  (80 gal)"
+                                       3201330:  "APHWC802M  (80 gal)"
                                        3200124:  "APHWC501D  (58 gal)"
                                        3200224:  "APHWC501L  (58 gal)"
                                        3200324:  "APHWC501M  (58 gal)"
@@ -6381,6 +6417,23 @@ DHWHeater         Water Heater                      #Props: 27/122  MaxDefinable
                                When:  DHWHeater:HPWHBrand = 19
                                       default:  1
                                             1:  "- select Model -"
+                                       1914863:  "CPROPH40 T2 RH350BM  (40 gal)"
+                                       1914964:  "CPROPH50 T2 RH350BM  (50 gal)"
+                                       1915065:  "CPROPH65 T2 RH350BM  (65 gal)"
+                                       1915166:  "CPROPH80 T2 RH350BM  (80 gal)"
+                                       1915263:  "ECEPH40 T2 RH350BM  (40 gal)"
+                                       1915364:  "ECEPH50 T2 RH350BM  (50 gal)"
+                                       1915465:  "ECEPH65 T2 RH350BM  (65 gal)"
+                                       1915566:  "ECEPH80 T2 RH350BM  (80 gal)"
+                                       1915663:  "PROUH40 T2 RH350BM  (40 gal)"
+                                       1915763:  "PROUH40 T2 RH350UM  (40 gal)"
+                                       1915864:  "PROUH50 T2 RH350BM  (50 gal)"
+                                       1915964:  "PROUH50 T2 RH350UM  (50 gal)"
+                                       1916065:  "PROUH65 T2 RH350BM  (65 gal)"
+                                       1916165:  "PROUH65 T2 RH350UM  (65 gal)"
+                                       1916266:  "PROUH80 T2 RH350BM  (80 gal)"
+                                       1916366:  "PROUH80 T2 RH350UM  (80 gal)"
+                                       1916482:  "XE50T10HD00U0  (50 gal)"
                                        1908859:  "CPROPH40 T2 RH400-15  (40 gal)"
                                        1908959:  "CPROPH40 T2 RH400-30  (40 gal)"
                                        1909059:  "CPROPH40 T2 RH400-SO  (40 gal)"
@@ -6608,6 +6661,14 @@ DHWHeater         Water Heater                      #Props: 27/122  MaxDefinable
                                When:  DHWHeater:HPWHBrand = 21
                                       default:  1
                                             1:  "- select Model -"
+                                       2105963:  "PROUH40 T2 RU350BM  (40 gal)"
+                                       2106063:  "PROUH40 T2 RU350UM  (40 gal)"
+                                       2106164:  "PROUH50 T2 RU350BM  (50 gal)"
+                                       2106264:  "PROUH50 T2 RU350UM  (50 gal)"
+                                       2106365:  "PROUH65 T2 RU350BM  (65 gal)"
+                                       2106465:  "PROUH65 T2 RU350UM  (65 gal)"
+                                       2106566:  "PROUH80 T2 RU350BM  (80 gal)"
+                                       2106666:  "PROUH80 T2 RU350UM  (80 gal)"
                                        2104759:  "PROUH40 T2 RU400-15  (40 gal)"
                                        2104859:  "PROUH40 T2 RU400-30  (40 gal)"
                                        2104959:  "PROUH40 T2 RU400-SO  (40 gal)"
@@ -9019,13 +9080,13 @@ cf1rSection_ComplianceSummary  cf1rSection_ComplianceSummary     #Props:  0/  0 
 
 
 --------------------
-cf1rLscSingleOrientation  cf1rLscSingleOrientation          #Props:  0/ 12  MaxDefinable:    1
+cf1rLscSingleOrientation  cf1rLscSingleOrientation          #Props:  0/ 14  MaxDefinable:    1
                                Parent(s):  cf1rSection_ComplianceSummary
                                Children:  cf1rLscStandardDesign  /  cf1rLscProposedDesign  /  cf1rLscComplianceMargin  /  cf1rLscCategoryResult
 
 
 --------------------
-cf1rLscMultipleOrientations  cf1rLscMultipleOrientations       #Props:  0/ 12  MaxDefinable:    1
+cf1rLscMultipleOrientations  cf1rLscMultipleOrientations       #Props:  0/ 14  MaxDefinable:    1
                                Parent(s):  cf1rSection_ComplianceSummary
                                Children:  cf1rLscStandardDesign  /  cf1rLscProposedDesign  /  cf1rLscComplianceMargin  /  cf1rLscCategoryResult
 
@@ -9172,7 +9233,7 @@ cf1rTableEDR_PV   cf1rTableEDR_PV                   #Props:  0/  0  MaxDefinable
 
 
 --------------------
-cf1rtblRowEDR_PV  cf1rtblRowEDR_PV                  #Props:  0/ 30  MaxDefinable:    0
+cf1rtblRowEDR_PV  cf1rtblRowEDR_PV                  #Props:  0/ 31  MaxDefinable:    0
                                Parent(s):  cf1rTableEDR_PV
 
 
@@ -9671,7 +9732,7 @@ cf1rTableHeatPumps  cf1rTableHeatPumps                #Props:  0/  0  MaxDefinab
 
 
 --------------------
-cf1rtblRowHP      cf1rtblRowHP                      #Props:  0/ 42  MaxDefinable:    0
+cf1rtblRowHP      cf1rtblRowHP                      #Props:  0/ 43  MaxDefinable:    0
                                Parent(s):  cf1rTableHeatPumps
 
 
