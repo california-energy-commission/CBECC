@@ -694,12 +694,12 @@ RULE CoilHtg:RtdInletAirTemp
   SIZING
     if( Type = "HotWater" )
     then  if( ParentComp = "TrmlUnit" )
-          then  ParentSysRef:HtgDsgnSupAirTemp
+          then  ValidOr( ParentSysRef:HtgDsgnSupAirTemp, 65 )
           else  if( ParentSysRef:SysVentFlow > 0 )
                 then  Proj:DsgnHtgDBT
                 else  if( LocalCompAssigned( ParentSysRef:MaxAreaThrmlZnRef ) )
-                      then  ParentSysRef:HtgDsgnSupAirTemp - ParentSysRef:MaxAreaThrmlZnRef:HtgDsgnSupAirTempDiff
-                      else  ParentSysRef:HtgDsgnSupAirTemp - 25
+                      then  ValidOr( ParentSysRef:HtgDsgnSupAirTemp, 65 ) - ParentSysRef:MaxAreaThrmlZnRef:HtgDsgnSupAirTempDiff
+                      else  ValidOr( ParentSysRef:HtgDsgnSupAirTemp, 65 ) - 25
                       endif
                 endif
           endif

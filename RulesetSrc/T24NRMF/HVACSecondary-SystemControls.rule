@@ -1369,6 +1369,17 @@ RULE AirSys:HtgDsgnSupAirTemp
     then  ClgDsgnSupAirTemp + 5 // Set reset to 5F higher than cooling
     else  Max( 95, MaxRevRef( ThrmlZn:PriAirCondgSysRef[1], ThrmlZn:HtgDsgnSupAirTemp) > 0 )
     endif endif
+  CHECKSIM
+    if( Type = "PVAV" .OR. Type = "VAV" )
+    then  if( HtgDsgnSupAirTemp > 90 )
+          then  PostError( "AirSystem '%s' has a heating design supply air temperature of %g F, 
+                            which is greater than 90 F and may cause the terminal heating coil 
+                            supply temperature to be lower than the upstream air handler supply 
+                            temperature, resulting in EnergyPlus sizing errors.", Name, HtgDsgnSupAirTemp )
+          else  UNCHANGED
+          endif
+    else  UNCHANGED
+    endif
   DEFAULT : S901G
     if( SumChildren( AirSeg:CoilHtgCnt ) = 0 ) 
     then  UNDEFINED
